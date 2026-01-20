@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetBoom Widget</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="betboom-widget">
+        <div class="betboom-logo">
+            <img src="./betboomlogo.png" alt="BetBoom" width="80" height="24">
+        </div>
+        
+        <div class="reklama-badge">
+            <span>Реклама 18+</span>
+            <div class="dots" id="reklamaDots">⋮</div>
+            <div class="advertiser-info" id="advertiserInfo">
+                <div class="advertiser-info-text">ООО Фирма «СТОМ», Erid: 2SDnjeBG2kG</div>
+            </div>
+        </div>
+        
+        <div class="content-text">
+            <!-- Текст будет установлен динамически через JavaScript -->
+        </div>
+        
+        <div class="action-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.5 5L15.5 12L8.5 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="./resize.js"></script>
+</body>
+</html>

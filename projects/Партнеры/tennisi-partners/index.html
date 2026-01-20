@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Партнеры Tennisi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ambassadors-section">
+            <div class="ambassadors-grid">
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Торпедо</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/9/c9/d3caf9da83e4e21d37a25e5f712ac.png" alt="Торпедо" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">КАМАЗ</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/4/b0/4d25963f24d33f203b865088d26ef.png" alt="КАМАЗ" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Орел</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/c/53/4441501bdce8cce7a2907c6f2c3d7.png" alt="Орел" loading="eager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функциональность для кликабельных карточек (если понадобится)
+        document.addEventListener('DOMContentLoaded', function() {
+            const ambassadorCards = document.querySelectorAll('.ambassador-card[data-url]');
+            
+            ambassadorCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        window.open(`https://www.sports.ru${url}`, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="theme-detector.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html>

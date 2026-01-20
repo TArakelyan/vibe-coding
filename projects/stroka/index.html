@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бегущая строка бонусов букмекеров</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        @font-face {
+            font-family: 'TT Neoris';
+            src: url('https://senoval.cdn.sports.ru/static-resources/fonts/tt-neoris/tt-neoris-regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'TT Neoris';
+            src: url('https://senoval.cdn.sports.ru/static-resources/fonts/tt-neoris/tt-neoris-medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'TT Neoris';
+            src: url('https://senoval.cdn.sports.ru/static-resources/fonts/tt-neoris/tt-neoris-demibold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'TT Neoris';
+            src: url('https://senoval.cdn.sports.ru/static-resources/fonts/tt-neoris/tt-neoris-bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+    </style>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: transparent;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .ticker-container {
+            position: relative;
+            width: 100%;
+            max-width: 670px;
+            height: 75px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .ticker-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 0.5px solid #f0f0f0;
+            border-radius: 16px;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .ticker-wrapper {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ticker-track {
+            display: flex;
+            align-items: center;
+            animation: scroll-left 40s linear infinite;
+            white-space: nowrap;
+            padding: 0 24px;
+        }
+        
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+            height: 42px;
+            text-decoration: none;
+            flex-shrink: 0;
+            transition: all 300ms ease;
+            border-radius: 8px;
+            margin: 0 4px;
+            border: 1px solid #e8e8e8;
+        }
+        
+        .ticker-item:hover {
+            background-color: #f5f5f5;
+            border-color: #d0d0d0;
+        }
+        
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #f8f8f8;
+            border-radius: 6px;
+            flex-shrink: 0;
+            padding: 3px;
+        }
+        
+        .logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .bonus-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+            color: #292929;
+            letter-spacing: -0.3px;
+        }
+        
+        .bonus-amount {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 700;
+            color: #00aa32;
+            letter-spacing: -0.3px;
+            min-width: 80px;
+            text-align: right;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .ticker-container {
+                height: 120px;
+            }
+            
+            .ticker-item {
+                padding: 0 16px;
+            }
+            
+            .logo-box {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .bonus-text {
+                font-size: 16px;
+            }
+            
+            .bonus-amount {
+                font-size: 16px;
+                min-width: 90px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .ticker-container {
+                height: 100px;
+            }
+            
+            .ticker-track {
+                padding: 0 16px;
+            }
+            
+            .ticker-item {
+                padding: 0 12px;
+                gap: 10px;
+            }
+            
+            .logo-box {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .bonus-text {
+                font-size: 14px;
+                line-height: 20px;
+            }
+            
+            .bonus-amount {
+                font-size: 14px;
+                line-height: 20px;
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ticker-container">
+        <div class="ticker-wrapper">
+            <div class="ticker-track" id="tickerTrack">
+                <!-- Контент будет добавлен через JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="./data/bookmakers.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tickerTrack = document.getElementById('tickerTrack');
+            
+            // Создаем HTML для одного элемента бонуса
+            function createTickerItem(item) {
+                return `
+                    <a href="${item.link}" class="ticker-item" target="_blank" rel="noopener noreferrer">
+                        <div class="logo-box">
+                            <img src="${item.logo}" alt="${item.text}">
+                        </div>
+                        <div class="bonus-text">${item.text}</div>
+                        <div class="bonus-amount">${item.bonus}</div>
+                    </a>
+                `;
+            }
+            
+            // Создаем HTML для всех бонусов
+            let tickerHTML = '';
+            bonusItems.forEach(item => {
+                tickerHTML += createTickerItem(item);
+            });
+            
+            // Дублируем контент для бесшовной прокрутки
+            tickerTrack.innerHTML = tickerHTML + tickerHTML;
+        });
+    </script>
+    
+    <script src="./resize.js"></script>
+</body>
+</html>

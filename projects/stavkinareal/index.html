@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ ставок на команду - Реал Мадрид</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <section class="betting-results">
+            <h2>Результаты ставок на Реал Мадрид</h2>
+            <div class="notice">
+                <strong>Спортс'' напоминает:</strong> делайте ставки только в удовольствие. Это не способ заработка.
+            </div>
+
+            <div class="strategy-selector">
+                <h3>Выберите стратегию ставок на матчи Реала</h3>
+                <div class="strategy-buttons">
+                    <button class="strategy-btn active" data-strategy="win">Победа</button>
+                    <button class="strategy-btn" data-strategy="draw">Ничья</button>
+                    <button class="strategy-btn" data-strategy="lose">Поражение</button>
+                    <button class="strategy-btn" data-strategy="not-lose">Не проиграет</button>
+                    <button class="strategy-btn" data-strategy="not-win">Не выиграет</button>
+                </div>
+            </div>
+
+            <div class="bottom-controls">
+                <div class="bet-amount-selector">
+                    <h3>Сумма, которую вы бы поставили в каждом матче</h3>
+                    <div class="amount-buttons">
+                        <button class="amount-btn active" data-amount="1000">1000 ₽</button>
+                        <button class="amount-btn" data-amount="2000">2000 ₽</button>
+                        <button class="amount-btn" data-amount="5000">5000 ₽</button>
+                        <button class="amount-btn" data-amount="10000">10000 ₽</button>
+                        <div class="custom-amount">
+                            <input type="number" id="custom-amount-input" placeholder="Своя сумма" min="1" max="1000000">
+                            <span class="currency">₽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="betting-summary">
+                    <h3>Общий результат</h3>
+                    <div class="summary-content">
+                        <div class="summary-stats-container">
+                            <div class="summary-stats">
+                                <div class="summary-item">
+                                    <span class="summary-label">Прибыль</span>
+                                    <span class="summary-value positive" id="net-profit">+0 ₽</span>
+                                </div>
+                            </div>
+                            <div class="make-bet-container">
+                                <a class="make-bet-btn make-bet-btn--winline" href="https://spnsrd.ru/tag/teams/freebet" target="_blank" rel="noopener">
+                                    Сделай ставку на WINLINE
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="matches-table">
+                <div class="table-header">
+                    <caption class="table-caption">Результаты последних игр Реала</caption>
+                    <button class="view-all-odds-btn" id="viewAllOddsBtn">Посмотреть все кэфы</button>
+                </div>
+                <table>
+                    <thead id="table-thead">
+                        <tr>
+                            <th>Матч</th>
+                            <th>Турнир</th>
+                            <th class="odds-column">Счет</th>
+                            <th class="odds-column" id="odds-header">Коэффициент</th>
+                            <th class="odds-column">Результат</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matches-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="./theme-detector.js"></script>
+    <script src="./data/teams.js"></script>
+    <script src="./data/matches.js"></script>
+    <script src="./script.js"></script>
+    <script src="./resize.js"></script>
+</body>
+</html>
+
+
+

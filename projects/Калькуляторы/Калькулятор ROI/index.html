@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Калькулятор ROI для расчета возврата инвестиций в ставках">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#2d2d2d" media="(prefers-color-scheme: dark)">
+    <title>Калькулятор ROI | Sports.ru</title>
+    <link rel="stylesheet" href="css/fonts.css?v=1">
+    <link rel="stylesheet" href="css/styles.css?v=1">
+    <link rel="preload" href="fonts/TTNeoris-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/TTNeoris-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/TTNeoris-Bold.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Калькулятор ROI</h1>
+            
+            <div class="calculator-form">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="totalStake">Общая сумма ставок</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="totalStake" 
+                                   placeholder="10000" 
+                                   inputmode="decimal"
+                                   pattern="[0-9]*[.,]?[0-9]*"
+                                   autocomplete="off"
+                                   aria-label="Введите общую сумму ставок">
+                            <span class="currency">₽</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="betsCount">Количество ставок</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="betsCount" 
+                                   placeholder="10" 
+                                   inputmode="numeric"
+                                   pattern="[0-9]*"
+                                   autocomplete="off"
+                                   aria-label="Введите количество ставок">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="profit">Прибыль</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="profit" 
+                                   placeholder="500" 
+                                   inputmode="decimal"
+                                   pattern="[0-9]*[.,]?[0-9]*"
+                                   autocomplete="off"
+                                   aria-label="Введите сумму прибыли">
+                            <span class="currency">₽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results">
+                    <div class="result-item roi-display">
+                        <span class="result-label">ROI</span>
+                        <div class="result-value">
+                            <span id="roi-value" aria-live="polite">0,00</span>
+                            <span class="currency">%</span>
+                        </div>
+                    </div>
+                    <div class="result-item roi-level">
+                        <span class="result-label">Уровень ROI</span>
+                        <div class="result-value">
+                            <span id="roi-level" aria-live="polite">-</span>
+                        </div>
+                    </div>
+                    <div class="result-item average-stake">
+                        <span class="result-label">Средняя ставка</span>
+                        <div class="result-value">
+                            <span id="average-stake" aria-live="polite">0,00</span>
+                            <span class="currency">₽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bet-button-wrapper">
+                    <a href="https://spnsrd.ru/bk/calculator" 
+                       target="_blank" 
+                       rel="noopener" 
+                       class="bet-button"
+                       aria-label="Получить бонус от букмекера">
+                        🎁 Забрать бонус дня
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/theme-detector.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html> 

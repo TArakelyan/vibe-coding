@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Амбассадоры MelBet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ambassadors-section">
+            <div class="ambassadors-grid">
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/2/ef/cbba489adf933700bcaea7569254b.png" alt="Алексей Гасилин" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Алексей Гасилин</h3>
+                        <p class="ambassador-role">Медиафутбол</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/a/98/39eb449bdd10d351f89fb0486690f.png" alt="Сергей Дурасов" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Сергей Дурасов</h3>
+                        <p class="ambassador-role">Комментатор</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/0/6e/6c4d6952dd9c347d58773e8a568ad.png" alt="Мурат Гассиев" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Мурат Гассиев</h3>
+                        <p class="ambassador-role">Бокс</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/b/45/9956cb1cf7b22b57a893d94745f2e.png" alt="Габар" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Габар</h3>
+                        <p class="ambassador-role">Блогер</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/d/5a/4f3f5f9f2db395a8acb22c33273e2.png" alt="Андрей Прокофьев" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Андрей Прокофьев</h3>
+                        <p class="ambassador-role">Блогер</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/5/b3/4b8751600a9bcc1247deb4f908946.png" alt="Анатолий Катрич" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Анатолий Катрич</h3>
+                        <p class="ambassador-role">Медиафутбол</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функциональность для кликабельных карточек (если понадобится)
+        document.addEventListener('DOMContentLoaded', function() {
+            const ambassadorCards = document.querySelectorAll('.ambassador-card[data-url]');
+            
+            ambassadorCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        window.open(`https://www.sports.ru${url}`, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="theme-detector.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html>

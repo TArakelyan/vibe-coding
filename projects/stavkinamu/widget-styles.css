@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Оригинальная цветовая схема */
+    --primary-color: #4F46E5;
+    --primary-hover: #4338CA;
+    --primary-light: #EEF2FF;
+    --text-primary: #1F2937;
+    --text-secondary: #6B7280;
+    --text-muted: #9CA3AF;
+    --bg-white: #FFFFFF;
+    --bg-light: #F9FAFB;
+    --bg-grey: #F3F4F6;
+    --border-color: #E5E7EB;
+    --success-color: #10B981;
+    --danger-color: #EF4444;
+    --warning-color: #F59E0B;
+    --blue-color: #3B82F6;
+    
+    /* Современные шрифты */
+    --font-family-primary: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-family-secondary: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-secondary);
+    line-height: 1.5;
+    color: var(--text-primary);
+    background-color: var(--bg-white);
+}
+
+.widget-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--bg-white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Шапка виджета */
+.widget-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.team-info-compact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.widget-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--primary-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.team-details-compact h3 {
+    font-family: var(--font-family-primary);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.team-details-compact p {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Содержимое виджета */
+.widget-content {
+    padding: 20px;
+}
+
+.widget-table {
+    margin-bottom: 16px;
+    overflow-x: auto;
+}
+
+.widget-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-white);
+}
+
+.widget-table th {
+    background-color: var(--bg-grey);
+    padding: 12px 8px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.widget-table td {
+    padding: 16px 8px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+/* Результаты последних матчей */
+.recent-results {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.result-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.result-dot.win {
+    background-color: var(--success-color);
+}
+
+.result-dot.loss {
+    background-color: var(--danger-color);
+}
+
+.result-dot.draw {
+    background-color: var(--text-muted);
+}
+
+.results-summary {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Прогноз */
+.prediction-text {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.prediction-confidence {
+    font-size: 11px;
+    color: var(--success-color);
+    margin-top: 2px;
+}
+
+/* Коэффициенты */
+.odds-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.odds-label {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* Кнопка повтора ставки */
+.repeat-bet-btn {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 120px;
+}
+
+.repeat-bet-btn:hover {
+    background: #e6003a;
+}
+
+.bonus-amount {
+    font-size: 10px;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Статистика виджета */
+.widget-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 16px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.stat-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.stat-value.positive {
+    color: var(--success-color);
+}
+
+.stat-value.negative {
+    color: var(--danger-color);
+}
+
+/* Подвал виджета */
+.widget-footer {
+    text-align: center;
+}
+
+.full-analysis-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.full-analysis-link:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 640px) {
+    .widget-container {
+        margin: 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .widget-content {
+        padding: 16px;
+    }
+    
+    .widget-table th,
+    .widget-table td {
+        padding: 8px 4px;
+        font-size: 11px;
+    }
+    
+    .recent-results {
+        flex-wrap: wrap;
+    }
+    
+    .result-dot {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .odds-value {
+        font-size: 16px;
+    }
+    
+    .repeat-bet-btn {
+        min-width: 100px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .widget-stats {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .stat-item {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* Компактная версия для очень узких экранов */
+@media (max-width: 480px) {
+    .widget-table {
+        font-size: 10px;
+    }
+    
+    .widget-table th {
+        padding: 6px 2px;
+    }
+    
+    .widget-table td {
+        padding: 8px 2px;
+    }
+    
+    .prediction-text {
+        font-size: 12px;
+    }
+    
+    .odds-value {
+        font-size: 14px;
+    }
+}

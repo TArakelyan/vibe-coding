@@ -1,0 +1,470 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    padding: 0 40px;
+}
+
+/* Hero Section */
+.hero-section {
+    background: #2a2a2a;
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 96px;
+    font-weight: 900;
+    letter-spacing: 12px;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.cyber-badge {
+    display: inline-block;
+    background: transparent;
+    color: #00D9FF;
+    font-size: 32px;
+    font-weight: 900;
+    padding: 0;
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+}
+
+.hero-description {
+    font-size: 20px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+/* Players Grid */
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 80px auto;
+    max-width: 1400px;
+    padding: 0 40px;
+}
+
+@media (max-width: 1200px) {
+    .players-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .players-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Player Card */
+.player-card {
+    position: relative;
+    background: #f0f0f0;
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    aspect-ratio: 3/4;
+}
+
+.player-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.player-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+    z-index: 1;
+}
+
+.player-rank {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #00D9FF;
+    color: #000000;
+    font-size: 72px;
+    font-weight: 900;
+    padding: 10px 20px;
+    z-index: 2;
+    line-height: 1;
+    border-radius: 8px;
+}
+
+.player-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.player-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 25px;
+    z-index: 2;
+}
+
+.player-nickname {
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.player-realname {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+}
+
+/* Jury Section */
+.jury-section {
+    margin: 100px auto;
+    max-width: 1400px;
+    padding: 0 40px;
+}
+
+.section-title {
+    font-size: 42px;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.subsection-title {
+    font-size: 32px;
+    font-weight: 900;
+    margin: 50px 0 30px;
+    color: #fff;
+}
+
+.jury-description {
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 40px;
+    max-width: 1000px;
+}
+
+.jury-tabs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.jury-tab {
+    background: #2a2a2a;
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.jury-tab:hover {
+    background: #3a3a3a;
+    color: #fff;
+}
+
+.jury-tab.active {
+    background: #00D9FF;
+    color: #000000;
+}
+
+.jury-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .jury-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.jury-member {
+    text-align: center;
+}
+
+.jury-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 900;
+    color: #00D9FF;
+    border: 4px solid #3a3a3a;
+}
+
+.jury-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.jury-role {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+}
+
+/* Custom Top Section */
+.custom-top-section {
+    background: #2a2a2a;
+    border-radius: 24px;
+    padding: 60px 40px;
+    text-align: center;
+    margin: 100px auto;
+    max-width: 1400px;
+}
+
+.custom-top-description {
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.custom-top-button {
+    background: #00D9FF;
+    color: #000000;
+    border: none;
+    padding: 18px 48px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.custom-top-button:hover {
+    background: #00BFE5;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 217, 255, 0.3);
+}
+
+/* Footer */
+.footer {
+    padding: 60px 0;
+    margin-top: 100px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.footer-logo {
+    display: block;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+}
+
+.footer-info {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.92);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #2a2a2a;
+    margin: 5% auto;
+    padding: 40px;
+    border: 1px solid #3a3a3a;
+    border-radius: 24px;
+    max-width: 700px;
+    position: relative;
+}
+
+.modal-close {
+    color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: #00D9FF;
+}
+
+.modal-body {
+    padding: 20px 0;
+}
+
+.modal-player-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.modal-player-nickname {
+    font-size: 42px;
+    font-weight: 900;
+    color: #00D9FF;
+    margin-bottom: 15px;
+}
+
+.modal-player-realname {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-player-stats {
+    margin-top: 30px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #3a3a3a;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+}
+
+.stat-value {
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 56px;
+        letter-spacing: 6px;
+    }
+    
+    .cyber-badge {
+        font-size: 24px;
+    }
+    
+    .hero-description {
+        font-size: 16px;
+    }
+    
+    .section-title {
+        font-size: 32px;
+    }
+    
+    .subsection-title {
+        font-size: 24px;
+    }
+    
+    .custom-top-section {
+        padding: 40px 30px;
+    }
+
+    .container,
+    .players-grid,
+    .jury-section,
+    .custom-top-section,
+    .footer-content {
+        padding: 0 20px;
+    }
+
+    .player-rank {
+        font-size: 48px;
+        padding: 8px 16px;
+    }
+
+    .player-nickname {
+        font-size: 28px;
+    }
+}
+
+/* Loading Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.player-card {
+    animation: fadeIn 0.5s ease;
+}
+

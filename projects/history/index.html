@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports History | Epoch Chronicles Hub</title>
+    <meta name="description" content="Исследуйте всестороннюю спортивную историю через статьи, рецензии на книги, кино и календарь исторических событий.">
+    <meta name="author" content="Epoch Chronicles Hub">
+
+    <meta property="og:title" content="Sports History | Epoch Chronicles Hub">
+    <meta property="og:description" content="Исследуйте всестороннюю спортивную историю через статьи, рецензии на книги, кино и календарь исторических событий.">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <div class="min-h-screen bg-background">
+        <!-- Header -->
+        <header class="sticky top-0 z-50 bg-card border-b border-border">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between h-16">
+                    <a class="flex items-center gap-2" href="#" onclick="showSection('home')">
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                            <span class="text-primary-foreground font-bold text-lg">SH</span>
+                        </div>
+                        <span class="text-xl font-bold text-foreground">Sports History</span>
+                    </a>
+                    
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden md:flex items-center gap-1">
+                        <button class="btn btn-ghost gap-2" onclick="showSection('home')" id="nav-home">
+                            Главная
+                        </button>
+                        <button class="btn btn-ghost gap-2" onclick="showSection('wikipedia')" id="nav-wikipedia">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                <path d="M10 9H8"></path>
+                                <path d="M16 13H8"></path>
+                                <path d="M16 17H8"></path>
+                            </svg>
+                            Википедия
+                        </button>
+                        <button class="btn btn-ghost gap-2" onclick="showSection('library')" id="nav-library">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                <path d="M12 7v14"></path>
+                                <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+                            </svg>
+                            Библиотека
+                        </button>
+                        <button class="btn btn-ghost gap-2" onclick="showSection('cinema')" id="nav-cinema">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                                <path d="M7 3v18"></path>
+                                <path d="M3 7.5h4"></path>
+                                <path d="M3 12h18"></path>
+                                <path d="M3 16.5h4"></path>
+                                <path d="M17 3v18"></path>
+                                <path d="M17 7.5h4"></path>
+                                <path d="M17 16.5h4"></path>
+                            </svg>
+                            Кинотеатр
+                        </button>
+                    </nav>
+                    
+                    <!-- Mobile Navigation Button -->
+                    <button class="md:hidden btn btn-ghost" onclick="toggleMobileMenu()" id="mobile-menu-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    
+                    <div class="flex items-center gap-2">
+                        <!-- Clean header without search -->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden bg-card border-b border-border hidden">
+            <div class="container mx-auto px-4 py-4">
+                <nav class="flex flex-col gap-2">
+                    <button class="btn btn-ghost justify-start gap-2" onclick="showSection('home'); toggleMobileMenu()" id="mobile-nav-home">
+                        Главная
+                    </button>
+                    <button class="btn btn-ghost justify-start gap-2" onclick="showSection('wikipedia'); toggleMobileMenu()" id="mobile-nav-wikipedia">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                            <path d="M10 9H8"></path>
+                            <path d="M16 13H8"></path>
+                            <path d="M16 17H8"></path>
+                        </svg>
+                        Википедия
+                    </button>
+                    <button class="btn btn-ghost justify-start gap-2" onclick="showSection('library'); toggleMobileMenu()" id="mobile-nav-library">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                            <path d="M12 7v14"></path>
+                            <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+                        </svg>
+                        Библиотека
+                    </button>
+                    <button class="btn btn-ghost justify-start gap-2" onclick="showSection('cinema'); toggleMobileMenu()" id="mobile-nav-cinema">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                            <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                            <path d="M7 3v18"></path>
+                            <path d="M3 7.5h4"></path>
+                            <path d="M3 12h18"></path>
+                            <path d="M3 16.5h4"></path>
+                            <path d="M17 3v18"></path>
+                            <path d="M17 7.5h4"></path>
+                            <path d="M17 16.5h4"></path>
+                        </svg>
+                        Кинотеатр
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Home Section -->
+        <div id="section-home" class="section active">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/10">
+            <div class="container mx-auto px-4 py-20 md:py-32">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                            <polyline points="16 7 22 7 22 13"></polyline>
+                        </svg>
+                            Исследуйте спортивную историю
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
+                            Ваш главный
+                            <span class="text-primary"> спортивный архив</span>
+                    </h1>
+                    <p class="text-xl text-muted-foreground mb-8 leading-relaxed">
+                            Погрузитесь в богатую историю спорта. От легендарных атлетов до незабываемых моментов, 
+                            исследуйте подробные статьи, рецензии на книги, анализы фильмов и детальный календарь исторических событий.
+                    </p>
+                    <div class="flex gap-4">
+                            <button class="btn btn-primary gap-2" onclick="showSection('wikipedia')">
+                                Начать исследование
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </button>
+                            <button class="btn btn-secondary gap-2" onclick="showSection('cinema')">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                                    <path d="M7 3v18"></path>
+                                    <path d="M3 7.5h4"></path>
+                                    <path d="M3 12h18"></path>
+                                    <path d="M3 16.5h4"></path>
+                                    <path d="M17 3v18"></path>
+                                    <path d="M17 7.5h4"></path>
+                                    <path d="M17 16.5h4"></path>
+                            </svg>
+                                Смотреть кино
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sections Grid -->
+        <section class="container mx-auto px-4 py-16">
+                <h2 class="text-3xl font-bold text-foreground mb-2">Исследуйте наши разделы</h2>
+                <p class="text-muted-foreground mb-8">Все необходимое для изучения спортивной истории в одном месте</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card cursor-pointer transition-all duration-300 hover:shadow-hover border border-border" onclick="showSection('wikipedia')">
+                        <div class="p-6">
+                            <div class="w-12 h-12 rounded-lg bg-wikipedia-accent/10 flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-wikipedia-accent">
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M10 9H8"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-foreground mb-2">Википедия</h3>
+                            <p class="text-muted-foreground">Подробные статьи о спортивной истории, легендарных атлетах и культовых моментах</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card cursor-pointer transition-all duration-300 hover:shadow-hover border border-border" onclick="showSection('library')">
+                        <div class="p-6">
+                            <div class="w-12 h-12 rounded-lg bg-library-accent/10 flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-library-accent">
+                                    <path d="M12 7v14"></path>
+                                    <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-foreground mb-2">Библиотека</h3>
+                            <p class="text-muted-foreground">Глубокие рецензии на книги о спортивных биографиях, истории и анализе</p>
+                        </div>
+            </div>
+                    
+                    <div class="card cursor-pointer transition-all duration-300 hover:shadow-hover border border-border" onclick="showSection('cinema')">
+                        <div class="p-6">
+                            <div class="w-12 h-12 rounded-lg bg-cinema-accent/10 flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-cinema-accent">
+                                    <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                                    <path d="M7 3v18"></path>
+                                    <path d="M3 7.5h4"></path>
+                                    <path d="M3 12h18"></path>
+                                    <path d="M3 16.5h4"></path>
+                                    <path d="M17 3v18"></path>
+                                    <path d="M17 7.5h4"></path>
+                                    <path d="M17 16.5h4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-foreground mb-2">Кинотеатр</h3>
+                            <p class="text-muted-foreground">Рецензии на спортивные фильмы и сериалы, запечатлевшие незабываемые атлетические истории</p>
+                        </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+        <!-- Wikipedia Section -->
+        <div id="section-wikipedia" class="section">
+            <!-- Wikipedia Header -->
+            <div class="bg-wikipedia-accent py-3">
+                <div class="container mx-auto px-4">
+                    <div class="flex items-center gap-2 text-white text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                            <path d="M10 9H8"></path>
+                            <path d="M16 13H8"></path>
+                            <path d="M16 17H8"></path>
+                        </svg>
+                        <span>ВИКИПЕДИЯ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="container mx-auto px-4 py-8">
+                <div class="mb-8">
+                    <h1 class="text-4xl font-bold text-foreground mb-2">Википедия</h1>
+                    <p class="text-muted-foreground mb-6">Исследуйте подробные статьи о спортивной истории, легендарных атлетах и культовых моментах</p>
+                </div>
+
+                <!-- Simplified Categories -->
+                <div class="mb-8">
+                    <div class="flex gap-3 flex-wrap">
+                        <button class="btn btn-primary rounded-full px-4 py-2">Все статьи</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2">Олимпиада</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2">Легенды</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2">Спорт</button>
+                    </div>
+                </div>
+
+                <!-- Articles Grid -->
+                <div id="wikipedia-articles-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Articles will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Library Section -->
+        <div id="section-library" class="section">
+            <!-- Library Header -->
+            <div class="bg-library-accent py-3">
+                <div class="container mx-auto px-4">
+                    <div class="flex items-center gap-2 text-white text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                            <path d="M12 7v14"></path>
+                            <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+                        </svg>
+                        <span>БИБЛИОТЕКА</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="container mx-auto px-4 py-8">
+                <div class="mb-8">
+                    <h1 class="text-4xl font-bold text-foreground mb-2">Библиотека</h1>
+                    <p class="text-muted-foreground mb-6">Глубокие рецензии на книги о спортивных биографиях, истории и анализе</p>
+                </div>
+
+                <!-- Simplified Categories -->
+                <div class="mb-8">
+                    <div class="flex gap-3 flex-wrap">
+                        <button class="btn btn-primary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Все книги')">Все книги</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Автобиография')">Автобиография</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Биография')">Биография</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('История')">История</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Учебник')">Учебник</button>
+                    </div>
+                </div>
+
+                <!-- Books Grid -->
+                <div id="library-books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Books will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Cinema Section -->
+        <div id="section-cinema" class="section">
+            <!-- Cinema Header -->
+            <div class="bg-cinema-accent py-3">
+                <div class="container mx-auto px-4">
+                    <div class="flex items-center gap-2 text-white text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                            <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                            <path d="M7 3v18"></path>
+                            <path d="M3 7.5h4"></path>
+                            <path d="M3 12h18"></path>
+                            <path d="M3 16.5h4"></path>
+                            <path d="M17 3v18"></path>
+                            <path d="M17 7.5h4"></path>
+                            <path d="M17 16.5h4"></path>
+                        </svg>
+                        <span>КИНОТЕАТР</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="container mx-auto px-4 py-8">
+                <div class="mb-8">
+                    <h1 class="text-4xl font-bold text-foreground mb-2">Кинотеатр</h1>
+                    <p class="text-muted-foreground mb-6">Рецензии на спортивные фильмы и сериалы, запечатлевшие незабываемые атлетические истории</p>
+                </div>
+
+                <!-- Simplified Categories -->
+                <div class="mb-8">
+                    <div class="flex gap-3 flex-wrap">
+                        <button class="btn btn-primary rounded-full px-4 py-2">Все фильмы</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2">Документальные</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2">Драмы</button>
+                        <button class="btn btn-secondary rounded-full px-4 py-2">Биографии</button>
+                    </div>
+                </div>
+
+                <!-- Movies Grid -->
+                <div id="cinema-movies-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Movies will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Detail View -->
+        <div id="article-detail" class="section">
+            <div class="bg-wikipedia-accent py-3">
+                <div class="container mx-auto px-4">
+                    <div class="flex items-center gap-2 text-white text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                            <path d="M10 9H8"></path>
+                            <path d="M16 13H8"></path>
+                            <path d="M16 17H8"></path>
+                        </svg>
+                        <span>ВИКИПЕДИЯ</span>
+                    </div>
+                </div>
+            </div>
+
+            <article class="container mx-auto px-4 py-8 max-w-4xl">
+                <button class="btn btn-ghost mb-6 gap-2" onclick="showSection('wikipedia')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                    Назад к Википедии
+                </button>
+
+                <div class="mb-8">
+                    <span class="badge badge-primary mb-4">Олимпиада</span>
+                    <h1 class="text-4xl md:text-5xl font-bold text-foreground mt-4 mb-4">Чудо на льду: Зимние Олимпийские игры 1980</h1>
+                    <div class="flex items-center gap-6 text-sm text-muted-foreground">
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                <path d="M8 2v4"></path>
+                                <path d="M16 2v4"></path>
+                                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                                <path d="M3 10h18"></path>
+                            </svg>
+                            22 февраля 1980
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            8 мин чтения
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aspect-video rounded-lg overflow-hidden mb-8 bg-muted">
+                    <img src="https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=1200&auto=format&fit=crop" alt="Чудо на льду: Зимние Олимпийские игры 1980" class="w-full h-full object-cover">
+                </div>
+
+                <div class="prose prose-lg max-w-none text-foreground" style="line-height: 1.8;">
+                    <h2>Величайшая сенсация в истории спорта</h2>
+                    <p>«Чудо на льду» — так называют матч медального раунда мужского хоккейного турнира на Зимних Олимпийских играх 1980 года в Лейк-Плэсиде, штат Нью-Йорк, который состоялся между сборными США и СССР 22 февраля 1980 года.</p>
+                    
+                    <p>Советский Союз выиграл золотые медали в шести из семи предыдущих зимних Олимпийских игр, и они были фаворитами на победу в Лейк-Плэсиде. Команда состояла в основном из профессиональных игроков со значительным опытом международных игр.</p>
+                    
+                    <h2>Американская команда</h2>
+                    <p>В отличие от этого, команда США под руководством тренера Херба Брукса состояла исключительно из игроков-любителей, большинство из которых были студентами колледжей. Средний возраст команды составлял 22 года, что делало их одной из самых молодых команд в олимпийской истории.</p>
+                    
+                    <p>Несмотря на свою молодость и неопытность, американская команда показала замечательную стойкость на протяжении всего турнира. Их путь к встрече с советами был полон решимости и непоколебимой веры в себя.</p>
+                    
+                    <h2>Историческая игра</h2>
+                    <p>В тот судьбоносный февральский день США победили Советский Союз со счетом 4:3 в ошеломляющей сенсации. Игра остается одним из самых знаковых моментов в истории спорта, представляя больше, чем просто хоккейный матч — это был символ напряженности холодной войны и американской стойкости.</p>
+                    
+                    <p>Знаменитый комментарий спортивного комментатора Эла Майклса «Верите ли вы в чудеса? ДА!» в конце игры стал одной из самых известных цитат в истории спортивных трансляций.</p>
+                    
+                    <h2>Наследие</h2>
+                    <p>Эта победа была признана величайшим спортивным моментом XX века по версии журнала Sports Illustrated. Игра была увековечена в книгах, документальных фильмах и фильме 2004 года «Чудо» с Куртом Расселом в роли Херба Брукса.</p>
+                    
+                    <p>Команда продолжила побеждать Финляндию в финальной игре, чтобы завоевать золотую медаль, закрепив свое место в олимпийской истории. Многие игроки продолжили успешную карьеру в профессиональном хоккее, но они навсегда останутся в памяти за это невероятное достижение.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./data/content.js"></script>
+    <script src="./main.js"></script>
+    <script src="./resize.js"></script>
+</body>
+</html>

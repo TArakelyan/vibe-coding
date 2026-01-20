@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Амбассадоры Leon</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ambassadors-section">
+            <div class="ambassadors-grid">
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/9/b7/bdb0d43789cad1dde2459ae982a24.png" alt="Зухра Урзабахтина" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Зухра Урзабахтина</h3>
+                        <p class="ambassador-role">Журналистка</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/a/65/11720548d129d8b070e00c265fa20.png" alt="Валерия Пономаренко" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Валерия Пономаренко</h3>
+                        <p class="ambassador-role">Медиабаскетбол</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/1/2d/772370030dfbb237b9355b70bb3f9.png" alt="Эльвира Гудаева" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Эльвира Гудаева</h3>
+                        <p class="ambassador-role">Медиафутбол</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/e/89/88a044a61a3e52e494a1ad9e9ac41.png" alt="Светлана Думич" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Светлана Думич</h3>
+                        <p class="ambassador-role">Медиафутбол</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функциональность для кликабельных карточек (если понадобится)
+        document.addEventListener('DOMContentLoaded', function() {
+            const ambassadorCards = document.querySelectorAll('.ambassador-card[data-url]');
+            
+            ambassadorCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        window.open(`https://www.sports.ru${url}`, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="theme-detector.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html>

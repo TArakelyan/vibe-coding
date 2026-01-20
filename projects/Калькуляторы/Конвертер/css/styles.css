@@ -1,0 +1,307 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --sports-green: #25EEA4;
+    --sports-green-hover: #20cc8c;
+    --sports-gray: #F4F5F7;
+    --sports-light-green: rgba(37, 238, 164, 0.05);
+    
+    /* Light theme colors */
+    --bg-color: #F4F5F7;
+    --calculator-bg: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6B7683;
+    --input-bg: #F4F5F7;
+    --input-hover-bg: #E5E9F2;
+    --input-focus-bg: #ffffff;
+    --border-color: #E5E9F2;
+    --result-bg: rgba(37, 238, 164, 0.05);
+    --result-hover-bg: rgba(37, 238, 164, 0.08);
+    --shadow-color: rgba(37, 238, 164, 0.1);
+}
+
+/* Dark theme colors */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --calculator-bg: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --input-bg: #3a3a3a;
+        --input-hover-bg: #4a4a4a;
+        --input-focus-bg: #2d2d2d;
+        --border-color: #4a4a4a;
+        --result-bg: rgba(37, 238, 164, 0.15);
+        --result-hover-bg: rgba(37, 238, 164, 0.2);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Автоматическое определение темной темы по контексту */
+@media (prefers-contrast: high) {
+    :root {
+        --bg-color: #1a1a1a;
+        --calculator-bg: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --input-bg: #3a3a3a;
+        --input-hover-bg: #4a4a4a;
+        --input-focus-bg: #2d2d2d;
+        --border-color: #4a4a4a;
+        --result-bg: rgba(37, 238, 164, 0.15);
+        --result-hover-bg: rgba(37, 238, 164, 0.2);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Manual dark theme class */
+.dark-theme,
+body.dark-theme,
+html.dark-theme,
+html[data-theme="dark"],
+body[data-theme="dark"],
+html[data-color-scheme="dark"],
+body[data-color-scheme="dark"] {
+    --bg-color: #1a1a1a !important;
+    --calculator-bg: #2d2d2d !important;
+    --text-primary: #ffffff !important;
+    --text-secondary: #b0b0b0 !important;
+    --input-bg: #3a3a3a !important;
+    --input-hover-bg: #4a4a4a !important;
+    --input-focus-bg: #2d2d2d !important;
+    --border-color: #4a4a4a !important;
+    --result-bg: rgba(37, 238, 164, 0.15) !important;
+    --result-hover-bg: rgba(37, 238, 164, 0.2) !important;
+    --shadow-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+body {
+    font-family: 'TT Neoris', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.4;
+    color: var(--text-primary);
+    background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Calculator container styles */
+.calculator {
+    background: var(--calculator-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    padding: 1.25rem;
+    border: 2px solid var(--sports-green);
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    width: 100%;
+}
+
+.calculator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--result-bg) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    text-align: left;
+    margin-left: 0.5rem;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
+}
+
+/* Form styles */
+.calculator-form {
+    position: relative;
+    z-index: 1;
+}
+
+.converter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    align-items: start;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.input-group label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--input-bg);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.input-wrapper:hover {
+    background: var(--input-hover-bg);
+}
+
+input {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    font-size: 1rem;
+    font-family: 'TT Neoris', sans-serif;
+    font-weight: 500;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--text-primary);
+    background: transparent;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+/* Поле с процентом - дополнительный отступ справа для символа % */
+.input-wrapper:has(.currency) input,
+input[id="probability"] {
+    padding-right: 2rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input:hover {
+    border-color: transparent;
+}
+
+input:focus {
+    outline: none;
+    background: var(--input-focus-bg);
+    border-color: var(--sports-green);
+    box-shadow: 0 0 0 3px rgba(37, 238, 164, 0.1);
+}
+
+input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+.input-wrapper .currency {
+    position: absolute;
+    right: 0.5rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Active field highlight */
+.input-group.active .input-wrapper {
+    background: var(--result-bg);
+    border: 1px solid var(--sports-green);
+}
+
+.input-group.active input {
+    background: var(--result-bg);
+}
+
+/* Bet button */
+.bet-button-wrapper {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.bet-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: #00A876;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bet-button:hover {
+    background: var(--sports-green);
+    transform: translateY(-1px);
+    color: white;
+}
+
+.bet-button:active {
+    transform: translateY(0);
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+    .container {
+        padding: 0;
+    }
+    
+    .calculator {
+        padding: 1rem;
+        border-radius: 8px;
+        width: 100%;
+        margin: 0;
+    }
+
+    .converter-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    h1 {
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+    }
+
+    input {
+        padding: 0.625rem 1rem;
+        font-size: 1rem;
+    }
+
+    .input-group label {
+        font-size: 0.8125rem;
+    }
+
+    .input-wrapper .currency {
+        right: 0.5rem;
+        font-size: 0.8125rem;
+    }
+} 

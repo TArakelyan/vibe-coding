@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Конвертер коэффициентов между десятичным, американским, дробным форматами и вероятностью">
+    <title>Конвертер коэффициентов | Sports.ru</title>
+    <link rel="stylesheet" href="css/fonts.css?v=5">
+    <link rel="stylesheet" href="css/styles.css?v=5">
+    <link rel="preload" href="fonts/TTNeoris-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/TTNeoris-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/TTNeoris-Bold.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Конвертер коэффициентов</h1>
+            
+            <div class="calculator-form">
+                <div class="converter-grid">
+                    <div class="input-group">
+                        <label for="decimal">Десятичный</label>
+                        <div class="input-wrapper">
+                            <input type="number" 
+                                   id="decimal" 
+                                   inputmode="decimal"
+                                   step="0.01"
+                                   min="1.01"
+                                   autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="american">Американский</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="american" 
+                                   autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="fractional">Дробный</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="fractional" 
+                                   autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="probability">Вероятность</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="probability" 
+                                   inputmode="decimal"
+                                   autocomplete="off">
+                            <span class="currency">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bet-button-wrapper">
+                    <a href="https://spnsrd.ru/bk/calculator" target="_blank" rel="noopener" class="bet-button">
+                        🎁 Забрать бонус дня
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/theme-detector.js"></script>
+    <script src="js/converter.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html> 

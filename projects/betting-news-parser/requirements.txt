@@ -1,0 +1,73 @@
+# Web scraping & parsing
+requests==2.31.0
+beautifulsoup4==4.12.3
+lxml==5.1.0
+selenium==4.16.0
+scrapy==2.11.0
+
+# Async & parallel processing
+asyncio==3.4.3
+aiohttp==3.9.1
+httpx==0.26.0
+
+# Database
+psycopg2-binary==2.9.9
+sqlalchemy==2.0.25
+redis==5.0.1
+
+# Task queue
+celery==5.3.6
+
+# NLP & ML
+spacy==3.7.2
+transformers==4.36.2
+scikit-learn==1.4.0
+
+# Telegram Bot
+python-telegram-bot==20.7
+
+# Scheduling
+schedule==1.2.1
+apscheduler==3.10.4
+
+# Web framework for dashboard
+flask==3.0.0
+flask-cors==4.0.0
+plotly==5.18.0
+
+# Proxy & user agents
+fake-useragent==1.4.0
+requests[socks]==2.31.0
+
+# Utils
+python-dotenv==1.0.0
+loguru==0.7.2
+tqdm==4.66.1
+feedparser==6.0.11
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

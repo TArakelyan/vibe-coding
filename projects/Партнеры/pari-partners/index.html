@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Партнеры Pari</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ambassadors-section">
+            <div class="ambassadors-grid">
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Пари НН</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/d/8c/ac6c0c0b2b3f8237686408fa7f045.png" alt="Пари НН" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Лига Pari</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/2/8f/ea76050e5cdb9d8d69b476ee088c2.png" alt="Лига Pari" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Amateur League</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/4/b3/43eaf303dd1801e56fa8b309287f8.png" alt="Amateur League" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Амкал</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/9/6c/e0a3b30ad4c5d05051251d7e190eb.png" alt="Амкал" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Parivision</h3>
+                        <p class="ambassador-role">киберспорт</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/0/c7/a704fcd12f460ba22f5137fd0f020.png" alt="Parivision" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">DMS</h3>
+                        <p class="ambassador-role">киберспорт</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/1/56/c0626517f0820535da79a04ccaf51.png" alt="DMS" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Amkal</h3>
+                        <p class="ambassador-role">киберспорт</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/d/66/4044f052fb6f23a74a0782a91add2.png" alt="Amkal" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Торпедо</h3>
+                        <p class="ambassador-role">хоккей</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/f/f2/3506189f007521530bd90b61ee4e9.png" alt="Торпедо" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Пари Нижний Новгород</h3>
+                        <p class="ambassador-role">баскетбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/c/de/4504b5ebbabb1c886864412730732.png" alt="Пари Нижний Новгород" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">United Cup</h3>
+                        <p class="ambassador-role">теннис</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/3/24/c30967a6e5ffdabd18d6c437d2258.png" alt="United Cup" loading="eager">
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функциональность для кликабельных карточек (если понадобится)
+        document.addEventListener('DOMContentLoaded', function() {
+            const ambassadorCards = document.querySelectorAll('.ambassador-card[data-url]');
+            
+            ambassadorCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        window.open(`https://www.sports.ru${url}`, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="theme-detector.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html>

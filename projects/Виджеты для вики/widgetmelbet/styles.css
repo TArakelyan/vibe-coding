@@ -1,0 +1,252 @@
+/* MelBet Widget Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    width: 672px;
+    height: 72px;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+.melbet-widget {
+    width: 672px;
+    height: 72px;
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 36px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+.melbet-widget:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.melbet-logo {
+    flex-shrink: 0;
+    margin-right: 16px;
+    margin-top: -8px;
+}
+
+.melbet-logo img {
+    object-fit: contain;
+    height: 24px;
+    width: auto;
+    transform: translateZ(0);
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: optimizeQuality;
+    image-rendering: smooth;
+    -ms-interpolation-mode: bicubic;
+}
+
+.reklama-badge {
+    position: absolute;
+    top: 48px;
+    left: 34px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 10px;
+    font-family: 'Inter', sans-serif;
+    color: #999999;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.dots {
+    font-size: 14px;
+    color: #999999;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.dots:hover {
+    color: #666666;
+}
+
+.advertiser-info {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 8px;
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.advertiser-info.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dots:hover + .advertiser-info,
+.advertiser-info:hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+.advertiser-info-text {
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+}
+
+.content-text {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #000000;
+    text-align: left;
+    margin-left: 8px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+}
+
+.action-button {
+    width: 32px;
+    height: 32px;
+    background: #000000;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.action-button:hover {
+    background: #333333;
+    transform: scale(1.05) translateZ(0);
+}
+
+.action-button svg {
+    transform: translateZ(0);
+    width: 16px;
+    height: 16px;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 500px) {
+    .melbet-widget {
+        width: 100%;
+        min-width: 280px;
+        max-width: 400px;
+        height: 108px;
+        flex-direction: column;
+        padding: 16px 20px;
+        padding-right: 70px;
+        border-radius: 20px;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        margin: 0 auto;
+    }
+    
+    body {
+        width: 100%;
+        height: 108px;
+        padding: 8px;
+    }
+    
+    .melbet-logo {
+        margin-right: 0;
+        margin-bottom: 10px;
+        margin-top: 0;
+        margin-left: 4px;
+        align-self: flex-start;
+    }
+    
+    .reklama-badge {
+        top: 16px !important;
+        right: 16px !important;
+        left: auto !important;
+        font-size: 10px;
+        /* Возвращаем в правый верхний угол для мобильной версии */
+    }
+    
+    .content-text {
+        font-size: 17px;
+        font-weight: 600;
+        text-align: left;
+        margin: 0;
+        margin-bottom: 16px;
+        margin-top: 2px;
+        line-height: 1.17;
+        padding-right: 12px;
+        padding-left: 4px;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .action-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        align-self: flex-end;
+        position: absolute !important;
+        bottom: 18px;
+        right: 18px;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+    
+    .action-button svg {
+        width: 20px;
+        height: 20px;
+    }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовые данные букмекеров</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Фильтры -->
+        <div class="filters-panel">
+            <div class="filter-container">
+                <!-- Выбор годов -->
+                <div class="filter-group">
+                    <div class="dropdown-container">
+                        <div class="dropdown-trigger" id="yearDropdownTrigger">
+                            <span class="dropdown-text" id="dropdownText">2024</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="dropdown-content" id="yearDropdownContent">
+                            <label class="year-checkbox">
+                                <input type="checkbox" value="2024" id="year2024" checked>
+                                <span class="checkmark"></span>
+                                2024
+                            </label>
+                            <label class="year-checkbox">
+                                <input type="checkbox" value="2023" id="year2023">
+                                <span class="checkmark"></span>
+                                2023
+                            </label>
+                            <label class="year-checkbox">
+                                <input type="checkbox" value="2022" id="year2022">
+                                <span class="checkmark"></span>
+                                2022
+                            </label>
+                            <label class="year-checkbox">
+                                <input type="checkbox" value="2021" id="year2021">
+                                <span class="checkmark"></span>
+                                2021
+                            </label>
+                            <label class="year-checkbox">
+                                <input type="checkbox" value="2020" id="year2020">
+                                <span class="checkmark"></span>
+                                2020
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Данные компаний -->
+        <div class="companies-section" id="companiesSection">
+            <div id="companiesData"></div>
+        </div>
+    </div>
+
+    <script src="theme-detector.js"></script>
+    <script src="script.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html> 

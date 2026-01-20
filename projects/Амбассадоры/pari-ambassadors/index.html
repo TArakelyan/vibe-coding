@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Амбассадоры PARI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ambassadors-section">
+            <div class="ambassadors-grid">
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/3/6d/810b6451ae725665fb51b64423d95.png" alt="Герман El Clasico" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Герман El Clasico</h3>
+                        <p class="ambassador-role">Медиафутбол</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/3/fa/b5c0a5ca769db378a80e41392b9d6.png" alt="Игорь Ларионов" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Игорь Ларионов</h3>
+                        <p class="ambassador-role">Хоккей</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/2/12/bd224ec53ee8f336642568a0508bd.png" alt="Luxury Girl" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Luxury Girl</h3>
+                        <p class="ambassador-role">Блогер</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/0/35/36d56adfeae5d4f7b8cf70e1cd6a0.png" alt="Михаил Сергачев" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Михаил Сергачев</h3>
+                        <p class="ambassador-role">Хоккей</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/8/a8/73dd2bfa052533f093c464595134a.png" alt="Арман Царукян" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Арман Царукян</h3>
+                        <p class="ambassador-role">ММА</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/d/52/e994c9b4eaa913384fc858863c549.png" alt="Gensyxa" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Gensyxa</h3>
+                        <p class="ambassador-role">Стример</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функциональность для кликабельных карточек (если понадобится)
+        document.addEventListener('DOMContentLoaded', function() {
+            const ambassadorCards = document.querySelectorAll('.ambassador-card[data-url]');
+            
+            ambassadorCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        window.open(`https://www.sports.ru${url}`, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="theme-detector.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html>

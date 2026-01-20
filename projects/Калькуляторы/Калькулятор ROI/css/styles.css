@@ -1,0 +1,318 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --sports-green: #25EEA4;
+    --sports-green-hover: #20cc8c;
+    --sports-gray: #F4F5F7;
+    --sports-light-green: rgba(37, 238, 164, 0.05);
+    
+    /* Light theme colors */
+    --bg-color: #F4F5F7;
+    --calculator-bg: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6B7683;
+    --input-bg: #F4F5F7;
+    --input-hover-bg: #E5E9F2;
+    --input-focus-bg: #ffffff;
+    --border-color: #E5E9F2;
+    --result-bg: rgba(37, 238, 164, 0.05);
+    --result-hover-bg: rgba(37, 238, 164, 0.08);
+    --shadow-color: rgba(37, 238, 164, 0.1);
+}
+
+/* Dark theme colors */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --calculator-bg: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --input-bg: #3a3a3a;
+        --input-hover-bg: #4a4a4a;
+        --input-focus-bg: #2d2d2d;
+        --border-color: #4a4a4a;
+        --result-bg: rgba(37, 238, 164, 0.15);
+        --result-hover-bg: rgba(37, 238, 164, 0.2);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Manual dark theme class */
+.dark-theme {
+    --bg-color: #1a1a1a;
+    --calculator-bg: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --input-bg: #3a3a3a;
+    --input-hover-bg: #4a4a4a;
+    --input-focus-bg: #2d2d2d;
+    --border-color: #4a4a4a;
+    --result-bg: rgba(37, 238, 164, 0.15);
+    --result-hover-bg: rgba(37, 238, 164, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'TT Neoris', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.4;
+    color: var(--text-primary);
+    background: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Calculator container styles */
+.calculator {
+    background: var(--calculator-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    padding: 1.25rem;
+    border: 2px solid var(--sports-green);
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+}
+
+.calculator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--result-bg) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    text-align: left;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
+}
+
+/* Form styles */
+.calculator-form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+}
+
+.input-section {
+    grid-column: span 2;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.input-group label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--input-bg);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.input-wrapper:hover {
+    background: var(--input-hover-bg);
+}
+
+input {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    font-size: 1rem;
+    font-family: 'TT Neoris', sans-serif;
+    font-weight: 500;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--text-primary);
+    background: transparent;
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input:hover {
+    border-color: transparent;
+}
+
+input:focus {
+    outline: none;
+    background: var(--input-focus-bg);
+    border-color: var(--sports-green);
+    box-shadow: 0 0 0 3px rgba(37, 238, 164, 0.1);
+}
+
+input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.input-wrapper .currency {
+    position: absolute;
+    right: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    pointer-events: none;
+}
+
+.results {
+    grid-column: span 2;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.result-item {
+    background: var(--result-bg);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.result-item:hover {
+    background: var(--result-hover-bg);
+}
+
+.result-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.result-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.result-value .currency {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ROI Level Colors */
+.roi-level.very-low .result-value {
+    color: #FF4D4D;
+}
+
+.roi-level.low .result-value {
+    color: #FFA64D;
+}
+
+.roi-level.reliable .result-value {
+    color: #4DB8FF;
+}
+
+.roi-level.successful .result-value {
+    color: var(--sports-green);
+}
+
+.bet-button-wrapper {
+    grid-column: span 4;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.bet-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.625rem;
+    background: #00A876;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-family: 'TT Neoris', sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    text-align: center;
+}
+
+.bet-button:hover {
+    background: #25EEA4;
+    transform: translateY(-1px);
+    color: white;
+}
+
+/* Mobile styles */
+@media (max-width: 640px) {
+    .container {
+        padding: 0;
+    }
+
+    .calculator {
+        border-radius: 0;
+        padding: 1rem;
+    }
+
+    .calculator-form {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .input-section {
+        grid-column: span 1;
+        gap: 0.75rem;
+    }
+
+    .results {
+        grid-column: span 1;
+    }
+
+    .bet-button-wrapper {
+        grid-column: span 1;
+    }
+
+    .bet-button {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+} 

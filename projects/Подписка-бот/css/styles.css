@@ -1,0 +1,200 @@
+:root {
+    --primary-color: #1f8657;
+    --primary-hover: #166940;
+    --text-color: #2B2D33;
+    --input-bg: #F4F5F6;
+    --input-text: #2B2D33;
+    --input-placeholder: #6D7175;
+    --telegram-color: #229ED9;
+    --telegram-hover: #1e8dc2;
+    --border-radius: 12px;
+    --shadow-color: rgba(43, 45, 51, 0.1);
+}
+
+[data-theme="dark"] {
+    --text-color: #fff;
+    --input-bg: #3A3C41;
+    --input-text: #fff;
+    --input-placeholder: #9EA2A8;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "TT Neoris", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html, body {
+    background: transparent;
+}
+
+body {
+    color: var(--text-color);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subscription-container {
+    width: 660px;
+    height: 140px;
+    padding: 20px;
+    background: var(--input-bg);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 6px var(--shadow-color);
+    margin: 0 auto;
+}
+
+.subscription-content {
+    width: 100%;
+}
+
+.subscription-header {
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.subscription-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--text-color);
+}
+
+.subscription-header p {
+    font-size: 13px;
+    color: var(--input-placeholder);
+}
+
+.subscription-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    width: 340px;
+    height: 38px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 1px 3px var(--shadow-color);
+}
+
+[data-theme="dark"] .input-group {
+    background: #2B2D33;
+}
+
+.input-group input {
+    flex: 1;
+    height: 100%;
+    padding: 0 16px;
+    border: none;
+    background: none;
+    font-size: 13px;
+    color: var(--input-text);
+}
+
+.input-group input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.input-group input:focus {
+    outline: none;
+}
+
+.input-group button {
+    height: 100%;
+    padding: 0 16px;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.input-group button:hover {
+    background: var(--primary-hover);
+}
+
+.input-group button svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s;
+}
+
+.input-group button:hover svg {
+    transform: translateX(2px);
+}
+
+.telegram-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+    padding: 0 20px;
+    background: var(--telegram-color);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    box-shadow: 0px 1px 3px var(--shadow-color);
+}
+
+.telegram-button:hover {
+    background: var(--telegram-hover);
+    transform: translateY(-1px);
+}
+
+.telegram-button svg {
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 0;
+    }
+
+    .subscription-container {
+        width: 100%;
+        height: auto;
+        min-height: 180px;
+        padding: 16px;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .subscription-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .telegram-button {
+        justify-content: center;
+    }
+} 

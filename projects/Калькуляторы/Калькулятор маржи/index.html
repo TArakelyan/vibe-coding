@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Калькулятор маржи букмекера для 2 и 3 исходов с цветовой индикацией уровня">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#2d2d2d" media="(prefers-color-scheme: dark)">
+    <title>Калькулятор маржи | Sports.ru</title>
+    <link rel="stylesheet" href="css/fonts.css?v=3">
+    <link rel="stylesheet" href="css/styles.css?v=3">
+    <link rel="preload" href="fonts/TTNeoris-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/TTNeoris-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/TTNeoris-Bold.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Калькулятор маржи</h1>
+            
+            <div class="calculator-form">
+                <div class="outcomes-selector">
+                    <label class="outcomes-label">Количество исходов:</label>
+                    <div class="outcomes-buttons">
+                        <button type="button" class="outcome-btn active" data-outcomes="2" aria-pressed="true">2 исхода</button>
+                        <button type="button" class="outcome-btn" data-outcomes="3" aria-pressed="false">3 исхода</button>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="coeff1">Коэффициент 1</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="coeff1" 
+                                   placeholder="1,90" 
+                                   inputmode="decimal"
+                                   pattern="[0-9]*[.,]?[0-9]*"
+                                   autocomplete="off"
+                                   aria-label="Введите первый коэффициент">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="coeff2">Коэффициент 2</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="coeff2" 
+                                   placeholder="2,05" 
+                                   inputmode="decimal"
+                                   pattern="[0-9]*[.,]?[0-9]*"
+                                   autocomplete="off"
+                                   aria-label="Введите второй коэффициент">
+                        </div>
+                    </div>
+
+                    <div class="input-group" id="coeff3-group" style="display: none;">
+                        <label for="coeff3">Коэффициент 3</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="coeff3" 
+                                   placeholder="4,50" 
+                                   inputmode="decimal"
+                                   pattern="[0-9]*[.,]?[0-9]*"
+                                   autocomplete="off"
+                                   aria-label="Введите третий коэффициент">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results">
+                    <div class="result-item margin-display">
+                        <span class="result-label">Маржа букмекера</span>
+                        <div class="result-value">
+                            <span id="margin-value" aria-live="polite">0,00</span>
+                            <span class="currency">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bet-button-wrapper">
+                    <a href="https://spnsrd.ru/bk/calculator" 
+                       target="_blank" 
+                       rel="noopener" 
+                       class="bet-button"
+                       aria-label="Получить бонус от букмекера">
+                        🎁 Забрать бонус дня
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/theme-detector.js?v=3"></script>
+    <script src="js/calculator.js?v=3"></script>
+    <script src="resize.js?v=3"></script>
+</body>
+</html> 

@@ -1,0 +1,4413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спортивные чемпионы с 2000 года | Luxury Sports Experience</title>
+    <style>
+        .champion-description {
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        @media (max-width: 1024px) {
+            .filters-sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 24px;
+                padding-bottom: 100px;
+                z-index: 1000;
+                overflow-y: auto;
+            }
+
+            .mobile-filter-apply {
+                position: fixed;
+                bottom: 90px;
+                left: 24px;
+                right: 24px;
+                height: 50px;
+                background: var(--astudio-gold);
+                border: none;
+                border-radius: 8px;
+                color: #000;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+                z-index: 1002;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filtersSidebar = document.getElementById('filtersSidebar');
+            const filtersToggleBtn = document.getElementById('filtersToggleBtn');
+            const filtersOverlay = document.getElementById('filtersOverlay');
+
+            // Меняем текст кнопки на "Фильтры"
+            if (filtersToggleBtn) {
+                filtersToggleBtn.innerHTML = '<span class="mobile-button-text">Фильтры</span><svg class="mobile-button-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            }
+
+            function showFilters() {
+                filtersSidebar.classList.add('expanded');
+                filtersOverlay.classList.add('expanded');
+                document.body.style.overflow = 'hidden';
+
+                // Добавляем кнопку "Применить"
+                if (!document.getElementById('applyFiltersBtn')) {
+                    const applyBtn = document.createElement('button');
+                    applyBtn.id = 'applyFiltersBtn';
+                    applyBtn.className = 'mobile-filter-apply';
+                    applyBtn.textContent = 'Применить';
+                    applyBtn.onclick = hideFilters;
+                    filtersSidebar.appendChild(applyBtn);
+                }
+            }
+
+            function hideFilters() {
+                filtersSidebar.classList.remove('expanded');
+                filtersOverlay.classList.remove('expanded');
+                document.body.style.overflow = '';
+            }
+
+            // Обработчики событий
+            if (filtersToggleBtn) {
+                filtersToggleBtn.addEventListener('click', showFilters);
+            }
+            if (filtersOverlay) {
+                filtersOverlay.addEventListener('click', hideFilters);
+            }
+        });
+    </script>
+    
+    <!-- Modern Typography with optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Sriracha&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Animated Background */
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Анимированные элементы на фоне */
+        .bg-item {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .bg-item--wiggle {
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        .bg-item--pulse {
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0% {
+                transform: rotate(-5deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
+            100% {
+                transform: rotate(-5deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Header Styles */
+        .header {
+            padding: 24px 16px;
+            text-align: center;
+            max-width: 660px;
+            margin: 0 auto;
+        }
+        
+        .header-image {
+            width: 140%;
+            height: auto;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            margin-left: -20%;
+        }
+        
+        /* Увеличенная картинка для десктопа */
+        @media (min-width: 1024px) {
+            .header-image {
+                width: 180%;
+                margin-left: -40%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-image {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+        
+        .header-title {
+            font-family: var(--ui-font-family-heading);
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: var(--sports-black);
+        }
+        
+        .header-description {
+            font-family: var(--ui-font-family-body);
+            font-size: 18px;
+            line-height: 1.5;
+            color: var(--sports-grey-800);
+            margin-bottom: 32px;
+        }
+
+        .golden-title {
+            font-family: var(--ui-font-family-heading);
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: var(--astudio-gold);
+            text-align: center;
+        }
+        
+        .golden-description {
+            font-family: var(--ui-font-family-body);
+            font-size: 18px;
+            line-height: 1.5;
+            color: var(--astudio-gold);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 16px 12px;
+            }
+            
+            .header-image {
+                margin-bottom: 20px;
+            }
+            
+            .header-title {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+            
+            .header-description {
+                font-size: 16px;
+                margin-bottom: 24px;
+            }
+
+            .hero-title {
+                margin-bottom: 16px !important;
+            }
+
+            .hero-subtitle {
+                margin-top: 12px;
+                font-size: 26px;
+                line-height: 1.3;
+                width: 100%;
+                display: block;
+                color: var(--astudio-gold);
+            }
+        }
+
+        /* ASTUDIO-inspired CSS Variables - Premium Luxury Palette */
+        :root {
+            /* Primary ASTUDIO Colors */
+            --astudio-black: #000000;
+            --astudio-white: #ffffff;
+            --astudio-gold: #D4AF37;
+            --astudio-gold-light: #E8C547;
+            --astudio-gold-dark: #B8941F;
+            
+            /* Sophisticated Grays - ASTUDIO Style */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            
+            /* Luxury Accents */
+            --luxury-blue: #1e40af;
+            --luxury-green: #059669;
+            --luxury-red: #dc2626;
+            --luxury-purple: #7c3aed;
+            
+            /* Backgrounds - Dark Theme Only */
+            --bg-primary: var(--astudio-black);
+            --bg-secondary: var(--gray-900);
+            --bg-tertiary: var(--gray-800);
+            --bg-dark: var(--astudio-black);
+            --bg-overlay: rgba(0, 0, 0, 0.8);
+            
+            /* Text Colors - Dark Theme Only */
+            --text-primary: var(--astudio-white);
+            --text-secondary: var(--gray-300);
+            --text-muted: var(--gray-400);
+            --text-light: var(--gray-500);
+            --text-white: var(--astudio-white);
+            --text-gold: var(--astudio-gold);
+            
+            /* Enhanced gold for dark theme */
+            --astudio-gold: #F4D03F;
+            --astudio-gold-light: #F7DC6F;
+            --astudio-gold-dark: #D4AC0D;
+            
+            /* Shadows - Dark Theme Enhanced */
+            --shadow-minimal: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            --shadow-luxury: 0 32px 64px -12px rgba(0, 0, 0, 0.8);
+            
+            /* Borders - Dark Theme */
+            --border-subtle: 1px solid var(--gray-700);
+            --border-medium: 1px solid var(--gray-600);
+            --border-strong: 1px solid var(--gray-500);
+            
+            /* Radiuses - Clean & Modern */
+            --radius-none: 0;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+            
+            /* Transitions - Smooth & Luxury */
+            --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Typography Scale */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            --text-5xl: 3rem;
+            --text-6xl: 3.75rem;
+            --text-7xl: 4.5rem;
+            --text-8xl: 6rem;
+            --text-9xl: 8rem;
+            
+            /* Spacing Scale */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            --space-32: 8rem;
+            --space-40: 10rem;
+            --space-48: 12rem;
+            --space-64: 16rem;
+        }
+
+
+
+        /* Global Styles - ASTUDIO Foundation */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #0a0a0a;
+            color: var(--text-primary);
+            line-height: 1.5;
+            letter-spacing: -0.025em;
+            transition: var(--transition-normal);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Анимированный фон с кубиками */
+        #animated-cubes-bg {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1920px;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        #animated-cubes-bg svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300%;
+        }
+
+        .cube {
+            position: absolute;
+            opacity: 0;
+            animation: cubeAppear 0.5s ease-out forwards;
+        }
+
+        @keyframes cubeAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 0.15;
+                transform: scale(1);
+            }
+        }
+
+        /* Псевдоэлементы отключены, используется фоновое изображение */
+
+        /* Modern Typography System */
+        .heading-display {
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .heading-primary {
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .text-body {
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: 0;
+        }
+
+        .text-caption {
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ASTUDIO App Container */
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* New Modern Hero Section */
+        .hero-section {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+            height: 100vh;
+            width: 100vw;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            padding: 0;
+            margin-left: calc(-50vw + 50%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: none;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .hero-title-container {
+            margin-bottom: 2rem;
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', var(--ui-font-family-heading), sans-serif;
+            font-weight: 900;
+            font-size: 20vw;
+            line-height: 0.85;
+            margin: 0;
+            text-align: center;
+            position: relative;
+        }
+
+        @media (min-width: 1200px) {
+            .hero-title {
+                font-size: 120px;
+            }
+        }
+
+        .hero-title-text {
+            display: inline-block;
+            color: #D4AF37;
+            background: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8960C 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.05em;
+            animation: fadeIn 0.7s ease-in-out;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Fallback for browsers that don't support background-clip: text */
+        @supports not (background-clip: text) {
+            .hero-title-text {
+                color: #D4AF37 !important;
+                -webkit-text-fill-color: #D4AF37 !important;
+            }
+        }
+
+        .hero-badge {
+            position: absolute;
+            top: -12%;
+            right: 8%;
+            background: #ffffff;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.4);
+            animation: float 6s ease-in-out infinite;
+            z-index: 15;
+        }
+
+        .hero-badge-icon {
+            font-size: 18px;
+            margin-bottom: 2px;
+            color: #000;
+        }
+
+        .hero-badge-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: #000;
+            line-height: 1;
+        }
+
+        /* Маленький кружок с процентом */
+        .hero-small-badge {
+            background: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+            flex-shrink: 0;
+        }
+
+        .hero-small-badge-icon {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        /* Овальный бейдж с коэффициентом */
+        .hero-oval-badge {
+            background: #ffffff;
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+            flex-shrink: 0;
+        }
+
+        .hero-oval-badge-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        /* Новый дизайн шапки с правильной центровкой */
+        .hero-new-layout {
+            position: relative;
+            width: 100%;
+            max-width: 1279px;
+            height: 290px;
+            margin: 0 auto;
+        }
+
+        /* Маленький кружок с процентом */
+        .hero-small-circle {
+            position: absolute;
+            left: 209px;
+            top: 0;
+            width: 53px;
+            height: 53px;
+            background: #d9d9d9;
+            border-radius: 100px;
+        }
+
+        .hero-small-circle-text {
+            position: absolute;
+            left: 50%;
+            top: 26px;
+            transform: translateX(-50%);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 30px;
+            line-height: 0;
+            color: #000;
+            text-align: center;
+            width: 28px;
+            height: 31px;
+            margin: 0;
+        }
+
+        /* Заголовок с градиентом - центрирован относительно контейнера */
+        .hero-new-title {
+            position: absolute;
+            left: 50%;
+            top: 28px;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 290px;
+            text-align: center;
+        }
+
+        .hero-new-title-line1,
+        .hero-new-title-line2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            background: linear-gradient(to right, #ffd900 0.481%, #999999 98.077%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            line-height: 130px;
+        }
+
+        .hero-new-title-line1 {
+            font-size: 174px;
+            margin-bottom: 0;
+        }
+
+        .hero-new-title-line2 {
+            font-size: 140px;
+        }
+
+        /* Овальный бейдж с 2.20 */
+        .hero-oval-circle {
+            position: absolute;
+            right: 209px;
+            top: 145px;
+            width: 131px;
+            height: 53px;
+            background: #d9d9d9;
+            border-radius: 100px;
+        }
+
+        .hero-oval-circle-text {
+            position: absolute;
+            left: 50%;
+            top: 26px;
+            transform: translateX(-50%);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 30px;
+            line-height: 0;
+            color: #000;
+            text-align: center;
+            width: 69.208px;
+            height: 31px;
+            margin: 0;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #ffffff;
+            max-width: none;
+            margin: 0 auto;
+            font-weight: 500;
+            line-height: 1.6;
+            animation: fadeIn 0.7s ease-in-out 0.3s both;
+            text-align: center;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(to right, var(--sports-primary-color), var(--sports-yellow-A700), var(--sports-cyan-A700));
+            display: inline-block;
+            border-radius: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 1025px) {
+            .hero-title {
+                font-size: 16vw;
+            }
+            .hero-section {
+                padding: 0;
+                height: 100vh;
+                width: 100vw;
+            }
+            .hero-description {
+                font-size: 1.25rem;
+                max-width: none;
+            }
+            .hero-new-layout {
+                width: 100%;
+                max-width: 1279px;
+                height: 290px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                max-width: none;
+                padding: 0 1rem;
+            }
+            .hero-title {
+                font-size: 20vw;
+            }
+            .hero-title-text {
+                letter-spacing: 0.03em;
+            }
+            .hero-description {
+                max-width: none;
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+            }
+            .hero-section {
+                min-height: 100vh;
+                height: 100vh;
+                width: 100vw;
+            }
+            .hero-badge {
+                width: 80px;
+                height: 80px;
+                top: -8%;
+                right: 5%;
+            }
+            .hero-badge-value {
+                font-size: 22px;
+            }
+            .hero-badge-icon {
+                font-size: 14px;
+            }
+            .hero-title-container {
+                gap: 1rem;
+            }
+            .hero-small-badge {
+                width: 40px;
+                height: 40px;
+            }
+            .hero-small-badge-icon {
+                font-size: 20px;
+            }
+            .hero-oval-badge {
+                padding: 6px 16px;
+            }
+            .hero-oval-badge-value {
+                font-size: 24px;
+            }
+            .hero-new-layout {
+                width: 90%;
+                max-width: 900px;
+                height: 250px;
+            }
+            .hero-new-title-line1 {
+                font-size: 120px;
+            }
+            .hero-new-title-line2 {
+                font-size: 100px;
+            }
+            .hero-small-circle {
+                left: 50px;
+                width: 45px;
+                height: 45px;
+            }
+            .hero-small-circle-text {
+                font-size: 26px;
+                top: 23px;
+            }
+            .hero-oval-circle {
+                right: 50px;
+                top: 120px;
+                width: 110px;
+                height: 45px;
+            }
+            .hero-oval-circle-text {
+                font-size: 26px;
+                top: 23px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hero-section {
+                min-height: 100vh;
+                height: 100vh;
+                width: 100vw;
+                padding: 0;
+            }
+            .hero-content {
+                padding: 0 1rem;
+            }
+            .hero-title {
+                font-size: 18vw;
+                line-height: 0.9;
+            }
+            .hero-title-text {
+                letter-spacing: 0.02em;
+            }
+            .hero-title-container {
+                margin-bottom: 1rem;
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+            .hero-description {
+                font-size: 0.95rem;
+                padding: 0.5rem;
+            }
+            .hero-badge {
+                width: 70px;
+                height: 70px;
+                top: -6%;
+                right: 2%;
+            }
+            .hero-badge-value {
+                font-size: 20px;
+            }
+            .hero-badge-icon {
+                font-size: 12px;
+            }
+            .hero-small-badge {
+                width: 35px;
+                height: 35px;
+            }
+            .hero-small-badge-icon {
+                font-size: 16px;
+            }
+            .hero-oval-badge {
+                padding: 5px 12px;
+            }
+            .hero-oval-badge-value {
+                font-size: 20px;
+            }
+            .hero-new-layout {
+                width: 95%;
+                max-width: 600px;
+                height: 200px;
+            }
+            .hero-new-title {
+                top: 20px;
+            }
+            .hero-new-title-line1 {
+                font-size: 90px;
+                line-height: 100px;
+            }
+            .hero-new-title-line2 {
+                font-size: 75px;
+                line-height: 85px;
+            }
+            .hero-small-circle {
+                left: 30px;
+                width: 38px;
+                height: 38px;
+            }
+            .hero-small-circle-text {
+                font-size: 22px;
+                top: 19px;
+            }
+            .hero-oval-circle {
+                right: 30px;
+                top: 95px;
+                width: 90px;
+                height: 38px;
+            }
+            .hero-oval-circle-text {
+                font-size: 22px;
+                top: 19px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                min-height: 100vh;
+                height: 100vh;
+                width: 100vw;
+                padding: 0;
+            }
+            .hero-content {
+                padding: 0 1rem;
+            }
+            .hero-title {
+                font-size: 16vw;
+                line-height: 0.95;
+            }
+            .hero-title-text {
+                letter-spacing: 0.01em;
+            }
+            .hero-title-container {
+                margin-bottom: 0.75rem;
+                gap: 0.5rem;
+            }
+            .hero-description {
+                font-size: 0.85rem;
+                padding: 0.25rem;
+            }
+            .hero-badge {
+                width: 60px;
+                height: 60px;
+                top: -5%;
+                right: 2%;
+            }
+            .hero-badge-value {
+                font-size: 16px;
+            }
+            .hero-badge-icon {
+                font-size: 10px;
+            }
+            .hero-small-badge {
+                width: 30px;
+                height: 30px;
+            }
+            .hero-small-badge-icon {
+                font-size: 14px;
+            }
+            .hero-oval-badge {
+                padding: 4px 10px;
+            }
+            .hero-oval-badge-value {
+                font-size: 16px;
+            }
+            .hero-new-layout {
+                width: 95%;
+                max-width: 480px;
+                height: 170px;
+            }
+            .hero-new-title {
+                top: 15px;
+            }
+            .hero-new-title-line1 {
+                font-size: 70px;
+                line-height: 80px;
+            }
+            .hero-new-title-line2 {
+                font-size: 58px;
+                line-height: 65px;
+            }
+            .hero-small-circle {
+                left: 20px;
+                width: 32px;
+                height: 32px;
+            }
+            .hero-small-circle-text {
+                font-size: 18px;
+                top: 16px;
+            }
+            .hero-oval-circle {
+                right: 20px;
+                top: 75px;
+                width: 75px;
+                height: 32px;
+            }
+            .hero-oval-circle-text {
+                font-size: 18px;
+                top: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 15vw;
+            }
+            .hero-title-text {
+                letter-spacing: 0;
+            }
+            .hero-badge {
+                width: 55px;
+                height: 55px;
+            }
+            .hero-badge-value {
+                font-size: 14px;
+            }
+            .hero-small-badge {
+                width: 28px;
+                height: 28px;
+            }
+            .hero-small-badge-icon {
+                font-size: 12px;
+            }
+            .hero-oval-badge {
+                padding: 3px 8px;
+            }
+            .hero-oval-badge-value {
+                font-size: 14px;
+            }
+            .hero-new-layout {
+                width: 95%;
+                max-width: 360px;
+                height: 150px;
+            }
+            .hero-new-title {
+                top: 10px;
+            }
+            .hero-new-title-line1 {
+                font-size: 60px;
+                line-height: 70px;
+            }
+            .hero-new-title-line2 {
+                font-size: 50px;
+                line-height: 58px;
+            }
+            .hero-small-circle {
+                left: 15px;
+                width: 28px;
+                height: 28px;
+            }
+            .hero-small-circle-text {
+                font-size: 16px;
+                top: 14px;
+            }
+            .hero-oval-circle {
+                right: 15px;
+                top: 65px;
+                width: 65px;
+                height: 28px;
+            }
+            .hero-oval-circle-text {
+                font-size: 16px;
+                top: 14px;
+            }
+        }
+
+        /* Stats Section - скрыт */
+        .stats-section {
+            display: none;
+        }
+
+        .stats-container {
+            max-width: 660px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        .hero-title {
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: calc(var(--text-8xl) * 0.9);
+            font-weight: 900;
+            margin-bottom: var(--space-6);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            max-width: 900px;
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--astudio-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding-bottom: var(--space-2);
+        }
+
+        @media (min-width: 1025px) {
+            .hero-title br {
+                display: block;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title br {
+                display: none;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: var(--space-12);
+            max-width: 560px;
+            line-height: 1.6;
+            color: var(--gray-300);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-16);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .hero-stat {
+            position: relative;
+            padding: var(--space-6) 0;
+            border-top: 1px solid var(--gray-700);
+            text-align: center;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .hero-stat-number {
+            display: block;
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: var(--text-5xl);
+            font-weight: 800;
+            line-height: 1;
+            color: var(--astudio-gold);
+            margin-bottom: var(--space-2);
+        }
+
+        .hero-stat-label {
+            font-size: var(--text-sm);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-400);
+            line-height: 1.2;
+            word-break: break-word;
+            hyphens: auto;
+            padding: 0 4px;
+        }
+
+        .hero-stat-label-nowrap {
+            white-space: nowrap;
+            word-break: keep-all;
+            hyphens: none;
+        }
+
+        .hero-stat-label-wrap {
+            white-space: normal;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+
+
+
+        .coefficient-toggle {
+            background: rgba(38, 38, 38, 0.6);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+            border-radius: var(--radius-lg);
+            padding: var(--space-1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-1);
+            transition: var(--transition-normal);
+            width: 100%;
+            box-shadow: var(--shadow-soft);
+            max-width: 320px;
+            margin-top: 8px;
+        }
+
+        .filter-group:first-child .filter-label {
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .coefficient-option {
+            padding: var(--space-2) 0;
+            border-radius: 4.8px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-size: 11.2px;
+            font-weight: 500;
+            text-align: center;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: -0.01em;
+        }
+
+        .coefficient-option.active {
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--gray-100) 100%);
+            color: var(--astudio-black);
+            box-shadow: var(--shadow-medium);
+            font-weight: 700;
+        }
+
+        .coefficient-option:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-white);
+        }
+
+        /* Стили для блока сортировки */
+        .sort-controls {
+            display: flex;
+            gap: var(--space-3);
+            margin-top: var(--space-2);
+        }
+
+        .sort-button {
+            flex: 1;
+            background: rgba(38, 38, 38, 0.6);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+            border-radius: var(--radius-lg);
+            padding: var(--space-3) var(--space-4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+
+        .sort-button:hover {
+            background: rgba(38, 38, 38, 0.8);
+            border-color: rgba(244, 208, 63, 0.3);
+        }
+
+        .sort-arrows {
+            display: flex;
+            gap: 6px;
+        }
+
+        .sort-arrow {
+            opacity: 0.6;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            user-select: none;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 4px 6px;
+            border-radius: 4px;
+            min-width: 28px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .sort-arrow:hover {
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .sort-arrow.active {
+            opacity: 1;
+            color: var(--astudio-gold);
+            background: rgba(244, 208, 63, 0.15);
+            font-weight: bold;
+        }
+
+        /* ASTUDIO Main Content Layout */
+        .main-content {
+            flex: 1;
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            gap: var(--space-12);
+            padding: 0 var(--space-6);
+            background: transparent;
+            position: relative;
+        }
+
+        .main-content > * {
+            position: relative;
+            z-index: 20;
+        }
+
+        /* Убраны фоновые изображения по бокам для единого стиля */
+
+        /* ASTUDIO Mobile Filters Toggle */
+        .mobile-filters-toggle {
+            display: none;
+            width: 100%;
+        }
+
+        .filters-toggle-btn {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: var(--border-medium);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4) var(--space-6);
+            color: var(--text-primary);
+            font-size: var(--text-base);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-3);
+            transition: var(--transition-normal);
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .filters-toggle-btn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--astudio-gold);
+        }
+
+
+        /* Плавный переход от шапки к основному контенту */
+        .header-transition {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.2) 0%,
+                rgba(0, 0, 0, 0.15) 20%,
+                rgba(0, 0, 0, 0.1) 40%,
+                rgba(0, 0, 0, 0.06) 60%,
+                rgba(0, 0, 0, 0.03) 80%,
+                transparent 100%
+            );
+            z-index: 5;
+            pointer-events: none;
+        }
+
+
+        /* ASTUDIO Filters Sidebar */
+        .filters-sidebar {
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 19.2px 0;
+            background: none;
+            display: grid;
+            grid-template-columns: 230px 210px 210px 145px 145px 130px;
+            gap: 10px;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        @media (min-width: 1025px) {
+            .main-content {
+                padding-top: 16px;
+            }
+
+            /* Увеличиваем ширину переключателя коэффициентов на десктопе */
+            .filters-sidebar {
+                grid-template-columns: 230px 210px 210px 145px 145px 130px;
+            }
+
+            .coefficient-toggle {
+                min-width: 224px;
+            }
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            height: 50px;
+            width: 100%;
+            padding: 0 40px 0 16px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: var(--ui-font-family-body);
+            background-color: rgba(38, 38, 38, 0.6);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .search-input::placeholder {
+            color: #fff;
+            opacity: 1;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+        }
+
+        .coefficient-toggle {
+            display: flex;
+            gap: 2px;
+            background: rgba(38, 38, 38, 0.6);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+            border-radius: 8px;
+            padding: 2px;
+            height: 50px;
+            width: 100%;
+        }
+
+        /* Синхронизируем радиусы скругления для активного состояния */
+        .coefficient-option {
+            border-radius: 6px;
+        }
+
+        .coefficient-option {
+            flex: 1;
+            padding: 0 16px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: -0.01em;
+        }
+
+        .filter-select {
+            height: 50px;
+            width: 100%;
+            padding: 0 16px;
+            font-size: 14px;
+            background-color: rgba(38, 38, 38, 0.6);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Общие стили для текста в фильтрах */
+        .filter-text-size {
+            font-size: 14px;
+            letter-spacing: -0.01em;
+            font-weight: 500;
+        }
+
+        .sort-button {
+            height: 50px;
+            width: 100%;
+            padding: 0 16px;
+            background-color: rgba(38, 38, 38, 0.6);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .sort-button span {
+            font-size: 14px;
+            letter-spacing: -0.01em;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .sort-arrows {
+            display: flex;
+            gap: 6px;
+        }
+
+        .sort-arrow {
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 4px 6px;
+            border-radius: 4px;
+            min-width: 28px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .sort-arrow:hover {
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .sort-arrow.active {
+            opacity: 1;
+            color: var(--astudio-gold);
+            background: rgba(244, 208, 63, 0.15);
+            font-weight: bold;
+        }
+
+        @media (max-width: 1024px) {
+            .filters-sidebar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 24px 24px 120px 24px;
+                z-index: 1001;
+                overflow-y: auto;
+            }
+
+            .filters-sidebar.expanded {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .mobile-filter-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 24px;
+                padding-bottom: 16px;
+                border-bottom: 1px solid rgba(244, 208, 63, 0.15);
+            }
+
+            .mobile-filter-title {
+                font-size: 24px;
+                font-weight: 700;
+                color: #fff;
+            }
+
+            .mobile-filter-close {
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 24px;
+                cursor: pointer;
+                padding: 8px;
+            }
+
+            .mobile-filter-apply {
+                position: fixed;
+                bottom: 90px;
+                left: 24px;
+                right: 24px;
+                height: 50px;
+                background: var(--astudio-gold);
+                border: none;
+                border-radius: 8px;
+                color: #000;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+                z-index: 1002;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            }
+
+            .filters-sidebar .filter-group {
+                width: 100%;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .filters-sidebar.expanded {
+                display: block;
+            }
+
+            .filters-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(4px);
+                z-index: 999;
+            }
+
+            .filters-overlay.expanded {
+                display: block;
+            }
+        }
+
+        .filters-title {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-8);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-group {
+            position: relative;
+            margin: 0;
+            flex: 1;
+        }
+        
+        @media (min-width: 1025px) {
+            .main-content {
+                padding-top: 0;
+            }
+            
+            .filter-group .filter-label {
+                display: none;
+            }
+            
+            .filter-group:first-child {
+                max-width: 200px;
+            }
+            
+            .coefficient-toggle {
+                margin: 0;
+            }
+            
+            .sort-controls {
+                display: flex;
+                gap: 10px;
+                margin: 0;
+            }
+            
+            .sort-button {
+                height: 50px;
+                margin: 0;
+            }
+            
+            .filter-input, .filter-select {
+                height: 50px;
+            }
+            
+            .filter-range {
+                gap: 10px;
+            }
+        }
+
+        .filter-label {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-input, .filter-select {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            border: var(--border-medium);
+            border-radius: var(--radius-lg);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            transition: var(--transition-normal);
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .filter-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right var(--space-4) center;
+            padding-right: var(--space-12);
+        }
+
+        /* Custom Select Styles */
+        .custom-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-trigger {
+            width: 100%;
+            height: 50px;
+            padding: 0 40px 0 16px;
+            font-weight: 500;
+            font-family: var(--ui-font-family-body);
+            background-color: rgba(38, 38, 38, 0.6);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .custom-select-text {
+            font-size: 14px;
+            letter-spacing: -0.01em;
+            font-weight: 500;
+        }
+
+        .custom-select-trigger:hover {
+            background-color: rgba(38, 38, 38, 0.8);
+            border-color: rgba(244, 208, 63, 0.3);
+        }
+
+        .custom-select-arrow {
+            width: 16px;
+            height: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            transition: transform 0.2s ease;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .custom-select.open .custom-select-arrow {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .custom-select-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.95);
+            border: 1px solid rgba(244, 208, 63, 0.3);
+            border-radius: 8px;
+            margin-top: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .custom-select.open .custom-select-options {
+            display: block;
+        }
+
+        .custom-select-option {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .custom-select-option:hover {
+            background-color: rgba(244, 208, 63, 0.1);
+        }
+
+        .custom-select-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--astudio-gold);
+            cursor: pointer;
+        }
+
+        .custom-select-option label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            cursor: pointer;
+            flex: 1;
+            user-select: none;
+        }
+
+        .custom-select-option:hover label {
+            color: #fff;
+        }
+
+        /* Scrollbar для выпадающих списков */
+        .custom-select-options::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-select-options::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+
+        .custom-select-options::-webkit-scrollbar-thumb {
+            background: rgba(244, 208, 63, 0.3);
+            border-radius: 3px;
+        }
+
+        .custom-select-options::-webkit-scrollbar-thumb:hover {
+            background: rgba(244, 208, 63, 0.5);
+        }
+
+        .filter-input[type="number"] {
+            padding-right: var(--space-4);
+        }
+
+        .filter-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: var(--astudio-gold);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+            background: var(--bg-primary);
+        }
+
+        .filter-input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .filter-range {
+            display: flex;
+            gap: var(--space-3);
+            align-items: center;
+        }
+
+        .filter-range input {
+            flex: 1;
+        }
+
+        .filter-range-separator {
+            color: var(--text-muted);
+            font-size: var(--text-sm);
+            font-weight: 600;
+        }
+
+        /* Убираем стрелки у input type="number" */
+        .filter-input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        .filter-input[type="number"]::-webkit-outer-spin-button,
+        .filter-input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* ASTUDIO Filter Actions */
+        .filter-actions {
+            display: flex;
+            gap: var(--space-3);
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: var(--border-subtle);
+        }
+
+        .filter-btn {
+            flex: 1;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: var(--transition-normal);
+            border: none;
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .filter-btn-clear {
+            background: transparent;
+            color: var(--text-secondary);
+            border: var(--border-medium);
+        }
+
+        .filter-btn-clear:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .filter-btn-apply {
+            background: var(--astudio-gold);
+            color: var(--astudio-black);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .filter-btn-apply:hover {
+            background: var(--astudio-gold-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* ASTUDIO Content Area */
+        .content-area {
+            width: 100%;
+            position: relative;
+        }
+
+        .main-content {
+            padding: 0;
+            display: block;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+
+
+        /* ASTUDIO Champions List - One per row */
+        .champions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+            margin-top: 0;
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .champion-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 9.6px;
+            overflow: hidden;
+            box-shadow: 0 3.2px 16px rgba(244, 208, 63, 0.05);
+            border: 1px solid rgba(244, 208, 63, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: row;
+            height: 196px;
+            margin: var(--space-3) 0;
+            width: 100%;
+            max-width: 1120px;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(0, 0, 0, 0.85) 100%
+            );
+        }
+
+        .champion-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 8px 32px rgba(244, 208, 63, 0.15);
+            border-color: rgba(244, 208, 63, 0.3);
+        }
+
+        .champion-card:hover .champion-image {
+            filter: brightness(1.1);
+        }
+
+        .champion-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .champion-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            background: transparent;
+            border-radius: 0;
+            mix-blend-mode: normal;
+            flex-shrink: 0;
+            border-right: 1px solid rgba(244, 208, 63, 0.15);
+            opacity: 1;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            left: 0;
+            top: 0;
+            display: block;
+        }
+
+
+        .champion-card > div:first-child {
+            position: relative;
+            width: 288px;
+            flex-shrink: 0;
+            height: 100%;
+        }
+
+        .champion-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(244, 208, 63, 0.1) 0%,
+                transparent 100%
+            );
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .champion-card:hover .champion-image::before {
+            opacity: 1;
+        }
+
+        /* Градиент для размытия на десктопе */
+        .champion-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.9));
+            pointer-events: none;
+        }
+
+        /* Градиент для размытия на мобильных */
+        @media (max-width: 1024px) {
+            .champion-image::after {
+                top: auto;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 120px;
+                background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.95));
+            }
+        }
+
+
+        .champion-content {
+            padding: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            flex: 1;
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 1024px) {
+            .champion-content {
+                padding: 24px;
+                gap: 16px;
+            }
+        }
+
+        .champion-card:hover .champion-content {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .champion-content-top {
+            flex: 1;
+        }
+
+        .champion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .champion-name {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--text-primary);
+            line-height: 26px;
+            height: 26px;
+            font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin-right: 12.8px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 1) 0%,
+                rgba(255, 255, 255, 0.9) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .champion-name {
+                font-size: 24px;
+                line-height: 32px;
+                height: 32px;
+            }
+        }
+
+        .champion-card:hover .champion-name {
+            background: linear-gradient(
+                135deg,
+                rgba(244, 208, 63, 1) 0%,
+                rgba(255, 255, 255, 1) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transform: translateY(-1px);
+        }
+
+        .champion-image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .champion-odds-badge {
+            background: rgba(244, 208, 63, 0.15);
+            border: 1px solid rgba(244, 208, 63, 0.3);
+            border-radius: 6.4px;
+            color: rgba(244, 208, 63, 1);
+            padding: 0 12.8px;
+            font-size: 14.4px;
+            font-weight: 700;
+            flex-shrink: 0;
+            min-width: 56px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 25.6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .champion-odds-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: left 0.5s ease;
+        }
+
+        .champion-card:hover .champion-odds-badge {
+            background: rgba(244, 208, 63, 0.25);
+            border-color: rgba(244, 208, 63, 0.5);
+            transform: scale(1.05);
+        }
+
+        .champion-card:hover .champion-odds-badge::before {
+            left: 100%;
+        }
+
+        .champion-description {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 14px;
+            line-height: 1.5;
+            font-weight: 400;
+            position: relative;
+            padding: 8px 0;
+            margin: 8px 0;
+            height: auto;
+            overflow-y: visible;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: var(--ui-font-family-body);
+            letter-spacing: 0.01em;
+        }
+
+        @media (max-width: 1024px) {
+            .champion-description {
+                font-size: 14px;
+                padding: 16px;
+                min-height: 100px;
+                margin: 12px 0;
+            }
+        }
+
+        .champion-card:hover .champion-description {
+            color: #fff;
+        }
+
+
+
+        .champion-meta {
+            display: flex;
+            gap: 12px;
+            margin: 0;
+            padding: 6px 10px;
+            align-items: center;
+            font-size: 14px;
+            color: #fff;
+            transition: all 0.3s ease;
+            flex-wrap: wrap;
+            font-family: var(--ui-font-family-body);
+            letter-spacing: 0.01em;
+            line-height: 1.5;
+            background: rgba(26, 26, 26, 0.5);
+            border-radius: 8px;
+        }
+
+        .champion-meta span {
+            padding: 4px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .champion-card:hover .champion-meta span {
+            color: #fff;
+        }
+
+        .champion-meta span {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .champion-meta span svg,
+        .champion-meta span img,
+        .champion-meta span emoji {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        @media (max-width: 1024px) {
+            .champion-meta {
+                font-size: 14px;
+                padding: 12px 16px;
+                gap: 16px;
+            }
+        }
+
+        .champion-card:hover .champion-meta {
+            background: linear-gradient(
+                135deg,
+                rgba(26, 26, 26, 1) 0%,
+                rgba(26, 26, 26, 0.9) 100%
+            );
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .champion-meta span {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .champion-card:hover .champion-meta span {
+            transform: translateY(-1px);
+        }
+
+        /* Разделители секций */
+        .champion-section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(244, 208, 63, 0.3), transparent);
+            margin: var(--space-4) 0;
+        }
+
+        .champion-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .champion-meta-label {
+            font-size: var(--text-sm);
+            color: var(--astudio-gold);
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .champion-meta-value {
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            min-width: 0;
+            flex: 1;
+        }
+
+
+
+        /* ASTUDIO Sport Icons */
+        .sport-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-sm);
+            flex-shrink: 0;
+        }
+
+        .sport-football { background: var(--luxury-blue); color: white; }
+        .sport-basketball { background: var(--luxury-red); color: white; }
+        .sport-tennis { background: var(--luxury-green); color: white; }
+        .sport-hockey { background: var(--luxury-purple); color: white; }
+        .sport-boxing { background: var(--gray-700); color: white; }
+        .sport-athletics { background: var(--astudio-gold); color: var(--astudio-black); }
+        .sport-swimming { background: var(--luxury-blue); color: white; }
+        .sport-gymnastics { background: var(--luxury-purple); color: white; }
+        .sport-skiing { background: var(--gray-500); color: white; }
+        .sport-other { background: var(--text-muted); color: white; }
+
+        /* Пустое состояние */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 24px;
+            opacity: 0.7;
+            color: var(--astudio-gold);
+            line-height: 1;
+        }
+
+        .empty-state-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-family: var(--ui-font-family-heading);
+            letter-spacing: -0.01em;
+        }
+
+        .empty-state-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .empty-state {
+                padding: 60px 16px;
+                min-height: 250px;
+            }
+
+            .empty-state-icon {
+                font-size: 3.5rem;
+                margin-bottom: 20px;
+            }
+
+            .empty-state-title {
+                font-size: 1.25rem;
+                margin-bottom: 10px;
+            }
+
+            .empty-state-text {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Блок "О проекте" */
+        .about-section {
+            width: 100%;
+            padding: var(--space-20) 0 var(--space-32);
+            background: #0a0a0a;
+        }
+
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        .about-title {
+            font-family: var(--ui-font-family-heading-primary);
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--astudio-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: left;
+            margin-bottom: var(--space-16);
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-content {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(244, 208, 63, 0.05);
+            border: 1px solid rgba(244, 208, 63, 0.15);
+            backdrop-filter: blur(10px);
+            padding: var(--space-10);
+            max-width: 1400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(0, 0, 0, 0.85) 100%
+            );
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            line-height: 1.7;
+            margin-bottom: var(--space-6);
+            font-family: var(--ui-font-family-body);
+        }
+
+        .about-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Адаптивность для блока "О проекте" */
+        @media (max-width: 1024px) {
+            .about-section {
+                padding: var(--space-16) 0 var(--space-24);
+            }
+
+            .about-container {
+                padding: 0 var(--space-4);
+            }
+
+            .about-title {
+                font-size: 2rem;
+                margin-bottom: var(--space-12);
+                text-align: center;
+            }
+
+            .about-content {
+                padding: var(--space-8);
+            }
+
+            .about-content p {
+                font-size: 1.125rem;
+                line-height: 1.6;
+                margin-bottom: var(--space-5);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-section {
+                padding: var(--space-12) 0 var(--space-16);
+            }
+
+            .about-container {
+                padding: 0 var(--space-3);
+            }
+
+            .about-title {
+                font-size: 1.5rem;
+                margin-bottom: var(--space-8);
+                text-align: center;
+            }
+
+            .about-content {
+                padding: var(--space-6);
+            }
+
+            .about-content p {
+                font-size: 1rem;
+                margin-bottom: var(--space-4);
+            }
+        }
+
+        /* ASTUDIO Medium Desktops - уменьшенное фото на 20% */
+        @media (min-width: 1025px) and (max-width: 1399px) {
+            .champion-card > div:first-child {
+                width: 288px;
+            }
+        }
+
+        /* ASTUDIO Large Screens - уменьшенное фото на 20% от 500px */
+        @media (min-width: 1400px) {
+            .champion-card {
+                height: 288px;
+            }
+            
+            .champion-card > div:first-child {
+                width: 400px;
+            }
+            
+            .champion-content {
+                padding: 32px;
+            }
+        }
+
+        /* ASTUDIO Responsive - Desktop to Tablet */
+        .mobile-controls {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-controls {
+                display: flex;
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: auto;
+                padding: 0;
+                background: none;
+                border: none;
+                backdrop-filter: none;
+                z-index: 1000;
+            }
+
+        .mobile-button {
+            width: auto;
+            height: 36px;
+            padding: 0 28px 0 12px;
+            font-weight: 500;
+            font-family: var(--ui-font-family-body);
+            background-color: rgba(38, 38, 38, 1);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            transition: all 0.2s ease;
+            position: relative;
+            font-size: 12px;
+            letter-spacing: -0.01em;
+            min-width: 90px;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-controls {
+                display: flex !important;
+            }
+        }
+
+            .mobile-button:hover {
+                background-color: rgba(38, 38, 38, 0.8);
+                border-color: rgba(244, 208, 63, 0.3);
+            }
+
+            .mobile-button-text {
+                font-size: 12px;
+                letter-spacing: -0.01em;
+                font-weight: 500;
+            }
+
+            .mobile-button-arrow {
+                width: 12px;
+                height: 12px;
+                color: rgba(255, 255, 255, 0.6);
+                transition: transform 0.2s ease;
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+
+            .mobile-button .icon {
+                font-size: 16px;
+                opacity: 0.9;
+                filter: grayscale(0.2);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                flex-direction: column;
+                gap: var(--space-8);
+                padding: var(--space-8) var(--space-4) 90px var(--space-4);
+            }
+
+            /* Убраны стили для скрытия силуэтов */
+
+            .scroll-to-top {
+                display: block;
+            }
+
+            .mobile-filters-toggle {
+                display: block;
+            }
+
+
+
+
+
+
+
+            .hero-title {
+                font-size: clamp(2.5rem, 8vw, 3rem);
+                margin-bottom: 16px;
+                white-space: normal;
+                width: 100%;
+                text-align: center;
+                line-height: 1.1;
+                padding: 0 16px;
+                box-sizing: border-box;
+                word-break: break-word;
+                hyphens: auto;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 24px;
+                max-width: none;
+                line-height: 1.5;
+                text-align: center;
+            }
+
+            .hero-stats {
+                gap: var(--space-4);
+                margin: 0 auto;
+                max-width: 100%;
+                width: 100%;
+                grid-template-columns: repeat(3, 1fr);
+                padding: 0 16px;
+            }
+
+
+
+            .champions-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-5);
+            }
+
+            .champion-card {
+                grid-template-columns: 260px 1fr;
+                height: auto;
+                min-height: 280px;
+            }
+            
+            .champion-image {
+                aspect-ratio: 5/4 !important;
+                min-height: unset;
+                max-height: unset;
+                height: auto;
+            }
+            
+            .champion-content {
+                min-height: 220px;
+                padding: var(--space-3);
+            }
+        }
+
+        /* Планшеты в портретной ориентации */
+        @media (max-width: 900px) and (min-width: 769px) {
+            .champion-card {
+                min-height: 280px;
+            }
+            
+            .champion-image {
+                width: 300px; /* Уменьшаем для планшетов */
+                aspect-ratio: 5/4 !important;
+                min-height: unset;
+                max-height: unset;
+                height: auto;
+            }
+            
+            .champion-content {
+                min-height: 240px;
+                padding: var(--space-3);
+            }
+            
+            .champion-name {
+                font-size: var(--text-2xl);
+            }
+            
+            .champion-description {
+                font-size: var(--text-sm);
+                padding: var(--space-3);
+            }
+            
+            .champion-meta {
+                gap: var(--space-2);
+                padding: var(--space-2);
+            }
+            
+            .champion-meta-value {
+                font-size: var(--text-sm);
+            }
+        }
+
+                @media (max-width: 1024px) {
+            .champion-card {
+                flex-direction: column;
+                height: auto;
+                margin: 12px 0;
+                background: rgba(0, 0, 0, 0.9);
+                border: 1px solid rgba(244, 208, 63, 0.15);
+                position: relative;
+                border-radius: 12px;
+                overflow: hidden;
+                min-height: unset;
+            }
+
+            .champion-card > div:first-child {
+                width: 100%;
+                aspect-ratio: 16/9;
+                position: relative;
+                border-bottom: 1px solid rgba(244, 208, 63, 0.15);
+                overflow: hidden;
+                height: auto;
+            }
+
+            .champion-image {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-right: none;
+                transform: scale(1.02);
+                transition: transform 0.4s ease;
+            }
+
+            .champion-card:hover .champion-image {
+                transform: scale(1.05);
+            }
+
+            .champion-content {
+                position: relative;
+                padding: 16px 16px 16px 16px;
+                gap: 12px;
+                display: flex;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.9);
+                min-height: auto;
+                width: 100%;
+                height: auto;
+            }
+
+            .champion-header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                margin-bottom: 0;
+                width: 100%;
+                position: relative;
+                z-index: 2;
+                padding: 0;
+            }
+
+            .champion-name {
+                font-size: 22px;
+                line-height: 32px;
+                height: 32px;
+                margin: 0;
+                padding: 0;
+                text-align: left;
+                color: #fff;
+                position: relative;
+                z-index: 2;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+                font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-weight: 900;
+            }
+
+            .champion-odds-badge {
+                position: relative;
+                font-size: 18px;
+                padding: 0 16px;
+                min-width: 80px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(244, 208, 63, 0.15);
+                border: 1px solid rgba(244, 208, 63, 0.3);
+                z-index: 2;
+                border-radius: 8px;
+                flex-shrink: 0;
+            }
+
+            .champion-card {
+                position: relative;
+            }
+
+            .champion-card {
+                position: relative;
+            }
+
+            .champion-header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 16px;
+                width: 100%;
+                text-align: left;
+                gap: 12px;
+            }
+
+            .champion-name {
+                font-size: 22px;
+                line-height: 32px;
+                height: 32px;
+                margin: 0;
+                padding: 0 12px 0 0;
+                text-align: left;
+                color: #fff;
+                position: relative;
+                z-index: 2;
+                font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-weight: 900;
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+            }
+
+            .champion-odds-badge {
+                position: relative;
+                font-size: 18px;
+                padding: 0 16px;
+                height: 32px;
+                min-width: 90px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.75);
+                border: 1px solid rgba(244, 208, 63, 0.3);
+                backdrop-filter: blur(4px);
+                z-index: 2;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                flex-shrink: 0;
+            }
+
+            .champion-meta {
+                font-size: 14px;
+                padding: 8px 12px;
+                gap: 12px;
+                background: rgba(26, 26, 26, 0.5);
+                border-radius: 8px;
+                margin: 0;
+                line-height: 1.5;
+            }
+
+            .champion-meta span {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.95);
+                padding: 4px 12px;
+            }
+
+            .champion-meta span emoji {
+                font-size: 16px;
+            }
+
+            .champion-description {
+                font-size: 13px;
+                line-height: 1.5;
+                padding: 12px;
+                margin: 0;
+                background: rgba(26, 26, 26, 0.95);
+                color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .meta-sport {
+                display: none !important;
+            }
+
+            @media (min-width: 1025px) {
+                .meta-sport {
+                    display: inline-flex !important;
+                }
+            }
+
+            .champion-meta svg {
+                width: 14px;
+                height: 14px;
+                stroke: rgba(244, 208, 63, 0.8);
+                flex-shrink: 0;
+            }
+
+            .champion-description {
+                font-size: 15px;
+                line-height: 1.5;
+                padding: 12px 0;
+                margin: 12px 0;
+                color: rgba(255, 255, 255, 0.95);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .champion-content {
+                padding: 16px;
+            }
+
+            .champion-header {
+                align-items: center;
+                margin-bottom: 12px;
+                padding: 0;
+            }
+
+            .champion-meta {
+                font-size: 14px;
+                padding: 8px 12px;
+                gap: 12px;
+                background: rgba(26, 26, 26, 0.5);
+                border-radius: 8px;
+                margin: 0;
+                line-height: 1.5;
+                margin-left: 0;
+            }
+
+            .champion-meta span {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.95);
+                padding: 4px 0px;
+            }
+
+            .champion-meta span emoji {
+                font-size: 16px;
+            }
+
+            .champion-description {
+                font-size: 15px;
+                line-height: 1.5;
+                padding: 12px 0;
+                margin: 12px 0;
+                color: rgba(255, 255, 255, 0.95);
+                padding-left: 0;
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            
+            .hero-title {
+                font-size: clamp(1.8rem, 7vw, 2.8rem);
+                width: 100%;
+                padding: 0;
+                line-height: 1;
+                letter-spacing: -0.02em;
+                text-align: center;
+                margin: 0 auto;
+                box-sizing: border-box;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.9rem; /* увеличено для лучшей читаемости */
+                line-height: 1.4;
+                padding: 0;
+                text-align: center;
+                color: rgba(255, 255, 255, 0.9);
+                margin: 0 auto;
+            }
+            
+            .hero-stats {
+                gap: var(--space-4);
+                max-width: 100%;
+                width: 100%;
+                grid-template-columns: repeat(3, 1fr);
+                padding: 0 24px;
+                margin: 32px 0;
+                box-sizing: border-box;
+            }
+            
+            .hero-stat {
+                padding: 0;
+                text-align: center;
+                min-width: 0;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .hero-stat-number {
+                font-size: 2.25rem;
+                font-weight: 700;
+                color: var(--sports-yellow-A700);
+                line-height: 1;
+                margin: 0;
+            }
+            
+            .hero-stat-label {
+                font-size: 0.75rem;
+                color: rgba(255, 255, 255, 0.7);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                line-height: 1.4;
+                max-width: 90px;
+                margin: 0 auto;
+                text-align: center;
+                word-break: break-word;
+                hyphens: auto;
+                line-height: 1.1;
+                padding: 0 2px;
+            }
+
+            .hero-stat-label-nowrap {
+                white-space: nowrap;
+                word-break: keep-all;
+                hyphens: none;
+            }
+
+            .hero-stat-label-wrap {
+                white-space: normal;
+                word-break: break-word;
+                hyphens: auto;
+            }
+            
+            .main-content {
+                padding: var(--space-4) var(--space-3);
+            }
+            
+            .filters-sidebar.expanded {
+                padding: var(--space-4);
+            }
+            
+            .filter-group {
+                margin-bottom: var(--space-4);
+            }
+            
+            .coefficient-option {
+                font-size: var(--text-xs);
+                padding: var(--space-2) var(--space-3);
+            }
+            
+            .champions-grid {
+                padding: 0 var(--space-3);
+            }
+            
+            .champion-image {
+                height: 250px; /* Полный размер для очень маленьких экранов */
+                min-height: 250px;
+                max-height: 250px;
+            }
+            
+            .champion-content {
+                padding: var(--space-3);
+            }
+            
+            .champion-name {
+                font-size: var(--text-lg);
+                line-height: 1.2;
+            }
+            
+            .champion-description {
+                font-size: var(--text-xs);
+                padding: 0;
+                margin-bottom: var(--space-3);
+                line-height: 1.4;
+            }
+            
+            .champion-card {
+                margin: 8px 0;
+            }
+
+            .champion-image {
+                height: 220px;
+                min-height: 220px;
+                max-height: 220px;
+            }
+
+            .champion-content {
+                padding: 12px;
+            }
+            
+            .champion-header {
+                margin-bottom: 8px;
+                gap: 8px;
+            }
+
+            .champion-name {
+                font-size: 20px;
+                line-height: 28px;
+                height: 28px;
+                margin: 0;
+                padding: 0 8px 0 0;
+                flex: 1;
+                min-width: 0;
+                display: flex;
+                align-items: center;
+                font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-weight: 900;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .champion-odds-badge {
+                font-size: 16px;
+                padding: 0 12px;
+                min-width: 75px;
+                height: 28px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            
+            .champion-meta {
+                padding: 8px;
+                gap: 6px;
+                margin-left: 0;
+            }
+
+            .champion-meta span {
+                font-size: 12px;
+                padding: 3px 0px;
+                gap: 4px;
+            }
+
+            .champion-meta svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            .champion-description {
+                font-size: 13px;
+                line-height: 1.4;
+                padding: 10px 0;
+                margin-left: 0;
+            }
+
+            .champion-content {
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .champion-header {
+                min-height: 44px;
+                margin-bottom: 4px;
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированный фон с кубиками -->
+    <div id="animated-cubes-bg"></div>
+
+    <div class="app-container">
+
+
+        <!-- Modern Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-new-layout">
+                    <!-- Маленький кружок с процентом (слева вверху) -->
+                    <div class="hero-small-circle">
+                        <p class="hero-small-circle-text">%</p>
+                    </div>
+                    
+                    <!-- Заголовок с двумя строками -->
+                    <div class="hero-new-title">
+                        <p class="hero-new-title-line1">ШАНСЫ</p>
+                        <p class="hero-new-title-line2">НА ТИТУЛ</p>
+                    </div>
+                    
+                    <!-- Овальный бейдж с 2.20 (справа снизу) -->
+                    <div class="hero-oval-circle">
+                        <p class="hero-oval-circle-text">2.20</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ASTUDIO Filters Bar -->
+        <aside class="filters-sidebar" id="filtersSidebar">
+            <div class="filter-group">
+                <div class="coefficient-toggle" id="coefficientToggle">
+                    <div class="coefficient-option active" data-mode="odds">Коэффициент</div>
+                    <div class="coefficient-option" data-mode="probability">Вероятность</div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="custom-select" id="sportFilter">
+                    <div class="custom-select-trigger">
+                        <span class="custom-select-text">Все виды спорта</span>
+                        <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="custom-select-options">
+                        <div class="custom-select-option" data-value="">
+                            <input type="checkbox" id="sport-all" checked>
+                            <label for="sport-all">Все виды спорта</label>
+                        </div>
+                        <div class="custom-select-option" data-value="football">
+                            <input type="checkbox" id="sport-football">
+                            <label for="sport-football">Футбол</label>
+                        </div>
+                        <div class="custom-select-option" data-value="tennis">
+                            <input type="checkbox" id="sport-tennis">
+                            <label for="sport-tennis">Теннис</label>
+                        </div>
+                        <div class="custom-select-option" data-value="hockey">
+                            <input type="checkbox" id="sport-hockey">
+                            <label for="sport-hockey">Хоккей</label>
+                        </div>
+                        <div class="custom-select-option" data-value="basketball">
+                            <input type="checkbox" id="sport-basketball">
+                            <label for="sport-basketball">Баскетбол</label>
+                        </div>
+                        <div class="custom-select-option" data-value="motorsport">
+                            <input type="checkbox" id="sport-motorsport">
+                            <label for="sport-motorsport">Автоспорт</label>
+                        </div>
+                        <div class="custom-select-option" data-value="esports">
+                            <input type="checkbox" id="sport-esports">
+                            <label for="sport-esports">Киберспорт</label>
+                        </div>
+                        <div class="custom-select-option" data-value="chess">
+                            <input type="checkbox" id="sport-chess">
+                            <label for="sport-chess">Шахматы</label>
+                        </div>
+                        <div class="custom-select-option" data-value="darts">
+                            <input type="checkbox" id="sport-darts">
+                            <label for="sport-darts">Дартс</label>
+                        </div>
+                        <div class="custom-select-option" data-value="baseball">
+                            <input type="checkbox" id="sport-baseball">
+                            <label for="sport-baseball">Бейсбол</label>
+                        </div>
+                        <div class="custom-select-option" data-value="amfut">
+                            <input type="checkbox" id="sport-amfut">
+                            <label for="sport-amfut">Амфут</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="custom-select" id="tournamentFilter">
+                    <div class="custom-select-trigger">
+                        <span class="custom-select-text">Все турниры</span>
+                        <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="custom-select-options">
+                        <div class="custom-select-option" data-value="">
+                            <input type="checkbox" id="tournament-all" checked>
+                            <label for="tournament-all">Все турниры</label>
+                        </div>
+                        <div class="custom-select-option" data-value="football_wc">
+                            <input type="checkbox" id="tournament-football_wc">
+                            <label for="tournament-football_wc">ЧМ по футболу</label>
+                        </div>
+                        <div class="custom-select-option" data-value="euro">
+                            <input type="checkbox" id="tournament-euro">
+                            <label for="tournament-euro">Евро</label>
+                        </div>
+                        <div class="custom-select-option" data-value="ucl">
+                            <input type="checkbox" id="tournament-ucl">
+                            <label for="tournament-ucl">Лига чемпионов</label>
+                        </div>
+                        <div class="custom-select-option" data-value="rpl">
+                            <input type="checkbox" id="tournament-rpl">
+                            <label for="tournament-rpl">РПЛ</label>
+                        </div>
+                        <div class="custom-select-option" data-value="epl">
+                            <input type="checkbox" id="tournament-epl">
+                            <label for="tournament-epl">АПЛ</label>
+                        </div>
+                        <div class="custom-select-option" data-value="laliga">
+                            <input type="checkbox" id="tournament-laliga">
+                            <label for="tournament-laliga">Ла Лига</label>
+                        </div>
+                        <div class="custom-select-option" data-value="bundesliga">
+                            <input type="checkbox" id="tournament-bundesliga">
+                            <label for="tournament-bundesliga">Бундеслига</label>
+                        </div>
+                        <div class="custom-select-option" data-value="seria_a">
+                            <input type="checkbox" id="tournament-seria_a">
+                            <label for="tournament-seria_a">Серия А</label>
+                        </div>
+                        <div class="custom-select-option" data-value="ligue_1">
+                            <input type="checkbox" id="tournament-ligue_1">
+                            <label for="tournament-ligue_1">Лига 1</label>
+                        </div>
+                        <div class="custom-select-option" data-value="formula1">
+                            <input type="checkbox" id="tournament-formula1">
+                            <label for="tournament-formula1">Формула-1</label>
+                        </div>
+                        <div class="custom-select-option" data-value="olympics">
+                            <input type="checkbox" id="tournament-olympics">
+                            <label for="tournament-olympics">Олимпиада</label>
+                        </div>
+                        <div class="custom-select-option" data-value="stanley_cup">
+                            <input type="checkbox" id="tournament-stanley_cup">
+                            <label for="tournament-stanley_cup">Кубок Стэнли</label>
+                        </div>
+                        <div class="custom-select-option" data-value="gagarin_cup">
+                            <input type="checkbox" id="tournament-gagarin_cup">
+                            <label for="tournament-gagarin_cup">Кубок Гагарина</label>
+                        </div>
+                        <div class="custom-select-option" data-value="nba">
+                            <input type="checkbox" id="tournament-nba">
+                            <label for="tournament-nba">НБА</label>
+                        </div>
+                        <div class="custom-select-option" data-value="euroleague">
+                            <input type="checkbox" id="tournament-euroleague">
+                            <label for="tournament-euroleague">Евролига</label>
+                        </div>
+                        <div class="custom-select-option" data-value="roland_garros">
+                            <input type="checkbox" id="tournament-roland_garros">
+                            <label for="tournament-roland_garros">Ролан Гаррос</label>
+                        </div>
+                        <div class="custom-select-option" data-value="wimbledon">
+                            <input type="checkbox" id="tournament-wimbledon">
+                            <label for="tournament-wimbledon">Уимблдон</label>
+                        </div>
+                        <div class="custom-select-option" data-value="australian_open">
+                            <input type="checkbox" id="tournament-australian_open">
+                            <label for="tournament-australian_open">Australian Open</label>
+                        </div>
+                        <div class="custom-select-option" data-value="us_open">
+                            <input type="checkbox" id="tournament-us_open">
+                            <label for="tournament-us_open">US Open</label>
+                        </div>
+                        <div class="custom-select-option" data-value="wta_finals">
+                            <input type="checkbox" id="tournament-wta_finals">
+                            <label for="tournament-wta_finals">Итоговый WTA</label>
+                        </div>
+                        <div class="custom-select-option" data-value="atp_finals">
+                            <input type="checkbox" id="tournament-atp_finals">
+                            <label for="tournament-atp_finals">Итоговый ATP</label>
+                        </div>
+                        <div class="custom-select-option" data-value="chess_wc">
+                            <input type="checkbox" id="tournament-chess_wc">
+                            <label for="tournament-chess_wc">ЧМ по шахматам</label>
+                        </div>
+                        <div class="custom-select-option" data-value="the_international">
+                            <input type="checkbox" id="tournament-the_international">
+                            <label for="tournament-the_international">The International</label>
+                        </div>
+                        <div class="custom-select-option" data-value="uefa_cup">
+                            <input type="checkbox" id="tournament-uefa_cup">
+                            <label for="tournament-uefa_cup">Кубок УЕФА</label>
+                        </div>
+                        <div class="custom-select-option" data-value="europa_league">
+                            <input type="checkbox" id="tournament-europa_league">
+                            <label for="tournament-europa_league">Лига Европы</label>
+                        </div>
+                        <div class="custom-select-option" data-value="conference_league">
+                            <input type="checkbox" id="tournament-conference_league">
+                            <label for="tournament-conference_league">Лига конференций</label>
+                        </div>
+                        <div class="custom-select-option" data-value="basketball_wc">
+                            <input type="checkbox" id="tournament-basketball_wc">
+                            <label for="tournament-basketball_wc">ЧМ по баскетболу</label>
+                        </div>
+                        <div class="custom-select-option" data-value="eurobasket">
+                            <input type="checkbox" id="tournament-eurobasket">
+                            <label for="tournament-eurobasket">Евробаскет</label>
+                        </div>
+                        <div class="custom-select-option" data-value="vtb_league">
+                            <input type="checkbox" id="tournament-vtb_league">
+                            <label for="tournament-vtb_league">Единая Лига ВТБ</label>
+                        </div>
+                        <div class="custom-select-option" data-value="copa_america">
+                            <input type="checkbox" id="tournament-copa_america">
+                            <label for="tournament-copa_america">Копа Америка</label>
+                        </div>
+                        <div class="custom-select-option" data-value="nfl">
+                            <input type="checkbox" id="tournament-nfl">
+                            <label for="tournament-nfl">НФЛ</label>
+                        </div>
+                        <div class="custom-select-option" data-value="mlb">
+                            <input type="checkbox" id="tournament-mlb">
+                            <label for="tournament-mlb">МЛБ</label>
+                        </div>
+                        <div class="custom-select-option" data-value="nba_cup">
+                            <input type="checkbox" id="tournament-nba_cup">
+                            <label for="tournament-nba_cup">Кубок НБА</label>
+                        </div>
+                        <div class="custom-select-option" data-value="darts_wc">
+                            <input type="checkbox" id="tournament-darts_wc">
+                            <label for="tournament-darts_wc">ЧМ по дартсу</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="sort-button" data-sort="date">
+                    <span>По дате</span>
+                    <div class="sort-arrows">
+                        <span class="sort-arrow up" data-direction="asc">↑</span>
+                        <span class="sort-arrow down active" data-direction="desc">↓</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="sort-button" data-sort="odds">
+                    <span>По кэфу</span>
+                    <div class="sort-arrows">
+                        <span class="sort-arrow up" data-direction="asc">↑</span>
+                        <span class="sort-arrow down" data-direction="desc">↓</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <div class="search-container">
+                    <input type="text" class="search-input" id="championSearch" placeholder="Поиск">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ASTUDIO Main Content -->
+        <main class="main-content">
+            <div class="mobile-controls" id="mobileControls">
+                <button class="mobile-button" id="filtersToggleBtn">
+                    <span class="mobile-button-text">Фильтры</span>
+                    <svg class="mobile-button-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <style>
+                @media (max-width: 1024px) {
+                    #scrollToTop {
+                        display: none !important;
+                    }
+                }
+                @media (min-width: 1025px) {
+                    .desktop-only {
+                        display: block;
+                    }
+                }
+            </style>
+
+            <div class="filters-overlay" id="filtersOverlay"></div>
+
+
+            <!-- ASTUDIO Content Area -->
+            <section class="content-area">
+
+
+                <!-- Сетка карточек чемпионов -->
+                <div class="champions-grid" id="championsGrid">
+                    <!-- Карточки будут генерироваться JavaScript -->
+                </div>
+
+                <!-- Пустое состояние -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-state-icon">🏆</div>
+                    <div class="empty-state-title">Ничего не найдено</div>
+                    <div class="empty-state-text">Попробуйте изменить параметры фильтрации</div>
+                </div>
+            </section>
+
+            <!-- Блок "О проекте" -->
+            <section class="about-section">
+                <div class="about-container">
+                    <h2 class="about-title">О проекте</h2>
+                    <div class="about-content">
+                        <p>«Шансы на титул» – спецпроект Ставок на Спортсе. В нем мы собрали и продолжаем собирать архивные данные обо всех известных чемпионах в самых популярных ставочных видах спорта.</p>
+                        
+                        <p>Коэффициенты/математическая вероятность – это оценка, во сколько оценивался потенциальный триумф этого спортсмена, команды или сборной до начала турнира. В отдельных случаях, как с Кубком УЕФА и Лигой Европы, для вылетевших участников плей-офф ЛЧ указывались коэффициент до старта 1/16. Кэфы даны на основе открытых источников и порталов, а также благодаря сервисам Oddsportal и компании Digitain.</p>
+                        
+                        <p>Всего были взяты победители в 10 видах спорта: футбол, теннис, баскетбол, хоккей, автоспорт, шахматы, дартс, американский футбол, бейсбол и киберспорт. И в 35 турнирах, начиная от Лиги чемпионов, Евробаскета и The International и заканчивая ЧМ по шахматам и дартсу.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="./data/config.js"></script>
+    <script src="./data/all-champions.js"></script>
+    <script>
+        // Установка темной темы навсегда
+        function initializeDarkTheme() {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        // Данные будут загружены из внешнего файла
+
+        // Глобальные переменные
+        let currentDisplayMode = 'odds'; // odds или probability
+        let filteredChampions = [];
+        let searchTimeout = null;
+
+        // Инициализация приложения
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализируем filteredChampions после загрузки данных и сортируем по дате (от последнего к раннему)
+            filteredChampions = [...allChampionsData].sort((a, b) => {
+                const dateA = new Date(a.date.split('.').reverse().join('-'));
+                const dateB = new Date(b.date.split('.').reverse().join('-'));
+                return dateB - dateA; // От последнего к раннему
+            });
+            
+            // Временная проверка количества карточек
+            console.log('=== ПРОВЕРКА КАРТОЧЕК ===');
+            console.log('Общее количество карточек:', allChampionsData.length);
+            console.log('Карточки по дартсу:', allChampionsData.filter(c => c.sport === 'darts').length);
+            console.log('Карточки по автоспорту:', allChampionsData.filter(c => c.sport === 'motorsport').length);
+            console.log('Все виды спорта:', [...new Set(allChampionsData.map(c => c.sport))]);
+            
+            updateHeroStats();
+            initializeApp();
+            initializeScrollToTop();
+            
+            // Инициализируем ленивую загрузку изображений
+            setTimeout(() => {
+                initializeLazyLoading();
+            }, 500);
+        });
+
+        // Функция подсчета статистики
+        function getChampionsStats() {
+            // Получаем только те карточки, которые сейчас отображаются
+            const displayedChampions = filteredChampions;
+            
+            // Собираем уникальные виды спорта и турниры только из отображаемых карточек
+            const sports = new Set(displayedChampions.map(c => c.sport));
+            const tournaments = new Set(displayedChampions.map(c => c.tournament));
+            
+            return {
+                total: displayedChampions.length,
+                sports: sports.size,
+                tournaments: tournaments.size
+            };
+        }
+
+        // Функция склонения числительных
+        function pluralize(count, forms) {
+            // forms: [1, 2-4, 5+] например: ['вид спорта', 'вида спорта', 'видов спорта']
+            const n = Math.abs(count) % 100;
+            const n1 = n % 10;
+            
+            if (n > 10 && n < 20) {
+                return forms[2];
+            }
+            if (n1 > 1 && n1 < 5) {
+                return forms[1];
+            }
+            if (n1 === 1) {
+                return forms[0];
+            }
+            return forms[2];
+        }
+
+        // Обновление статистики в шапке
+        function updateHeroStats() {
+            const stats = getChampionsStats();
+            
+            // Обновляем количество чемпионов - только текущие данные
+            const championsCountElement = document.getElementById('championsCount');
+            const championsLabelElement = document.querySelector('.hero-stat:nth-child(3) .hero-stat-label');
+            if (championsCountElement) {
+                championsCountElement.textContent = stats.total;
+            }
+            if (championsLabelElement) {
+                championsLabelElement.textContent = pluralize(stats.total, ['Победитель', 'Победителя', 'Победителей']);
+                // Убеждаемся, что у "победителей" есть класс без переноса
+                if (!championsLabelElement.classList.contains('hero-stat-label-nowrap')) {
+                    championsLabelElement.classList.add('hero-stat-label-nowrap');
+                }
+            }
+            
+            // Обновляем количество видов спорта - только текущие данные
+            const sportsCountElement = document.getElementById('sportsCount');
+            const sportsLabelElement = document.querySelector('.hero-stat:nth-child(1) .hero-stat-label');
+            if (sportsCountElement) {
+                sportsCountElement.textContent = stats.sports;
+            }
+            if (sportsLabelElement) {
+                sportsLabelElement.textContent = pluralize(stats.sports, ['Вид спорта', 'Вида спорта', 'Видов спорта']);
+                // Убеждаемся, что у "видов спорта" есть класс для переноса
+                if (!sportsLabelElement.classList.contains('hero-stat-label-wrap')) {
+                    sportsLabelElement.classList.add('hero-stat-label-wrap');
+                }
+            }
+            
+            // Обновляем количество турниров - только текущие данные
+            const tournamentsCountElement = document.getElementById('tournamentsCount');
+            const tournamentsLabelElement = document.querySelector('.hero-stat:nth-child(2) .hero-stat-label');
+            if (tournamentsCountElement) {
+                tournamentsCountElement.textContent = stats.tournaments;
+            }
+            if (tournamentsLabelElement) {
+                tournamentsLabelElement.textContent = pluralize(stats.tournaments, ['Турнир', 'Турнира', 'Турниров']);
+                // Убеждаемся, что у "турниров" есть класс без переноса
+                if (!tournamentsLabelElement.classList.contains('hero-stat-label-nowrap')) {
+                    tournamentsLabelElement.classList.add('hero-stat-label-nowrap');
+                }
+            }
+        }
+
+        function initializeScrollToTop() {
+            const mobileControls = document.getElementById('mobileControls');
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            const heroHeader = document.querySelector('.hero-banner');
+            
+            // Всегда показываем кнопку фильтров на мобильных устройствах
+            if (window.innerWidth <= 1024) {
+                mobileControls.style.display = 'flex';
+                filtersToggleBtn.innerHTML = '<span class="mobile-button-text">Фильтры</span><svg class="mobile-button-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            }
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        function initializeApp() {
+            initializeDarkTheme();
+            initializeEventListeners();
+            initializeSortControls();
+            initializeCustomSelects();
+            initializeScrollHiding();
+            renderChampions();
+            updateResultsCount();
+            
+            // Логирование для отладки
+            console.log('Приложение инициализировано');
+            console.log('Всего чемпионов:', allChampionsData.length);
+            console.log('Отфильтрованных чемпионов:', filteredChampions.length);
+        }
+
+        function initializeSortControls() {
+            document.querySelectorAll('.sort-button').forEach(button => {
+                const arrows = button.querySelectorAll('.sort-arrow');
+                arrows.forEach(arrow => {
+                    arrow.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        // Убираем активный класс со всех стрелок
+                        document.querySelectorAll('.sort-arrow').forEach(a => a.classList.remove('active'));
+                        // Добавляем активный класс текущей стрелке
+                        arrow.classList.add('active');
+                        
+                        const sortType = button.dataset.sort;
+                        const direction = arrow.dataset.direction;
+                        
+                        sortChampions(sortType, direction);
+                    });
+                });
+            });
+        }
+
+        function sortChampions(sortType, direction) {
+            const grid = document.getElementById('championsGrid');
+            const cards = Array.from(grid.children);
+            
+            cards.sort((a, b) => {
+                let valueA, valueB;
+                
+                if (sortType === 'date') {
+                    valueA = new Date(a.querySelector('[data-date]').dataset.date.split('.').reverse().join('-'));
+                    valueB = new Date(b.querySelector('[data-date]').dataset.date.split('.').reverse().join('-'));
+                } else if (sortType === 'odds') {
+                    valueA = parseFloat(a.querySelector('[data-odds]').dataset.odds);
+                    valueB = parseFloat(b.querySelector('[data-odds]').dataset.odds);
+                }
+                
+                return direction === 'asc' ? valueA - valueB : valueB - valueA;
+            });
+            
+            // Очищаем и заново наполняем грид
+            grid.innerHTML = '';
+            cards.forEach(card => grid.appendChild(card));
+        }
+
+        function initializeEventListeners() {
+            // Переключатель фильтров для мобильных
+            const filtersToggleBtn = document.getElementById('filtersToggleBtn');
+            const filtersSidebar = document.getElementById('filtersSidebar');
+
+            if (filtersToggleBtn && filtersSidebar) {
+                
+                function initMobileFilters() {
+                    if (window.innerWidth <= 1024) {
+                        // Изменяем текст кнопки
+                        filtersToggleBtn.innerHTML = '<span class="mobile-button-text">Фильтры</span><svg class="mobile-button-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                        
+                        // Удаляем кнопку "Наверх"
+                        const scrollTopBtn = document.getElementById('scrollToTop');
+                        if (scrollTopBtn) {
+                            scrollTopBtn.style.display = 'none';
+                        }
+
+                        // Добавляем мобильный заголовок и кнопки
+                        const header = document.createElement('div');
+                        header.className = 'mobile-filter-header';
+                        header.innerHTML = `
+                            <div class="mobile-filter-title">Фильтры</div>
+                            <button class="mobile-filter-close" id="filterCloseBtn">✕</button>
+                        `;
+                        filtersSidebar.insertBefore(header, filtersSidebar.firstChild);
+
+                        // Добавляем кнопку "Применить"
+                        const applyBtn = document.createElement('button');
+                        applyBtn.className = 'mobile-filter-apply';
+                        applyBtn.textContent = 'Применить';
+                        filtersSidebar.appendChild(applyBtn);
+
+                        // Обработчики для мобильной версии
+                        document.getElementById('filterCloseBtn').addEventListener('click', hideFilters);
+                        applyBtn.addEventListener('click', applyAndCloseFilters);
+                    }
+                }
+
+                function showFilters() {
+                    filtersSidebar.classList.add('expanded');
+                    document.getElementById('filtersOverlay').classList.add('expanded');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function hideFilters() {
+                    filtersSidebar.classList.remove('expanded');
+                    document.getElementById('filtersOverlay').classList.remove('expanded');
+                    document.body.style.overflow = '';
+                }
+
+                function applyAndCloseFilters() {
+                    // Здесь можно добавить дополнительную логику применения фильтров
+                    hideFilters();
+                }
+
+                // Инициализация мобильных фильтров
+                initMobileFilters();
+
+                // Обработчики событий
+                document.getElementById('filtersOverlay').addEventListener('click', hideFilters);
+                filtersToggleBtn.addEventListener('click', showFilters);
+
+                // Закрытие фильтров при клике вне их области (только на мобильных)
+                document.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 1024) {
+                        if (!filtersSidebar.contains(e.target) && !filtersToggleBtn.contains(e.target)) {
+                            if (filtersSidebar.classList.contains('expanded')) {
+                                filtersSidebar.classList.remove('expanded');
+                                filtersToggleBtn.innerHTML = '<span class="mobile-button-text">Фильтры</span><svg class="mobile-button-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                            }
+                        }
+                    }
+                });
+
+                // Инициализация состояния при загрузке и изменении размера
+                function initializeFiltersState() {
+                    if (window.innerWidth <= 1024) {
+                        filtersSidebar.classList.remove('expanded');
+                        filtersToggleBtn.innerHTML = '<span class="mobile-button-text">Фильтры</span><svg class="mobile-button-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                    }
+                }
+
+                // Инициализация
+                initializeFiltersState();
+
+                // Переинициализация при изменении размера окна
+                window.addEventListener('resize', function() {
+                    initializeFiltersState();
+                });
+            }
+
+            // Переключатель коэффициент/вероятность
+            document.querySelectorAll('.coefficient-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.coefficient-option').forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    currentDisplayMode = this.getAttribute('data-mode');
+                    updateDisplayMode();
+                });
+            });
+
+
+
+            // Фильтры - автоматическое применение при изменении поиска
+            const searchElement = document.getElementById('championSearch');
+            if (searchElement) {
+                searchElement.addEventListener('input', applyFilters);
+                searchElement.addEventListener('change', applyFilters);
+            }
+        }
+
+        // Инициализация кастомных селектов
+        function initializeCustomSelects() {
+            const customSelects = document.querySelectorAll('.custom-select');
+            
+            customSelects.forEach(select => {
+                const trigger = select.querySelector('.custom-select-trigger');
+                const options = select.querySelector('.custom-select-options');
+                const checkboxes = select.querySelectorAll('input[type="checkbox"]');
+                const textElement = select.querySelector('.custom-select-text');
+                
+                // Добавляем обработчик для клика по опции
+                select.querySelectorAll('.custom-select-option').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        // Если клик был по чекбоксу или лейблу, не обрабатываем
+                        if (e.target.type === 'checkbox' || e.target.tagName === 'LABEL') return;
+                        
+                        const checkbox = option.querySelector('input[type="checkbox"]');
+                        checkbox.checked = !checkbox.checked;
+                        
+                        // Вызываем событие change на чекбоксе
+                        checkbox.dispatchEvent(new Event('change'));
+                    });
+                });
+                
+                // Открытие/закрытие селекта
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Закрываем все другие селекты
+                    customSelects.forEach(otherSelect => {
+                        if (otherSelect !== select) {
+                            otherSelect.classList.remove('open');
+                        }
+                    });
+                    select.classList.toggle('open');
+                });
+                
+                // Обработка чекбоксов
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        const isAll = checkbox.id.includes('-all');
+                        const selectId = select.id;
+                        
+                        if (isAll) {
+                            // Если выбран "Все", снимаем остальные
+                            if (checkbox.checked) {
+                                checkboxes.forEach(cb => {
+                                    if (!cb.id.includes('-all') && 
+                                        cb.closest('.custom-select-option').style.display !== 'none') {
+                                        cb.checked = false;
+                                    }
+                                });
+                            }
+                        } else {
+                            // Если выбран конкретный элемент, снимаем "Все"
+                            const allCheckbox = select.querySelector('input[id*="-all"]');
+                            if (checkbox.checked && allCheckbox) {
+                                allCheckbox.checked = false;
+                            }
+                            
+                            // Проверяем только видимые чекбоксы
+                            const visibleCheckboxes = Array.from(checkboxes)
+                                .filter(cb => !cb.id.includes('-all') && 
+                                    cb.closest('.custom-select-option').style.display !== 'none');
+                            const allUnchecked = visibleCheckboxes.every(cb => !cb.checked);
+                            
+                            // Если все видимые элементы сняты, ставим "Все"
+                            if (allUnchecked && allCheckbox) {
+                                allCheckbox.checked = true;
+                            }
+                            
+                            // Если это фильтр спорта, обновляем доступные турниры
+                            if (selectId === 'sportFilter') {
+                                const selectedSports = getSelectedValues('sportFilter');
+                                updateAvailableTournaments(selectedSports);
+                            }
+                            const specificCheckboxes = Array.from(checkboxes).filter(cb => !cb.id.includes('-all'));
+                            const hasChecked = specificCheckboxes.some(cb => cb.checked);
+                            if (!hasChecked && allCheckbox) {
+                                allCheckbox.checked = true;
+                            }
+                        }
+                        
+                        updateSelectText(select);
+                        applyFilters();
+                    });
+                });
+                
+                // Закрытие при клике вне селекта
+                document.addEventListener('click', (e) => {
+                    if (!select.contains(e.target)) {
+                        select.classList.remove('open');
+                    }
+                });
+            });
+        }
+        
+        // Обновление текста в селекте
+        function updateSelectText(select) {
+            const textElement = select.querySelector('.custom-select-text');
+            const checkboxes = select.querySelectorAll('input[type="checkbox"]:not([id*="-all"])');
+            const allCheckbox = select.querySelector('input[id*="-all"]');
+            
+            if (allCheckbox && allCheckbox.checked) {
+                textElement.textContent = select.id === 'sportFilter' ? 'Все виды спорта' : 'Все турниры';
+                return;
+            }
+            
+            const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+            
+            if (checkedBoxes.length === 0) {
+                textElement.textContent = select.id === 'sportFilter' ? 'Все виды спорта' : 'Все турниры';
+                if (allCheckbox) allCheckbox.checked = true;
+            } else if (checkedBoxes.length === 1) {
+                const label = checkedBoxes[0].nextElementSibling.textContent;
+                textElement.textContent = label;
+            } else {
+                textElement.textContent = `Выбрано: ${checkedBoxes.length}`;
+            }
+        }
+        
+        // Получение выбранных значений
+        function getSelectedValues(selectId) {
+            const select = document.getElementById(selectId);
+            const allCheckbox = select.querySelector('input[id*="-all"]');
+            
+            if (allCheckbox && allCheckbox.checked) {
+                return [];
+            }
+            
+            const checkboxes = select.querySelectorAll('input[type="checkbox"]:not([id*="-all"])');
+            return Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.closest('.custom-select-option').dataset.value);
+        }
+        
+        // Инициализация скрытия открытых выпадающих списков при прокрутке
+        function initializeScrollHiding() {
+            let scrollTimeout;
+            
+            window.addEventListener('scroll', () => {
+                // Закрываем все открытые селекты при прокрутке
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    document.querySelectorAll('.custom-select.open').forEach(select => {
+                        select.classList.remove('open');
+                    });
+                }, 100);
+            });
+        }
+
+        // Убрана функция показа фоновых изображений для единого стиля
+
+        // Проверка поддержки WebP
+        function supportsWebP() {
+            const canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 1;
+            return canvas.toDataURL('image/webp').indexOf('webp') !== -1;
+        }
+
+
+        function updateDisplayMode() {
+            // Обновляем только отображаемые значения без изменения порядка карточек
+            const grid = document.getElementById('championsGrid');
+            const cards = grid.querySelectorAll('.champion-card');
+            
+            cards.forEach(card => {
+                const oddsElement = card.querySelector('.champion-odds-badge');
+                if (oddsElement) {
+                    const odds = parseFloat(oddsElement.getAttribute('data-odds'));
+                    if (odds) {
+                        const probability = formatProbability(odds);
+                        const displayValue = currentDisplayMode === 'odds' ? odds.toFixed(2) : `${probability}%`;
+                        oddsElement.textContent = displayValue;
+                    }
+                }
+            });
+        }
+
+        function renderChampions() {
+            const grid = document.getElementById('championsGrid');
+            const emptyState = document.getElementById('emptyState');
+            const mobileControls = document.getElementById('mobileControls');
+
+            console.log('Рендеринг чемпионов, количество:', filteredChampions.length);
+
+            if (filteredChampions.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'flex';
+                // Убедимся, что кнопка фильтров видна на мобильных
+                if (window.innerWidth <= 1024) {
+                    mobileControls.style.display = 'flex';
+                }
+                return;
+            }
+
+            grid.style.display = 'flex';
+            emptyState.style.display = 'none';
+
+            grid.innerHTML = filteredChampions.map(champion => createChampionCard(champion)).join('');
+            
+            
+            console.log('Карточки отрендерены, HTML добавлен в DOM');
+        }
+
+        // Функция умного форматирования процентов
+        function formatProbability(odds) {
+            const probabilityNum = (1 / odds) * 100;
+            let probability;
+            
+            if (probabilityNum % 1 === 0) {
+                // Целое число (например, 5% вместо 5,0%)
+                probability = probabilityNum.toString();
+            } else if ((probabilityNum * 10) % 1 === 0) {
+                // Одна десятая (например, 11,1% вместо 11,10%)
+                probability = probabilityNum.toFixed(1);
+            } else {
+                // Две десятых или больше (например, 22,72% как есть)
+                probability = probabilityNum.toFixed(2);
+            }
+            
+            return probability.replace('.', ',');
+        }
+
+        function createChampionCard(champion) {
+            const sportLabels = CONFIG.sports;
+            const tournamentLabels = CONFIG.tournaments;
+
+            const probability = formatProbability(champion.odds);
+            const displayValue = currentDisplayMode === 'odds' ? champion.odds.toFixed(2) : `${probability}%`;
+            const displayLabel = currentDisplayMode === 'odds' ? 'Коэффициент' : 'Вероятность';
+            const valueClass = currentDisplayMode === 'odds' ? 'odds-value' : 'probability-value';
+
+            // Получаем иконку вида спорта
+            const sportIcon = sportLabels[champion.sport]?.icon || '🏆';
+
+            const cardId = `card-${champion.id}`;
+            const shortDescription = champion.description.split('.').slice(0, 2).join('.') + '.';
+            const hasMoreText = champion.description.length > shortDescription.length;
+
+            return `
+                <div class="champion-card">
+                    <div>
+                    <img src="${champion.image}" alt="${champion.name}" class="champion-image" data-sport="${champion.sport}" onerror="handleImageError(this, '${champion.sport}')" style="background: linear-gradient(135deg, rgba(244, 208, 63, 0.1) 0%, rgba(244, 208, 63, 0.05) 100%); background-size: cover; transition: filter 0.3s ease;">
+                    <div class="image-placeholder" style="display:none; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(244, 208, 63, 0.1) 0%, rgba(244, 208, 63, 0.05) 100%); align-items: center; justify-content: center; font-size: 48px; color: rgba(244, 208, 63, 0.6); position: absolute; top: 0; left: 0;"></div>
+                    </div>
+                    <div class="champion-content">
+                            <div class="champion-header">
+                                <h2 class="champion-name">${champion.name}</h2>
+                                <div class="champion-odds-badge" data-odds="${champion.odds}">${displayValue}</div>
+                            </div>
+                            
+                            <div class="champion-meta">
+                                <span data-date="${champion.date}" class="meta-date"><img src="https://dumpster.cdn.sports.ru/a/d8/5189b048c7d2db2d1ab863ed80079.png" alt="calendar" style="width: 18px; height: 18px; margin-right: 8px; vertical-align: middle;"> ${formatDate(champion.date)}</span>
+                                <span class="meta-tournament">${sportIcon} ${tournamentLabels[champion.tournament]?.name || champion.tournament}</span>
+                            </div>
+
+                                                    <div class="champion-description">
+                            ${champion.description.split('\n').join('<br>')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Функция getSportIcon больше не используется, так как мы заменили иконки на точки
+
+        function formatDate(dateString) {
+            const months = [
+                'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+            ];
+            
+            const [day, month, year] = dateString.split('.');
+            const monthIndex = parseInt(month) - 1;
+            return `${parseInt(day)} ${months[monthIndex]} ${year}`;
+        }
+
+        function handleImageError(img, sport) {
+            console.log('Ошибка загрузки изображения:', img.src);
+            
+            // Скрываем изображение и показываем заглушку
+            img.style.display = 'none';
+            const placeholder = img.nextElementSibling;
+            if (placeholder) {
+                placeholder.style.display = 'flex';
+                
+                // Добавляем иконку в зависимости от вида спорта
+                const sportIcons = {
+                    'esports': '🎮',
+                    'football': '⚽',
+                    'basketball': '🏀',
+                    'tennis': '🎾',
+                    'hockey': '🏒',
+                    'boxing': '🥊',
+                    'mma': '🥊',
+                    'racing': '🏎️'
+                };
+                
+                const icon = sportIcons[sport] || '🏆';
+                placeholder.innerHTML = icon;
+            }
+        }
+
+        // Объект с маппингом видов спорта и их турниров
+        const sportTournamentMap = {};
+        
+        // Заполняем маппинг на основе данных
+        allChampionsData.forEach(champion => {
+            if (!sportTournamentMap[champion.sport]) {
+                sportTournamentMap[champion.sport] = new Set();
+            }
+            sportTournamentMap[champion.sport].add(champion.tournament);
+        });
+
+        // Функция для обновления доступных турниров
+        function updateAvailableTournaments(selectedSports) {
+            const tournamentFilter = document.getElementById('tournamentFilter');
+            const tournamentOptions = tournamentFilter.querySelectorAll('.custom-select-option:not([data-value=""])');
+            const allTournamentsCheckbox = tournamentFilter.querySelector('#tournament-all');
+            
+            // Если не выбран ни один вид спорта, показываем все турниры
+            if (selectedSports.length === 0) {
+                tournamentOptions.forEach(option => {
+                    option.style.display = '';
+                });
+                allTournamentsCheckbox.checked = true;
+                return;
+            }
+            
+            // Собираем все доступные турниры для выбранных видов спорта
+            const availableTournaments = new Set();
+            selectedSports.forEach(sport => {
+                if (sportTournamentMap[sport]) {
+                    sportTournamentMap[sport].forEach(tournament => {
+                        availableTournaments.add(tournament);
+                    });
+                }
+            });
+            
+            // Обновляем видимость и состояние чекбоксов турниров
+            tournamentOptions.forEach(option => {
+                const tournamentValue = option.dataset.value;
+                const checkbox = option.querySelector('input[type="checkbox"]');
+                
+                if (availableTournaments.has(tournamentValue)) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                    checkbox.checked = false;
+                }
+            });
+            
+            // Проверяем, нужно ли обновить состояние "Все турниры"
+            const visibleCheckboxes = Array.from(tournamentOptions)
+                .filter(option => option.style.display !== 'none')
+                .map(option => option.querySelector('input[type="checkbox"]'));
+                
+            const allChecked = visibleCheckboxes.every(cb => cb.checked);
+            const noneChecked = visibleCheckboxes.every(cb => !cb.checked);
+            
+            if (noneChecked) {
+                allTournamentsCheckbox.checked = true;
+            } else {
+                allTournamentsCheckbox.checked = allChecked;
+            }
+        }
+
+        function applyFilters() {
+            const searchQuery = document.getElementById('championSearch').value.toLowerCase();
+            const selectedSports = getSelectedValues('sportFilter');
+            const selectedTournaments = getSelectedValues('tournamentFilter');
+            
+            // Обновляем доступные турниры при изменении выбранных видов спорта
+            updateAvailableTournaments(selectedSports);
+
+            filteredChampions = allChampionsData.filter(champion => {
+                const searchMatch = !searchQuery || 
+                    champion.name.toLowerCase().includes(searchQuery);
+                
+                const sportMatch = selectedSports.length === 0 || selectedSports.includes(champion.sport);
+                const tournamentMatch = selectedTournaments.length === 0 || selectedTournaments.includes(champion.tournament);
+
+                return searchMatch && sportMatch && tournamentMatch;
+            }).sort((a, b) => {
+                // Сортируем отфильтрованные результаты по дате (от последнего к раннему)
+                const dateA = new Date(a.date.split('.').reverse().join('-'));
+                const dateB = new Date(b.date.split('.').reverse().join('-'));
+                return dateB - dateA;
+            });
+
+            renderChampions();
+            updateResultsCount();
+            updateHeroStats(); // Обновляем статистику при фильтрации
+        }
+
+        function clearFilters() {
+            document.getElementById('yearFrom').value = '';
+            document.getElementById('yearTo').value = '';
+            document.getElementById('oddsFrom').value = '';
+            document.getElementById('oddsTo').value = '';
+            document.getElementById('sportFilter').value = '';
+            document.getElementById('tournamentFilter').value = '';
+            
+            // Восстанавливаем данные с сортировкой по дате (от последнего к раннему)
+            filteredChampions = [...allChampionsData].sort((a, b) => {
+                const dateA = new Date(a.date.split('.').reverse().join('-'));
+                const dateB = new Date(b.date.split('.').reverse().join('-'));
+                return dateB - dateA;
+            });
+            renderChampions();
+            updateResultsCount();
+            updateHeroStats(); // Обновляем статистику при сбросе фильтров
+        }
+
+
+
+        function updateResultsCount() {
+            // Функция оставлена для совместимости
+        }
+
+
+
+        // Resize functionality для iframe
+        let lastHeight = null;
+
+        const resize = ({force = false}) => {
+            const currentHeight = document.body.scrollHeight;
+            
+            if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+                return;
+            }
+            
+            lastHeight = currentHeight;
+            
+            const dataUTILS = {
+                for: 'BASIC_TEST',
+                action: 'resizeIframe',
+                selector: `iframe[src*="champions"]`,
+                sizes: {
+                    height: 2 * Math.floor(currentHeight / 2) + 10,
+                },
+            };
+
+            window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
+        }
+
+        const resizeObserver = new ResizeObserver(() => {
+            resize({});
+        });
+        resizeObserver.observe(document.body);
+        resize({force: true});
+
+        setTimeout(() => { resize({force: true}); }, 1000);
+        setTimeout(() => { resize({force: true}); }, 2000);
+        setTimeout(() => { resize({force: true}); }, 3000);
+    </script>
+    
+    <script>
+    </script>
+
+    <script src="theme-detector.js"></script>
+    
+    <!-- Динамический фон -->
+    <script>
+        // Анимированный фон с кубиками
+        const colors = [
+            '#FF6B6B', // red
+            '#4ECDC4', // cyan
+            '#45B7D1', // blue
+            '#FFA07A', // orange
+            '#98D8C8', // mint
+            '#F7DC6F', // yellow
+            '#BB8FCE', // purple
+            '#85C1E2', // light blue
+            '#52BE80', // green
+            '#EC7063', // salmon
+        ];
+
+        function generateCubes(rows, cols, density = 0.08) {
+            const cubes = [];
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    if (Math.random() < density) {
+                        cubes.push({
+                            row,
+                            col,
+                            color: colors[Math.floor(Math.random() * colors.length)],
+                        });
+                    }
+                }
+            }
+            return cubes;
+        }
+
+        function initAnimatedCubesBackground() {
+            const container = document.getElementById('animated-cubes-bg');
+            if (!container) return;
+
+            const gridSize = 80;
+            const cols = Math.ceil(1920 / gridSize);
+            const rowsPerScreen = Math.ceil(1080 / gridSize);
+            const totalRows = rowsPerScreen * 3;
+
+            // Создаем SVG сетку
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('class', 'absolute inset-0 w-full h-full');
+            svg.style.width = '100%';
+            svg.style.height = '300%';
+
+            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            const pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+            pattern.setAttribute('id', 'grid');
+            pattern.setAttribute('width', gridSize);
+            pattern.setAttribute('height', gridSize);
+            pattern.setAttribute('patternUnits', 'userSpaceOnUse');
+
+            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            rect.setAttribute('width', gridSize);
+            rect.setAttribute('height', gridSize);
+            rect.setAttribute('fill', 'none');
+            rect.setAttribute('stroke', 'rgba(255, 255, 255, 0.03)');
+            rect.setAttribute('stroke-width', '1');
+
+            pattern.appendChild(rect);
+            defs.appendChild(pattern);
+            svg.appendChild(defs);
+
+            const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            bgRect.setAttribute('width', '100%');
+            bgRect.setAttribute('height', '100%');
+            bgRect.setAttribute('fill', 'url(#grid)');
+            svg.appendChild(bgRect);
+
+            container.appendChild(svg);
+
+            // Генерируем кубики
+            const cubes = generateCubes(totalRows, cols);
+            
+            cubes.forEach((cube, index) => {
+                const cubeDiv = document.createElement('div');
+                cubeDiv.className = 'cube';
+                cubeDiv.style.left = `${cube.col * gridSize + gridSize * 0.2}px`;
+                cubeDiv.style.top = `${cube.row * gridSize + gridSize * 0.2}px`;
+                cubeDiv.style.width = `${gridSize * 0.6}px`;
+                cubeDiv.style.height = `${gridSize * 0.6}px`;
+                cubeDiv.style.backgroundColor = cube.color;
+                cubeDiv.style.animationDelay = `${index * 0.005}s`;
+                
+                container.appendChild(cubeDiv);
+            });
+        }
+
+        // Инициализация при загрузке
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAnimatedCubesBackground);
+        } else {
+            initAnimatedCubesBackground();
+        }
+    </script>
+    
+    <script src="resize.js"></script>
+</body>
+</html>

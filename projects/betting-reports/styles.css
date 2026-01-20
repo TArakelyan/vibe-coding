@@ -1,0 +1,558 @@
+:root {
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --background-primary: #fff;
+    --background-secondary: #f6f6f6;
+    --background-hover: #ebebeb;
+    --border-color: #d1d1d6;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --border-radius: 12px;
+    --transition: all 0.2s ease;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --background-primary: #2d2d2d;
+        --background-secondary: #3a3a3a;
+        --background-hover: #444;
+        --border-color: #555;
+        --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: inherit;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    max-width: 660px;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.app-container {
+    background: var(--background-primary);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    width: 100%;
+    position: relative;
+}
+
+/* Панель фильтров */
+.filters-panel {
+    background: var(--background-secondary);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* Выпадающий селектор */
+.dropdown-container {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.dropdown-trigger:hover {
+    background: var(--background-hover);
+    transform: translateY(-1px);
+}
+
+.dropdown-trigger.active {
+    background: var(--background-hover);
+}
+
+.dropdown-text {
+    flex: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dropdown-arrow {
+    transition: transform 0.2s ease;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.dropdown-trigger.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    z-index: 1000;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-top: 4px;
+}
+
+.dropdown-content.active {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-content .year-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--background-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    user-select: none;
+}
+
+.dropdown-content .year-checkbox:hover {
+    background: var(--background-hover);
+    color: var(--text-primary);
+}
+
+.year-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.year-checkbox .checkmark {
+    width: 16px;
+    height: 16px;
+    background: var(--background-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.year-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.year-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    color: var(--background-primary);
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* Данные компаний */
+.companies-section {
+    width: 100%;
+}
+
+#companiesData {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.company-data-card {
+    background: var(--background-secondary);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    transition: var(--transition);
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    min-height: 110px;
+}
+
+.company-data-card:hover {
+    background: var(--background-hover);
+    transform: translateY(-2px);
+}
+
+.company-data-header {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    grid-template-rows: 1fr;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.company-data-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: var(--background-primary);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.company-data-card:hover .company-data-logo {
+    transform: scale(1.05);
+}
+
+.company-data-title {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.company-data-title h3 {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+.company-data-info {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.2;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* Метрики */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.metric-item {
+    background: var(--background-primary);
+    padding: 12px;
+    border-radius: 8px;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.metric-item:hover {
+    background: var(--background-hover);
+    transform: translateY(-1px);
+}
+
+.metric-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    display: block;
+    font-weight: 500;
+}
+
+.metric-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+}
+
+/* Группированные метрики */
+.metrics-grouped {
+    display: grid;
+    gap: 12px;
+}
+
+.metric-group {
+    background: var(--background-primary);
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.metric-group:hover {
+    transform: translateY(-1px);
+}
+
+.metric-group-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.metric-years {
+    display: grid;
+    gap: 8px;
+}
+
+.year-metric {
+    display: grid;
+    grid-template-columns: 60px auto auto;
+    align-items: center;
+    background: var(--background-secondary);
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: var(--transition);
+    gap: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.year-metric:hover {
+    background: var(--background-hover);
+    transform: translateY(-1px);
+}
+
+.year-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
+    grid-column: 1;
+    justify-self: start;
+}
+
+.metric-value-multi {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
+    grid-column: 2;
+    justify-self: end;
+    text-align: right;
+    min-width: 120px;
+}
+
+.metric-change {
+    grid-column: 3;
+    justify-self: end;
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: right;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.metric-change.positive {
+    color: var(--success-color);
+    background: rgba(40, 167, 69, 0.1);
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.metric-change.negative {
+    color: var(--danger-color);
+    background: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.metric-change.neutral {
+    color: var(--text-secondary);
+    background: var(--background-secondary);
+    border: 1px solid var(--border-color);
+}
+
+/* Tablet responsiveness */
+@media (max-width: 1024px) {
+    body {
+        max-width: 100%;
+        padding: 15px;
+    }
+    
+    .app-container {
+        margin: 15px auto;
+        padding: 1.1rem;
+        max-width: 95%;
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    body {
+        max-width: 100%;
+        padding: 10px;
+    }
+    
+    .app-container {
+        margin: 10px auto;
+        padding: 1rem;
+        max-width: 100%;
+        border-radius: 8px;
+    }
+    
+    .company-data-card {
+        padding: 16px;
+    }
+    
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .company-data-header {
+        grid-template-columns: 50px 1fr;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    
+    .company-data-logo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .company-data-title h3 {
+        font-size: 13px;
+        margin: 0 0 2px;
+    }
+
+    .company-data-info {
+        font-size: 11px;
+    }
+    
+    .year-metric {
+        grid-template-columns: 50px auto auto;
+        gap: 8px;
+        padding: 6px 10px;
+    }
+    
+    .metric-value-multi {
+        min-width: 100px;
+        font-size: 13px;
+    }
+    
+    .metric-change {
+        min-width: 50px;
+        font-size: 11px;
+    }
+    
+    .dropdown-trigger {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+    
+    .filters-panel {
+        padding: 12px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+    
+    .app-container {
+        margin: 8px auto;
+        padding: 0.8rem;
+        border-radius: 6px;
+    }
+    
+    .company-data-header {
+        grid-template-columns: 45px 1fr;
+        gap: 8px;
+    }
+    
+    .company-data-logo {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .company-data-card {
+        padding: 12px;
+    }
+    
+    .year-metric {
+        grid-template-columns: 45px auto auto;
+        gap: 6px;
+        padding: 5px 8px;
+    }
+    
+    .metric-value-multi {
+        min-width: 80px;
+        font-size: 12px;
+    }
+    
+    .metric-change {
+        min-width: 45px;
+        font-size: 10px;
+    }
+    
+    .company-data-title h3 {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+    
+    .company-data-info {
+        font-size: 10px;
+        line-height: 1.1;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Амбассадоры Olimpbet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ambassadors-section">
+            <div class="ambassadors-grid">
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/d/c7/a1a2a702e3b5224ba25c87028c8e8.png" alt="Отар Кушанашвили" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Отар Кушанашвили</h3>
+                        <p class="ambassador-role">Шоумен</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/5/60/0766745cf62260c3fcee75f5330c1.png" alt="Владимир Сычев" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Владимир Сычев</h3>
+                        <p class="ambassador-role">Актер</p>
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/b/09/7ad4e1d6ca1c5e3cbd0974cd08165.png" alt="Маргарита Юргенсон" loading="eager">
+                    </div>
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Маргарита Юргенсон</h3>
+                        <p class="ambassador-role">Журналист</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функциональность для кликабельных карточек
+        document.addEventListener('DOMContentLoaded', function() {
+            const ambassadorCards = document.querySelectorAll('.ambassador-card[data-url]');
+            
+            ambassadorCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        window.open(`https://www.sports.ru${url}`, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="theme-detector.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html>

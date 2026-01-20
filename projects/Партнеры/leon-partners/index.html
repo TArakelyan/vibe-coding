@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Партнеры Leon</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ambassadors-section">
+            <div class="ambassadors-grid">
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Вторая лига</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/b/cc/92812b068167963017f221ed2152a.png" alt="Вторая лига" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Сатурн</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/d/ea/6d4842f62d2a41ff4651ac00dca81.png" alt="Сатурн" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Амкар</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/7/23/520bf061835c1cbdc83b4d5bd887c.png" alt="Амкар" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Енисей</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/f/22/06d95ef1389355f64eabc99217b18.png" alt="Енисей" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Ротор</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/b/dd/696960165b0a88e3defe0fc70cd44.png" alt="Ротор" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">СКА-Хабаровск</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/9/f8/a7ed869b42a95dee672527f880aa7.png" alt="СКА-Хабаровск" loading="eager">
+                    </div>
+                </div>
+                
+                <div class="ambassador-card">
+                    <div class="ambassador-info">
+                        <h3 class="ambassador-name">Арсенал Тула</h3>
+                        <p class="ambassador-role">футбол</p>
+                    </div>
+                    <div class="ambassador-photo">
+                        <img src="https://dumpster.cdn.sports.ru/2/a2/e88a26cce0d74d8a533a93f3d7e6b.png" alt="Арсенал Тула" loading="eager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функциональность для кликабельных карточек (если понадобится)
+        document.addEventListener('DOMContentLoaded', function() {
+            const ambassadorCards = document.querySelectorAll('.ambassador-card[data-url]');
+            
+            ambassadorCards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        window.open(`https://www.sports.ru${url}`, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="theme-detector.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html>

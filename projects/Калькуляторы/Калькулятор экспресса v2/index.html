@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор экспресса | Sports.ru</title>
+    <link rel="stylesheet" href="css/fonts.css?v=1">
+    <link rel="stylesheet" href="css/styles.css?v=1">
+    <link rel="preload" href="fonts/TTNeoris-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/TTNeoris-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/TTNeoris-Bold.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Калькулятор экспресса</h1>
+            
+            <div class="calculator-form">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="stake">Сумма ставки</label>
+                        <div class="input-wrapper">
+                            <input type="number" 
+                                   id="stake" 
+                                   placeholder="1000" 
+                                   inputmode="decimal"
+                                   autocomplete="off">
+                            <span class="currency">₽</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="odds">Коэффициенты</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   id="odds" 
+                                   placeholder="1.85 2.10 1.95" 
+                                   autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="events-count">Количество событий</label>
+                        <div class="input-wrapper">
+                            <input type="number" 
+                                   id="events-count" 
+                                   placeholder="3" 
+                                   inputmode="numeric"
+                                   autocomplete="off"
+                                   min="2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results">
+                    <div class="result-item">
+                        <span class="result-label">Общий коэффициент</span>
+                        <div class="result-value">
+                            <span id="total-odds">0</span>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Сумма выигрыша</span>
+                        <div class="result-value">
+                            <span id="total-win">0</span>
+                            <span class="currency">₽</span>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Чистая прибыль</span>
+                        <div class="result-value">
+                            <span id="net-profit">0</span>
+                            <span class="currency">₽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bet-button-wrapper">
+                    <a href="https://spnsrd.ru/bk/calculator" target="_blank" rel="noopener" class="bet-button">
+                        🎁 Забрать бонус дня
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/theme-detector.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html> 

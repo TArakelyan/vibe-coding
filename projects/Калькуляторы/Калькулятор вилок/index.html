@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Калькулятор арбитражных ставок (вилок) для 2 и 3 исходов с автоматическим расчетом распределения суммы">
+    <title>Калькулятор вилок | Sports.ru</title>
+    <link rel="stylesheet" href="css/fonts.css?v=1">
+    <link rel="stylesheet" href="css/styles.css?v=1">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Калькулятор вилок</h1>
+            
+            <div class="outcomes-selector">
+                <label class="outcomes-label">Тип события:</label>
+                <div class="outcomes-buttons">
+                    <button type="button" class="outcome-btn active" data-outcomes="2">2 исхода</button>
+                    <button type="button" class="outcome-btn" data-outcomes="3">3 исхода</button>
+                </div>
+            </div>
+            
+            <div class="calculator-form">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="k1">Коэффициент 1</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="k1" placeholder="2.05" step="0.01" min="1">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="k2">Коэффициент 2</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="k2" placeholder="2.10" step="0.01" min="1">
+                        </div>
+                    </div>
+
+                    <div class="input-group" id="k3-group" style="display: none;">
+                        <label for="k3">Коэффициент 3</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="k3" placeholder="4.50" step="0.01" min="1">
+                        </div>
+                    </div>
+
+                    <div class="input-group profit-group">
+                        <label>Прибыль</label>
+                        <div class="profit-result result-item">
+                            <span class="result-value">
+                                <span id="profit">0.00</span>
+                                <span class="percentage">%</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-top: 0.5rem; position: relative; z-index: 1;">
+                    <label for="total-stake">Общая сумма ставки (₽)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="total-stake" placeholder="10000" step="100" min="100">
+                    </div>
+                </div>
+
+                <div class="stakes-section" id="stakes-section">
+                    <h3>Распределение ставок:</h3>
+                    <div class="stakes-row">
+                        <span class="stakes-label">На исход 1:</span>
+                        <span class="stakes-value" id="stake1">0 ₽</span>
+                    </div>
+                    <div class="stakes-row">
+                        <span class="stakes-label">На исход 2:</span>
+                        <span class="stakes-value" id="stake2">0 ₽</span>
+                    </div>
+                    <div class="stakes-row" id="stake3-row" style="display: none;">
+                        <span class="stakes-label">На исход 3:</span>
+                        <span class="stakes-value" id="stake3">0 ₽</span>
+                    </div>
+                    <div class="stakes-row profit-row">
+                        <span class="stakes-label">Гарантированная прибыль:</span>
+                        <span class="stakes-value" id="guaranteed-profit" style="color: var(--profit-green);">0 ₽</span>
+                    </div>
+                </div>
+
+                <div class="bet-button-wrapper">
+                    <a href="https://spnsrd.ru/bk/calculator" target="_blank" rel="noopener" class="bet-button">
+                        🎁 Забрать бонус дня
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/theme-detector.js?v=1"></script>
+    <script src="js/calculator.js?v=1"></script>
+    <script src="resize.js?v=1"></script>
+</body>
+</html> 

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз на точный счёт - АПЛ | Sports</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <div class="header-pattern">
+                <img src="https://dumpster.cdn.sports.ru/5/30/01b6278e80cb78799a67b62ff694e.png" alt="Pattern" class="pattern-img">
+            </div>
+            <div class="header-logos">
+                <a href="https://www.sports.ru/?utm_source=special-apl-next-round-predictions" target="_blank" class="logo-link">
+                    <img src="https://dumpster.cdn.sports.ru/6/1d/3cf5dedcc9ba8c00b791d33c23961.png" alt="Sports.ru" class="logo-img">
+                </a>
+                <span class="logo-separator">×</span>
+                <a href="https://spnsrd.ru/rbbetcity" target="_blank" rel="noopener noreferrer" class="logo-link">
+                    <img src="https://promote.betcity.ru/8bitdark/img/logo.svg" alt="БЕТСИТИ" class="betcity-logo">
+                </a>
+            </div>
+            <h1 class="title">Конкурс прогнозов на 16 тур АПЛ</h1>
+        </header>
+
+        <!-- Форма прогноза -->
+        <form id="predictionForm" class="prediction-form">
+            <!-- Поле никнейма -->
+            <div class="form-group">
+                <label for="username" class="form-label">
+                    <span class="label-icon">👤</span>
+                    Ваш никнейм
+                </label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    class="form-input" 
+                    placeholder="Введите ваш никнейм"
+                    required
+                    maxlength="50"
+                >
+                <span class="form-hint">Будет отображаться в таблице результатов</span>
+            </div>
+
+            <!-- Матчи -->
+            <div class="matches-section">
+                <h2 class="section-title">
+                    <span class="title-icon">⚽</span>
+                    Введите точный счет для каждого матча
+                </h2>
+                
+                <div id="matchesContainer" class="matches-container">
+                    <!-- Матчи будут добавлены через JavaScript -->
+                </div>
+                
+                <!-- Выбор матча для удвоения очков -->
+                <div class="double-points-section">
+                    <label class="form-label">
+                        <span class="label-icon">⭐</span>
+                        Выберите матч для удвоения очков
+                    </label>
+                    <div class="double-points-picker" id="doublePointsPicker">
+                        <!-- Варианты будут добавлены через JavaScript -->
+                    </div>
+                    <span class="form-hint">Если ваш прогноз на этот матч окажется точным, вы получите удвоенные очки</span>
+                    <input type="hidden" id="doublePointsMatch" name="doublePointsMatch" value="">
+                </div>
+            </div>
+
+            <!-- Поле email или tg -->
+            <div class="form-group">
+                <label for="email" class="form-label">
+                    <span class="label-icon">📧</span>
+                    Email или Telegram
+                </label>
+                <input 
+                    type="text" 
+                    id="email" 
+                    name="email" 
+                    class="form-input" 
+                    placeholder="Введите email или @username в Telegram"
+                    required
+                >
+                <span class="form-hint">Для связи с победителями</span>
+            </div>
+
+            <!-- Поле телефона БЕТСИТИ -->
+            <div class="form-group">
+                <label for="phone" class="form-label">
+                    <span class="label-icon">📱</span>
+                    Номер телефона в БЕТСИТИ
+                </label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    class="form-input" 
+                    placeholder="+7 (___) ___-__-__"
+                    required
+                >
+                <span class="form-hint">
+                    Номер телефона, к которому привязан аккаунт в БЕТСИТИ. 
+                    <a href="https://spnsrd.ru/rbbetcity" target="_blank" rel="noopener noreferrer" class="form-link">Нет аккаунта? Зарегистрируйтесь</a>
+                </span>
+            </div>
+
+            <!-- Кнопка отправки -->
+            <div class="form-actions">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-text">Отправить прогноз</span>
+                </button>
+                <p class="submit-hint">Прогнозы принимаются до начала первого матча</p>
+            </div>
+        </form>
+
+        <!-- Сообщение об успехе -->
+        <div id="successMessage" class="success-message" style="display: none;">
+            <div class="success-content">
+                <div class="success-icon">✅</div>
+                <h3>Прогноз успешно отправлен!</h3>
+                <p>Спасибо за участие в конкурсе. Результаты будут опубликованы после завершения тура.</p>
+            </div>
+        </div>
+
+        <!-- Сообщение об ошибке -->
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <div class="error-content">
+                <div class="error-icon">❌</div>
+                <h3>Ошибка отправки</h3>
+                <p id="errorText">Произошла ошибка при отправке прогноза. Попробуйте позже.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="./data/matches.js"></script>
+    <script src="./phone-mask.js"></script>
+    <script src="./script.js"></script>
+    <script src="./resize.js"></script>
+</body>
+</html>
+
