@@ -13,7 +13,7 @@ const resize = ({force = false}) => {
     const dataUTILS = {
       for: 'BASIC_TEST',
       action: 'resizeIframe',
-      selector: `iframe[src*="https://betm-part.netlify.app/"]`,
+      selector: `iframe[src*="https://bettery-part.netlify.app/"]`,
       sizes: {
         height: 2 * Math.floor(currentHeight / 2) + 10,
       },
