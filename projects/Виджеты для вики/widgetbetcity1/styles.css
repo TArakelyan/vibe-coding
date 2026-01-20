@@ -184,8 +184,6 @@ body {
 @media (max-width: 500px) {
     .betcity-widget {
         width: 100%;
-        min-width: 280px;
-        max-width: 400px;
         height: 108px;
         flex-direction: column;
         padding: 16px;
@@ -197,8 +195,6 @@ body {
     
     body {
         width: 100%;
-        min-width: 280px;
-        max-width: 400px;
     }
     
     .betcity-logo {
