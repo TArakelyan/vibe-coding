@@ -14,7 +14,7 @@ const resize = ({force = false}) => {
       const dataUTILS = {
         for: 'BASIC_TEST',
         action: 'resizeIframe',
-        selector: `iframe[src*="https://widgetliga1.netlify.app/"]`,
+        selector: `iframe[src*="widgetliga1"]`,
         sizes: {
           height: 2 * Math.floor(currentHeight / 2) + 10,
         },
