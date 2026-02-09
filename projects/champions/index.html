@@ -1965,19 +1965,41 @@
             );
         }
 
+        .champion-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(244, 208, 63, 0.1), 
+                transparent
+            );
+            transition: left 0.6s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .champion-card:hover::before {
+            left: 100%;
+        }
+
         .champion-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 8px 32px rgba(244, 208, 63, 0.15);
-            border-color: rgba(244, 208, 63, 0.3);
+            transform: translateY(-6px) scale(1.015);
+            box-shadow: 0 12px 40px rgba(244, 208, 63, 0.2), 
+                        0 0 0 1px rgba(244, 208, 63, 0.4);
+            border-color: rgba(244, 208, 63, 0.5);
         }
 
         .champion-card:hover .champion-image {
-            filter: brightness(1.1);
+            filter: brightness(1.15) contrast(1.05);
+            transform: scale(1.08);
         }
 
-        .champion-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        .champion-card:active {
+            transform: translateY(-2px) scale(1.005);
         }
 
         .champion-image {
@@ -1992,8 +2014,37 @@
             flex-shrink: 0;
             border-right: 1px solid rgba(244, 208, 63, 0.15);
             opacity: 1;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             left: 0;
+            filter: brightness(1) contrast(1);
+        }
+
+        .champion-card > div:first-child {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .champion-card > div:first-child::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(244, 208, 63, 0.05) 0%, 
+                transparent 50%,
+                rgba(244, 208, 63, 0.05) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .champion-card:hover > div:first-child::after {
+            opacity: 1;
+        }
             top: 0;
             display: block;
         }
@@ -2136,23 +2187,29 @@
         }
 
         .champion-odds-badge {
-            background: rgba(244, 208, 63, 0.15);
-            border: 1px solid rgba(244, 208, 63, 0.3);
-            border-radius: 6.4px;
+            background: linear-gradient(135deg, 
+                rgba(244, 208, 63, 0.2), 
+                rgba(244, 208, 63, 0.15)
+            );
+            border: 1px solid rgba(244, 208, 63, 0.4);
+            border-radius: 8px;
             color: rgba(244, 208, 63, 1);
-            padding: 0 12.8px;
+            padding: 0 14px;
             font-size: 14.4px;
             font-weight: 700;
             flex-shrink: 0;
             min-width: 56px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            height: 25.6px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .champion-odds-badge::before {
@@ -2165,16 +2222,21 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.3),
                 transparent
             );
             transition: left 0.5s ease;
         }
 
         .champion-card:hover .champion-odds-badge {
-            background: rgba(244, 208, 63, 0.25);
-            border-color: rgba(244, 208, 63, 0.5);
-            transform: scale(1.05);
+            background: linear-gradient(135deg, 
+                rgba(244, 208, 63, 0.35), 
+                rgba(244, 208, 63, 0.25)
+            );
+            border-color: rgba(244, 208, 63, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 4px 16px rgba(244, 208, 63, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .champion-card:hover .champion-odds-badge::before {
@@ -2190,18 +2252,106 @@
             padding: 8px 0;
             margin: 8px 0;
             height: auto;
-            overflow-y: visible;
+            overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: var(--ui-font-family-body);
             letter-spacing: 0.01em;
+            max-height: 3em;
+        }
+
+        .champion-description.expanded {
+            max-height: 500px;
+        }
+
+        .champion-description-wrapper {
+            position: relative;
+        }
+
+        .read-more-btn {
+            background: linear-gradient(135deg, rgba(244, 208, 63, 0.15), rgba(244, 208, 63, 0.25));
+            border: 1px solid rgba(244, 208, 63, 0.3);
+            color: rgba(244, 208, 63, 1);
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            font-family: var(--ui-font-family-body);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+        }
+
+        .read-more-btn:hover {
+            background: linear-gradient(135deg, rgba(244, 208, 63, 0.25), rgba(244, 208, 63, 0.35));
+            border-color: rgba(244, 208, 63, 0.5);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(244, 208, 63, 0.2);
+        }
+
+        .read-more-btn:active {
+            transform: translateY(0);
+        }
+
+        .read-more-btn svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more-btn.expanded svg {
+            transform: rotate(180deg);
+        }
+
+        .probability-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(244, 208, 63, 0.1);
+            overflow: hidden;
+            border-radius: 0 0 9.6px 9.6px;
+        }
+
+        .probability-bar {
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(244, 208, 63, 0.6), 
+                rgba(244, 208, 63, 0.9)
+            );
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0;
+            box-shadow: 0 0 10px rgba(244, 208, 63, 0.5);
+        }
+
+        .champion-card:hover .probability-bar {
+            box-shadow: 0 0 15px rgba(244, 208, 63, 0.8);
         }
 
         @media (max-width: 1024px) {
             .champion-description {
                 font-size: 14px;
-                padding: 16px;
-                min-height: 100px;
+                padding: 12px 0;
+                min-height: auto;
                 margin: 12px 0;
+                max-height: 4.5em;
+            }
+
+            .champion-description.expanded {
+                max-height: 1000px;
+            }
+
+            .read-more-btn {
+                font-size: 11px;
+                padding: 5px 14px;
             }
         }
 
@@ -4048,6 +4198,15 @@
 
             grid.innerHTML = filteredChampions.map(champion => createChampionCard(champion)).join('');
             
+            // Анимируем индикаторы вероятности
+            setTimeout(() => {
+                const probabilityBars = document.querySelectorAll('.probability-bar');
+                probabilityBars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        bar.style.width = bar.style.width; // Триггер анимации
+                    }, index * 50);
+                });
+            }, 100);
             
             console.log('Карточки отрендерены, HTML добавлен в DOM');
         }
@@ -4076,6 +4235,7 @@
             const tournamentLabels = CONFIG.tournaments;
 
             const probability = formatProbability(champion.odds);
+            const probabilityNum = (1 / champion.odds) * 100;
             const displayValue = currentDisplayMode === 'odds' ? champion.odds.toFixed(2) : `${probability}%`;
             const displayLabel = currentDisplayMode === 'odds' ? 'Коэффициент' : 'Вероятность';
             const valueClass = currentDisplayMode === 'odds' ? 'odds-value' : 'probability-value';
@@ -4084,13 +4244,11 @@
             const sportIcon = sportLabels[champion.sport]?.icon || '🏆';
 
             const cardId = `card-${champion.id}`;
-            const shortDescription = champion.description.split('.').slice(0, 2).join('.') + '.';
-            const hasMoreText = champion.description.length > shortDescription.length;
 
             return `
-                <div class="champion-card">
+                <div class="champion-card" data-card-id="${cardId}">
                     <div>
-                    <img src="${champion.image}" alt="${champion.name}" class="champion-image" data-sport="${champion.sport}" onerror="handleImageError(this, '${champion.sport}')" style="background: linear-gradient(135deg, rgba(244, 208, 63, 0.1) 0%, rgba(244, 208, 63, 0.05) 100%); background-size: cover; transition: filter 0.3s ease;">
+                    <img src="${champion.image}" alt="${champion.name}" class="champion-image" data-sport="${champion.sport}" onerror="handleImageError(this, '${champion.sport}')" style="background: linear-gradient(135deg, rgba(244, 208, 63, 0.1) 0%, rgba(244, 208, 63, 0.05) 100%); background-size: cover; transition: filter 0.5s ease, transform 0.5s ease;">
                     <div class="image-placeholder" style="display:none; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(244, 208, 63, 0.1) 0%, rgba(244, 208, 63, 0.05) 100%); align-items: center; justify-content: center; font-size: 48px; color: rgba(244, 208, 63, 0.6); position: absolute; top: 0; left: 0;"></div>
                     </div>
                     <div class="champion-content">
@@ -4104,9 +4262,20 @@
                                 <span class="meta-tournament">${sportIcon} ${tournamentLabels[champion.tournament]?.name || champion.tournament}</span>
                             </div>
 
-                                                    <div class="champion-description">
-                            ${champion.description.split('\n').join('<br>')}
-                        </div>
+                            <div class="champion-description-wrapper">
+                                <div class="champion-description" id="desc-${cardId}">
+                                    ${champion.description.split('\n').join('<br>')}
+                                </div>
+                                <button class="read-more-btn" onclick="toggleDescription('${cardId}')">
+                                    <span class="read-more-text">Читать далее</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 9l6 6 6-6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                    </div>
+                    <div class="probability-indicator">
+                        <div class="probability-bar" style="width: ${probabilityNum}%"></div>
                     </div>
                 </div>
             `;
@@ -4123,6 +4292,22 @@
             const [day, month, year] = dateString.split('.');
             const monthIndex = parseInt(month) - 1;
             return `${parseInt(day)} ${months[monthIndex]} ${year}`;
+        }
+
+        function toggleDescription(cardId) {
+            const description = document.getElementById(`desc-${cardId}`);
+            const button = event.target.closest('.read-more-btn');
+            const buttonText = button.querySelector('.read-more-text');
+            
+            if (description.classList.contains('expanded')) {
+                description.classList.remove('expanded');
+                button.classList.remove('expanded');
+                buttonText.textContent = 'Читать далее';
+            } else {
+                description.classList.add('expanded');
+                button.classList.add('expanded');
+                buttonText.textContent = 'Свернуть';
+            }
         }
 
         function handleImageError(img, sport) {
