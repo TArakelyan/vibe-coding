@@ -7,40 +7,37 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="year-badge">Важная информация</div>
-            <div class="year-badge">2025</div>
-            <h1 class="main-title">ОТВЕТСТВЕННАЯ ИГРА</h1>
-        </header>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-badge">ВАЖНАЯ ИНФОРМАЦИЯ</div>
+        <div class="hero-badge">2025</div>
+        <h1 class="hero-title">ОТВЕТСТВЕННАЯ<br>ИГРА</h1>
+    </section>
 
-        <!-- Mission -->
-        <section class="mission-section">
-            <div class="section-label">Миссия</div>
-            <h2 class="mission-title">Спортс" за ответственную игру.</h2>
-            <p class="mission-text">Помните: делать ставки нужно только в удовольствие.</p>
-        </section>
+    <!-- Mission Section -->
+    <section class="section-green-accent">
+        <h2 class="section-title">КАК ПОНЯТЬ, ЕСТЬ ЛИ У ВАС ИГРОМАНИЯ?</h2>
+        <div class="info-box">
+            <p>Когда игра перестает быть развлечением и становится навязчивой потребностью, которая разрушает жизнь. Игра из способа отдыха превращается в проблему, которая управляет человеком, а не наоборот.</p>
+        </div>
+    </section>
 
-        <!-- Info -->
-        <section class="info-section">
-            <h2 class="info-title">Как понять, есть ли у вас игромания?</h2>
-            <p class="info-text">Когда игра перестает быть развлечением и становится навязчивой потребностью, которая разрушает жизнь. Игра из способа отдыха превращается в проблему, которая управляет человеком, а не наоборот.</p>
-        </section>
+    <!-- Test Section -->
+    <section class="test-section">
+        <div class="test-label">ДИАГНОСТИКА</div>
+        <h2 class="test-title">ПРОЙДИТЕ ТЕСТ</h2>
+        <p class="test-description">10 вопросов, которые помогут определить наличие проблемы</p>
+        <button class="test-button" id="startTestBtn">Начать тест</button>
+    </section>
 
-        <!-- Test -->
-        <section class="test-section">
-            <div class="section-label">Диагностика</div>
-            <h2 class="test-title">Пройдите тест</h2>
-            <p class="test-description">10 вопросов, которые помогут определить наличие проблемы</p>
-            <button class="test-button" id="startTestBtn">Начать тест</button>
-        </section>
-
-        <!-- Recommendations -->
-        <section class="recommendations-section">
-            <div class="section-label">Рекомендации</div>
-            <h2 class="recommendations-title">Как правильно играть</h2>
-            
+    <!-- Recommendations Section -->
+    <section class="recommendations-section">
+        <div class="recommendations-header">
+            <div class="recommendations-label">РЕКОМЕНДАЦИИ</div>
+            <h2 class="recommendations-title">КАК ПРАВИЛЬНО<br><span class="green-text">ИГРАТЬ</span></h2>
+        </div>
+        
+        <div class="recommendations-grid">
             <div class="recommendation-item">
                 <div class="recommendation-number">1</div>
                 <div class="recommendation-text">Это развлечение, форма досуга</div>
@@ -70,76 +67,105 @@
                 <div class="recommendation-number">6</div>
                 <div class="recommendation-text">Выбирайте только <a href="https://www.sports.ru/betting/ratings/legal-bookie-rating/?utm_source=special-responsible" class="recommendation-link" target="_blank">легальных букмекеров</a></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Quote -->
-        <section class="quote-section">
-            <div class="quote-label">Закон Мерфи</div>
-            <h2 class="quote-title">Всегда помните о законе Мерфи</h2>
-            <p class="quote-text">«Если есть вероятность того, что какая-нибудь неприятность может случиться, то она обязательно произойдёт».</p>
-        </section>
-
-        <!-- Help -->
-        <section class="help-section">
-            <div class="section-label">Важно</div>
-            <h2 class="help-title">Как остановиться</h2>
-            <p class="help-subtitle">Есть несколько способов</p>
+    <!-- Help Section -->
+    <section class="help-section">
+        <div class="help-header">
+            <div class="help-label">ВАЖНО</div>
+            <h2 class="help-title">КАК <span class="green-text">ОСТАНОВИТЬСЯ</span></h2>
+            <p class="help-subtitle">ЕСТЬ НЕСКОЛЬКО СПОСОБОВ</p>
+        </div>
+        
+        <div class="help-cards">
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <svg viewBox="0 0 80 80" fill="none">
+                        <circle cx="40" cy="40" r="38" stroke="#047857" stroke-width="4"/>
+                        <path d="M40 20C28.95 20 20 28.95 20 40C20 51.05 28.95 60 40 60C51.05 60 60 51.05 60 40C60 28.95 51.05 20 40 20Z" fill="#047857"/>
+                        <path d="M35 32L48 40L35 48V32Z" fill="white"/>
+                    </svg>
+                </div>
+                <h3 class="help-card-title">ГОСУСЛУГИ</h3>
+                <p class="help-card-text">Установите самозапрет на все виды азартных игр</p>
+                <a href="https://sprts.cc/hno2gm" target="_blank" class="help-card-link">
+                    ПЕРЕЙТИ
+                    <svg viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 3L8.59 4.41L13.17 9H3V11H13.17L8.59 15.59L10 17L17 10L10 3Z"/>
+                    </svg>
+                </a>
+            </div>
             
-            <div class="help-cards">
-                <div class="help-card">
-                    <h3 class="help-card-title">Госуслуги</h3>
-                    <p class="help-card-text">Установите самозапрет на все виды азартных игр</p>
-                    <a href="https://sprts.cc/hno2gm" target="_blank" class="help-card-link">
-                        Перейти
-                        <span>→</span>
-                    </a>
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <svg viewBox="0 0 80 80" fill="none">
+                        <circle cx="40" cy="40" r="38" stroke="#047857" stroke-width="4"/>
+                        <rect x="25" y="25" width="30" height="30" rx="4" fill="#047857"/>
+                        <path d="M35 35H45V40H35V35Z" fill="white"/>
+                        <path d="M35 42H45V47H35V42Z" fill="white"/>
+                    </svg>
                 </div>
-                
-                <div class="help-card">
-                    <h3 class="help-card-title">Единый ЦУПИС</h3>
-                    <p class="help-card-text">Установите самоограничение</p>
-                    <a href="https://sprts.cc/b8c3oe" target="_blank" class="help-card-link">
-                        Перейти
-                        <span>→</span>
-                    </a>
-                </div>
+                <h3 class="help-card-title">ЕДИНЫЙ ЦУПИС</h3>
+                <p class="help-card-text">Установите самоограничение</p>
+                <a href="https://sprts.cc/b8c3oe" target="_blank" class="help-card-link">
+                    ПЕРЕЙТИ
+                    <svg viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 3L8.59 4.41L13.17 9H3V11H13.17L8.59 15.59L10 17L17 10L10 3Z"/>
+                    </svg>
+                </a>
             </div>
+        </div>
 
-            <!-- Bookmakers -->
-            <div class="bookmakers-section">
-                <h3 class="bookmakers-title">Легальные букмекеры</h3>
-                <div class="bookmakers-grid">
-                    <div class="bookmaker-card">FONBET</div>
-                    <div class="bookmaker-card">Лига Ставок</div>
-                    <div class="bookmaker-card">BetBoom</div>
-                    <div class="bookmaker-card">PARI</div>
-                </div>
+        <!-- Bookmakers -->
+        <div class="bookmakers-section">
+            <h3 class="bookmakers-title">ЛЕГАЛЬНЫЕ БУКМЕКЕРЫ</h3>
+            <div class="bookmakers-grid">
+                <div class="bookmaker-card">FONBET</div>
+                <div class="bookmaker-card">Лига Ставок</div>
+                <div class="bookmaker-card">BetBoom</div>
+                <div class="bookmaker-card">PARI</div>
             </div>
+        </div>
 
-            <!-- Emergency -->
-            <div class="emergency-section">
-                <div class="emergency-label">Экстренная помощь</div>
-                <h3 class="emergency-title">Если все плохо, обращайтесь</h3>
+        <!-- Emergency -->
+        <div class="emergency-section">
+            <div class="emergency-content">
+                <div class="emergency-label">ЭКСТРЕННАЯ ПОМОЩЬ</div>
+                <h3 class="emergency-title">ЕСЛИ ВСЕ ПЛОХО,<br>ОБРАЩАЙТЕСЬ</h3>
                 <p class="emergency-subtitle">Национальная наркологическая служба</p>
-                <p class="emergency-text">Звоните</p>
-                <a href="tel:88002000200" class="emergency-link">8-800-200-02-00</a>
             </div>
-        </section>
+            <a href="tel:88002000200" class="emergency-phone">
+                <div>
+                    <div class="emergency-phone-label">ЗВОНИТЕ</div>
+                    <div class="emergency-phone-number">8-800-200-02-00</div>
+                </div>
+            </a>
+        </div>
+    </section>
 
-        <!-- Final -->
-        <section class="final-section">
-            <div class="final-label">Всегда помните</div>
-            <h2 class="final-title">Главное</h2>
-            <p class="final-text">Воспринимайте ставки как развлечение, не бойтесь лимитов, при необходимости отказывайтесь от игры – и вы сможете избежать негативных последствий и получить удовольствие от процесса.</p>
-            <p class="final-text">Помните: ставки на спорт не должны приводить к проблемам.</p>
-            <p class="final-cta">Играйте ответственно</p>
-        </section>
+    <!-- Final Section -->
+    <section class="final-section">
+        <div class="final-label">ВСЕГДА ПОМНИТЕ</div>
+        <h2 class="final-title">ГЛАВНОЕ</h2>
+        <div class="final-content">
+            <div class="final-box">
+                <p class="final-text">Воспринимайте ставки как развлечение, не бойтесь лимитов, при необходимости отказывайтесь от игры – и вы сможете избежать негативных последствий и получить удовольствие от процесса.</p>
+                <p class="final-highlight">ПОМНИТЕ: СТАВКИ НА СПОРТ НЕ ДОЛЖНЫ ПРИВОДИТЬ К ПРОБЛЕМАМ.</p>
+            </div>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <p class="footer-text">© 2025 Ответственная игра</p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-badge">
+                <span>♥</span>
+                <span>ИГРАЙТЕ ОТВЕТСТВЕННО</span>
+            </div>
+            <p class="footer-text">© 2025 ОТВЕТСТВЕННАЯ ИГРА</p>
+        </div>
+    </footer>
 
     <!-- Test Modal -->
     <div class="test-modal" id="testModal">
