@@ -48,6 +48,46 @@
     </div>
 
     <script src="https://dumpster.cdn.sports.ru/5/b6/6d6d005e216ef4037a528d8fc6421.js"></script>
-    <script src="https://dumpster.cdn.sports.ru/1/2c/1deab618c6fdfb625551910ea5a50.js"></script>
+    <script>
+        // Исправленный resize скрипт для правильного определения высоты
+        let lastHeight = null;
+
+        const resize = ({force = false}) => {
+            const widget = document.querySelector('.olimpbet-widget');
+            const currentHeight = widget ? widget.offsetHeight + 20 : 92; // 72px виджет + 20px запас
+            
+            if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+                return;
+            }
+            
+            lastHeight = currentHeight;
+            
+            const dataUTILS = {
+                for: 'BASIC_TEST',
+                action: 'resizeIframe',
+                selector: `iframe[src*="dumpster.cdn.sports.ru"]`,
+                sizes: {
+                    height: currentHeight,
+                },
+            };
+
+            window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
+        }
+
+        const resizeObserver = new ResizeObserver(() => {
+            resize({});
+        });
+        
+        const widget = document.querySelector('.olimpbet-widget');
+        if (widget) {
+            resizeObserver.observe(widget);
+        }
+        
+        resize({force: true});
+
+        setTimeout(() => { resize({force: true}); }, 500);
+        setTimeout(() => { resize({force: true}); }, 1000);
+        setTimeout(() => { resize({force: true}); }, 2000);
+    </script>
 </body>
 </html>

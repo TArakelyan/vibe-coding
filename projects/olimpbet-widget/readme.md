@@ -19,12 +19,12 @@
 - **Кнопка**: красная (#F42525) с белой стрелкой и анимацией pulse
 
 ## Файлы
-- `index.html` - HTML структура виджета с подключением внешних ресурсов
+- `index.html` - HTML структура виджета с подключением внешних ресурсов и встроенным resize скриптом
 - Внешние ресурсы:
   - CSS: https://dumpster.cdn.sports.ru/7/8e/d82c4fb64b5c00ac3733fe61fa605.css
   - JS (основной): https://dumpster.cdn.sports.ru/5/b6/6d6d005e216ef4037a528d8fc6421.js
-  - JS (resize): https://dumpster.cdn.sports.ru/1/2c/1deab618c6fdfb625551910ea5a50.js
   - Логотип: https://dumpster.cdn.sports.ru/3/f5/283734791d928a5d5e74dc539cbe9.png
+- Встроенный resize скрипт для правильного определения высоты виджета
 
 ## Функциональность
 - Клик по виджету открывает https://spnsrd.ru/pst2olimp
