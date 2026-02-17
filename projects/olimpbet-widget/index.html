@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ОлимпБет Widget</title>
     <link rel="stylesheet" href="https://dumpster.cdn.sports.ru/7/8e/d82c4fb64b5c00ac3733fe61fa605.css">
+    <style>
+        /* Исправление высоты для корректного отображения в iframe */
+        html, body {
+            height: auto !important;
+            min-height: auto !important;
+            overflow: visible !important;
+        }
+        body {
+            width: 100% !important;
+            max-width: 672px;
+            margin: 0;
+            padding: 0;
+        }
+        @media (max-width: 500px) {
+            body {
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="olimpbet-widget">
