@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundes Predictor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @import "https://senoval.cdn.sports.ru/static-resources/fonts/roboto.css";
+        @import "https://senoval.cdn.sports.ru/static-resources/fonts/sports.css";
+    </style>
+    <style>
+        @font-face {
+            font-family: 'TT Neoris';
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+            src: local('TT Neoris'), local('TTNeoris');
+        }
+        @font-face {
+            font-family: 'TT Neoris';
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+            src: local('TT Neoris Medium'), local('TTNeoris-Medium');
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bundes-predictor-container">
+            <!-- Только одна конференция -->
+            <div class="conference-section">
+                <h1 class="conference-title">«Монако» – «ПСЖ»</h1>
+                <div id="contenders-list" class="teams-list contenders">
+                    <!-- Команды будут добавлены через JavaScript -->
+                </div>
+                <div class="conference-spacer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bundes-teams-data.js"></script>
+    <script src="html2canvas.min.js"></script>
+    <script src="theme-detector.js"></script>
+    <script src="main.js"></script>
+    <script src="resize.js"></script>
+</body>
+</html>
