@@ -44,6 +44,42 @@
     <script src="https://dumpster.cdn.sports.ru/7/3f/1c95ab025d0e0956bb8490fe05d53.js"></script>
     <script src="https://dumpster.cdn.sports.ru/d/58/fd08abaca780def156fc3514b6d82.js"></script>
     <script src="https://dumpster.cdn.sports.ru/2/21/4cc8e25281685ed783b2ac70b23b8.js"></script>
-    <script src="https://dumpster.cdn.sports.ru/0/1f/b4f84aaa4b548b2be1e7fb79d597a.js"></script>
+    <script>
+let lastHeight = null;
+
+const resize = ({force = false}) => {
+    const container = document.querySelector('.container');
+    const currentHeight = container ? container.offsetHeight : 200;
+    
+    if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+      return;
+    }
+    
+    lastHeight = currentHeight;
+    
+    const dataUTILS = {
+      for: 'BASIC_TEST',
+      action: 'resizeIframe',
+      selector: `iframe[src*="dumpster.cdn.sports.ru"]`,
+      sizes: {
+        height: currentHeight,
+      },
+    };
+
+    window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
+  }
+
+const resizeObserver = new ResizeObserver(() => {
+  resize({});
+});
+resizeObserver.observe(document.body);
+resize({force: true});
+
+setTimeout(() => { resize({force: true}); }, 1000);
+setTimeout(() => { resize({force: true}); }, 2000);
+setTimeout(() => { resize({force: true}); }, 3000);
+setTimeout(() => { resize({force: true}); }, 5000);
+setTimeout(() => { resize({force: true}); }, 7000);
+    </script>
 </body>
 </html>
