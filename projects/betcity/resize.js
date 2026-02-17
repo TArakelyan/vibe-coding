@@ -14,7 +14,7 @@ const resize = ({force = false}) => {
     const dataUTILS = {
       for: 'BASIC_TEST',
       action: 'resizeIframe',
-      selector: `iframe[src*="https://betcity-ignash.netlify.app/"]`,
+      selector: `iframe[src*="dumpster.cdn.sports.ru"]`,
       sizes: {
         height: currentHeight,
       },
