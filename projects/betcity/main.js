@@ -31,12 +31,7 @@ class BundesPredictor {
             <div class="team-name">${team.name}</div>
             <div class="odds-container">
                 <div class="odds-wrapper">
-                    <div class="odds-label">Да</div>
                     <div class="odds-button" data-type="yes">${team.oddsYes}</div>
-                </div>
-                <div class="odds-wrapper">
-                    <div class="odds-label">Нет</div>
-                    <div class="odds-button" data-type="no">${team.oddsNo}</div>
                 </div>
             </div>
         `;
@@ -55,7 +50,7 @@ class BundesPredictor {
 
     openBetcity() {
         // Открываем ссылку на БЕТСИТИ в новом окне
-        window.open('https://s.betcity.ru/9tq', '_blank');
+        window.open('https://s.betcity.ru/a9x', '_blank');
     }
 
     saveToLocalStorage() {

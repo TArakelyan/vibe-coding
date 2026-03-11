@@ -2,18 +2,18 @@
 const bundesTeamsData = {
     contenders: [
         {
-            id: 'golovin',
-            name: 'Головин забьет',
-            logo: 'https://dumpster.cdn.sports.ru/0/fe/8b3c20a81cd9736adf2a947d7ecf2.png',
-            oddsYes: '4.00',
-            oddsNo: '1.20'
+            id: 'real',
+            name: 'Реал',
+            logo: 'https://dumpster.cdn.sports.ru/2/52/1205093f14df48fc0d153090a5f23.png',
+            oddsYes: '3.20',
+            oddsNo: ''
         },
         {
-            id: 'safonov',
-            name: 'Сафонов отразит пенальти',
-            logo: 'https://dumpster.cdn.sports.ru/0/42/79757a585d31cc4c68eb475c1739c.png',
-            oddsYes: '6.50',
-            oddsNo: '1.08'
+            id: 'mancity',
+            name: 'Ман Сити',
+            logo: 'https://dumpster.cdn.sports.ru/4/ac/c7b82b918ae9085486df8a544663c.png',
+            oddsYes: '1.36',
+            oddsNo: ''
         }
     ]
 };

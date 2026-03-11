@@ -4,34 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BETCITY Widget</title>
-    <link rel="stylesheet" href="https://dumpster.cdn.sports.ru/c/47/b4e0fcc0e206e734afa70d5de982d.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <div class="betcity-widget">
-        <div class="betcity-logo">
-            <img src="https://dumpster.cdn.sports.ru/6/07/0512105f563a56746c1a312fa3c27.png" alt="BETCITY" width="80" height="24">
-        </div>
-        
-        <div class="reklama-badge">
-            <span>Реклама 18+</span>
-            <div class="dots" id="reklamaDots">⋮</div>
-            <div class="advertiser-info" id="advertiserInfo">
-                <div class="advertiser-info-text">ООО «ФОРТУНА», Erid: 2SDnjdU9DXW</div>
+        <div class="widget-header">
+            <div class="betcity-logo">
+                <img src="https://dumpster.cdn.sports.ru/6/07/0512105f563a56746c1a312fa3c27.png" alt="BETCITY" width="80" height="24">
+            </div>
+            
+            <div class="reklama-badge">
+                <span>Реклама 18+</span>
+                <div class="dots" id="reklamaDots">⋮</div>
+                <div class="advertiser-info" id="advertiserInfo">
+                    <div class="advertiser-info-text">ООО «ФОРТУНА», Erid: 2SDnjdU9DXW</div>
+                </div>
             </div>
         </div>
-        
-        <div class="content-text">
-            <!-- Текст будет установлен динамически через JavaScript -->
+
+        <div class="widget-title">Выход в 1/4 финала</div>
+
+        <div class="teams-container">
+            <a href="https://s.betcity.ru/a9x" target="_blank" class="team-row">
+                <div class="team-info">
+                    <img src="https://dumpster.cdn.sports.ru/2/52/1205093f14df48fc0d153090a5f23.png" alt="Реал" class="team-logo">
+                    <span class="team-name">Реал</span>
+                </div>
+                <div class="coefficient">3.20</div>
+            </a>
+
+            <a href="https://s.betcity.ru/a9x" target="_blank" class="team-row">
+                <div class="team-info">
+                    <img src="https://dumpster.cdn.sports.ru/4/ac/c7b82b918ae9085486df8a544663c.png" alt="Ман Сити" class="team-logo">
+                    <span class="team-name">Ман Сити</span>
+                </div>
+                <div class="coefficient">1.36</div>
+            </a>
         </div>
-        
-        <div class="action-button">
+
+        <a href="https://s.betcity.ru/a9x" target="_blank" class="action-button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.5 5L15.5 12L8.5 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-        </div>
+        </a>
     </div>
 
-    <script src="https://dumpster.cdn.sports.ru/c/e5/579521c49745d456efa65bb92e2fb.js"></script>
-    <script src="https://dumpster.cdn.sports.ru/f/9d/fdb9b95a54e3b5800ba738e367718.js"></script>
+    <script src="./script.js"></script>
+    <script src="./resize.js"></script>
 </body>
 </html>
