@@ -1,7 +1,10 @@
 let lastHeight = null;
 
 const resize = ({force = false}) => {
-    const currentHeight = document.body.scrollHeight;
+    const widget = document.querySelector('.bundes-predictor-container');
+    if (!widget) return;
+    
+    const currentHeight = Math.ceil(widget.getBoundingClientRect().height);
     
     if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
         return;
