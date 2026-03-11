@@ -163,4 +163,4 @@
         getCurrentTheme: () => document.body.classList.contains('dark-theme') ? 'dark' : 'light'
     };
     
-})(); 
+})();
