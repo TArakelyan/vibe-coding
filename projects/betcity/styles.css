@@ -89,17 +89,6 @@ body {
     min-height: 0;
 }
 
-.bundes-predictor-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    pointer-events: none;
-}
-
 .conference-section {
     background: #ffffff;
     border-radius: 0;
