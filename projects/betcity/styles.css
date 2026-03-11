@@ -65,8 +65,8 @@ body {
     color: var(--text-primary);
     background: transparent;
     margin: 0;
-    padding: 20px;
-    overflow: hidden;
+    padding: 0;
+    overflow: visible;
 }
 
 .container {
