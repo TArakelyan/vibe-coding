@@ -27,6 +27,14 @@
             font-display: swap;
             src: local('TT Neoris Medium'), local('TTNeoris-Medium');
         }
+        
+        /* КРИТИЧЕСКИ ВАЖНО - ограничиваем высоту html и body */
+        html, body {
+            height: auto !important;
+            max-height: none !important;
+            min-height: 0 !important;
+            overflow: visible !important;
+        }
     </style>
 </head>
 <body>
