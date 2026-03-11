@@ -67,6 +67,8 @@ body {
     margin: 0;
     padding: 0;
     overflow: visible;
+    height: auto;
+    min-height: 0;
 }
 
 .bundes-predictor-container {
@@ -76,13 +78,15 @@ body {
     padding: 0.5rem;
     border: 2px solid var(--sports-blue);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     margin: 0;
     width: 730px;
     max-width: 100%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    height: auto;
+    min-height: 0;
 }
 
 .bundes-predictor-container::before {
