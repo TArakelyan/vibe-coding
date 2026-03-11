@@ -1,8 +1,8 @@
 let lastHeight = null;
 
 const resize = ({force = false}) => {
-    const container = document.querySelector('.container');
-    const currentHeight = container ? container.offsetHeight : 200;
+    const widget = document.querySelector('.bundes-predictor-container');
+    const currentHeight = widget ? widget.offsetHeight + 10 : 150;
     
     // Проверяем изменения только если это не первый вызов
     if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
