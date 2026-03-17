@@ -253,6 +253,11 @@ body {
     border: 2px solid var(--border-color);
 }
 
+.team-logo[src=""], .team-logo:not([src]) {
+    display: none;
+    margin-right: 0;
+}
+
 .team-name {
     font-size: 1rem;
     font-weight: 500;

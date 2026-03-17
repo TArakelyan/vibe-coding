@@ -26,8 +26,10 @@ class BundesPredictor {
         teamDiv.dataset.teamId = team.id;
         teamDiv.dataset.position = position;
 
+        const logoHtml = team.logo ? `<img src="${team.logo}" alt="${team.name}" class="team-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yNSAzN0MxOS40NzcxIDM3IDE1IDMyLjUyMjkgMTUgMjdDMTUgMjEuNDc3MSAxOS40NzcxIDE3IDI1IDE3QzMwLjUyMjkgMTcgMzUgMjEuNDc3MSAzNSAyN0MzNSAzMi41MjI5IDMwLjUyMjkgMzcgMjUgMzdaIiBmaWxsPSIjQ0NDIi8+Cjwvc3ZnPgo='">` : '';
+
         teamDiv.innerHTML = `
-            <img src="${team.logo}" alt="${team.name}" class="team-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yNSAzN0MxOS40NzcxIDM3IDE1IDMyLjUyMjkgMTUgMjdDMTUgMjEuNDc3MSAxOS40NzcxIDE3IDI1IDE3QzMwLjUyMjkgMTcgMzUgMjEuNDc3MSAzNSAyN0MzNSAzMi41MjI5IDMwLjUyMjkgMzcgMjUgMzdaIiBmaWxsPSIjQ0NDIi8+Cjwvc3ZnPgo='">
+            ${logoHtml}
             <div class="team-name">${team.name}</div>
             <div class="odds-container">
                 <div class="odds-wrapper">
