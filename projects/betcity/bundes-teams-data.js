@@ -3,14 +3,14 @@ const bundesTeamsData = {
     contenders: [
         {
             id: 'more',
-            name: 'Больше',
+            name: 'Больше 2,5',
             logo: '',
             oddsYes: '2.55',
             oddsNo: ''
         },
         {
             id: 'less',
-            name: 'Меньше',
+            name: 'Меньше 2,5',
             logo: '',
             oddsYes: '1.45',
             oddsNo: ''
