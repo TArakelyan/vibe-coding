@@ -1,43 +1,51 @@
-let lastHeight = null;
+let lastHeight = null; // null означает что это первый вызов
+let resizeTimeout;
 
 const resize = ({force = false}) => {
-    const widget = document.querySelector('.bundes-predictor-container');
-    if (!widget) return;
-    
-    // Получаем точную высоту виджета
-    const rect = widget.getBoundingClientRect();
-    const currentHeight = Math.ceil(rect.height) + 2; // +2px запас
-    
-    if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
-        return;
-    }
-    
-    lastHeight = currentHeight;
-    
-    const dataUTILS = {
-        for: 'BASIC_TEST',
-        action: 'resizeIframe',
-        selector: `iframe[src*="dumpster.cdn.sports.ru"]`,
-        sizes: {
-            height: currentHeight,
-        },
-    };
+ const currentHeight = document.body.scrollHeight;
+ 
+ // Проверяем изменения только если это не первый вызов
+ if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+ return; // Игнорируем незначительные изменения
+ }
+ 
+ lastHeight = currentHeight;
+ 
+ const dataUTILS = {
+ for: 'BASIC_TEST',
+ action: 'resizeIframe',
+ selector: `iframe[src*="dumpster.cdn.sports.ru"]`,
+ sizes: {
+ height: 2 * Math.floor(currentHeight / 2) + 10,
+ },
+ };
 
-    window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
-}
+ window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
+ }
+
 
 const resizeObserver = new ResizeObserver(() => {
-    resize({});
+ resize({});
 });
-
-const container = document.querySelector('.bundes-predictor-container');
-if (container) {
-    resizeObserver.observe(container);
-}
-
+resizeObserver.observe(document.body);
 resize({force: true});
 
-setTimeout(() => resize({force: true}), 100);
-setTimeout(() => resize({force: true}), 300);
-setTimeout(() => resize({force: true}), 500);
-setTimeout(() => resize({force: true}), 1000);
+setTimeout(() => {
+ resize({force: true});
+}, 1000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 2000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 3000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 5000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 7000);
