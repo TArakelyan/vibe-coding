@@ -38,13 +38,9 @@ class BundesPredictor {
             </div>
         `;
 
-        // Добавляем обработчики для кнопок коэффициентов
-        const oddsButtons = teamDiv.querySelectorAll('.odds-button');
-        oddsButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.openBetcity();
-            });
+        // Добавляем обработчик клика на всю строку
+        teamDiv.addEventListener('click', () => {
+            this.openBetcity();
         });
 
         return teamDiv;
