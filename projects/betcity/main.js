@@ -50,7 +50,7 @@ class BundesPredictor {
 
     openBetcity() {
         // Открываем ссылку на БЕТСИТИ в новом окне
-        window.open('https://s.betcity.ru/a9x', '_blank');
+        window.open('https://s.betcity.ru/aed', '_blank');
     }
 
     saveToLocalStorage() {
