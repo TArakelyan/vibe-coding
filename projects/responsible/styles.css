@@ -22,6 +22,7 @@ body {
 }
 
 .section-green-accent,
+.hero-section,
 .recommendations-section,
 .murphy-section,
 .test-section,
@@ -38,54 +39,20 @@ body {
 }
 
 .hero-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: min(100%, 1080px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 52px 24px;
+}
+
+.hero-header {
     width: 100%;
-    padding: 0;
-    background-color: #0b2f27;
-    background-image: url("https://dumpster.cdn.sports.ru/c/7b/918686d46489b9d6d59db368f9e9e.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-bottom: 1px solid #0e4f3a;
 }
 
-.hero {
-    width: 100%;
-    max-width: none;
-    aspect-ratio: 1036 / 500;
-    min-height: 240px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 32px 24px;
+.hero-intro-box {
+    margin-top: 24px;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 0 16px;
-    text-align: center;
-}
-
-.hero-badge {
-    display: inline-block;
-    background: #46aa8e;
-    color: #fff;
-    padding: 5px 12px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    margin-bottom: 12px;
-}
-
-.hero-title,
 .section-title,
 .test-title,
 .recommendations-title,
@@ -97,22 +64,13 @@ body {
     font-family: "Inter Tight", "Inter", sans-serif;
 }
 
-.hero-title {
-    color: #fff;
-    font-size: clamp(48px, 8vw, 86px);
-    line-height: 0.95;
-    font-weight: 700;
-    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
-}
-
 .hero-description {
-    margin: 14px auto 0;
-    max-width: 900px;
-    color: #f2fffa;
-    font-size: clamp(14px, 1.9vw, 22px);
-    line-height: 1.3;
-    font-weight: 600;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.65);
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 700;
+    color: #000;
+    font-family: "Involve", "Neoris", "Roboto", sans-serif;
 }
 
 .murphy-label,
@@ -692,16 +650,8 @@ body {
 }
 
 @media (max-width: 640px) {
-    .hero {
-        min-height: 300px;
-        padding: 28px 16px;
-    }
-
-    .hero-content {
-        padding: 0 12px;
-    }
-
     .section-green-accent,
+    .hero-section,
     .recommendations-section,
     .help-section,
     .murphy-section,
@@ -747,11 +697,6 @@ body {
     .test-button {
         align-self: stretch;
         text-align: center;
-    }
-
-    .hero-description {
-        font-size: 15px;
-        line-height: 1.3;
     }
 
     .emergency-phone {
