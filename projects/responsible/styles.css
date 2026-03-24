@@ -41,27 +41,27 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 24px 16px;
-    background: #0b2f27;
-    border-bottom: 1px solid #0e4f3a;
-}
-
-.hero {
-    width: 1036px;
-    max-width: 100%;
-    aspect-ratio: 1036 / 500;
-    min-height: 240px;
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
+    width: 100%;
+    padding: 0;
     background-color: #0b2f27;
     background-image: url("https://dumpster.cdn.sports.ru/c/7b/918686d46489b9d6d59db368f9e9e.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    border-bottom: 1px solid #0e4f3a;
+}
+
+.hero {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 1036 / 500;
+    min-height: 240px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    padding: 32px 24px;
 }
 
 .hero-content {
@@ -69,7 +69,8 @@ body {
     z-index: 1;
     width: 100%;
     max-width: 920px;
-    padding: 0 28px;
+    margin: 0 auto;
+    padding: 0 16px;
     text-align: center;
 }
 
@@ -713,13 +714,13 @@ body {
 }
 
 @media (max-width: 640px) {
-    .hero-section {
-        padding: 16px 12px;
-    }
-
     .hero {
         min-height: 300px;
-        padding: 28px 14px;
+        padding: 28px 16px;
+    }
+
+    .hero-content {
+        padding: 0 12px;
     }
 
     .section-green-accent,
