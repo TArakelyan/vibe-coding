@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ответственная игра 2026 - обновлено</title>
-    <link rel="stylesheet" href="./styles.css?v=20260324-fullwidth">
+    <link rel="stylesheet" href="./styles.css?v=20260324-inline-test">
 </head>
 <body>
     <section class="hero-section">
@@ -79,6 +79,10 @@
         <h2 class="test-title">ПРОЙДИТЕ ТЕСТ</h2>
         <p class="test-description">10 вопросов, которые помогут определить наличие проблемы</p>
         <button class="test-button" id="startTestBtn">Начать тест</button>
+        <div class="test-inline" id="testInline" style="display: none;">
+            <div id="testQuestionContainer"></div>
+            <div id="testResultContainer" style="display: none;"></div>
+        </div>
     </section>
 
     <section class="help-section">
@@ -123,21 +127,8 @@
         <div>© 2026 ОТВЕТСТВЕННАЯ ИГРА</div>
     </footer>
 
-    <!-- Test Modal -->
-    <div class="test-modal" id="testModal">
-        <div class="test-modal-content">
-            <button class="test-close" id="closeTest">×</button>
-            <div id="testQuestionContainer"></div>
-            <div id="testResultContainer" style="display: none;"></div>
-            <div class="test-navigation">
-                <button class="test-nav-button secondary" id="prevBtn">Назад</button>
-                <button class="test-nav-button primary" id="nextBtn">Следующий</button>
-            </div>
-        </div>
-    </div>
-
     <script src="./data/questions.js?v=20260318-1"></script>
-    <script src="./script.js?v=20260318-2"></script>
+    <script src="./script.js?v=20260324-inline-test"></script>
     <script src="./theme-detector.js?v=20260318-2"></script>
     <script src="./resize.js?v=20260318-2"></script>
 </body>
