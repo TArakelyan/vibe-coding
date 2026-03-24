@@ -12,6 +12,7 @@ html {
     box-sizing: border-box;
     tab-size: 4;
     -webkit-text-size-adjust: 100%;
+    color-scheme: light;
 }
 
 body {
@@ -19,6 +20,16 @@ body {
     color: #000;
     background: #f4f4f4;
     overflow-x: hidden;
+}
+
+/* Явный цвет на светлых карточках — не зависит от наследования с body (тёмная тема ОС) */
+.info-box,
+.recommendation-item,
+.test-section,
+.help-card,
+.final-box,
+.test-inline {
+    color: #111;
 }
 
 .section-green-accent,
