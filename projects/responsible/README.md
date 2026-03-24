@@ -30,15 +30,17 @@
 
 ```
 responsible/
-├── index.html          # Главная страница
-├── styles.css          # Стили проекта (фон hero — URL CDN в CSS)
-├── script.js           # Основной функционал теста
-├── theme-detector.js   # Определение темной темы
-├── resize.js           # Ресайз iframe для встраивания
+├── index.html          # Главная страница (CSS и основные скрипты с dumpster CDN)
+├── styles.css          # Исходные стили (дублируются на CDN)
+├── script.js           # Исходный JS теста (дублируется на CDN)
+├── theme-detector.js   # Исходник темы (дублируется на CDN)
+├── resize.js           # Исходник resize iframe (дублируется на CDN)
 ├── data/
-│   └── questions.js    # Вопросы теста
+│   └── questions.js    # Вопросы теста (локально, подключается из ./data/)
 └── README.md          # Документация
 ```
+
+Подключения в `index.html`: [styles](https://dumpster.cdn.sports.ru/d/86/c56b79cdd2fdf1ecd7ea965f44de8.css), [script](https://dumpster.cdn.sports.ru/5/6e/eeda98dc1f611b575126bbd96a999.js), [theme](https://dumpster.cdn.sports.ru/d/75/7e43cdef780c8a04d791ec2026a92.js), [resize](https://dumpster.cdn.sports.ru/d/8f/095834ad31af26adbe8b0fc1fc09c.js).
 
 ## Технологии
 
