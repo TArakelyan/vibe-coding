@@ -23,8 +23,8 @@ function resetTest() {
     testResultContainer.style.display = 'none';
 }
 
-const QUESTION_TEXT_MAX_PX = 56;
-const QUESTION_TEXT_MIN_PX = 15;
+const QUESTION_TEXT_MAX_PX = 40;
+const QUESTION_TEXT_MIN_PX = 13;
 
 function fitQuestionTextToBody() {
     const body = testQuestionContainer.querySelector('.test-question-body');

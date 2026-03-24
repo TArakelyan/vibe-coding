@@ -218,8 +218,8 @@ body {
 .test-question-view {
     display: flex;
     flex-direction: column;
-    height: 420px;
-    gap: 10px;
+    height: 340px;
+    gap: 8px;
 }
 
 .test-question-header {
@@ -609,7 +609,7 @@ body {
     font-family: "Inter Tight", "Inter", sans-serif;
     font-weight: 700;
     line-height: 1.12;
-    font-size: 56px;
+    font-size: 40px;
 }
 
 .test-answers {
@@ -735,7 +735,7 @@ body {
     }
 
     .test-question-view {
-        height: 380px;
+        height: 300px;
     }
 
     .test-button {
