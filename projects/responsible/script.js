@@ -23,24 +23,66 @@ function resetTest() {
     testResultContainer.style.display = 'none';
 }
 
+const QUESTION_TEXT_MAX_PX = 56;
+const QUESTION_TEXT_MIN_PX = 15;
+
+function fitQuestionTextToBody() {
+    const body = testQuestionContainer.querySelector('.test-question-body');
+    const textEl = testQuestionContainer.querySelector('.test-question-text');
+    if (!body || !textEl) return;
+
+    textEl.style.fontSize = `${QUESTION_TEXT_MAX_PX}px`;
+    textEl.style.lineHeight = '1.12';
+
+    const step = () => {
+        let size = QUESTION_TEXT_MAX_PX;
+        const bodyH = body.clientHeight;
+        while (size > QUESTION_TEXT_MIN_PX && textEl.scrollHeight > bodyH + 1) {
+            size -= 1;
+            textEl.style.fontSize = `${size}px`;
+        }
+        if (textEl.scrollHeight > bodyH + 1) {
+            textEl.style.lineHeight = '1.05';
+        }
+    };
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(step);
+    });
+}
+
 // Показать вопрос
 function showQuestion() {
     const question = testQuestions[currentQuestion];
-    
+
     testQuestionContainer.innerHTML = `
-        <div class="test-question-number">Вопрос ${currentQuestion + 1} из ${testQuestions.length}</div>
-        <div class="test-question-text">${question.question}</div>
-        <div class="test-answers">
-            ${question.answers.map((answer, index) => `
-                <button class="test-answer-button ${answers[currentQuestion] === index ? 'selected' : ''}" 
-                        onclick="selectAnswer(${index})">
-                    ${answer}
-                </button>
-            `).join('')}
+        <div class="test-question-view">
+            <div class="test-question-header">
+                <div class="test-question-number">Вопрос ${currentQuestion + 1} из ${testQuestions.length}</div>
+            </div>
+            <div class="test-question-body">
+                <div class="test-question-text">${question.question}</div>
+            </div>
+            <div class="test-answers">
+                ${question.answers.map((answer, index) => `
+                    <button type="button" class="test-answer-button ${answers[currentQuestion] === index ? 'selected' : ''}"
+                            onclick="selectAnswer(${index})">
+                        ${answer}
+                    </button>
+                `).join('')}
+            </div>
         </div>
     `;
-    
+
+    fitQuestionTextToBody();
 }
+
+let testResizeTimer;
+window.addEventListener('resize', () => {
+    if (!testInline || testInline.style.display === 'none') return;
+    clearTimeout(testResizeTimer);
+    testResizeTimer = setTimeout(() => fitQuestionTextToBody(), 120);
+});
 
 // Выбор ответа
 function selectAnswer(index) {
