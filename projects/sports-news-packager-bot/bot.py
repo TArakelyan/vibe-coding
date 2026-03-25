@@ -77,6 +77,7 @@ def split_telegram_chunks(text: str, limit: int = TELEGRAM_MAX_MESSAGE) -> list[
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if update.message:
+        logger.info("Команда /start от %s", update.effective_user.id if update.effective_user else None)
         await update.message.reply_text(
             "Пришлите текст с фактами и коэффициентами — отвечу готовой новостью "
             "в формате Sports.ru (заголовок и текст)."
@@ -85,6 +86,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if update.message:
+        logger.info("Команда /help от %s", update.effective_user.id if update.effective_user else None)
         await update.message.reply_text(
             "Отправьте одно текстовое сообщение с сырыми данными. "
             "Бот вернёт упакованную беттинг-новость по редакционным правилам.\n\n"
@@ -100,6 +102,11 @@ async def text_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         await update.message.reply_text("Пришлите непустой текст.")
         return
 
+    logger.info(
+        "Получено текстовое сообщение от %s (%d символов)",
+        update.effective_user.id if update.effective_user else None,
+        len(raw),
+    )
     await update.message.chat.send_action(action="typing")
     try:
         packed = await asyncio.to_thread(packager.pack_news, raw)
@@ -139,7 +146,8 @@ def main() -> None:
 
     _start_health_server()
     logger.info("Запуск polling…")
-    application.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
+    # Для дебага: чтобы не терять апдейты, пришедшие между деплоем и стартом polling.
+    application.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=False)
 
 
 if __name__ == "__main__":
