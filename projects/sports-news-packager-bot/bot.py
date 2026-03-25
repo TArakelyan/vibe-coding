@@ -134,13 +134,17 @@ def main() -> None:
         sys.exit(1)
 
     # python-telegram-bot делает `loop = asyncio.get_event_loop()` внутри run_polling().
-    # В Python 3.14 в средах без заранее созданного loop это приводит к RuntimeError.
-    # Поэтому создаём и назначаем loop явно перед запуском polling.
+    # На Render / Python 3.14 это часто приводит к RuntimeError, если loop не создан.
+    # Поэтому создаём и назначаем loop явно и предсказуемо перед запуском polling.
+    logger.info("Python version: %s", sys.version.replace("\n", " "))
     try:
-        asyncio.get_running_loop()
+        asyncio.get_event_loop()
+        logger.info("Event loop already exists before run_polling")
     except RuntimeError:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        logger.info("No event loop before run_polling; will set one")
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    logger.info("Event loop set: %s", loop)
 
     application = (
         Application.builder()
