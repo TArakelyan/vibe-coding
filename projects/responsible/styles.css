@@ -89,7 +89,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 14px 18px;
+    justify-content: center;
+    gap: 0;
 }
 
 .hero-stop-icon {
@@ -103,6 +104,7 @@ body {
     background: #ff003c;
     clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
     flex-shrink: 0;
+    display: none;
 }
 
 /* В центре — восклицательный знак (без эмодзи) */
@@ -126,6 +128,7 @@ body {
     letter-spacing: -0.02em;
     margin: 0;
     font-family: "Sports", "TT Sports Display", sans-serif;
+    text-align: center;
 }
 
 .hero-intro-box {
@@ -188,6 +191,7 @@ body {
     border-left: 5px solid #48a98f;
     background: #f4f4f4;
     padding: 21px;
+    border-radius: 12px;
 }
 
 .info-box p {
@@ -207,6 +211,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 14px;
 }
 
 .test-label {
@@ -217,7 +222,7 @@ body {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.14em;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
     width: fit-content;
 }
 
@@ -241,10 +246,11 @@ body {
     background: #111;
     color: #fff;
     padding: 14px 24px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     align-self: center;
+    border-radius: 12px;
 }
 
 .test-inline {
@@ -252,6 +258,7 @@ body {
     border: 2px solid #111;
     background: #fff;
     padding: 18px 16px;
+    border-radius: 12px;
 }
 
 .test-question-view {
@@ -295,6 +302,14 @@ body {
     font-weight: 700;
 }
 
+.recommendations-title br {
+    display: none;
+}
+
+.recommendations-title {
+    white-space: nowrap;
+}
+
 .green-text {
     color: #43af8f;
 }
@@ -318,6 +333,8 @@ body {
     transform: translateX(0);
     transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
     animation: recommendationFloat 3.2s ease-in-out infinite;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .recommendation-item:nth-child(2) { animation-delay: 180ms; }
@@ -394,6 +411,7 @@ body {
     background: #f4f4f4;
     padding: 21px;
     min-height: 150px;
+    border-radius: 12px;
 }
 
 .help-card-clickable {
@@ -439,11 +457,12 @@ body {
     color: #000;
     padding: 21px;
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
     gap: 16px;
     align-items: center;
     min-height: 170px;
     margin-bottom: 42px;
+    border-radius: 12px;
 }
 
 .emergency-light {
@@ -478,6 +497,12 @@ body {
     line-height: 0.95;
     font-weight: 800;
     white-space: nowrap;
+}
+
+.emergency-title-link {
+    color: inherit;
+    text-decoration: none;
+    font-weight: inherit;
 }
 
 .emergency-subtitle {
@@ -545,6 +570,7 @@ body {
     display: grid;
     grid-template-columns: 72px 1fr;
     gap: 16px;
+    border-radius: 16px;
 }
 
 .murphy-icon {
@@ -595,6 +621,7 @@ body {
     padding: 21px;
     background: #f4f4f4;
     min-height: 230px;
+    border-radius: 12px;
 }
 
 .final-text {
@@ -667,6 +694,7 @@ body {
     font-size: 16px;
     font-weight: 800;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .test-answer-button.selected {
@@ -700,6 +728,7 @@ body {
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 @media (max-width: 900px) {
@@ -731,6 +760,14 @@ body {
 }
 
 @media (max-width: 640px) {
+    .recommendations-title {
+        white-space: normal;
+    }
+
+    .recommendations-title br {
+        display: block;
+    }
+
     .section-green-accent,
     .hero-section,
     .recommendations-section,
