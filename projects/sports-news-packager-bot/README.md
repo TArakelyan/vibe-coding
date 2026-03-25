@@ -37,7 +37,7 @@ python bot.py
 1. Создайте **Web Service**, укажите репозиторий.
 2. **Root Directory**: `projects/sports-news-packager-bot`.
 3. **Build Command**: `pip install -r requirements.txt`.
-4. **Start Command**: `python bot.py` (как в `Procfile`: `web: python bot.py`).
+4. **Start Command**: `python3 bot.py` (как в `Procfile`: `web: python3 bot.py`).
 5. В **Environment** добавьте секреты `BOT_TOKEN` и `GEMINI_API_KEY`.
 
 Токен и ключ API **не храните в коде** — только в настройках Render.
