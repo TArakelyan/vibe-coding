@@ -1,5 +1,5 @@
 """
-Telegram-бот: принимает сырую заметку, отдаёт упакованную новость через Claude API.
+Telegram-бот: принимает сырую заметку, отдаёт упакованную новость через Google Gemini API.
 """
 from __future__ import annotations
 
@@ -109,7 +109,7 @@ async def text_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     except Exception as e:
         logger.exception("Ошибка упаковки: %s", e)
         await update.message.reply_text(
-            "Не удалось получить ответ модели. Проверьте ключ API и лимиты. "
+            "Не удалось получить ответ модели. Проверьте GEMINI_API_KEY и лимиты. "
             "Попробуйте ещё раз позже."
         )
         return
@@ -122,8 +122,8 @@ def main() -> None:
     if not config.BOT_TOKEN:
         logger.error("Не задан BOT_TOKEN")
         sys.exit(1)
-    if not config.ANTHROPIC_API_KEY:
-        logger.error("Не задан ANTHROPIC_API_KEY")
+    if not config.GEMINI_API_KEY:
+        logger.error("Не задан GEMINI_API_KEY")
         sys.exit(1)
 
     application = (
