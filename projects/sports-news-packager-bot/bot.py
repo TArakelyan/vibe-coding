@@ -133,16 +133,14 @@ def main() -> None:
         logger.error("Не задан GEMINI_API_KEY")
         sys.exit(1)
 
-    # На новых версиях Python может не быть event loop по умолчанию.
-    # python-telegram-bot внутри polling может дергать get_event_loop(),
-    # поэтому заранее гарантируем наличие loop.
+    # python-telegram-bot делает `loop = asyncio.get_event_loop()` внутри run_polling().
+    # В Python 3.14 в средах без заранее созданного loop это приводит к RuntimeError.
+    # Поэтому создаём и назначаем loop явно перед запуском polling.
     try:
         asyncio.get_running_loop()
     except RuntimeError:
-        try:
-            asyncio.get_event_loop()
-        except RuntimeError:
-            asyncio.set_event_loop(asyncio.new_event_loop())
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
 
     application = (
         Application.builder()
@@ -158,7 +156,10 @@ def main() -> None:
     _start_health_server()
     logger.info("Запуск polling…")
     # Для дебага: чтобы не терять апдейты, пришедшие между деплоем и стартом polling.
-    application.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=False)
+    application.run_polling(
+        allowed_updates=Update.ALL_TYPES,
+        drop_pending_updates=False,
+    )
 
 
 if __name__ == "__main__":
