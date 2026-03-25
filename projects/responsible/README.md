@@ -40,7 +40,7 @@ responsible/
 └── README.md          # Документация
 ```
 
-Подключения в `index.html`: [styles](https://dumpster.cdn.sports.ru/7/d1/312f0bf3e3c3622ea3b1d56b9dabd.css), [script](https://dumpster.cdn.sports.ru/4/51/4805d2023829e9712bd013fc2e75a.js), [theme](https://dumpster.cdn.sports.ru/0/24/ba53f2a0db8701e622638ac2244c1.js), [resize](https://dumpster.cdn.sports.ru/e/a2/959a1e99bb1a1e59b06b5c25d296a.js).
+Подключения в `index.html`: [styles](https://dumpster.cdn.sports.ru/0/56/f551162b73054e102066169138227.css), [script](https://dumpster.cdn.sports.ru/0/64/2e5505892f47d6bcb8cda89f4b547.js), [theme](https://dumpster.cdn.sports.ru/2/6e/c1db662cf0a0243bc158984dcc566.js), [resize](https://dumpster.cdn.sports.ru/4/32/b82406376abf3ffba3f80ff232fbf.js).
 
 ### Выкладка на dumpster (один HTML)
 
