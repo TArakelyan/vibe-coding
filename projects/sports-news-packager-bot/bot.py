@@ -133,6 +133,17 @@ def main() -> None:
         logger.error("Не задан GEMINI_API_KEY")
         sys.exit(1)
 
+    # На новых версиях Python может не быть event loop по умолчанию.
+    # python-telegram-bot внутри polling может дергать get_event_loop(),
+    # поэтому заранее гарантируем наличие loop.
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        try:
+            asyncio.get_event_loop()
+        except RuntimeError:
+            asyncio.set_event_loop(asyncio.new_event_loop())
+
     application = (
         Application.builder()
         .token(config.BOT_TOKEN)
