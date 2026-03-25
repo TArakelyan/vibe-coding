@@ -115,6 +115,38 @@
         .test-answer-button {
             font-family: "TT Neoris", "Neoris", "Roboto", sans-serif;
         }
+
+        /* Дублируем ключевые правки верстки/дизайна inline, чтобы они
+           работали даже при неперезалитом CSS на dumpster. */
+        .hero-title-row { justify-content: center; gap: 0; }
+        .hero-main-title { text-align: center; }
+
+        .recommendations-title { white-space: nowrap; }
+        .recommendations-title br { display: none; }
+        @media (max-width: 640px) {
+            .recommendations-title { white-space: normal; }
+            .recommendations-title br { display: block; }
+        }
+
+        .info-box { border-radius: 12px; }
+        .recommendation-item { border-radius: 12px; overflow: hidden; }
+        .test-section { border-radius: 14px; }
+        .test-inline { border-radius: 12px; }
+        .help-card { border-radius: 12px; }
+        .emergency-section { grid-template-columns: 1fr; border-radius: 12px; }
+        .murphy-card { border-radius: 16px; }
+        .final-box { border-radius: 12px; }
+
+        .test-label { margin-bottom: 18px; }
+        .test-button { font-size: 15px; border-radius: 12px; }
+        .test-answer-button { border-radius: 10px; }
+        .test-restart-button { border-radius: 12px; }
+
+        .emergency-title-link {
+            color: inherit;
+            text-decoration: none;
+            font-weight: inherit;
+        }
     </style>
 </head>
 <body>
