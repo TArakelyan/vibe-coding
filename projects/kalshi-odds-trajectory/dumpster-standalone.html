@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>График коэффициентов</title>
+    <meta name="description" content="Анимированный график коэффициентов с логотипами команд по датам." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Стили с CDN: при одиночной загрузке HTML на dumpster относительный ./styles.css недоступен -->
+    <link rel="stylesheet" href="https://dumpster.cdn.sports.ru/1/a6/68841b4965b551568e4297b813a4d.css" />
+  </head>
+  <body>
+    <div class="kalshi-app">
+      <div class="chart-field" id="chartField">
+        <svg
+          class="chart-svg"
+          id="chartSvg"
+          viewBox="0 0 1100 520"
+          preserveAspectRatio="xMidYMid meet"
+          aria-label="График коэффициентов"
+          role="img"
+        ></svg>
+      </div>
+    </div>
+
+    <!-- Данные встроены: ./data/odds-data.js рядом с одиночным .html на dumpster не существует -->
+    <script>
+      window.oddsTrajectoryData = {
+        dates: ["Октябрь", "Ноябрь", "Декабрь", "Январь", "Февраль", "Март"],
+        teams: [
+          {
+            id: "oklahoma",
+            name: "Оклахома",
+            logo: "https://dumpster.cdn.sports.ru/5/6f/1b4a1fde8b09dff64590036db5167.png",
+            color: "#1266AC",
+            odds: [3.4, 3.4, 2.65, 2.05, 2.25, 2.45]
+          },
+          {
+            id: "denver",
+            name: "Денвер",
+            logo: "https://dumpster.cdn.sports.ru/1/4a/d3fe517c7979ecc0781e0ccc42370.png",
+            color: "#0E2240",
+            odds: [6.5, 7.0, 6.5, 9.0, 7.0, 7.0]
+          },
+          {
+            id: "san-antonio",
+            name: "Сан-Антонио",
+            logo: "https://dumpster.cdn.sports.ru/2/d0/5ee3de66b062167dd90c66e44f5b6.png",
+            color: "#000000",
+            odds: [67.0, 31.0, 46.0, 13.0, 13.0, 9.5]
+          },
+          {
+            id: "cleveland",
+            name: "Кливленд",
+            logo: "https://dumpster.cdn.sports.ru/e/c0/c8ee2e1a69b26c97cb2e590cfdb78.png",
+            color: "#6F263D",
+            odds: [8.5, 8.5, 12.0, 21.0, 19.0, 11.0]
+          },
+          {
+            id: "boston",
+            name: "Бостон",
+            logo: "https://dumpster.cdn.sports.ru/d/e3/ce863739af8a8c2a90cc5edc582af.png",
+            color: "#008248",
+            odds: [61.0, 61.0, 51.0, 26.0, 17.0, 13.0]
+          }
+        ]
+      };
+    </script>
+    <script src="https://dumpster.cdn.sports.ru/a/29/42ac142968cf72fbd9dbfc39324d7.js"></script>
+    <script src="https://dumpster.cdn.sports.ru/8/da/0c1518c2526145ded83019fd54ab9.js"></script>
+  </body>
+</html>

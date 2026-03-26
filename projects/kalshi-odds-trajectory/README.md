@@ -11,12 +11,18 @@
 - Пошаговая анимация по месяцам с паузой и значениями в формате `9.00`.
 
 ## Сборка и деплой
-В `index.html` подключаются **локальные** `./styles.css`, `./main-trajectory.js`, `./resize.js` — так страница стабильно открывается после деплоя (без блокировок внешних скриптов по CSP и без зависимости от доступности CDN).
 
-### Зеркала на CDN (для выкладки на sports.ru)
-Те же файлы можно дублировать на CDN и подставить URL в копию страницы, если политика сайта разрешает домен `dumpster.cdn.sports.ru`:
-- Стили: `https://dumpster.cdn.sports.ru/1/a6/68841b4965b551568e4297b813a4d.css`
-- Логика графика: `https://dumpster.cdn.sports.ru/a/29/42ac142968cf72fbd9dbfc39324d7.js`
-- Resize: `https://dumpster.cdn.sports.ru/8/da/0c1518c2526145ded83019fd54ab9.js`
+### Полный проект (Netlify, GitHub Pages с папкой)
+В `index.html` подключаются **локальные** `./styles.css`, `./main-trajectory.js`, `./resize.js`, `./data/odds-data.js` — всё лежит рядом, страница работает.
+
+### Один только HTML на dumpster (важно)
+Если залить на [dumpster](https://dumpster.cdn.sports.ru) **только** `index.html`, относительные пути вроде `./data/odds-data.js` превращаются в несуществующие URL (рядом с файлом нет папки `data/`), поэтому **ничего не отображается**.
+
+Используйте **`dumpster-standalone.html`**: в нём данные **встроены** в страницу, стили и скрипты подключены **абсолютными** URL на CDN:
+- `https://dumpster.cdn.sports.ru/1/a6/68841b4965b551568e4297b813a4d.css`
+- `https://dumpster.cdn.sports.ru/a/29/42ac142968cf72fbd9dbfc39324d7.js`
+- `https://dumpster.cdn.sports.ru/8/da/0c1518c2526145ded83019fd54ab9.js`
+
+После правок в `data/odds-data.js` нужно обновить встроенный блок данных в `dumpster-standalone.html` (или снова выложить `odds-data.js` на CDN и подключить его одной абсолютной ссылкой).
 
 Старый вариант скрипта (другая разметка): `https://dumpster.cdn.sports.ru/c/5f/f19df294210444e9543dd45206597.js`.
