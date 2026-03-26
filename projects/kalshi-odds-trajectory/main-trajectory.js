@@ -96,7 +96,7 @@
         bg0: "#0f172a",
         bg1: "#1e293b",
         bg2: "#334155",
-        plot: "rgba(30, 41, 59, 0.88)",
+        plot: "#1e293b",
         plotStroke: "rgba(248, 250, 252, 0.1)",
         axisText: "rgba(226, 232, 240, 0.72)",
         valueText: "rgba(241, 245, 249, 0.95)",
@@ -108,7 +108,7 @@
         bg0: "#ffffff",
         bg1: "#f8fafc",
         bg2: "#f1f5f9",
-        plot: "rgba(255,255,255,0.78)",
+        plot: "#ffffff",
         plotStroke: "rgba(15, 23, 42, 0.08)",
         axisText: "rgba(15, 23, 42, 0.62)",
         valueText: "rgba(15, 23, 42, 0.92)",
@@ -133,18 +133,6 @@
   bgGrad.appendChild(elSvg("stop", { offset: "100%", "stop-color": palette.bg2, "stop-opacity": "1" }));
   defs.appendChild(bgGrad);
 
-  const plotShadow = elSvg("filter", { id: "plot-shadow", x: "-12%", y: "-12%", width: "124%", height: "124%" });
-  plotShadow.appendChild(
-    elSvg("feDropShadow", {
-      dx: "0",
-      dy: "10",
-      stdDeviation: "14",
-      "flood-color": dark ? "rgba(0,0,0,0.35)" : "rgba(15,23,42,0.1)",
-      "flood-opacity": "1"
-    })
-  );
-  defs.appendChild(plotShadow);
-
   svg.appendChild(defs);
 
   const background = elSvg("rect", {
@@ -167,8 +155,7 @@
     stroke: palette.plotStroke,
     "stroke-width": "1",
     rx: "14",
-    ry: "14",
-    filter: "url(#plot-shadow)"
+    ry: "14"
   });
   svg.appendChild(plotPanel);
 
