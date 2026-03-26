@@ -5,13 +5,13 @@
   const svg = document.getElementById("chartSvg");
   if (!svg) return;
 
-  const W = 900;
-  const H = 420;
+  const W = 1100;
+  const H = 520;
 
-  // Поле графика (с полями под подписи)
-  const margin = { left: 84, right: 20, top: 26, bottom: 58 };
+  const margin = { left: 108, right: 36, top: 36, bottom: 78 };
   const chartW = W - margin.left - margin.right;
   const chartH = H - margin.top - margin.bottom;
+  const plotBottom = margin.top + chartH;
 
   const dates = data.dates;
   const teams = data.teams;
@@ -29,6 +29,12 @@
     const n = document.createElementNS("http://www.w3.org/2000/svg", tag);
     for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, String(v));
     return n;
+  };
+
+  const hexToRgb = (hex) => {
+    const h = hex.replace("#", "");
+    const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16);
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
   };
 
   const allValues = [];
@@ -65,7 +71,6 @@
   for (let v = niceMin; v <= niceMax + step / 2; v += step) yTicks.push(v);
   if (yTicks.length < 4) yTicks.push(niceMax);
 
-  // Ось "наоборот" как на скрине: маленькие значения сверху, большие снизу
   const mapY = (value) => {
     const t = (value - niceMin) / (niceMax - niceMin || 1);
     const tt = Math.max(0, Math.min(1, t));
@@ -74,92 +79,172 @@
 
   const xAtIndex = (i) => margin.left + (i / segCount) * chartW;
 
-  const pointsByTeam = {};
-  const logoSize = 34;
-  const valueTextOffsetX = 16;
-  const valueTextOffsetY = 4;
+  const logoSize = 42;
+  const valueTextOffsetX = 20;
+  const valueTextOffsetY = 5;
+
+  const FONT_AXIS = "Plus Jakarta Sans, DM Sans, system-ui, sans-serif";
+  const FONT_VALUES = "DM Sans, Plus Jakarta Sans, system-ui, sans-serif";
+
+  const dark =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const palette = dark
+    ? {
+        bg0: "#0f172a",
+        bg1: "#1e293b",
+        bg2: "#334155",
+        plot: "rgba(30, 41, 59, 0.88)",
+        plotStroke: "rgba(248, 250, 252, 0.1)",
+        axisText: "rgba(226, 232, 240, 0.72)",
+        valueText: "rgba(241, 245, 249, 0.95)",
+        gridH: "rgba(248, 250, 252, 0.08)",
+        gridV: "rgba(248, 250, 252, 0.05)",
+        axisLine: "rgba(248, 250, 252, 0.22)"
+      }
+    : {
+        bg0: "#ffffff",
+        bg1: "#f8fafc",
+        bg2: "#f1f5f9",
+        plot: "rgba(255,255,255,0.78)",
+        plotStroke: "rgba(15, 23, 42, 0.08)",
+        axisText: "rgba(15, 23, 42, 0.62)",
+        valueText: "rgba(15, 23, 42, 0.92)",
+        gridH: "rgba(15, 23, 42, 0.07)",
+        gridV: "rgba(15, 23, 42, 0.045)",
+        axisLine: "rgba(15, 23, 42, 0.2)"
+      };
+
+  svg.innerHTML = "";
+
+  const defs = elSvg("defs", {});
+
+  const bgGrad = elSvg("linearGradient", {
+    id: "chart-bg-grad",
+    x1: "0%",
+    y1: "0%",
+    x2: "100%",
+    y2: "100%"
+  });
+  bgGrad.appendChild(elSvg("stop", { offset: "0%", "stop-color": palette.bg0, "stop-opacity": "1" }));
+  bgGrad.appendChild(elSvg("stop", { offset: "55%", "stop-color": palette.bg1, "stop-opacity": "1" }));
+  bgGrad.appendChild(elSvg("stop", { offset: "100%", "stop-color": palette.bg2, "stop-opacity": "1" }));
+  defs.appendChild(bgGrad);
+
+  const plotShadow = elSvg("filter", { id: "plot-shadow", x: "-12%", y: "-12%", width: "124%", height: "124%" });
+  plotShadow.appendChild(
+    elSvg("feDropShadow", {
+      dx: "0",
+      dy: "10",
+      stdDeviation: "14",
+      "flood-color": dark ? "rgba(0,0,0,0.35)" : "rgba(15,23,42,0.1)",
+      "flood-opacity": "1"
+    })
+  );
+  defs.appendChild(plotShadow);
+
+  svg.appendChild(defs);
 
   const background = elSvg("rect", {
     x: 0,
     y: 0,
     width: W,
     height: H,
-    fill: "rgba(251, 252, 255, 1)"
+    fill: "url(#chart-bg-grad)",
+    rx: "18",
+    ry: "18"
   });
   svg.appendChild(background);
 
-  const defs = elSvg("defs", {});
-  svg.appendChild(defs);
+  const plotPanel = elSvg("rect", {
+    x: margin.left - 12,
+    y: margin.top - 10,
+    width: chartW + 24,
+    height: chartH + 20,
+    fill: palette.plot,
+    stroke: palette.plotStroke,
+    "stroke-width": "1",
+    rx: "14",
+    ry: "14",
+    filter: "url(#plot-shadow)"
+  });
+  svg.appendChild(plotPanel);
 
-  // Сетка по Y + подписи
   const gridGroup = elSvg("g", { "data-layer": "grid" });
   const axisGroup = elSvg("g", { "data-layer": "axes" });
+  const fillsGroup = elSvg("g", { "data-layer": "area-fills" });
   const linesGroup = elSvg("g", { "data-layer": "lines" });
   const logosGroup = elSvg("g", { "data-layer": "logos" });
   svg.appendChild(gridGroup);
+  svg.appendChild(fillsGroup);
   svg.appendChild(linesGroup);
   svg.appendChild(logosGroup);
   svg.appendChild(axisGroup);
 
   for (const v of yTicks) {
     const y = mapY(v);
-    const gridLine = elSvg("line", {
-      x1: margin.left,
-      y1: y,
-      x2: margin.left + chartW,
-      y2: y,
-      stroke: "rgba(15, 23, 42, 0.10)",
-      "stroke-width": "1"
-    });
-    gridGroup.appendChild(gridLine);
+    gridGroup.appendChild(
+      elSvg("line", {
+        x1: margin.left,
+        y1: y,
+        x2: margin.left + chartW,
+        y2: y,
+        stroke: palette.gridH,
+        "stroke-width": "1",
+        "stroke-dasharray": "4 7"
+      })
+    );
 
     const label = elSvg("text", {
-      x: margin.left - 14,
-      y: y + 4,
+      x: margin.left - 18,
+      y: y + 5,
       "text-anchor": "end",
-      "font-size": "12",
-      fill: "rgba(15, 23, 42, 0.62)",
-      "font-weight": "700"
+      "font-size": "16",
+      "font-weight": "700",
+      fill: palette.axisText,
+      "font-family": FONT_AXIS
     });
     label.textContent = `${Math.round(v)}`;
     axisGroup.appendChild(label);
   }
 
-  // Вертикальная сетка и подписи дат
   for (let i = 0; i < dates.length; i++) {
     const x = xAtIndex(i);
-
-    const gridV = elSvg("line", {
-      x1: x,
-      y1: margin.top,
-      x2: x,
-      y2: margin.top + chartH,
-      stroke: "rgba(15, 23, 42, 0.06)",
-      "stroke-width": "1"
-    });
-    gridGroup.appendChild(gridV);
+    gridGroup.appendChild(
+      elSvg("line", {
+        x1: x,
+        y1: margin.top,
+        x2: x,
+        y2: plotBottom,
+        stroke: palette.gridV,
+        "stroke-width": "1"
+      })
+    );
 
     const labelX = elSvg("text", {
       x,
-      y: margin.top + chartH + 30,
+      y: plotBottom + 38,
       "text-anchor": "middle",
-      "font-size": "12",
-      fill: "rgba(15, 23, 42, 0.60)",
-      "font-weight": "700"
+      "font-size": "15",
+      "font-weight": "700",
+      fill: palette.axisText,
+      "font-family": FONT_AXIS
     });
     labelX.textContent = dates[i];
     axisGroup.appendChild(labelX);
   }
 
-  // Ось X
   axisGroup.appendChild(
     elSvg("line", {
       x1: margin.left,
-      y1: margin.top + chartH,
+      y1: plotBottom,
       x2: margin.left + chartW,
-      y2: margin.top + chartH,
-      stroke: "rgba(15, 23, 42, 0.22)",
-      "stroke-width": "1.2"
+      y2: plotBottom,
+      stroke: palette.axisLine,
+      "stroke-width": "1.5",
+      "stroke-linecap": "round"
     })
   );
 
@@ -170,36 +255,84 @@
     return d;
   };
 
+  const areaPathD = (points, bottomY) => {
+    if (!points.length) return "";
+    let d = `M ${points[0].x} ${bottomY} L ${points[0].x} ${points[0].y}`;
+    for (let i = 1; i < points.length; i++) d += ` L ${points[i].x} ${points[i].y}`;
+    d += ` L ${points[points.length - 1].x} ${bottomY} Z`;
+    return d;
+  };
+
   const markersByTeamId = {};
 
-  for (const team of teams) {
+  teams.forEach((team) => {
     const points = dates.map((_, i) => {
       const x = xAtIndex(i);
       const v = Number(team.odds[i]);
       return { x, y: mapY(v) };
     });
-    pointsByTeam[team.id] = points;
 
-    // Линия
+    const { r, g, b } = hexToRgb(team.color);
+    const gradId = `area-grad-${team.id}`;
+    const lg = elSvg("linearGradient", {
+      id: gradId,
+      x1: "0%",
+      y1: "0%",
+      x2: "0%",
+      y2: "100%"
+    });
+    lg.appendChild(
+      elSvg("stop", {
+        offset: "0%",
+        "stop-color": `rgb(${r},${g},${b})`,
+        "stop-opacity": "0.18"
+      })
+    );
+    lg.appendChild(
+      elSvg("stop", {
+        offset: "55%",
+        "stop-color": `rgb(${r},${g},${b})`,
+        "stop-opacity": "0.06"
+      })
+    );
+    lg.appendChild(elSvg("stop", { offset: "100%", "stop-color": `rgb(${r},${g},${b})`, "stop-opacity": "0" }));
+    defs.appendChild(lg);
+
+    const area = elSvg("path", {
+      d: areaPathD(points, plotBottom),
+      fill: `url(#${gradId})`,
+      opacity: "1"
+    });
+    fillsGroup.appendChild(area);
+
+    const glow = elSvg("path", {
+      d: pointsToPathD(points),
+      stroke: team.color,
+      "stroke-width": "10",
+      fill: "none",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      opacity: "0.14"
+    });
+    linesGroup.appendChild(glow);
+
     linesGroup.appendChild(
       elSvg("path", {
         d: pointsToPathD(points),
         stroke: team.color,
-        "stroke-width": "3",
+        "stroke-width": "4",
         fill: "none",
         "stroke-linecap": "round",
         "stroke-linejoin": "round",
-        opacity: "0.95"
+        opacity: "0.98"
       })
     );
 
-    // Обтравка под круг
     const clipId = `clip-${team.id}`;
     const clipPath = elSvg("clipPath", { id: clipId, clipPathUnits: "objectBoundingBox" });
     clipPath.appendChild(elSvg("circle", { cx: "0.5", cy: "0.5", r: "0.5" }));
     defs.appendChild(clipPath);
 
-    // Логотип (позиция будет меняться анимацией)
     const logoImg = elSvg("image", {
       href: team.logo,
       x: points[0].x - logoSize / 2,
@@ -208,38 +341,39 @@
       height: logoSize,
       "clip-path": `url(#${clipId})`,
       preserveAspectRatio: "xMidYMid slice",
-      style: "filter: drop-shadow(0 10px 18px rgba(0,0,0,.20));",
+      style: `filter: drop-shadow(0 6px 14px rgba(${r},${g},${b},0.35));`,
       opacity: "1"
     });
     logosGroup.appendChild(logoImg);
 
-    // Точка (на случай, если картинка прозрачная)
+    const isDarkDot = team.color.toLowerCase() === "#000000";
+    const dotStroke = isDarkDot ? (dark ? "#94a3b8" : "#e2e8f0") : "rgba(255,255,255,0.96)";
     const dot = elSvg("circle", {
-        cx: points[0].x,
-        cy: points[0].y,
-        r: "5.4",
-        fill: team.color,
-        stroke: "rgba(255,255,255,0.95)",
-        "stroke-width": "2",
-        opacity: "0.9"
+      cx: points[0].x,
+      cy: points[0].y,
+      r: "6.2",
+      fill: team.color,
+      stroke: dotStroke,
+      "stroke-width": isDarkDot ? "2.5" : "2.2",
+      opacity: "1"
     });
     logosGroup.appendChild(dot);
 
-    // Текст значения (показывается только при остановке)
     const valueText = elSvg("text", {
       x: points[0].x + valueTextOffsetX,
       y: points[0].y + valueTextOffsetY,
-      fill: "rgba(15, 23, 42, 0.90)",
-      "font-size": "14",
+      fill: palette.valueText,
+      "font-size": "17",
       "font-weight": "800",
+      "font-family": FONT_VALUES,
+      style: "font-variant-numeric: tabular-nums;",
       opacity: "0"
     });
     valueText.textContent = Number(team.odds[0]).toFixed(2);
     logosGroup.appendChild(valueText);
 
-    markersByTeamId[team.id] = { team, points, logoImg, valueText };
-    markersByTeamId[team.id].dot = dot;
-  }
+    markersByTeamId[team.id] = { team, points, logoImg, valueText, dot };
+  });
 
   const setAtIndex = (idx) => {
     for (const team of teams) {
@@ -269,8 +403,7 @@
     hideValues();
     const fromX = xAtIndex(fromIdx);
     const toX = xAtIndex(toIdx);
-
-    const travelMs = 2880; // в 2 раза медленнее относительно базового (segCount=5, cycle=7.2s)
+    const travelMs = 2880;
 
     const start = performance.now();
     await new Promise((resolve) => {
@@ -282,10 +415,9 @@
           const m = markersByTeamId[team.id];
           const v0 = Number(team.odds[fromIdx]);
           const v1 = Number(team.odds[toIdx]);
-          const v = v0 + (v1 - v0) * e;
-
+          const vv = v0 + (v1 - v0) * e;
           const x = fromX + (toX - fromX) * e;
-          const y = mapY(v);
+          const y = mapY(vv);
 
           m.logoImg.setAttribute("x", x - logoSize / 2);
           m.logoImg.setAttribute("y", y - logoSize / 2);
@@ -302,7 +434,6 @@
     });
   };
 
-  // Анимация с остановками
   const startIdx = 0;
   if (reducedMotion) {
     setAtIndex(startIdx);
@@ -311,16 +442,13 @@
 
   (async () => {
     let idx = startIdx;
-    const dwellMs = 2400; // "хотя бы пару секунд"
+    const dwellMs = 2400;
 
-    // Первый кадр: точно на первой дате
     setAtIndex(idx);
 
-    // Бесконечный цикл слева направо
     while (true) {
       await sleep(dwellMs);
       if (idx >= dates.length - 1) {
-        // Перезапуск без движения обратно (только слева направо)
         idx = 0;
         setAtIndex(idx);
         continue;
@@ -332,4 +460,3 @@
     }
   })();
 })();
-
