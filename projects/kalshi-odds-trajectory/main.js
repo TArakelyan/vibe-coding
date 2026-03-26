@@ -264,7 +264,7 @@
         y: points[0].y - imageSize / 2,
         width: imageSize,
         height: imageSize,
-        clipPath: `url(#${clipId})`,
+        "clip-path": `url(#${clipId})`,
         style: "filter: drop-shadow(0 10px 18px rgba(0,0,0,.20));"
       });
       logosGroup.appendChild(logo);
