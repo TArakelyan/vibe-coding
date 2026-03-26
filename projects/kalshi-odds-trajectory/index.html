@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalshi-подобный график коэффициентов</title>
+    <meta name="description" content="Анимированный график коэффициентов с логотипами команд по датам." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="kalshi-app">
+      <div class="kalshi-card" id="kalshi-card">
+        <div class="kalshi-header">
+          <div class="kalshi-title">
+            <h1>График коэффициентов по датам</h1>
+            <p class="kalshi-subtitle">Логотипы команд перемещаются по значению коэффициента слева направо</p>
+          </div>
+
+          <div class="controls">
+            <button class="btn btn-primary" id="playPauseBtn" type="button">Пауза</button>
+            <label class="toggle" title="Использовать логарифмический масштаб по оси коэффициентов">
+              <input id="logToggle" type="checkbox" checked />
+              <span>Лог-масштаб</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="chart-wrap" id="chartWrap">
+            <svg
+              class="chart-svg"
+              id="chartSvg"
+              viewBox="0 0 900 420"
+              preserveAspectRatio="none"
+              aria-label="График коэффициентов"
+              role="img"
+            ></svg>
+
+            <div class="tooltip" id="tooltip" aria-hidden="true"></div>
+          </div>
+
+          <div class="footer-row">
+            <div class="current-date">
+              <span class="chip" id="currentDateChip">21 окт.</span>
+              <span class="hint" id="currentValueHint">Текущее значение: </span>
+            </div>
+            <div class="hint">Потяните по графику, чтобы перемотать</div>
+          </div>
+
+          <div class="legend" id="legend"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./data/odds-data.js"></script>
+    <script src="./main.js"></script>
+    <script src="./resize.js"></script>
+  </body>
+</html>
+
