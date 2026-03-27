@@ -837,19 +837,19 @@ function createMetricRow(label, data) {
 }
 
 function formatMetricValue(label, data) {
-    // Скрываем знак % у доли рынка
+    // Показываем долю рынка в формате 0,06%
     if (label === 'Доля рынка') {
         if (typeof data.value === 'number') {
             return {
                 value: data.value.toLocaleString('ru-RU', {
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 2
-                }),
+                }) + '%',
                 unit: ''
             };
         }
 
-        return { value: data.value, unit: '' };
+        return { value: `${data.value}%`, unit: '' };
     }
 
     // Целевые отчисления: если больше 1 млрд, показываем в млрд (пример: 12,2 млрд)
