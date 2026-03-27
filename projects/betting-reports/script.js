@@ -519,6 +519,13 @@ const companiesData = {
                 ggr: { value: 7.68, unit: 'млрд', change: 28.6 },
                 market_share: { value: 1.00, unit: '%', change: -13.0 },
                 target_contributions: { value: 347, unit: 'млн', change: 65.2 }
+            },
+            '2025': {
+                revenue: { value: 12.67, unit: 'млрд', change: -26 },
+                profit: { value: 154.8, unit: 'млн', change: -64 },
+                ggr: { value: 3, unit: 'млрд', change: -62 },
+                market_share: { value: 0.06, unit: '%', change: null },
+                target_contributions: { value: 253.5, unit: 'млн', change: -27 }
             } 
         } 
     },
@@ -675,7 +682,7 @@ const companiesData = {
                 revenue: { value: 144, unit: 'млн', change: null },
                 market_share: { value: 0.01, unit: '%', change: null },
                 ggr: { value: 41.3, unit: 'млн', change: null },
-                profit: { value: -268400, unit: 'тыс', change: null },
+                profit: { value: -268.4, unit: 'млн', change: null },
                 target_contributions: { value: 120000, unit: 'тыс', change: null }
             }
         }
