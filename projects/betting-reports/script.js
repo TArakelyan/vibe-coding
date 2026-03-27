@@ -2,7 +2,7 @@
 const companiesData = {
     'fonbet': {
         name: 'FONBET',
-        logo: 'Фонбет.png',
+        logo: 'https://dumpster.cdn.sports.ru/8/23/31836b8ae127c677c83aa5c2dcc3c.png',
         founded: '1994',
         entity: 'ООО «Фонкор»',
         financials: {
@@ -52,7 +52,7 @@ const companiesData = {
     },
     'winline': {
         name: 'WINLINE',
-        logo: 'Винлайн.png',
+        logo: 'https://dumpster.cdn.sports.ru/b/fc/6d2147368a7165750355955619ca6.png',
         founded: '2009',
         entity: 'ООО «Управляющая компания НКС»',
         financials: {
@@ -102,7 +102,7 @@ const companiesData = {
     },
     'melbet': {
         name: 'Мелбет',
-        logo: 'Мелбет.jpg',
+        logo: 'https://dumpster.cdn.sports.ru/3/95/b803d3289aae7797635a551d71575.jpg',
         founded: '2012',
         entity: 'ООО «Мелофон»',
         financials: {
@@ -145,7 +145,7 @@ const companiesData = {
     },
     'betboom': {
         name: 'BetBoom',
-        logo: 'BetBoom.jpg',
+        logo: 'https://dumpster.cdn.sports.ru/3/e5/5f377db01eb4c060a6cc0c2b5ecaf.jpg',
         founded: '2011',
         entity: 'ООО Фирма «СТОМ»',
         financials: {
@@ -190,12 +190,19 @@ const companiesData = {
                 ggr: { value: 56.64, unit: 'млрд', change: 104.5 },
                 market_share: { value: 13.13, unit: '%', change: 18.5 },
                 target_contributions: { value: 4393, unit: 'млн', change: 118.7 }
+            },
+            '2025': {
+                revenue: { value: 238.42, unit: 'млрд', change: 5 },
+                profit: { value: 1.32, unit: 'млрд', change: -48 },
+                ggr: { value: '—', unit: '', change: null },
+                market_share: { value: 12.8, unit: '%', change: null },
+                target_contributions: { value: 4760, unit: 'млн', change: null }
             }
         }
     },
     'betcity': {
         name: 'БЕТСИТИ',
-        logo: 'БЕТСИТИ.jpg',
+        logo: 'https://dumpster.cdn.sports.ru/6/5d/3e1621d0edebd2abb1ac8b059d867.jpg',
         founded: '2003',
         entity: 'ООО «Фортуна»',
         financials: {
@@ -245,7 +252,7 @@ const companiesData = {
     },
     'pari': { 
         name: 'PARI', 
-        logo: 'Пари.png', 
+        logo: 'https://dumpster.cdn.sports.ru/d/ba/d2462eaba730d24c1b99b66b08c99.png', 
         founded: '2022', 
         entity: 'ООО «БК «Пари»', 
         financials: { 
@@ -274,7 +281,7 @@ const companiesData = {
     },
     'ligastavok': { 
         name: 'Лига Ставок', 
-        logo: 'Лига Ставок.jpeg', 
+        logo: 'https://dumpster.cdn.sports.ru/c/b7/f124e513d8966ecd54db959a4227e.png', 
         founded: '2008', 
         entity: 'ООО «ПМБК»', 
         financials: { 
@@ -324,7 +331,7 @@ const companiesData = {
     },
     'leon': { 
         name: 'Leon', 
-        logo: 'leon.png', 
+        logo: 'https://dumpster.cdn.sports.ru/5/48/ea6b6533bf8c30bcdf8a9479111e4.png', 
         founded: '2011', 
         entity: 'ООО «Леон»', 
         financials: { 
@@ -374,7 +381,7 @@ const companiesData = {
     },
     'marathon': { 
         name: 'Марафон', 
-        logo: 'марафон.png', 
+        logo: 'https://dumpster.cdn.sports.ru/0/77/c218bb3fc90ed6741005655afb7ea.png', 
         founded: '1997', 
         entity: 'ООО «БК «Марафон»', 
         financials: { 
@@ -417,7 +424,7 @@ const companiesData = {
     },
     'tennisi': {
         name: 'Tennisi',
-        logo: 'Тенниси.png',
+        logo: 'https://dumpster.cdn.sports.ru/0/cf/e01a6253d18a8ca8e957548282dad.png',
         founded: '1999',
         entity: 'ООО «Рус-Телетот»',
         financials: {
@@ -467,7 +474,7 @@ const companiesData = {
     },
     'baltbet': { 
         name: 'Балтбет', 
-        logo: 'Балтбет.png', 
+        logo: 'https://dumpster.cdn.sports.ru/a/39/484ac69771fe52e294c85cbd56752.png', 
         founded: '2003', 
         entity: 'ООО «Санторин»', 
         financials: { 
@@ -517,7 +524,7 @@ const companiesData = {
     },
     'zenit': { 
         name: 'Zenit', 
-        logo: 'Зенит.png', 
+        logo: 'https://dumpster.cdn.sports.ru/1/b9/441fcd19db99e77d60537ec7fd44e.png', 
         founded: '1998', 
         entity: 'ООО «Инвест-Гарант»', 
         financials: { 
@@ -567,7 +574,7 @@ const companiesData = {
     },
     'olimpbet': { 
         name: 'Olimpbet', 
-        logo: 'Olimpbet.png', 
+        logo: 'https://dumpster.cdn.sports.ru/b/4b/09a1ae66b9dfe5d3b89b3e19a2483.png', 
         founded: '2012', 
         entity: 'ООО «БК «Олимп»', 
         financials: { 
@@ -617,7 +624,7 @@ const companiesData = {
     },
     'bettery': {
         name: 'Bettery',
-        logo: 'Беттери.jpg',
+        logo: 'https://dumpster.cdn.sports.ru/5/1f/5f974506f81a801da1acb5b9db558.jpg',
         founded: '2020',
         entity: 'ООО «Атлантис»',
         financials: {
@@ -647,21 +654,36 @@ const companiesData = {
                 profit: { value: -0.12, unit: 'млрд', change: -37.7 },
                 ggr: { value: 0, unit: 'млрд', change: null },
                 market_share: { value: 0.00, unit: '%', change: -100.0 },
-                target_contributions: { value: 150, unit: 'млн', change: 51.5 }
+                target_contributions: { value: 120, unit: 'млн', change: null }
             },
             '2024': {
                 revenue: { value: 1.22, unit: 'млрд', change: 40566.7 },
                 profit: { value: -0.08, unit: 'млрд', change: -33.2 },
                 ggr: { value: 0, unit: 'млрд', change: null },
                 market_share: { value: 0.07, unit: '%', change: null },
-                target_contributions: { value: 103, unit: 'млн', change: -31.3 }
+                target_contributions: { value: 120, unit: 'млн', change: null }
+            }
+        }
+    },
+    'betm': {
+        name: 'Бет-М',
+        logo: 'https://dumpster.cdn.sports.ru/2/b3/842bfb5db6116469010f1ae6951e2.png',
+        founded: '2025',
+        entity: 'ООО «Бет-М»',
+        financials: {
+            '2025': {
+                revenue: { value: 144, unit: 'млн', change: null },
+                market_share: { value: 0.01, unit: '%', change: null },
+                ggr: { value: 41.3, unit: 'млн', change: null },
+                profit: { value: -268400, unit: 'тыс', change: null },
+                target_contributions: { value: 120000, unit: 'тыс', change: null }
             }
         }
     }
 };
 
 // Текущий выбранный год
-let selectedYear = '2024';
+let selectedYear = '2025';
 
 // Инициализация приложения
 document.addEventListener('DOMContentLoaded', function() {
@@ -707,11 +729,11 @@ function renderCompanies() {
     let html = '';
     
     sortedCompanies.forEach(([id, company]) => {
+        // Бет-М существует только с 2025 года
+        if (id === 'betm' && selectedYear !== '2025') return;
+
         const yearData = company.financials[selectedYear];
-        
-        // Если нет данных для выбранного года, пропускаем компанию
-        if (!yearData) return;
-        
+
         html += createCompanyCard(company, yearData);
     });
     
@@ -724,6 +746,29 @@ function renderCompanies() {
 
 // Создание карточки компании
 function createCompanyCard(company, yearData) {
+    if (!yearData) {
+        return `
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-logo-wrapper">
+                        <img src="${company.logo}" alt="${company.name}" class="company-logo" 
+                             onerror="this.style.display='none'">
+                        <div class="company-info">
+                            <div class="company-name">${company.name}</div>
+                            <div class="company-founded">Основана: ${company.founded}</div>
+                            <div class="company-entity">${company.entity}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="company-body">
+                    <div class="no-report-message">Не опубликовали финансовую очтетность</div>
+                </div>
+            </div>
+        `;
+    }
+
+    const profitLabel = yearData.profit && yearData.profit.value < 0 ? 'Убыток' : 'Прибыль';
+
     return `
         <div class="company-card">
             <div class="company-header">
@@ -739,10 +784,13 @@ function createCompanyCard(company, yearData) {
             </div>
             <div class="company-body">
                 ${createMetricRow('Выручка', yearData.revenue)}
-                ${createMetricRow('Прибыль', yearData.profit)}
+                ${createMetricRow(profitLabel, yearData.profit)}
+                ${createMetricRow('Выигрыши', yearData.winnings)}
                 ${createMetricRow('GGR', yearData.ggr)}
                 ${createMetricRow('Доля рынка', yearData.market_share)}
                 ${createMetricRow('Целевые отчисления', yearData.target_contributions)}
+                ${createMetricRow('Зарплаты', yearData.salaries)}
+                ${createMetricRow('Штат сотрудников', yearData.staff)}
             </div>
         </div>
     `;
@@ -754,25 +802,76 @@ function createMetricRow(label, data) {
     
     // Для целевых отчислений показываем только если >= 120 млн
     if (label === 'Целевые отчисления' && data.value < 120) return '';
-    
-    const value = typeof data.value === 'number' ? data.value.toLocaleString('ru-RU') : data.value;
+
+    const formattedMetric = formatMetricValue(label, data);
+    const value = formattedMetric.value;
+    const unit = formattedMetric.unit;
     const change = data.change;
     
     let changeHtml = '';
-    if (change !== null && change !== undefined) {
+    if (label !== 'GGR' && change !== null && change !== undefined) {
         const changeClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'neutral';
         const changeSign = change > 0 ? '+' : '';
         changeHtml = `<span class="metric-change ${changeClass}">${changeSign}${change}%</span>`;
     }
     
+    const labelHtml = label;
+
     return `
         <div class="metric-row">
-            <span class="metric-label">${label}</span>
+            <span class="metric-label">${labelHtml}</span>
             <div class="metric-value-wrapper">
                 <span class="metric-value">${value}</span>
-                <span class="metric-unit">${data.unit}</span>
+                ${unit ? `<span class="metric-unit">${unit}</span>` : ''}
                 ${changeHtml}
             </div>
         </div>
     `;
+}
+
+function formatMetricValue(label, data) {
+    // Скрываем знак % у доли рынка
+    if (label === 'Доля рынка') {
+        if (typeof data.value === 'number') {
+            return {
+                value: data.value.toLocaleString('ru-RU', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                }),
+                unit: ''
+            };
+        }
+
+        return { value: data.value, unit: '' };
+    }
+
+    // Целевые отчисления: если больше 1 млрд, показываем в млрд (пример: 12,2 млрд)
+    if (label === 'Целевые отчисления' && typeof data.value === 'number') {
+        let valueInMln = data.value;
+
+        // Для тысяч переводим в миллионы
+        if (data.unit === 'тыс') {
+            valueInMln = data.value / 1000;
+        }
+
+        if (valueInMln >= 1000) {
+            return {
+                value: (valueInMln / 1000).toLocaleString('ru-RU', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                }),
+                unit: 'млрд'
+            };
+        }
+
+        return {
+            value: valueInMln.toLocaleString('ru-RU'),
+            unit: 'млн'
+        };
+    }
+
+    return {
+        value: typeof data.value === 'number' ? data.value.toLocaleString('ru-RU') : data.value,
+        unit: data.unit
+    };
 }
