@@ -333,19 +333,6 @@
     });
     logosGroup.appendChild(logoImg);
 
-    const isDarkDot = team.color.toLowerCase() === "#000000";
-    const dotStroke = isDarkDot ? (dark ? "#94a3b8" : "#e2e8f0") : "rgba(255,255,255,0.96)";
-    const dot = elSvg("circle", {
-      cx: points[0].x,
-      cy: points[0].y,
-      r: "6.2",
-      fill: team.color,
-      stroke: dotStroke,
-      "stroke-width": isDarkDot ? "2.5" : "2.2",
-      opacity: "1"
-    });
-    logosGroup.appendChild(dot);
-
     const valueText = elSvg("text", {
       x: points[0].x + valueTextOffsetX,
       y: points[0].y + valueTextOffsetY,
@@ -359,7 +346,7 @@
     valueText.textContent = Number(team.odds[0]).toFixed(2);
     logosGroup.appendChild(valueText);
 
-    markersByTeamId[team.id] = { team, points, logoImg, valueText, dot };
+    markersByTeamId[team.id] = { team, points, logoImg, valueText };
   });
 
   const setAtIndex = (idx) => {
@@ -371,10 +358,6 @@
       const v = Number(team.odds[idx]);
       m.logoImg.setAttribute("x", p.x - logoSize / 2);
       m.logoImg.setAttribute("y", p.y - logoSize / 2);
-      if (m.dot) {
-        m.dot.setAttribute("cx", p.x);
-        m.dot.setAttribute("cy", p.y);
-      }
       m.valueText.setAttribute("x", p.x + valueTextOffsetX);
       m.valueText.setAttribute("y", p.y + valueTextOffsetY);
       m.valueText.textContent = v.toFixed(2);
@@ -408,10 +391,6 @@
 
           m.logoImg.setAttribute("x", x - logoSize / 2);
           m.logoImg.setAttribute("y", y - logoSize / 2);
-          if (m.dot) {
-            m.dot.setAttribute("cx", x);
-            m.dot.setAttribute("cy", y);
-          }
         }
 
         if (t >= 1) resolve();
