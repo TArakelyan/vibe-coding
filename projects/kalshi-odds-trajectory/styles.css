@@ -1,25 +1,8 @@
 :root {
   --text: #0f172a;
   --muted: #64748b;
-  --chart-bg: #f1f5f9;
-  --plot-fill: #ffffff;
-  --grid-strong: rgba(15, 23, 42, 0.09);
-  --grid-soft: rgba(15, 23, 42, 0.055);
-  --axis: rgba(15, 23, 42, 0.18);
+  --chart-bg: #f5f7fa;
   --font-sans: "Plus Jakarta Sans", "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-tabular: "DM Sans", "Plus Jakarta Sans", ui-monospace, system-ui, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #f1f5f9;
-    --muted: #94a3b8;
-    --chart-bg: #0f172a;
-    --plot-fill: #1e293b;
-    --grid-strong: rgba(248, 250, 252, 0.08);
-    --grid-soft: rgba(248, 250, 252, 0.05);
-    --axis: rgba(248, 250, 252, 0.2);
-  }
 }
 
 * {
@@ -27,7 +10,7 @@
 }
 
 html {
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 body {
@@ -50,7 +33,7 @@ body {
   max-width: none;
   margin: 0;
   padding: clamp(12px, 2vw, 28px);
-  background: linear-gradient(165deg, var(--chart-bg) 0%, color-mix(in srgb, var(--chart-bg) 92%, #94a3b8) 100%);
+  background: var(--chart-bg);
 }
 
 .chart-svg {
@@ -62,7 +45,6 @@ body {
   /* Пропорции совпадают с viewBox 1100×520 — текст не растягивается по вертикали */
   aspect-ratio: 1100 / 520;
   font-family: var(--font-sans);
-  filter: drop-shadow(0 4px 24px rgba(15, 23, 42, 0.06));
 }
 
 .chart-svg text {

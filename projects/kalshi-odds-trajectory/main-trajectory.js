@@ -86,52 +86,20 @@
   const FONT_AXIS = "Plus Jakarta Sans, DM Sans, system-ui, sans-serif";
   const FONT_VALUES = "DM Sans, Plus Jakarta Sans, system-ui, sans-serif";
 
-  const dark =
-    typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  const palette = dark
-    ? {
-        bg0: "#0f172a",
-        bg1: "#1e293b",
-        bg2: "#334155",
-        plot: "#1e293b",
-        plotStroke: "rgba(248, 250, 252, 0.1)",
-        axisText: "rgba(226, 232, 240, 0.72)",
-        valueText: "rgba(241, 245, 249, 0.95)",
-        gridH: "rgba(248, 250, 252, 0.08)",
-        gridV: "rgba(248, 250, 252, 0.05)",
-        axisLine: "rgba(248, 250, 252, 0.22)"
-      }
-    : {
-        bg0: "#ffffff",
-        bg1: "#f8fafc",
-        bg2: "#f1f5f9",
-        plot: "#ffffff",
-        plotStroke: "rgba(15, 23, 42, 0.08)",
-        axisText: "rgba(15, 23, 42, 0.62)",
-        valueText: "rgba(15, 23, 42, 0.92)",
-        gridH: "rgba(15, 23, 42, 0.07)",
-        gridV: "rgba(15, 23, 42, 0.045)",
-        axisLine: "rgba(15, 23, 42, 0.2)"
-      };
+  const palette = {
+    bg: "#ffffff",
+    plot: "#ffffff",
+    plotStroke: "rgba(15, 23, 42, 0.08)",
+    axisText: "rgba(15, 23, 42, 0.62)",
+    valueText: "rgba(15, 23, 42, 0.92)",
+    gridH: "rgba(15, 23, 42, 0.07)",
+    gridV: "rgba(15, 23, 42, 0.045)",
+    axisLine: "rgba(15, 23, 42, 0.2)"
+  };
 
   svg.innerHTML = "";
 
   const defs = elSvg("defs", {});
-
-  const bgGrad = elSvg("linearGradient", {
-    id: "chart-bg-grad",
-    x1: "0%",
-    y1: "0%",
-    x2: "100%",
-    y2: "100%"
-  });
-  bgGrad.appendChild(elSvg("stop", { offset: "0%", "stop-color": palette.bg0, "stop-opacity": "1" }));
-  bgGrad.appendChild(elSvg("stop", { offset: "55%", "stop-color": palette.bg1, "stop-opacity": "1" }));
-  bgGrad.appendChild(elSvg("stop", { offset: "100%", "stop-color": palette.bg2, "stop-opacity": "1" }));
-  defs.appendChild(bgGrad);
 
   svg.appendChild(defs);
 
@@ -140,7 +108,7 @@
     y: 0,
     width: W,
     height: H,
-    fill: "url(#chart-bg-grad)",
+    fill: palette.bg,
     rx: "18",
     ry: "18"
   });
@@ -161,11 +129,9 @@
 
   const gridGroup = elSvg("g", { "data-layer": "grid" });
   const axisGroup = elSvg("g", { "data-layer": "axes" });
-  const fillsGroup = elSvg("g", { "data-layer": "area-fills" });
   const linesGroup = elSvg("g", { "data-layer": "lines" });
   const logosGroup = elSvg("g", { "data-layer": "logos" });
   svg.appendChild(gridGroup);
-  svg.appendChild(fillsGroup);
   svg.appendChild(linesGroup);
   svg.appendChild(logosGroup);
   svg.appendChild(axisGroup);
@@ -242,14 +208,6 @@
     return d;
   };
 
-  const areaPathD = (points, bottomY) => {
-    if (!points.length) return "";
-    let d = `M ${points[0].x} ${bottomY} L ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) d += ` L ${points[i].x} ${points[i].y}`;
-    d += ` L ${points[points.length - 1].x} ${bottomY} Z`;
-    return d;
-  };
-
   const markersByTeamId = {};
 
   teams.forEach((team) => {
@@ -260,48 +218,6 @@
     });
 
     const { r, g, b } = hexToRgb(team.color);
-    const gradId = `area-grad-${team.id}`;
-    const lg = elSvg("linearGradient", {
-      id: gradId,
-      x1: "0%",
-      y1: "0%",
-      x2: "0%",
-      y2: "100%"
-    });
-    lg.appendChild(
-      elSvg("stop", {
-        offset: "0%",
-        "stop-color": `rgb(${r},${g},${b})`,
-        "stop-opacity": "0.18"
-      })
-    );
-    lg.appendChild(
-      elSvg("stop", {
-        offset: "55%",
-        "stop-color": `rgb(${r},${g},${b})`,
-        "stop-opacity": "0.06"
-      })
-    );
-    lg.appendChild(elSvg("stop", { offset: "100%", "stop-color": `rgb(${r},${g},${b})`, "stop-opacity": "0" }));
-    defs.appendChild(lg);
-
-    const area = elSvg("path", {
-      d: areaPathD(points, plotBottom),
-      fill: `url(#${gradId})`,
-      opacity: "1"
-    });
-    fillsGroup.appendChild(area);
-
-    const glow = elSvg("path", {
-      d: pointsToPathD(points),
-      stroke: team.color,
-      "stroke-width": "10",
-      fill: "none",
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      opacity: "0.14"
-    });
-    linesGroup.appendChild(glow);
 
     linesGroup.appendChild(
       elSvg("path", {
