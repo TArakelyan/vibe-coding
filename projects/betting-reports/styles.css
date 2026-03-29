@@ -16,9 +16,9 @@ body {
 }
 
 .app-container {
-    max-width: 1200px;
+    max-width: min(100%, 1320px);
     margin: 0 auto;
-    padding: 32px 20px;
+    padding: 32px 24px;
 }
 
 /* Переключатель годов (табы) */
@@ -60,8 +60,8 @@ body {
 
 #companiesData {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr));
+    gap: 24px;
     width: 100%;
 }
 
@@ -133,9 +133,9 @@ body {
 
 .metric-row {
     display: grid;
-    grid-template-columns: minmax(12.5rem, 46%) 1fr;
+    grid-template-columns: minmax(11rem, 34%) minmax(0, 1fr);
     align-items: center;
-    gap: 10px 14px;
+    gap: 10px 16px;
     padding: 12px 0;
     border-bottom: 1px solid #f0f0f0;
 }
@@ -192,28 +192,28 @@ body {
     transform: translateY(0);
 }
 
+/* Вторая колонка: значение по центру, справа — бейдж фиксированной ширины (как «−2,22 п.п.») */
 .metric-value-wrapper {
     display: flex;
-    align-items: baseline;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
     flex-wrap: nowrap;
-    gap: 8px 10px;
+    gap: 12px;
     min-width: 0;
     width: 100%;
 }
 
-/* Фиксированная сетка: число | единица — без «скачков» по ширине; блок по центру правой колонки */
 .metric-value-main {
-    display: grid;
-    grid-template-columns: minmax(8ch, 12ch) minmax(2.75rem, 3.25rem);
-    column-gap: 6px;
+    flex: 1 1 auto;
+    display: flex;
     align-items: baseline;
-    justify-items: end;
-    justify-self: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 0 4px;
 }
 
 .metric-value-main .metric-unit {
-    justify-self: start;
     text-align: left;
 }
 
@@ -223,7 +223,10 @@ body {
     color: #000;
     font-variant-numeric: tabular-nums;
     text-align: right;
-    width: 100%;
+    /* Одинаковая «коробка» под число — цифры в столбце визуально ровнее */
+    min-width: 10ch;
+    max-width: 14ch;
+    flex: 0 0 auto;
 }
 
 .metric-unit {
@@ -231,6 +234,8 @@ body {
     color: #666;
     font-weight: 400;
     font-variant-numeric: tabular-nums;
+    min-width: 2.85rem;
+    flex: 0 0 auto;
 }
 
 .metric-unit--empty {
@@ -239,18 +244,23 @@ body {
     pointer-events: none;
 }
 
+/* Единая ширина всех бейджей — ориентир: строка вида «−2,22 п.п.» / «+2,46 п.п.» */
 .metric-change {
     font-size: 11px;
     font-weight: 600;
-    padding: 2px 5px;
+    padding: 3px 6px;
     border-radius: 3px;
-    flex-shrink: 0;
-    min-width: 0;
-    max-width: max-content;
+    flex: 0 0 7.5rem;
+    width: 7.5rem;
+    min-width: 7.5rem;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     font-variant-numeric: tabular-nums;
-    box-sizing: border-box;
     line-height: 1.25;
+    white-space: nowrap;
 }
 
 .metric-change.positive {
@@ -285,6 +295,24 @@ body {
     font-size: 16px;
 }
 
+/* Десктоп: шире карточки, больше воздуха */
+@media (min-width: 1024px) {
+    .app-container {
+        max-width: min(100%, 1400px);
+        padding: 40px 32px;
+    }
+
+    #companiesData {
+        grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
+        gap: 28px;
+    }
+
+    .metric-row {
+        grid-template-columns: minmax(12rem, 30%) minmax(0, 1fr);
+        gap: 12px 20px;
+    }
+}
+
 /* Tablet responsiveness */
 @media (max-width: 1024px) {
     .app-container {
@@ -292,8 +320,8 @@ body {
     }
 
     #companiesData {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+        gap: 18px;
     }
 
     .company-name {
@@ -374,8 +402,11 @@ body {
     }
 
     .metric-change {
-        font-size: 11px;
-        padding: 2px 5px;
+        font-size: 10px;
+        width: 6.75rem;
+        min-width: 6.75rem;
+        flex-basis: 6.75rem;
+        padding: 2px 4px;
     }
 }
 
@@ -422,10 +453,18 @@ body {
 
     .metric-row {
         padding: 9px 0;
+        grid-template-columns: minmax(9rem, 40%) 1fr;
     }
 
     .metric-label {
         font-size: 11px;
+    }
+
+    .metric-change {
+        width: 6.25rem;
+        min-width: 6.25rem;
+        flex-basis: 6.25rem;
+        font-size: 10px;
     }
 
     .metric-value {
