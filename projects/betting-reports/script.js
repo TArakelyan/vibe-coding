@@ -819,7 +819,7 @@ function renderCompanies() {
 
         const yearData = company.financials[selectedYear];
 
-        html += createCompanyCard(company, yearData);
+        html += createCompanyCard(company, yearData, selectedYear);
     });
     
     if (html === '') {
@@ -829,8 +829,19 @@ function renderCompanies() {
     container.innerHTML = html;
 }
 
+/** Изменение штата к прошлому году: разница в чел. (п.п. к штату не применяются — это не доля в %). */
+function enrichStaffYearOverYear(staff, prevYearStaff) {
+    if (!staff || staff.value === '—') return staff;
+    if (typeof staff.value !== 'number') return staff;
+    if (!prevYearStaff || prevYearStaff.value === '—' || typeof prevYearStaff.value !== 'number') {
+        return staff;
+    }
+    const diff = staff.value - prevYearStaff.value;
+    return { ...staff, change: diff, changeKind: 'people' };
+}
+
 // Создание карточки компании
-function createCompanyCard(company, yearData) {
+function createCompanyCard(company, yearData, selectedYear) {
     if (!yearData) {
         return `
             <div class="company-card">
@@ -854,6 +865,10 @@ function createCompanyCard(company, yearData) {
 
     const profitLabel = yearData.profit && yearData.profit.value < 0 ? 'Убыток' : 'Прибыль';
 
+    const prevYear = String(Number(selectedYear) - 1);
+    const prevYearData = company.financials[prevYear];
+    const staffRow = enrichStaffYearOverYear(yearData.staff, prevYearData && prevYearData.staff);
+
     return `
         <div class="company-card">
             <div class="company-header">
@@ -876,7 +891,7 @@ function createCompanyCard(company, yearData) {
                 ${createMetricRow(profitLabel, yearData.profit)}
                 ${createMetricRow('Целевые отчисления', yearData.target_contributions)}
                 ${createMetricRow('Зарплаты', yearData.salaries)}
-                ${createMetricRow('Штат сотрудников', yearData.staff)}
+                ${createMetricRow('Штат сотрудников', staffRow)}
                 ${createMetricRow('Коммерческие расходы', yearData.commercial)}
             </div>
         </div>
@@ -911,17 +926,22 @@ function createMetricRow(label, data) {
     const changeKind = data.changeKind;
 
     let changeHtml = '';
-    if (label !== 'Штат сотрудников' && change !== null && change !== undefined) {
+    if (change !== null && change !== undefined) {
         const changeClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'neutral';
-        const changeAbs = Math.abs(change).toLocaleString('ru-RU', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
-        });
         const sign = change > 0 ? '+' : change < 0 ? '−' : '';
-        if (changeKind === 'pp') {
-            changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs} п.п.</span>`;
+        if (changeKind === 'people') {
+            const n = Math.abs(Math.round(change));
+            changeHtml = `<span class="metric-change ${changeClass}">${sign}${n.toLocaleString('ru-RU')} чел.</span>`;
         } else {
-            changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs}%</span>`;
+            const changeAbs = Math.abs(change).toLocaleString('ru-RU', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+            if (changeKind === 'pp') {
+                changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs} п.п.</span>`;
+            } else {
+                changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs}%</span>`;
+            }
         }
     }
 
