@@ -203,14 +203,21 @@ body {
     width: 100%;
 }
 
+/* Сетка фиксированной ширины: левый край всех чисел на одной вертикали; блок целиком по центру ячейки */
 .metric-value-main {
     flex: 1 1 auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: 16ch minmax(2.85rem, 3.35rem);
+    column-gap: 6px;
     align-items: baseline;
-    justify-content: center;
-    gap: 6px;
+    justify-items: start;
+    width: max-content;
+    max-width: 100%;
     min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0 4px;
+    box-sizing: border-box;
 }
 
 .metric-value-main .metric-unit {
@@ -222,11 +229,9 @@ body {
     font-weight: 700;
     color: #000;
     font-variant-numeric: tabular-nums;
-    text-align: right;
-    /* Одинаковая «коробка» под число — цифры в столбце визуально ровнее */
-    min-width: 10ch;
-    max-width: 14ch;
-    flex: 0 0 auto;
+    text-align: left;
+    min-width: 0;
+    width: 100%;
 }
 
 .metric-unit {
@@ -234,8 +239,6 @@ body {
     color: #666;
     font-weight: 400;
     font-variant-numeric: tabular-nums;
-    min-width: 2.85rem;
-    flex: 0 0 auto;
 }
 
 .metric-unit--empty {
@@ -395,6 +398,10 @@ body {
 
     .metric-value {
         font-size: 16px;
+    }
+
+    .metric-value-main {
+        grid-template-columns: 14ch minmax(2.5rem, 3rem);
     }
 
     .metric-unit {
