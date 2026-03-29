@@ -60,12 +60,13 @@ body {
 
 #companiesData {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 380px));
+    gap: 20px;
     width: 100%;
+    justify-content: center;
 }
 
-/* Карточка компании - стиль Forbes */
+/* Карточка компании — уже, без лишней ширины между числом и бейджем */
 .company-card {
     background: #fff;
     border: 1px solid #e0e0e0;
@@ -75,6 +76,9 @@ body {
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 380px;
+    justify-self: center;
 }
 
 .company-card:hover {
@@ -131,11 +135,12 @@ body {
     padding: 20px;
 }
 
+/* Правая часть — по ширине контента (число + бейдж), без пустой «долины» */
 .metric-row {
     display: grid;
-    grid-template-columns: minmax(13.5rem, 48%) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) max-content;
     align-items: center;
-    gap: 10px 12px;
+    gap: 8px 10px;
     padding: 12px 0;
     border-bottom: 1px solid #f0f0f0;
 }
@@ -151,7 +156,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     min-width: 0;
-    padding-right: 6px;
+    padding-right: 4px;
     line-height: 1.35;
 }
 
@@ -192,27 +197,22 @@ body {
     transform: translateY(0);
 }
 
-/* Вторая колонка: значение по центру, справа — бейдж фиксированной ширины (как «−2,22 п.п.») */
 .metric-value-wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    gap: 12px;
-    min-width: 0;
-    width: 100%;
-}
-
-/* Одна колонка числа; левый край на одной линии; единицы — только в .metric-label */
-.metric-value-main {
-    flex: 1 1 auto;
-    display: block;
+    gap: 8px;
     width: max-content;
     max-width: 100%;
-    min-width: 0;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 2px;
+}
+
+/* Фиксированная ширина под число — левые края ровные, бейдж сразу справа */
+.metric-value-main {
+    flex: 0 0 16ch;
+    width: 16ch;
+    display: block;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -277,21 +277,16 @@ body {
     font-size: 16px;
 }
 
-/* Десктоп: шире карточки, больше воздуха */
+/* Десктоп: сетка карточек компактная по ширине */
 @media (min-width: 1024px) {
     .app-container {
-        max-width: min(100%, 1400px);
-        padding: 40px 32px;
+        max-width: min(100%, 1200px);
+        padding: 36px 28px;
     }
 
     #companiesData {
-        grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
-        gap: 28px;
-    }
-
-    .metric-row {
-        grid-template-columns: minmax(15rem, 36%) minmax(0, 1fr);
-        gap: 12px 20px;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 380px));
+        gap: 22px;
     }
 }
 
@@ -368,16 +363,23 @@ body {
 
     .metric-row {
         padding: 10px 0;
-        grid-template-columns: minmax(11.5rem, 48%) 1fr;
+        grid-template-columns: minmax(0, 1fr) max-content;
+        gap: 6px 8px;
     }
 
     .metric-label {
         font-size: 12px;
+        min-width: 0;
+    }
+
+    .metric-value-main {
+        flex: 0 0 14ch;
+        width: 14ch;
     }
 
     .metric-value {
         font-size: 16px;
-        min-width: 14ch;
+        min-width: 0;
     }
 
     .metric-change {
@@ -432,11 +434,18 @@ body {
 
     .metric-row {
         padding: 9px 0;
-        grid-template-columns: minmax(10rem, 50%) 1fr;
+        grid-template-columns: minmax(0, 1fr) max-content;
+        gap: 4px 6px;
     }
 
     .metric-label {
         font-size: 11px;
+        min-width: 0;
+    }
+
+    .metric-value-main {
+        flex: 0 0 12ch;
+        width: 12ch;
     }
 
     .metric-change {
@@ -449,7 +458,7 @@ body {
 
     .metric-value {
         font-size: 15px;
-        min-width: 12ch;
+        min-width: 0;
     }
 }
 
