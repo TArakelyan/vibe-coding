@@ -916,15 +916,26 @@ function initializeYearTabs() {
     });
 }
 
+/** Выручка для сортировки: всё приводится к млрд (144 млн → 0,144). */
+function revenueForSort(revenue) {
+    if (!revenue || typeof revenue.value !== 'number' || Number.isNaN(revenue.value)) return 0;
+    const v = revenue.value;
+    const u = revenue.unit || 'млрд';
+    if (u === 'млрд') return v;
+    if (u === 'млн') return v / 1000;
+    if (u === 'тыс') return v / 1e6;
+    return v;
+}
+
 // Рендеринг компаний
 function renderCompanies() {
     const container = document.getElementById('companiesData');
     
-    // Сортируем компании по выручке выбранного года
+    // Сортируем компании по выручке выбранного года (убывание)
     const sortedCompanies = Object.entries(companiesData).sort((a, b) => {
-        const aRevenue = a[1].financials[selectedYear]?.revenue?.value || 0;
-        const bRevenue = b[1].financials[selectedYear]?.revenue?.value || 0;
-        return bRevenue - aRevenue;
+        const aRev = revenueForSort(a[1].financials[selectedYear]?.revenue);
+        const bRev = revenueForSort(b[1].financials[selectedYear]?.revenue);
+        return bRev - aRev;
     });
     
     let html = '';

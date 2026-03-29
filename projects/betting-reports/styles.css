@@ -16,7 +16,7 @@ body {
 }
 
 .app-container {
-    max-width: min(100%, 1320px);
+    max-width: min(100%, 660px);
     margin: 0 auto;
     padding: 32px 24px;
 }
@@ -60,13 +60,13 @@ body {
 
 #companiesData {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 380px));
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 16px;
     width: 100%;
-    justify-content: center;
+    align-items: stretch;
 }
 
-/* Карточка компании — уже, без лишней ширины между числом и бейджем */
+/* Карточка компании — две в ряд в контейнере 660px */
 .company-card {
     background: #fff;
     border: 1px solid #e0e0e0;
@@ -77,8 +77,8 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 380px;
-    justify-self: center;
+    min-width: 0;
+    max-width: none;
 }
 
 .company-card:hover {
@@ -277,16 +277,23 @@ body {
     font-size: 16px;
 }
 
-/* Десктоп: сетка карточек компактная по ширине */
+/* От 480px — две карточки в ряд (в т.ч. iframe 660px) */
+@media (min-width: 480px) {
+    #companiesData {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+}
+
+/* Десктоп */
 @media (min-width: 1024px) {
     .app-container {
-        max-width: min(100%, 1200px);
+        max-width: min(100%, 660px);
         padding: 36px 28px;
     }
 
     #companiesData {
-        grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 380px));
-        gap: 22px;
+        gap: 18px;
     }
 }
 
@@ -294,11 +301,6 @@ body {
 @media (max-width: 1024px) {
     .app-container {
         padding: 24px 16px;
-    }
-
-    #companiesData {
-        grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
-        gap: 18px;
     }
 
     .company-name {
@@ -325,11 +327,6 @@ body {
     .year-tab {
         padding: 8px 16px;
         font-size: 14px;
-    }
-
-    #companiesData {
-        grid-template-columns: 1fr;
-        gap: 16px;
     }
 
     .company-header {
