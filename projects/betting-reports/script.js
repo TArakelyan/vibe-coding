@@ -898,18 +898,38 @@ function createCompanyCard(company, yearData, selectedYear) {
     `;
 }
 
+/** Единицы в скобках в названии строки, если нет своей из данных */
+const METRIC_DEFAULT_UNITS = {
+    Выручка: 'млрд',
+    'Доля рынка': '%',
+    Выигрыши: 'млрд',
+    GGR: 'млрд',
+    '% GGR': '%',
+    Прибыль: 'млрд',
+    Убыток: 'млрд',
+    'Целевые отчисления': 'млн',
+    Зарплаты: 'млрд',
+    'Штат сотрудников': 'чел.',
+    'Коммерческие расходы': 'млрд'
+};
+
+function buildMetricTitle(label, formattedMetric) {
+    const u = formattedMetric.unit || METRIC_DEFAULT_UNITS[label] || '';
+    return u ? `${label} (${u})` : label;
+}
+
 // Создание строки с метрикой
 function createMetricRow(label, data) {
     if (!data) return '';
 
     if (data.value === '—') {
+        const title = buildMetricTitle(label, { value: '—', unit: METRIC_DEFAULT_UNITS[label] || '' });
         return `
         <div class="metric-row">
-            <span class="metric-label">${label}</span>
+            <span class="metric-label">${title}</span>
             <div class="metric-value-wrapper">
                 <div class="metric-value-main">
                     <span class="metric-value">—</span>
-                    <span class="metric-unit metric-unit--empty" aria-hidden="true"> </span>
                 </div>
             </div>
         </div>`;
@@ -921,9 +941,9 @@ function createMetricRow(label, data) {
 
     const formattedMetric = formatMetricValue(label, data);
     const value = formattedMetric.value;
-    const unit = formattedMetric.unit;
     const change = data.change;
     const changeKind = data.changeKind;
+    const title = buildMetricTitle(label, formattedMetric);
 
     let changeHtml = '';
     if (change !== null && change !== undefined) {
@@ -931,7 +951,8 @@ function createMetricRow(label, data) {
         const sign = change > 0 ? '+' : change < 0 ? '−' : '';
         if (changeKind === 'people') {
             const n = Math.abs(Math.round(change));
-            changeHtml = `<span class="metric-change ${changeClass}">${sign}${n.toLocaleString('ru-RU')} чел.</span>`;
+            /* ед. в названии строки «Штат сотрудников (чел.)» — в бейдже только число */
+            changeHtml = `<span class="metric-change ${changeClass}">${sign}${n.toLocaleString('ru-RU')}</span>`;
         } else {
             const changeAbs = Math.abs(change).toLocaleString('ru-RU', {
                 minimumFractionDigits: 0,
@@ -945,18 +966,12 @@ function createMetricRow(label, data) {
         }
     }
 
-    const labelHtml = label;
-    const unitHtml = unit
-        ? `<span class="metric-unit">${unit}</span>`
-        : '<span class="metric-unit metric-unit--empty" aria-hidden="true"> </span>';
-
     return `
         <div class="metric-row">
-            <span class="metric-label">${labelHtml}</span>
+            <span class="metric-label">${title}</span>
             <div class="metric-value-wrapper">
                 <div class="metric-value-main">
                     <span class="metric-value">${value}</span>
-                    ${unitHtml}
                 </div>
                 ${changeHtml}
             </div>
@@ -976,21 +991,24 @@ function formatMetricValue(label, data) {
                 unit: 'чел.'
             };
         }
-        return { value: String(data.value), unit: '' };
+        return { value: String(data.value), unit: 'чел.' };
     }
 
-    // Доля рынка и % GGR: значение в процентах
+    // Доля рынка и % GGR: число без «%» в значении — единица в названии строки
     if (label === 'Доля рынка' || label === '% GGR') {
+        if (data.value === '—') {
+            return { value: '—', unit: '%' };
+        }
         if (typeof data.value === 'number') {
             return {
                 value: data.value.toLocaleString('ru-RU', {
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 2
-                }) + '%',
-                unit: ''
+                }),
+                unit: '%'
             };
         }
-        return { value: `${data.value}%`, unit: '' };
+        return { value: String(data.value), unit: '%' };
     }
 
     // Целевые отчисления: если больше 1 млрд, показываем в млрд (пример: 12,2 млрд)

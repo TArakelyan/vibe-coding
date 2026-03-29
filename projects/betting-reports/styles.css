@@ -133,9 +133,9 @@ body {
 
 .metric-row {
     display: grid;
-    grid-template-columns: minmax(11rem, 34%) minmax(0, 1fr);
+    grid-template-columns: minmax(13.5rem, 48%) minmax(0, 1fr);
     align-items: center;
-    gap: 10px 16px;
+    gap: 10px 12px;
     padding: 12px 0;
     border-bottom: 1px solid #f0f0f0;
 }
@@ -203,25 +203,17 @@ body {
     width: 100%;
 }
 
-/* Сетка фиксированной ширины: левый край всех чисел на одной вертикали; блок целиком по центру ячейки */
+/* Одна колонка числа; левый край на одной линии; единицы — только в .metric-label */
 .metric-value-main {
     flex: 1 1 auto;
-    display: grid;
-    grid-template-columns: 16ch minmax(2.85rem, 3.35rem);
-    column-gap: 6px;
-    align-items: baseline;
-    justify-items: start;
+    display: block;
     width: max-content;
     max-width: 100%;
     min-width: 0;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 4px;
+    padding: 0 2px;
     box-sizing: border-box;
-}
-
-.metric-value-main .metric-unit {
-    text-align: left;
 }
 
 .metric-value {
@@ -230,39 +222,26 @@ body {
     color: #000;
     font-variant-numeric: tabular-nums;
     text-align: left;
-    min-width: 0;
-    width: 100%;
+    min-width: 16ch;
+    max-width: 100%;
 }
 
-.metric-unit {
-    font-size: 14px;
-    color: #666;
-    font-weight: 400;
-    font-variant-numeric: tabular-nums;
-}
-
-.metric-unit--empty {
-    visibility: hidden;
-    user-select: none;
-    pointer-events: none;
-}
-
-/* Единая ширина всех бейджей — ориентир: строка вида «−2,22 п.п.» / «+2,46 п.п.» */
+/* Компактные бейджи (~половина прежней ширины) */
 .metric-change {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    padding: 3px 6px;
+    padding: 2px 4px;
     border-radius: 3px;
-    flex: 0 0 7.5rem;
-    width: 7.5rem;
-    min-width: 7.5rem;
+    flex: 0 0 3.75rem;
+    width: 3.75rem;
+    min-width: 3.75rem;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-variant-numeric: tabular-nums;
-    line-height: 1.25;
+    line-height: 1.2;
     white-space: nowrap;
 }
 
@@ -311,7 +290,7 @@ body {
     }
 
     .metric-row {
-        grid-template-columns: minmax(12rem, 30%) minmax(0, 1fr);
+        grid-template-columns: minmax(15rem, 36%) minmax(0, 1fr);
         gap: 12px 20px;
     }
 }
@@ -389,7 +368,7 @@ body {
 
     .metric-row {
         padding: 10px 0;
-        grid-template-columns: minmax(10rem, 44%) 1fr;
+        grid-template-columns: minmax(11.5rem, 48%) 1fr;
     }
 
     .metric-label {
@@ -398,22 +377,15 @@ body {
 
     .metric-value {
         font-size: 16px;
-    }
-
-    .metric-value-main {
-        grid-template-columns: 14ch minmax(2.5rem, 3rem);
-    }
-
-    .metric-unit {
-        font-size: 13px;
+        min-width: 14ch;
     }
 
     .metric-change {
-        font-size: 10px;
-        width: 6.75rem;
-        min-width: 6.75rem;
-        flex-basis: 6.75rem;
-        padding: 2px 4px;
+        font-size: 9px;
+        width: 3.375rem;
+        min-width: 3.375rem;
+        flex-basis: 3.375rem;
+        padding: 2px 3px;
     }
 }
 
@@ -460,7 +432,7 @@ body {
 
     .metric-row {
         padding: 9px 0;
-        grid-template-columns: minmax(9rem, 40%) 1fr;
+        grid-template-columns: minmax(10rem, 50%) 1fr;
     }
 
     .metric-label {
@@ -468,18 +440,16 @@ body {
     }
 
     .metric-change {
-        width: 6.25rem;
-        min-width: 6.25rem;
-        flex-basis: 6.25rem;
-        font-size: 10px;
+        width: 3.125rem;
+        min-width: 3.125rem;
+        flex-basis: 3.125rem;
+        font-size: 8px;
+        padding: 2px 2px;
     }
 
     .metric-value {
         font-size: 15px;
-    }
-
-    .metric-unit {
-        font-size: 12px;
+        min-width: 12ch;
     }
 }
 
