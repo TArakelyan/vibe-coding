@@ -892,7 +892,10 @@ function createMetricRow(label, data) {
         <div class="metric-row">
             <span class="metric-label">${label}</span>
             <div class="metric-value-wrapper">
-                <span class="metric-value">—</span>
+                <div class="metric-value-main">
+                    <span class="metric-value">—</span>
+                    <span class="metric-unit metric-unit--empty" aria-hidden="true"> </span>
+                </div>
             </div>
         </div>`;
     }
@@ -910,27 +913,31 @@ function createMetricRow(label, data) {
     let changeHtml = '';
     if (label !== 'Штат сотрудников' && change !== null && change !== undefined) {
         const changeClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'neutral';
-        const changeSign = change > 0 ? '+' : '';
         const changeAbs = Math.abs(change).toLocaleString('ru-RU', {
             minimumFractionDigits: 0,
             maximumFractionDigits: 2
         });
+        const sign = change > 0 ? '+' : change < 0 ? '−' : '';
         if (changeKind === 'pp') {
-            const sign = change > 0 ? '+' : change < 0 ? '−' : '';
             changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs} п.п.</span>`;
         } else {
-            changeHtml = `<span class="metric-change ${changeClass}">${changeSign}${changeAbs}%</span>`;
+            changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs}%</span>`;
         }
     }
 
     const labelHtml = label;
+    const unitHtml = unit
+        ? `<span class="metric-unit">${unit}</span>`
+        : '<span class="metric-unit metric-unit--empty" aria-hidden="true"> </span>';
 
     return `
         <div class="metric-row">
             <span class="metric-label">${labelHtml}</span>
             <div class="metric-value-wrapper">
-                <span class="metric-value">${value}</span>
-                ${unit ? `<span class="metric-unit">${unit}</span>` : ''}
+                <div class="metric-value-main">
+                    <span class="metric-value">${value}</span>
+                    ${unitHtml}
+                </div>
                 ${changeHtml}
             </div>
         </div>
