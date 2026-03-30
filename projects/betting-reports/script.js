@@ -558,7 +558,7 @@ const companiesData = {
     },
     'tennisi': {
         name: 'Tennisi',
-        logo: 'https://dumpster.cdn.sports.ru/f/a6/c2b756b2273fad84e97c74023dc7a.png',
+        logo: 'https://dumpster.cdn.sports.ru/4/ad/00d06bd5d30711030149bb7a7aae8.png',
         founded: '1999',
         entity: 'ООО «Рус-Телетот»',
         financials: {
