@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Подписчики букмекеров в соцсетях</title>
+  <link rel="stylesheet" href="https://senoval.cdn.sports.ru/static-resources/fonts/roboto.css">
+  <link rel="stylesheet" href="https://senoval.cdn.sports.ru/static-resources/fonts/sports.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="app-header__brand" href="https://www.sports.ru/?utm_source=special-social-betting" target="_blank" rel="noopener noreferrer">
+        <img src="https://dumpster.cdn.sports.ru/e/01/b6a5c8d6223d46030fe91d0aa70cc.png" alt="Sports.ru" width="120" height="32" class="app-header__logo">
+      </a>
+    </header>
+
+    <main class="app-container">
+      <h1 class="app-title">Подписчики букмекеров в соцсетях</h1>
+      <p class="app-lead">Выберите площадку — ниже показаны численности подписчиков (тыс. чел.) по каждому букмекеру.</p>
+
+      <div class="network-tabs" id="networkTabs" role="tablist" aria-label="Соцсеть"></div>
+
+      <p class="app-unit" id="unitCaption">Тысячи подписчиков</p>
+
+      <ul class="bookmakers-list" id="bookmakersList"></ul>
+    </main>
+  </div>
+
+  <script src="./data/bookmakers-social.js"></script>
+  <script src="./theme-detector.js"></script>
+  <script src="./script.js"></script>
+  <script src="./resize.js"></script>
+</body>
+</html>

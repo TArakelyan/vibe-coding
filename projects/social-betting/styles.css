@@ -1,0 +1,260 @@
+@import "https://senoval.cdn.sports.ru/static-resources/fonts/roboto.css";
+@import "https://senoval.cdn.sports.ru/static-resources/fonts/sports.css";
+
+html {
+  box-sizing: border-box;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  word-break: normal;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:root {
+  --sports-primary-color: #00c78b;
+  --sports-primary-color-hover: #21a67e;
+  --sports-primary-light-color-hover: #d8f7e5;
+  --sports-green-900: #003d2b;
+  --sports-grey-900: #222;
+  --sports-grey-800: #4a4a4a;
+  --sports-grey-600: #757575;
+  --sports-grey-100: #d8d8d8;
+  --sports-grey-50: #efefef;
+  --sports-black: #000;
+  --ui-bg: #fff;
+  --ui-font-family-body: "Neoris", "Roboto", sans-serif;
+  --ui-font-family-heading: "Sports", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--ui-font-family-body);
+  background: var(--sports-grey-50);
+  color: var(--sports-black);
+  line-height: 1.5;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.app-shell {
+  max-width: min(100%, 660px);
+  margin: 0 auto;
+  padding: 0 16px 32px;
+}
+
+.app-header {
+  padding: 20px 0 8px;
+}
+
+.app-header__brand {
+  display: inline-block;
+  line-height: 0;
+}
+
+.app-header__logo {
+  height: auto;
+  max-width: 140px;
+  width: auto;
+}
+
+.app-container {
+  width: 100%;
+}
+
+.app-title {
+  font-family: var(--ui-font-family-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--sports-green-900);
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+.app-lead {
+  margin: 0 0 20px;
+  font-size: 15px;
+  color: var(--sports-grey-800);
+}
+
+.app-unit {
+  font-size: 13px;
+  color: var(--sports-grey-600);
+  margin: 0 0 12px;
+}
+
+/* Табы соцсетей — размер как у прежних табов «годов» */
+.network-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.network-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1px solid var(--sports-grey-100);
+  background: var(--ui-bg);
+  color: var(--sports-grey-800);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.network-tab:hover {
+  border-color: var(--sports-grey-800);
+}
+
+.network-tab--active {
+  background: var(--sports-black);
+  border-color: var(--sports-black);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.network-tab--active .network-tab__icon {
+  filter: brightness(0) invert(1);
+}
+
+.network-tab__icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.bookmakers-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--sports-grey-100);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ui-bg);
+}
+
+.bookmaker-row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--sports-grey-50);
+}
+
+.bookmaker-row:last-child {
+  border-bottom: none;
+}
+
+.bookmaker-row__logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--sports-grey-50);
+  padding: 4px;
+}
+
+.bookmaker-row__logo--placeholder {
+  display: block;
+  background: linear-gradient(135deg, var(--sports-grey-100), var(--sports-grey-50));
+}
+
+.bookmaker-row__name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--sports-black);
+}
+
+.bookmaker-row__value {
+  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--sports-green-900);
+  text-align: right;
+  min-width: 4.5em;
+}
+
+body.dark-theme {
+  background: var(--sports-grey-900);
+  color: #f5f5f5;
+}
+
+body.dark-theme .app-title {
+  color: var(--sports-primary-color);
+}
+
+body.dark-theme .app-lead,
+body.dark-theme .app-unit {
+  color: var(--sports-grey-100);
+}
+
+body.dark-theme .network-tab {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #eee;
+}
+
+body.dark-theme .network-tab:hover {
+  border-color: var(--sports-primary-color);
+}
+
+body.dark-theme .network-tab--active {
+  background: var(--sports-primary-color);
+  border-color: var(--sports-primary-color);
+}
+
+body.dark-theme .network-tab--active .network-tab__icon {
+  filter: none;
+}
+
+body.dark-theme .bookmakers-list {
+  background: #1e1e1e;
+  border-color: #444;
+}
+
+body.dark-theme .bookmaker-row {
+  border-bottom-color: #333;
+}
+
+body.dark-theme .bookmaker-row__name {
+  color: #f0f0f0;
+}
+
+body.dark-theme .bookmaker-row__value {
+  color: var(--sports-primary-color);
+}
+
+body.dark-theme .bookmaker-row__logo {
+  background: #333;
+}
