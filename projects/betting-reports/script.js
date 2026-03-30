@@ -1088,7 +1088,7 @@ function createMetricRow(label, data) {
                 maximumFractionDigits: 2
             });
             if (changeKind === 'pp') {
-                changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs} п.п.</span>`;
+                changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs}</span>`;
             } else {
                 changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs}%</span>`;
             }

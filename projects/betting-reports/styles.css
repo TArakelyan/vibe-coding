@@ -236,9 +236,10 @@ body {
     justify-content: center;
     text-align: center;
     font-variant-numeric: tabular-nums;
-    line-height: 1.2;
+    line-height: 1.1;
     white-space: nowrap;
     justify-self: stretch;
+    overflow: hidden;
 }
 
 .metric-change.positive {
