@@ -138,7 +138,7 @@ body {
 /* Правая часть — по ширине контента (число + бейдж), без пустой «долины» */
 .metric-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(6ch, 9ch) max-content;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 8px 10px;
     padding: 12px 0;
@@ -198,17 +198,23 @@ body {
 }
 
 .metric-value-wrapper {
-    display: contents;
+    display: grid;
+    grid-template-columns: minmax(7ch, 10ch) max-content;
+    align-items: center;
+    justify-content: end;
+    column-gap: 10px;
+    width: fit-content;
+    justify-self: end;
 }
 
 /* Колонка значения */
 .metric-value-main {
-    min-width: 6ch;
+    min-width: 7ch;
     display: block;
     padding: 0;
     box-sizing: border-box;
-    justify-self: center;
-    text-align: center;
+    justify-self: end;
+    text-align: right;
 }
 
 .metric-value {
@@ -216,7 +222,7 @@ body {
     font-weight: 700;
     color: #000;
     font-variant-numeric: tabular-nums;
-    text-align: center;
+    text-align: right;
     min-width: 0;
     max-width: 100%;
 }
@@ -238,7 +244,7 @@ body {
     font-variant-numeric: tabular-nums;
     line-height: 1.2;
     white-space: nowrap;
-    justify-self: center;
+    justify-self: end;
 }
 
 .metric-change.positive {
@@ -367,7 +373,7 @@ body {
     }
 
     .metric-value-main {
-        min-width: 5ch;
+        min-width: 6ch;
     }
 
     .metric-value {
