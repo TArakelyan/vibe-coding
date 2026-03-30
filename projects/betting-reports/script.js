@@ -1081,16 +1081,38 @@ function createMetricRow(label, data) {
         if (changeKind === 'people') {
             const n = Math.abs(Math.round(change));
             /* ед. в названии строки «Штат сотрудников (чел)» — в бейдже только число */
-            changeHtml = `<span class="metric-change ${changeClass}">${sign}${n.toLocaleString('ru-RU')}</span>`;
+            const peopleText = `${sign}${n.toLocaleString('ru-RU', { useGrouping: false })}`;
+            const peopleCompact = peopleText.length > 5 ? ' compact' : '';
+            const peopleTiny = peopleText.length > 6 ? ' tiny' : '';
+            changeHtml = `<span class="metric-change ${changeClass}${peopleCompact}${peopleTiny}">${peopleText}</span>`;
         } else {
             const changeAbs = Math.abs(change).toLocaleString('ru-RU', {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 2
             });
+            const suffix = changeKind === 'pp' ? '' : '%';
+            let badgeText = `${sign}${changeAbs}${suffix}`;
+            let compact = '';
+            let tiny = '';
+
+            // Если в узком бейдже не помещается, показываем целые
+            if (badgeText.length > 5) {
+                const roundedAbs = Math.round(Math.abs(change)).toLocaleString('ru-RU', {
+                    useGrouping: false
+                });
+                badgeText = `${sign}${roundedAbs}${suffix}`;
+                compact = ' compact';
+            }
+
+            // Дополнительное уменьшение текста для очень длинных значений
+            if (badgeText.length > 6) {
+                tiny = ' tiny';
+            }
+
             if (changeKind === 'pp') {
-                changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs}</span>`;
+                changeHtml = `<span class="metric-change ${changeClass}${compact}${tiny}">${badgeText}</span>`;
             } else {
-                changeHtml = `<span class="metric-change ${changeClass}">${sign}${changeAbs}%</span>`;
+                changeHtml = `<span class="metric-change ${changeClass}${compact}${tiny}">${badgeText}</span>`;
             }
         }
     }
