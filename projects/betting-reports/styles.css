@@ -138,7 +138,7 @@ body {
 /* Правая часть — по ширине контента (число + бейдж), без пустой «долины» */
 .metric-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 10ch 5.8rem;
+    grid-template-columns: minmax(0, 1fr) 10ch 2.9rem;
     align-items: center;
     gap: 8px 10px;
     padding: 12px 0;
@@ -228,8 +228,8 @@ body {
     padding: 2px 6px;
     border-radius: 3px;
     flex: 0 0 auto;
-    width: 5.8rem;
-    min-width: 5.8rem;
+    width: 2.9rem;
+    min-width: 2.9rem;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -357,7 +357,7 @@ body {
 
     .metric-row {
         padding: 10px 0;
-        grid-template-columns: minmax(0, 1fr) 8.5ch 5.2rem;
+        grid-template-columns: minmax(0, 1fr) 8.5ch 2.6rem;
         gap: 6px 8px;
     }
 
@@ -377,8 +377,8 @@ body {
 
     .metric-change {
         font-size: 12px;
-        width: 5.2rem;
-        min-width: 5.2rem;
+        width: 2.6rem;
+        min-width: 2.6rem;
         flex-basis: auto;
         padding: 3px 6px;
         line-height: 1.15;
@@ -428,7 +428,7 @@ body {
 
     .metric-row {
         padding: 9px 0;
-        grid-template-columns: minmax(0, 1fr) 7.5ch 4.8rem;
+        grid-template-columns: minmax(0, 1fr) 7.5ch 2.4rem;
         gap: 4px 6px;
     }
 
@@ -442,8 +442,8 @@ body {
     }
 
     .metric-change {
-        width: 4.8rem;
-        min-width: 4.8rem;
+        width: 2.4rem;
+        min-width: 2.4rem;
         flex-basis: auto;
         font-size: 11px;
         padding: 2px 5px;
