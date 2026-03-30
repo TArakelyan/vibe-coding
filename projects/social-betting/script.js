@@ -1,112 +1,94 @@
-let selectedNetworkId = 'telegram';
+let selectedCategory = 'telegram';
 
 document.addEventListener('DOMContentLoaded', function () {
-  renderNetworkTabs();
-  renderBookmakersList();
+    initCategoryTabs();
+    renderBookmakers();
 });
 
-function renderNetworkTabs() {
-  const wrap = document.getElementById('networkTabs');
-  if (!wrap || typeof SOCIAL_NETWORKS === 'undefined') return;
+function initCategoryTabs() {
+    const tabsContainer = document.getElementById('networkTabs');
+    if (!tabsContainer) return;
 
-  wrap.innerHTML = SOCIAL_NETWORKS.map(function (net) {
-    const active = net.id === selectedNetworkId ? ' network-tab--active' : '';
+    tabsContainer.innerHTML = SOCIAL_CATEGORIES.map(function (category) {
+        const isActive = category.id === selectedCategory;
+        return `
+            <button class="year-tab social-tab ${isActive ? 'active' : ''}" data-category="${category.id}" role="tab" aria-selected="${isActive}">
+                <img src="${category.logo}" alt="${category.name}" class="social-tab-logo" />
+            </button>
+        `;
+    }).join('');
+
+    const tabs = tabsContainer.querySelectorAll('.social-tab');
+    tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            tabs.forEach(function (item) {
+                item.classList.remove('active');
+                item.setAttribute('aria-selected', 'false');
+            });
+
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            selectedCategory = tab.dataset.category;
+            renderBookmakers();
+        });
+    });
+}
+
+function renderBookmakers() {
+    const list = document.getElementById('bookmakersList');
+    if (!list) return;
+
+    const sorted = [...BOOKMAKERS_SOCIAL].sort(function (a, b) {
+        const aValue = a[selectedCategory];
+        const bValue = b[selectedCategory];
+        const aMissing = aValue === null || aValue === undefined;
+        const bMissing = bValue === null || bValue === undefined;
+
+        if (aMissing && bMissing) return 0;
+        if (aMissing) return 1;
+        if (bMissing) return -1;
+        return bValue - aValue;
+    });
+
+    list.innerHTML = sorted.map(function (bookmaker) {
+        const value = bookmaker[selectedCategory];
+        return `
+            <li class="bookmaker-item">
+                <div class="bookmaker-main">
+                    ${bookmakerLogoMarkup(bookmaker)}
+                    <span class="bookmaker-name">${escapeHtml(bookmaker.name)}</span>
+                </div>
+                <span class="bookmaker-value">${formatValue(value)}</span>
+            </li>
+        `;
+    }).join('');
+}
+
+function bookmakerLogoMarkup(bookmaker) {
+    if (!bookmaker.logo) {
+        return '<div class="bookmaker-logo-wrap bookmaker-logo-wrap--empty" aria-hidden="true"></div>';
+    }
     return (
-      '<button type="button" class="network-tab' + active + '" data-network="' +
-      net.id +
-      '" role="tab" aria-selected="' +
-      (net.id === selectedNetworkId ? 'true' : 'false') +
-      '" title="' +
-      escapeHtml(net.label) +
-      '">' +
-      '<img src="' +
-      escapeHtml(net.logo) +
-      '" alt="" class="network-tab__icon" width="28" height="28" loading="lazy">' +
-      '<span class="visually-hidden">' +
-      escapeHtml(net.label) +
-      '</span>' +
-      '</button>'
+        '<div class="bookmaker-logo-wrap">' +
+        '<img class="bookmaker-logo" src="' +
+        escapeHtml(bookmaker.logo) +
+        '" alt="" width="56" height="56" loading="lazy" onerror="this.parentElement.classList.add(\'bookmaker-logo-wrap--empty\');this.remove();">' +
+        '</div>'
     );
-  }).join('');
+}
 
-  wrap.querySelectorAll('.network-tab').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      selectedNetworkId = btn.getAttribute('data-network');
-      wrap.querySelectorAll('.network-tab').forEach(function (b) {
-        b.classList.toggle('network-tab--active', b === btn);
-        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
-      });
-      renderBookmakersList();
+function escapeHtml(text) {
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+function formatValue(value) {
+    if (value === null || value === undefined) return '—';
+    return value.toLocaleString('ru-RU', {
+        minimumFractionDigits: Number.isInteger(value) ? 0 : 1,
+        maximumFractionDigits: 1
     });
-  });
-}
-
-function renderBookmakersList() {
-  const list = document.getElementById('bookmakersList');
-  if (!list || typeof SOCIAL_BOOKMAKERS === 'undefined') return;
-
-  const rows = SOCIAL_BOOKMAKERS.map(function (bk, index) {
-    return { bk: bk, index: index, value: bk.followers[selectedNetworkId] };
-  });
-
-  rows.sort(function (a, b) {
-    const av = a.value;
-    const bv = b.value;
-    if (av == null && bv == null) return a.index - b.index;
-    if (av == null) return 1;
-    if (bv == null) return -1;
-    if (bv !== av) return bv - av;
-    return a.bk.name.localeCompare(b.bk.name, 'ru');
-  });
-
-  list.innerHTML = rows
-    .map(function (row) {
-      return createBookmakerRow(row.bk, row.value);
-    })
-    .join('');
-}
-
-function createBookmakerRow(bk, value) {
-  const valueStr = formatFollowers(value);
-  const logoHtml = bk.logo
-    ? '<img src="' +
-      escapeHtml(bk.logo) +
-      '" alt="" class="bookmaker-row__logo" width="48" height="48" loading="lazy">'
-    : '<span class="bookmaker-row__logo bookmaker-row__logo--placeholder" aria-hidden="true"></span>';
-
-  return (
-    '<li class="bookmaker-row">' +
-    logoHtml +
-    '<span class="bookmaker-row__name">' +
-    escapeHtml(bk.name) +
-    '</span>' +
-    '<span class="bookmaker-row__value">' +
-    valueStr +
-    '</span>' +
-    '</li>'
-  );
-}
-
-function formatFollowers(n) {
-  if (n == null || Number.isNaN(n)) return '—';
-  if (typeof n !== 'number') return '—';
-  var hasFraction = Math.abs(n % 1) > 1e-9;
-  if (hasFraction) {
-    return n.toLocaleString('ru-RU', {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    });
-  }
-  return n.toLocaleString('ru-RU', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
 }

@@ -1,126 +1,42 @@
-/** Категории соцсетей: id, подпись, иконка таба */
-const SOCIAL_NETWORKS = [
-  {
-    id: 'telegram',
-    label: 'Telegram',
-    logo: 'https://dumpster.cdn.sports.ru/5/a2/9ebed84271c8dc1b56c4d82220293.png',
-  },
-  {
-    id: 'vk',
-    label: 'VK',
-    logo: 'https://dumpster.cdn.sports.ru/c/bd/cd0b3fd9b7c9abb9787c3d368c2f1.png',
-  },
-  {
-    id: 'max',
-    label: 'Max',
-    logo: 'https://dumpster.cdn.sports.ru/a/05/c6f242b262d05ea8f1492e1f495ec.png',
-  },
-  {
-    id: 'youtube',
-    label: 'Youtube',
-    logo: 'https://dumpster.cdn.sports.ru/7/09/1fd0f3eb7c0794dc0a1905b715cf3.png',
-  },
+const SOCIAL_CATEGORIES = [
+    {
+        id: 'telegram',
+        name: 'Telegram',
+        logo: 'https://dumpster.cdn.sports.ru/5/a2/9ebed84271c8dc1b56c4d82220293.png'
+    },
+    {
+        id: 'vk',
+        name: 'VK',
+        logo: 'https://dumpster.cdn.sports.ru/c/bd/cd0b3fd9b7c9abb9787c3d368c2f1.png'
+    },
+    {
+        id: 'max',
+        name: 'Max',
+        logo: 'https://dumpster.cdn.sports.ru/a/05/c6f242b262d05ea8f1492e1f495ec.png'
+    },
+    {
+        id: 'youtube',
+        name: 'Youtube',
+        logo: 'https://dumpster.cdn.sports.ru/7/09/1fd0f3eb7c0794dc0a1905b715cf3.png'
+    }
 ];
 
-/**
- * Букмекеры: подписчики в тыс. чел.; null — нет данных (показываем «—»).
- * Логотипы — из открытых материалов Sports (как в других проектах).
- */
-const SOCIAL_BOOKMAKERS = [
-  {
-    id: 'fonbet',
-    name: 'Fonbet',
-    logo: 'https://dumpster.cdn.sports.ru/8/23/31836b8ae127c677c83aa5c2dcc3c.png',
-    followers: { telegram: 214.3, vk: 204.9, max: 2.7, youtube: 92.7 },
-  },
-  {
-    id: 'winline',
-    name: 'Winline',
-    logo: 'https://dumpster.cdn.sports.ru/b/fc/6d2147368a7165750355955619ca6.png',
-    followers: { telegram: 231.1, vk: 468.6, max: 0.9, youtube: 47.1 },
-  },
-  {
-    id: 'betboom',
-    name: 'BetBoom',
-    logo: 'https://dumpster.cdn.sports.ru/3/e5/5f377db01eb4c060a6cc0c2b5ecaf.jpg',
-    followers: { telegram: 143.4, vk: 85.4, max: 3.8, youtube: 150 },
-  },
-  {
-    id: 'pari',
-    name: 'PARI',
-    logo: 'https://dumpster.cdn.sports.ru/d/ba/d2462eaba730d24c1b99b66b08c99.png',
-    followers: { telegram: 127.8, vk: 62.8, max: 1.4, youtube: 1.9 },
-  },
-  {
-    id: 'ligastavok',
-    name: 'Лига Ставок',
-    logo: 'https://dumpster.cdn.sports.ru/9/0e/8461bf68298af754aca1e11ca053b.png',
-    followers: { telegram: 115.9, vk: 70.8, max: 2.2, youtube: 19.6 },
-  },
-  {
-    id: 'olimpbet',
-    name: 'Olimpbet',
-    logo: 'https://dumpster.cdn.sports.ru/b/4b/09a1ae66b9dfe5d3b89b3e19a2483.png',
-    followers: { telegram: 123.8, vk: 30.3, max: null, youtube: 4.3 },
-  },
-  {
-    id: 'betcity',
-    name: 'Бетсити',
-    logo: 'https://dumpster.cdn.sports.ru/6/5d/3e1621d0edebd2abb1ac8b059d867.jpg',
-    followers: { telegram: 105.8, vk: 115, max: 4.1, youtube: 0.9 },
-  },
-  {
-    id: 'melbet',
-    name: 'Мелбет',
-    logo: 'https://dumpster.cdn.sports.ru/3/95/b803d3289aae7797635a551d71575.jpg',
-    followers: { telegram: 58, vk: 13.9, max: null, youtube: 0.3 },
-  },
-  {
-    id: 'marathon',
-    name: 'Марафон',
-    logo: 'https://dumpster.cdn.sports.ru/0/77/c218bb3fc90ed6741005655afb7ea.png',
-    followers: { telegram: 12.4, vk: 10.3, max: null, youtube: null },
-  },
-  {
-    id: 'baltbet',
-    name: 'Балтбет',
-    logo: 'https://dumpster.cdn.sports.ru/a/39/484ac69771fe52e294c85cbd56752.png',
-    followers: { telegram: 12.3, vk: 54.3, max: 0.9, youtube: 2.9 },
-  },
-  {
-    id: 'leon',
-    name: 'Leon',
-    logo: 'https://dumpster.cdn.sports.ru/5/48/ea6b6533bf8c30bcdf8a9479111e4.png',
-    followers: { telegram: 26.6, vk: 11.4, max: null, youtube: null },
-  },
-  {
-    id: 'zenit',
-    name: 'Zenit',
-    logo: 'https://dumpster.cdn.sports.ru/1/b9/441fcd19db99e77d60537ec7fd44e.png',
-    followers: { telegram: 2, vk: 10.8, max: null, youtube: null },
-  },
-  {
-    id: 'tennisi',
-    name: 'Tennisi',
-    logo: 'https://dumpster.cdn.sports.ru/4/ad/00d06bd5d30711030149bb7a7aae8.png',
-    followers: { telegram: 11.7, vk: 12.2, max: null, youtube: 44.4 },
-  },
-  {
-    id: 'bettery',
-    name: 'Bettery',
-    logo: 'https://dumpster.cdn.sports.ru/5/1f/5f974506f81a801da1acb5b9db558.jpg',
-    followers: { telegram: null, vk: null, max: null, youtube: null },
-  },
-  {
-    id: 'sportbet',
-    name: 'Спортбет',
-    logo: '',
-    followers: { telegram: null, vk: null, max: null, youtube: null },
-  },
-  {
-    id: 'betm',
-    name: 'Бет-М',
-    logo: 'https://dumpster.cdn.sports.ru/2/b3/842bfb5db6116469010f1ae6951e2.png',
-    followers: { telegram: 5.1, vk: null, max: null, youtube: null },
-  },
+/** Логотипы — те же URL, что в прежней версии виджета с карточками букмекеров */
+const BOOKMAKERS_SOCIAL = [
+    { name: 'Fonbet', logo: 'https://dumpster.cdn.sports.ru/8/23/31836b8ae127c677c83aa5c2dcc3c.png', telegram: 214.3, vk: 204.9, max: 2.7, youtube: 92.7 },
+    { name: 'Winline', logo: 'https://dumpster.cdn.sports.ru/b/fc/6d2147368a7165750355955619ca6.png', telegram: 231.1, vk: 468.6, max: 0.9, youtube: 47.1 },
+    { name: 'BetBoom', logo: 'https://dumpster.cdn.sports.ru/3/e5/5f377db01eb4c060a6cc0c2b5ecaf.jpg', telegram: 143.4, vk: 85.4, max: 3.8, youtube: 150 },
+    { name: 'PARI', logo: 'https://dumpster.cdn.sports.ru/d/ba/d2462eaba730d24c1b99b66b08c99.png', telegram: 127.8, vk: 62.8, max: 1.4, youtube: 1.9 },
+    { name: 'Лига Ставок', logo: 'https://dumpster.cdn.sports.ru/9/0e/8461bf68298af754aca1e11ca053b.png', telegram: 115.9, vk: 70.8, max: 2.2, youtube: 19.6 },
+    { name: 'Olimpbet', logo: 'https://dumpster.cdn.sports.ru/b/4b/09a1ae66b9dfe5d3b89b3e19a2483.png', telegram: 123.8, vk: 30.3, max: null, youtube: 4.3 },
+    { name: 'Бетсити', logo: 'https://dumpster.cdn.sports.ru/6/5d/3e1621d0edebd2abb1ac8b059d867.jpg', telegram: 105.8, vk: 115, max: 4.1, youtube: 0.9 },
+    { name: 'Мелбет', logo: 'https://dumpster.cdn.sports.ru/3/95/b803d3289aae7797635a551d71575.jpg', telegram: 58, vk: 13.9, max: null, youtube: 0.3 },
+    { name: 'Марафон', logo: 'https://dumpster.cdn.sports.ru/0/77/c218bb3fc90ed6741005655afb7ea.png', telegram: 12.4, vk: 10.3, max: null, youtube: null },
+    { name: 'Балтбет', logo: 'https://dumpster.cdn.sports.ru/a/39/484ac69771fe52e294c85cbd56752.png', telegram: 12.3, vk: 54.3, max: 0.9, youtube: 2.9 },
+    { name: 'Leon', logo: 'https://dumpster.cdn.sports.ru/5/48/ea6b6533bf8c30bcdf8a9479111e4.png', telegram: 26.6, vk: 11.4, max: null, youtube: null },
+    { name: 'Zenit', logo: 'https://dumpster.cdn.sports.ru/1/b9/441fcd19db99e77d60537ec7fd44e.png', telegram: 2, vk: 10.8, max: null, youtube: null },
+    { name: 'Tennisi', logo: 'https://dumpster.cdn.sports.ru/4/ad/00d06bd5d30711030149bb7a7aae8.png', telegram: 11.7, vk: 12.2, max: null, youtube: 44.4 },
+    { name: 'Bettery', logo: 'https://dumpster.cdn.sports.ru/5/1f/5f974506f81a801da1acb5b9db558.jpg', telegram: null, vk: null, max: null, youtube: null },
+    { name: 'Спортбет', logo: '', telegram: null, vk: null, max: null, youtube: null },
+    { name: 'Бет-М', logo: 'https://dumpster.cdn.sports.ru/2/b3/842bfb5db6116469010f1ae6951e2.png', telegram: 5.1, vk: null, max: null, youtube: null }
 ];
