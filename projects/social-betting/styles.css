@@ -62,10 +62,12 @@ body {
     width: 24px;
     height: 24px;
     object-fit: contain;
+    display: block;
 }
 
+/* Цветные иконки соцсетей остаются видимыми на чёрном фоне активного таба */
 .year-tab.active .social-tab-logo {
-    filter: brightness(0) invert(1);
+    filter: none;
 }
 
 .companies-section {
@@ -114,6 +116,10 @@ body {
     border-radius: 50%;
     background: #f5f5f5;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .bookmaker-logo-wrap--empty {
@@ -123,10 +129,11 @@ body {
 
 .bookmaker-logo {
     display: block;
-    width: 56px;
-    height: 56px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    padding: 6px;
+    object-position: center;
+    padding: 4px;
     box-sizing: border-box;
 }
 
