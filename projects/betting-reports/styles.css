@@ -228,13 +228,13 @@ body {
 
 /* Компактные бейджи (~половина прежней ширины) */
 .metric-change {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     padding: 2px 2px;
     border-radius: 3px;
-    flex: 0 0 1.875rem;
-    width: 1.875rem;
-    min-width: 1.875rem;
+    flex: 0 0 2.4rem;
+    width: 2.4rem;
+    min-width: 2.4rem;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -380,10 +380,10 @@ body {
     }
 
     .metric-change {
-        font-size: 11px;
-        width: 1.6875rem;
-        min-width: 1.6875rem;
-        flex-basis: 1.6875rem;
+        font-size: 12px;
+        width: 2.2rem;
+        min-width: 2.2rem;
+        flex-basis: 2.2rem;
         padding: 2px 2px;
     }
 }
@@ -446,10 +446,10 @@ body {
     }
 
     .metric-change {
-        width: 1.5625rem;
-        min-width: 1.5625rem;
-        flex-basis: 1.5625rem;
-        font-size: 10px;
+        width: 2rem;
+        min-width: 2rem;
+        flex-basis: 2rem;
+        font-size: 11px;
         padding: 2px 2px;
     }
 
