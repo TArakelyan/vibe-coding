@@ -397,7 +397,7 @@ const companiesData = {
     },
     'ligastavok': { 
         name: 'Лига Ставок', 
-        logo: 'https://dumpster.cdn.sports.ru/c/b7/f124e513d8966ecd54db959a4227e.png', 
+        logo: 'https://dumpster.cdn.sports.ru/9/0e/8461bf68298af754aca1e11ca053b.png', 
         founded: '2008', 
         entity: 'ООО «ПМБК»', 
         financials: { 
@@ -558,7 +558,7 @@ const companiesData = {
     },
     'tennisi': {
         name: 'Tennisi',
-        logo: 'https://dumpster.cdn.sports.ru/0/cf/e01a6253d18a8ca8e957548282dad.png',
+        logo: 'https://dumpster.cdn.sports.ru/f/a6/c2b756b2273fad84e97c74023dc7a.png',
         founded: '1999',
         entity: 'ООО «Рус-Телетот»',
         financials: {
