@@ -138,7 +138,7 @@ body {
 /* Правая часть — по ширине контента (число + бейдж), без пустой «долины» */
 .metric-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) 10ch 5.8rem;
     align-items: center;
     gap: 8px 10px;
     padding: 12px 0;
@@ -198,23 +198,17 @@ body {
 }
 
 .metric-value-wrapper {
-    display: grid;
-    grid-template-columns: minmax(7ch, 10ch) max-content;
-    align-items: center;
-    justify-content: end;
-    column-gap: 10px;
-    width: fit-content;
-    justify-self: end;
+    display: contents;
 }
 
 /* Колонка значения */
 .metric-value-main {
-    min-width: 7ch;
+    width: 10ch;
     display: block;
     padding: 0;
     box-sizing: border-box;
-    justify-self: end;
-    text-align: right;
+    justify-self: stretch;
+    text-align: left;
 }
 
 .metric-value {
@@ -222,7 +216,7 @@ body {
     font-weight: 700;
     color: #000;
     font-variant-numeric: tabular-nums;
-    text-align: right;
+    text-align: left;
     min-width: 0;
     max-width: 100%;
 }
@@ -234,8 +228,8 @@ body {
     padding: 2px 6px;
     border-radius: 3px;
     flex: 0 0 auto;
-    width: fit-content;
-    min-width: 0;
+    width: 5.8rem;
+    min-width: 5.8rem;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -244,7 +238,7 @@ body {
     font-variant-numeric: tabular-nums;
     line-height: 1.2;
     white-space: nowrap;
-    justify-self: end;
+    justify-self: stretch;
 }
 
 .metric-change.positive {
@@ -363,7 +357,7 @@ body {
 
     .metric-row {
         padding: 10px 0;
-        grid-template-columns: minmax(0, 1fr) max-content;
+        grid-template-columns: minmax(0, 1fr) 8.5ch 5.2rem;
         gap: 6px 8px;
     }
 
@@ -373,7 +367,7 @@ body {
     }
 
     .metric-value-main {
-        min-width: 6ch;
+        width: 8.5ch;
     }
 
     .metric-value {
@@ -383,8 +377,8 @@ body {
 
     .metric-change {
         font-size: 12px;
-        width: fit-content;
-        min-width: 0;
+        width: 5.2rem;
+        min-width: 5.2rem;
         flex-basis: auto;
         padding: 3px 6px;
         line-height: 1.15;
@@ -434,7 +428,7 @@ body {
 
     .metric-row {
         padding: 9px 0;
-        grid-template-columns: minmax(0, 1fr) max-content;
+        grid-template-columns: minmax(0, 1fr) 7.5ch 4.8rem;
         gap: 4px 6px;
     }
 
@@ -444,12 +438,12 @@ body {
     }
 
     .metric-value-main {
-        min-width: 4.8ch;
+        width: 7.5ch;
     }
 
     .metric-change {
-        width: fit-content;
-        min-width: 0;
+        width: 4.8rem;
+        min-width: 4.8rem;
         flex-basis: auto;
         font-size: 11px;
         padding: 2px 5px;
