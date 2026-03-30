@@ -306,7 +306,7 @@ const companiesData = {
                 ggr_margin: { value: '—', unit: '', change: null },
                 profit: { value: 2.041, unit: 'млрд', change: -59.8 },
                 target_contributions: { value: 1407.154, unit: 'млн', change: 5.8 },
-                salaries: { value: 1250.4, unit: 'млн', change: 27.1 },
+                salaries: { value: 1.25, unit: 'млрд', change: 27.1 },
                 staff: { value: 538, unit: 'чел.', change: null }
             },
             '2024': {
@@ -745,7 +745,7 @@ const companiesData = {
                 profit: { value: 1.053, unit: 'млрд', change: -55.2 },
                 target_contributions: { value: 1445.364, unit: 'млн', change: 4.2 },
                 advertising: { value: 5.21, unit: 'млрд', change: 9.6 },
-                salaries: { value: 2096.3, unit: 'млн', change: 73.9 },
+                salaries: { value: 2.01, unit: 'млрд', change: 73.9 },
                 staff: { value: 424, unit: 'чел.', change: null }
             },
             '2024': {
@@ -757,7 +757,7 @@ const companiesData = {
                 profit: { value: 2.349, unit: 'млрд', change: 27.3 },
                 target_contributions: { value: 1386.474, unit: 'млн', change: 77.4 },
                 advertising: { value: 4.75, unit: 'млрд', change: null },
-                salaries: { value: 1205.234, unit: 'млн', change: 72.7 },
+                salaries: { value: 1.2, unit: 'млрд', change: 72.7 },
                 staff: { value: 272, unit: 'чел.', change: null }
             },
             '2023': {
@@ -1038,7 +1038,7 @@ const METRIC_DEFAULT_UNITS = {
     'Целевые отчисления': 'млн',
     'Реклама и спонсорство': 'млрд',
     Зарплаты: 'млрд',
-    'Штат сотрудников': 'чел.',
+    'Штат сотрудников': 'чел',
     'Коммерческие расходы': 'млрд'
 };
 
@@ -1080,7 +1080,7 @@ function createMetricRow(label, data) {
         const sign = change > 0 ? '+' : change < 0 ? '−' : '';
         if (changeKind === 'people') {
             const n = Math.abs(Math.round(change));
-            /* ед. в названии строки «Штат сотрудников (чел.)» — в бейдже только число */
+            /* ед. в названии строки «Штат сотрудников (чел)» — в бейдже только число */
             changeHtml = `<span class="metric-change ${changeClass}">${sign}${n.toLocaleString('ru-RU')}</span>`;
         } else {
             const changeAbs = Math.abs(change).toLocaleString('ru-RU', {
@@ -1117,10 +1117,10 @@ function formatMetricValue(label, data) {
         if (typeof data.value === 'number') {
             return {
                 value: data.value.toLocaleString('ru-RU'),
-                unit: 'чел.'
+                unit: 'чел'
             };
         }
-        return { value: String(data.value), unit: 'чел.' };
+        return { value: String(data.value), unit: 'чел' };
     }
 
     // Доля рынка и % GGR: число без «%» в значении — единица в названии строки
