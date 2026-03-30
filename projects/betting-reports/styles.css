@@ -138,7 +138,7 @@ body {
 /* Правая часть — по ширине контента (число + бейдж), без пустой «долины» */
 .metric-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-columns: minmax(0, 1fr) minmax(6ch, 9ch) max-content;
     align-items: center;
     gap: 8px 10px;
     padding: 12px 0;
@@ -198,23 +198,17 @@ body {
 }
 
 .metric-value-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-    gap: 8px;
-    width: fit-content;
-    max-width: 100%;
+    display: contents;
 }
 
-/* Значение метрики без жесткого 16ch, чтобы не налезало на длинные подписи */
+/* Колонка значения */
 .metric-value-main {
-    flex: 0 0 auto;
-    width: auto;
     min-width: 6ch;
     display: block;
     padding: 0;
     box-sizing: border-box;
+    justify-self: center;
+    text-align: center;
 }
 
 .metric-value {
@@ -222,7 +216,7 @@ body {
     font-weight: 700;
     color: #000;
     font-variant-numeric: tabular-nums;
-    text-align: right;
+    text-align: center;
     min-width: 0;
     max-width: 100%;
 }
@@ -244,6 +238,7 @@ body {
     font-variant-numeric: tabular-nums;
     line-height: 1.2;
     white-space: nowrap;
+    justify-self: center;
 }
 
 .metric-change.positive {
@@ -294,6 +289,7 @@ body {
     }
 
     #companiesData {
+        grid-template-columns: 1fr;
         gap: 18px;
     }
 }
