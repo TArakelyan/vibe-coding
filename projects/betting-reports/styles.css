@@ -200,17 +200,18 @@ body {
 .metric-value-wrapper {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
     flex-wrap: nowrap;
     gap: 8px;
-    width: max-content;
+    width: fit-content;
     max-width: 100%;
 }
 
-/* Фиксированная ширина под число — левые края ровные, бейдж сразу справа */
+/* Значение метрики без жесткого 16ch, чтобы не налезало на длинные подписи */
 .metric-value-main {
-    flex: 0 0 16ch;
-    width: 16ch;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 6ch;
     display: block;
     padding: 0;
     box-sizing: border-box;
@@ -221,8 +222,8 @@ body {
     font-weight: 700;
     color: #000;
     font-variant-numeric: tabular-nums;
-    text-align: left;
-    min-width: 16ch;
+    text-align: right;
+    min-width: 0;
     max-width: 100%;
 }
 
@@ -230,11 +231,11 @@ body {
 .metric-change {
     font-size: 13px;
     font-weight: 700;
-    padding: 2px 2px;
+    padding: 2px 6px;
     border-radius: 3px;
-    flex: 0 0 2.4rem;
-    width: 2.4rem;
-    min-width: 2.4rem;
+    flex: 0 0 auto;
+    width: fit-content;
+    min-width: 0;
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -370,8 +371,7 @@ body {
     }
 
     .metric-value-main {
-        flex: 0 0 14ch;
-        width: 14ch;
+        min-width: 5ch;
     }
 
     .metric-value {
@@ -381,10 +381,10 @@ body {
 
     .metric-change {
         font-size: 12px;
-        width: 2.8rem;
-        min-width: 2.8rem;
-        flex-basis: 2.8rem;
-        padding: 3px 4px;
+        width: fit-content;
+        min-width: 0;
+        flex-basis: auto;
+        padding: 3px 6px;
         line-height: 1.15;
     }
 }
@@ -442,16 +442,15 @@ body {
     }
 
     .metric-value-main {
-        flex: 0 0 12ch;
-        width: 12ch;
+        min-width: 4.8ch;
     }
 
     .metric-change {
-        width: 2.6rem;
-        min-width: 2.6rem;
-        flex-basis: 2.6rem;
+        width: fit-content;
+        min-width: 0;
+        flex-basis: auto;
         font-size: 11px;
-        padding: 2px 3px;
+        padding: 2px 5px;
         line-height: 1.15;
     }
 
