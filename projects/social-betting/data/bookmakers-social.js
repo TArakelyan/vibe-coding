@@ -7,7 +7,7 @@ const SOCIAL_CATEGORIES = [
     {
         id: 'vk',
         name: 'VK',
-        logo: 'https://dumpster.cdn.sports.ru/c/bd/cd0b3fd9b7c9abb9787c3d368c2f1.png'
+        logo: 'https://dumpster.cdn.sports.ru/3/67/ae989bf307ff1154fbc2e1073114f.png'
     },
     {
         id: 'max',
