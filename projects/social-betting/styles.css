@@ -131,8 +131,8 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 115%;
-    height: 115%;
+    width: var(--bookmaker-logo-zoom, 115%);
+    height: var(--bookmaker-logo-zoom, 115%);
     max-width: none;
     transform: translate(-50%, -50%);
     object-fit: cover;

@@ -65,11 +65,18 @@ function renderBookmakers() {
 }
 
 function bookmakerLogoMarkup(bookmaker) {
+    const logoZoomByName = {
+        'PARI': 110,
+        'Балтбет': 110,
+        'Zenit': 110,
+    };
+    const logoZoom = logoZoomByName[bookmaker.name] || 115;
+
     if (!bookmaker.logo) {
         return '<div class="bookmaker-logo-wrap bookmaker-logo-wrap--empty" aria-hidden="true"></div>';
     }
     return (
-        '<div class="bookmaker-logo-wrap">' +
+        '<div class="bookmaker-logo-wrap" style="--bookmaker-logo-zoom:' + logoZoom + '%;">' +
         '<img class="bookmaker-logo" src="' +
         escapeHtml(bookmaker.logo) +
         '" alt="" width="56" height="56" loading="lazy" onerror="this.parentElement.classList.add(\'bookmaker-logo-wrap--empty\');this.remove();">' +
