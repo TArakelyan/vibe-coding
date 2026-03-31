@@ -37,6 +37,8 @@ function initCategoryTabs() {
 function renderBookmakers() {
     const list = document.getElementById('bookmakersList');
     if (!list) return;
+    const withEr = selectedCategory === 'telegram' || selectedCategory === 'max';
+    list.classList.toggle('bookmakers-list--with-er', withEr);
 
     const sorted = [...BOOKMAKERS_SOCIAL].sort(function (a, b) {
         const aValue = a[selectedCategory];
@@ -50,15 +52,21 @@ function renderBookmakers() {
         return bValue - aValue;
     });
 
-    list.innerHTML = sorted.map(function (bookmaker) {
-        const value = bookmaker[selectedCategory];
+    const headHtml = withEr
+        ? '<li class="bookmaker-item bookmaker-item--head"><span class="bookmaker-head-title">Букмекер</span><span class="bookmaker-value bookmaker-value--head">fol</span><span class="bookmaker-value bookmaker-value--head">ER</span></li>'
+        : '<li class="bookmaker-item bookmaker-item--head"><span class="bookmaker-head-title">Букмекер</span><span class="bookmaker-value bookmaker-value--head">fol</span></li>';
+
+    list.innerHTML = headHtml + sorted.map(function (bookmaker) {
+        const followersValue = bookmaker[selectedCategory];
+        const erValue = withEr ? getErValue(bookmaker) : null;
         return `
             <li class="bookmaker-item">
                 <div class="bookmaker-main">
                     ${bookmakerLogoMarkup(bookmaker)}
                     <span class="bookmaker-name">${escapeHtml(bookmaker.name)}</span>
                 </div>
-                <span class="bookmaker-value">${formatValue(value)}</span>
+                <span class="bookmaker-value">${formatFollowers(followersValue)}</span>
+                ${withEr ? `<span class="bookmaker-value bookmaker-value--er">${formatEr(erValue)}</span>` : ''}
             </li>
         `;
     }).join('');
@@ -92,10 +100,24 @@ function escapeHtml(text) {
         .replace(/"/g, '&quot;');
 }
 
-function formatValue(value) {
+function formatFollowers(value) {
     if (value === null || value === undefined) return '—';
     return value.toLocaleString('ru-RU', {
         minimumFractionDigits: Number.isInteger(value) ? 0 : 1,
         maximumFractionDigits: 1
     });
+}
+
+function getErValue(bookmaker) {
+    if (selectedCategory === 'telegram') return bookmaker.telegramEr;
+    if (selectedCategory === 'max') return bookmaker.maxEr;
+    return null;
+}
+
+function formatEr(value) {
+    if (value === null || value === undefined) return '—';
+    return value.toLocaleString('ru-RU', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }) + '%';
 }

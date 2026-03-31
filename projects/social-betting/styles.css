@@ -98,8 +98,25 @@ body {
     border-bottom: 1px solid #f0f0f0;
 }
 
+.bookmakers-list--with-er .bookmaker-item {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    column-gap: 14px;
+}
+
 .bookmaker-item:last-child {
     border-bottom: none;
+}
+
+.bookmaker-item--head {
+    background: #fafafa;
+}
+
+.bookmaker-head-title {
+    font-size: 12px;
+    color: #7a7a7a;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
 }
 
 .bookmaker-main {
@@ -151,6 +168,19 @@ body {
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     color: #000;
+    text-align: right;
+}
+
+.bookmaker-value--head {
+    font-size: 12px;
+    color: #7a7a7a;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.bookmaker-value--er {
+    min-width: 4.8em;
 }
 
 @media (max-width: 768px) {
@@ -170,6 +200,10 @@ body {
 
     .bookmaker-item {
         padding: 12px 14px;
+    }
+
+    .bookmakers-list--with-er .bookmaker-item {
+        column-gap: 10px;
     }
 
     .bookmaker-name {
