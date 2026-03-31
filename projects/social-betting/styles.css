@@ -111,9 +111,9 @@ body {
 
 .bookmaker-logo-wrap {
     position: relative;
-    flex: 0 0 56px;
-    width: 56px;
-    height: 56px;
+    flex: 0 0 37px;
+    width: 37px;
+    height: 37px;
     border-radius: 50%;
     background: #fff;
     overflow: hidden;
@@ -131,8 +131,8 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 128%;
-    height: 128%;
+    width: 115%;
+    height: 115%;
     max-width: none;
     transform: translate(-50%, -50%);
     object-fit: cover;
