@@ -1140,9 +1140,14 @@ function createMetricRow(label, data) {
 
     const formattedMetric = formatMetricValue(label, data);
     const value = formattedMetric.value;
-    const change = data.change;
+    let change = data.change;
     const changeKind = data.changeKind;
     const title = buildMetricTitle(label, formattedMetric);
+
+    // Требование: убираем динамику (бейджи) год-к-году именно для строки GGR (%)
+    if (label === 'GGR (%)') {
+        change = null;
+    }
 
     let changeHtml = '';
     if (change !== null && change !== undefined) {
