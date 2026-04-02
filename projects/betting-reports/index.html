@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Финансовые данные букмекеров</title>
     <link rel="stylesheet" href="https://dumpster.cdn.sports.ru/e/24/47c4551b7eff895712bc41e7b96aa.css" />
-    <link rel="stylesheet" href="./styles.css" />
+    <script>
+        (function () {
+            var isLocal = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            var styleHref = isLocal
+                ? './styles.css'
+                : 'https://dumpster.cdn.sports.ru/4/71/8fe201917321a53518874a77dba23.css';
+            document.write('<link rel="stylesheet" href="' + styleHref + '" />');
+        })();
+    </script>
 </head>
 <body>
     <div class="app-container">
@@ -17,6 +25,7 @@
             <button class="year-tab" data-year="2022">2022</button>
             <button class="year-tab" data-year="2021">2021</button>
             <button class="year-tab" data-year="2020">2020</button>
+            <button class="year-tab" data-year="2019">2019</button>
         </div>
 
         <!-- Данные компаний -->
@@ -26,7 +35,21 @@
     </div>
 
     <script src="https://dumpster.cdn.sports.ru/d/b6/43eb4a9cf8ae26e3f4af3b5bd1749.js"></script>
-    <script src="./script.js"></script>
-    <script src="https://dumpster.cdn.sports.ru/e/e1/7f36aba3cca14e9336dbc1adfd504.js"></script>
+    <script>
+        (function () {
+            var isLocal = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            var scripts = isLocal
+                ? ['./theme-detector.js', './script.js', './resize.js']
+                : [
+                    'https://dumpster.cdn.sports.ru/f/ec/091fb8a3410220bab144344007aa3.js',
+                    'https://dumpster.cdn.sports.ru/5/48/0ff33de200a0c31f74d88871693f0.js',
+                    'https://dumpster.cdn.sports.ru/6/52/157edc308b263c53bcc077281a7c1.js'
+                ];
+
+            for (var i = 0; i < scripts.length; i++) {
+                document.write('<script src="' + scripts[i] + '"><\/script>');
+            }
+        })();
+    </script>
 </body>
-</html> 
+</html>
