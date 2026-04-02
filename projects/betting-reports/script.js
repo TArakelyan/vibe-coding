@@ -606,70 +606,70 @@ const companiesData = {
                 commercial: { value: 0.078519, unit: 'млрд', change: null }
             },
             '2020': {
-                revenue: { value: 0.459110, unit: 'млрд', change: null },
-                market_share: { value: 0.19, unit: '%', change: null, changeKind: 'pp' },
-                winnings: { value: 0.272589, unit: 'млрд', change: null },
-                ggr: { value: 0.186521, unit: 'млрд', change: null },
-                ggr_margin: { value: 40.63, unit: '%', change: null, changeKind: 'pp' },
-                profit: { value: 0.065603, unit: 'млрд', change: null },
-                target_contributions: { value: 60, unit: 'млн', change: null },
-                salaries: { value: 0.069251, unit: 'млрд', change: null },
-                commercial: { value: 0.050003, unit: 'млрд', change: null }
+                revenue: { value: 0.459110, unit: 'млрд', change: -1.8 },
+                market_share: { value: 0.19, unit: '%', change: -0.15, changeKind: 'pp' },
+                winnings: { value: 0.272589, unit: 'млрд', change: -10.8 },
+                ggr: { value: 0.186521, unit: 'млрд', change: 15.2 },
+                ggr_margin: { value: 40.63, unit: '%', change: 5.99, changeKind: 'pp' },
+                profit: { value: 0.065603, unit: 'млрд', change: 670.0 },
+                target_contributions: { value: 60, unit: 'млн', change: 0.0 },
+                salaries: { value: 0.069251, unit: 'млрд', change: 47.0 },
+                commercial: { value: 0.050003, unit: 'млрд', change: -36.3 }
             },
             '2021': {
-                revenue: { value: 2.491808, unit: 'млрд', change: null },
-                market_share: { value: 0.34, unit: '%', change: null, changeKind: 'pp' },
-                winnings: { value: 1.831699, unit: 'млрд', change: null },
-                ggr: { value: 0.660109, unit: 'млрд', change: null },
-                ggr_margin: { value: 26.49, unit: '%', change: null, changeKind: 'pp' },
-                profit: { value: 0.137100, unit: 'млрд', change: null },
+                revenue: { value: 2.491808, unit: 'млрд', change: 442.7 },
+                market_share: { value: 0.34, unit: '%', change: 0.15, changeKind: 'pp' },
+                winnings: { value: 1.831699, unit: 'млрд', change: 572.0 },
+                ggr: { value: 0.660109, unit: 'млрд', change: 253.9 },
+                ggr_margin: { value: 26.49, unit: '%', change: -14.14, changeKind: 'pp' },
+                profit: { value: 0.137100, unit: 'млрд', change: 109.0 },
                 target_contributions: { value: '—', unit: '', change: null },
-                salaries: { value: 0.107813, unit: 'млрд', change: null },
-                commercial: { value: 0.042903, unit: 'млрд', change: null }
+                salaries: { value: 0.107813, unit: 'млрд', change: 55.7 },
+                commercial: { value: 0.042903, unit: 'млрд', change: -14.2 }
             },
             '2022': {
-                revenue: { value: 2.976484, unit: 'млрд', change: null },
-                market_share: { value: 0.34, unit: '%', change: null, changeKind: 'pp' },
-                winnings: { value: 2.273764, unit: 'млрд', change: null },
-                ggr: { value: 0.702720, unit: 'млрд', change: null },
-                ggr_margin: { value: 23.61, unit: '%', change: null, changeKind: 'pp' },
-                profit: { value: 0.067292, unit: 'млрд', change: null },
+                revenue: { value: 2.976484, unit: 'млрд', change: 19.5 },
+                market_share: { value: 0.34, unit: '%', change: 0.0, changeKind: 'pp' },
+                winnings: { value: 2.273764, unit: 'млрд', change: 24.1 },
+                ggr: { value: 0.702720, unit: 'млрд', change: 6.5 },
+                ggr_margin: { value: 23.61, unit: '%', change: -2.88, changeKind: 'pp' },
+                profit: { value: 0.067292, unit: 'млрд', change: -50.9 },
                 target_contributions: { value: 120, unit: 'млн', change: null },
-                salaries: { value: 0.103887, unit: 'млрд', change: null },
-                commercial: { value: 0.032369, unit: 'млрд', change: null }
+                salaries: { value: 0.103887, unit: 'млрд', change: -3.6 },
+                commercial: { value: 0.032369, unit: 'млрд', change: -24.6 }
             },
             '2023': {
-                revenue: { value: 4.210300, unit: 'млрд', change: null },
-                market_share: { value: 0.35, unit: '%', change: null, changeKind: 'pp' },
-                winnings: { value: 3.279264, unit: 'млрд', change: null },
-                ggr: { value: 0.931036, unit: 'млрд', change: null },
-                ggr_margin: { value: 22.11, unit: '%', change: null, changeKind: 'pp' },
-                profit: { value: 0.279413, unit: 'млрд', change: null },
-                target_contributions: { value: 120, unit: 'млн', change: null },
-                salaries: { value: 0.099541, unit: 'млрд', change: null },
-                commercial: { value: 0.070396, unit: 'млрд', change: null }
+                revenue: { value: 4.210300, unit: 'млрд', change: 41.5 },
+                market_share: { value: 0.35, unit: '%', change: 0.01, changeKind: 'pp' },
+                winnings: { value: 3.279264, unit: 'млрд', change: 44.2 },
+                ggr: { value: 0.931036, unit: 'млрд', change: 32.5 },
+                ggr_margin: { value: 22.11, unit: '%', change: -1.5, changeKind: 'pp' },
+                profit: { value: 0.279413, unit: 'млрд', change: 315.2 },
+                target_contributions: { value: 120, unit: 'млн', change: 0.0 },
+                salaries: { value: 0.099541, unit: 'млрд', change: -4.2 },
+                commercial: { value: 0.070396, unit: 'млрд', change: 117.5 }
             },
             '2024': {
-                revenue: { value: 4.585536, unit: 'млрд', change: null },
-                market_share: { value: 0.27, unit: '%', change: null, changeKind: 'pp' },
-                winnings: { value: 3.504084, unit: 'млрд', change: null },
-                ggr: { value: 1.081452, unit: 'млрд', change: null },
-                ggr_margin: { value: 23.58, unit: '%', change: null, changeKind: 'pp' },
-                profit: { value: 0.276435, unit: 'млрд', change: null },
-                target_contributions: { value: 120, unit: 'млн', change: null },
-                salaries: { value: 0.132767, unit: 'млрд', change: null },
-                commercial: { value: 0.170328, unit: 'млрд', change: null }
+                revenue: { value: 4.585536, unit: 'млрд', change: 8.9 },
+                market_share: { value: 0.27, unit: '%', change: -0.08, changeKind: 'pp' },
+                winnings: { value: 3.504084, unit: 'млрд', change: 6.9 },
+                ggr: { value: 1.081452, unit: 'млрд', change: 16.2 },
+                ggr_margin: { value: 23.58, unit: '%', change: 1.47, changeKind: 'pp' },
+                profit: { value: 0.276435, unit: 'млрд', change: -1.1 },
+                target_contributions: { value: 120, unit: 'млн', change: 0.0 },
+                salaries: { value: 0.132767, unit: 'млрд', change: 33.4 },
+                commercial: { value: 0.170328, unit: 'млрд', change: 142.0 }
             },
             '2025': {
-                revenue: { value: 4.441934, unit: 'млрд', change: null },
-                market_share: { value: 0.23, unit: '%', change: null, changeKind: 'pp' },
-                winnings: { value: 3.481641, unit: 'млрд', change: null },
-                ggr: { value: 0.960293, unit: 'млрд', change: null },
-                ggr_margin: { value: 21.62, unit: '%', change: null, changeKind: 'pp' },
-                profit: { value: -0.049283, unit: 'млрд', change: null },
-                target_contributions: { value: 120, unit: 'млн', change: null },
-                salaries: { value: 0.169928, unit: 'млрд', change: null },
-                commercial: { value: 0.144149, unit: 'млрд', change: null }
+                revenue: { value: 4.441934, unit: 'млрд', change: -3.1 },
+                market_share: { value: 0.23, unit: '%', change: -0.04, changeKind: 'pp' },
+                winnings: { value: 3.481641, unit: 'млрд', change: -0.6 },
+                ggr: { value: 0.960293, unit: 'млрд', change: -11.2 },
+                ggr_margin: { value: 21.62, unit: '%', change: -1.96, changeKind: 'pp' },
+                profit: { value: -0.049283, unit: 'млрд', change: -117.8 },
+                target_contributions: { value: 120, unit: 'млн', change: 0.0 },
+                salaries: { value: 0.169928, unit: 'млрд', change: 28.0 },
+                commercial: { value: 0.144149, unit: 'млрд', change: -15.4 }
             }
         }
     },
@@ -1111,6 +1111,9 @@ const METRIC_DEFAULT_UNITS = {
 
 function buildMetricTitle(label, formattedMetric) {
     const u = formattedMetric.unit || METRIC_DEFAULT_UNITS[label] || '';
+    // Если метка уже содержит '(%)', нельзя добавлять второй '%' в скобки.
+    // Пример: label = 'GGR (%)', unit = '%' => 'GGR (%)' (без ' (%)').
+    if (u === '%' && label.includes('(%)')) return label;
     return u ? `${label} (${u})` : label;
 }
 
