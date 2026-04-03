@@ -110,7 +110,6 @@ const companiesData = {
                 target_contributions: { value: '—', unit: '', change: null },
                 salaries: { value: 474.952, unit: 'млн', change: null },
                 staff: { value: 313, unit: 'чел.', change: null },
-                advertising: { value: '—', unit: '', change: null },
                 commercial: { value: '—', unit: '', change: null }
             },
             '2021': {
@@ -123,7 +122,6 @@ const companiesData = {
                 target_contributions: { value: '—', unit: '', change: null },
                 salaries: { value: 678.994, unit: 'млн', change: 43.0 },
                 staff: { value: 333, unit: 'чел.', change: null },
-                advertising: { value: '—', unit: '', change: null },
                 commercial: { value: '—', unit: '', change: null }
             },
             '2022': {
@@ -136,7 +134,6 @@ const companiesData = {
                 target_contributions: { value: 2491, unit: 'млн', change: null },
                 salaries: { value: 1069.751, unit: 'млн', change: 57.5 },
                 staff: { value: 438, unit: 'чел.', change: null },
-                advertising: { value: '—', unit: '', change: null },
                 commercial: { value: '—', unit: '', change: null }
             },
             '2023': {
@@ -149,7 +146,6 @@ const companiesData = {
                 target_contributions: { value: 4163.411, unit: 'млн', change: 67.14 },
                 salaries: { value: 1497.027, unit: 'млн', change: 39.9 },
                 staff: { value: 426, unit: 'чел.', change: null },
-                advertising: { value: '—', unit: '', change: null },
                 commercial: { value: 17.111829, unit: 'млрд', change: null }
             },
             '2024': {
@@ -162,7 +158,6 @@ const companiesData = {
                 target_contributions: { value: 8299.53, unit: 'млн', change: 99.34 },
                 salaries: { value: 2063.978, unit: 'млн', change: 37.9 },
                 staff: { value: 456, unit: 'чел.', change: null },
-                advertising: { value: '—', unit: '', change: null },
                 commercial: { value: 40.945575, unit: 'млрд', change: 139.3 }
             },
             '2025': {
@@ -175,7 +170,6 @@ const companiesData = {
                 target_contributions: { value: 8185.074, unit: 'млн', change: -1.38 },
                 salaries: { value: 2746.092, unit: 'млн', change: 33.0 },
                 staff: { value: 611, unit: 'чел.', change: null },
-                advertising: { value: '—', unit: '', change: null },
                 commercial: { value: 42.409226, unit: 'млрд', change: 3.6 }
             }
         }
