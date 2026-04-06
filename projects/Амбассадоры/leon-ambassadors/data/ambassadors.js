@@ -1,8 +1,8 @@
 /** Данные амбассадоров Leon (контент) */
 var LEON_AMBASSADORS = [
   {
-    name: 'Вадим Евсеев',
-    role: 'Футбол',
-    image: 'https://dumpster.cdn.sports.ru/6/8f/da1689cd102b05be043b2d05955a4.png',
+    name: 'Виктор Логинов',
+    role: 'Актер',
+    image: 'https://dumpster.cdn.sports.ru/2/f9/bcd986523cc646a72aa2a9c11c159.png',
   },
 ];
