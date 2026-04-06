@@ -18,8 +18,10 @@
 
 ## Файлы
 - `index.html` — разметка виджета
-- `data/ambassadors.js` — данные амбассадоров
-- `main.js` — отрисовка карточек
-- `styles.css` — локальные стили (при необходимости)
-- `theme-detector.js` — автоматическое определение темы Sports.ru
-- `resize.js` — автоматическое изменение размера iframe
+- `data/ambassadors.js` — данные амбассадоров (подключается до скриптов с CDN)
+
+### Скрипты и стили (CDN)
+- Стили: [99b911561c2a7e4abe8241abce799.css](https://dumpster.cdn.sports.ru/b/7b/99b911561c2a7e4abe8241abce799.css)
+- Отрисовка карточек: [12ca628dde403ee569e0c77f82a2a.js](https://dumpster.cdn.sports.ru/2/fd/12ca628dde403ee569e0c77f82a2a.js)
+- Тема: [28188320acae70e5c740a93a456ee.js](https://dumpster.cdn.sports.ru/1/35/28188320acae70e5c740a93a456ee.js)
+- Resize iframe: [9366c209a59afd51a4e10c9d1215b.js](https://dumpster.cdn.sports.ru/2/c4/9366c209a59afd51a4e10c9d1215b.js)
