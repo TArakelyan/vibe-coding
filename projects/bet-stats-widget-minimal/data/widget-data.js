@@ -6,5 +6,5 @@ window.BET_STATS_DATA = {
     { type: "lose", icon: "-", value: 5, label: "Поражения" },
     { type: "refund", icon: "=", value: 0, label: "Возврат" },
   ],
-  averageOdds: "3.15",
+  averageOdds: "3.10",
 };
