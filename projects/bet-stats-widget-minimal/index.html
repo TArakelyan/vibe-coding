@@ -245,7 +245,22 @@
       </section>
     </main>
 
+    <!-- Данные: править и ./data/widget-data.js, и fallback ниже (одинаково). Fallback нужен, если деплоится только index.html без папки data/. -->
     <script src="./data/widget-data.js"></script>
+    <script>
+      (function () {
+        if (window.BET_STATS_DATA) return;
+        window.BET_STATS_DATA = {
+          title: "Статистика последних 5 прогнозов:",
+          stats: [
+            { type: "win", icon: "+", value: 2, label: "Победы" },
+            { type: "lose", icon: "-", value: 3, label: "Поражения" },
+            { type: "refund", icon: "=", value: 0, label: "Возврат" },
+          ],
+          averageOdds: "4.49",
+        };
+      })();
+    </script>
     <script src="./main.js"></script>
     <script src="./resize.js"></script>
   </body>

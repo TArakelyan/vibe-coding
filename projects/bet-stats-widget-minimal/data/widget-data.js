@@ -1,4 +1,5 @@
-const BET_STATS_DATA = {
+/** Единые значения виджета. Дублируются fallback-блоком в index.html (деплой одним файлом). */
+window.BET_STATS_DATA = {
   title: "Статистика последних 5 прогнозов:",
   stats: [
     { type: "win", icon: "+", value: 2, label: "Победы" },
