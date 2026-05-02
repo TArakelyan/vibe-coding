@@ -245,23 +245,100 @@
       </section>
     </main>
 
-    <!-- Данные: править и ./data/widget-data.js, и fallback ниже (одинаково). Fallback нужен, если деплоится только index.html без папки data/. -->
-    <script src="./data/widget-data.js"></script>
+    <!--
+      Самодостаточная страница для деплоя одним файлом (dumpster CDN без main.js / resize.js).
+      При смене статистики обновите BET_STATS_DATA ниже и дублируйте в data/widget-data.js
+    -->
     <script>
+      window.BET_STATS_DATA = {
+        title: "Статистика последних 5 прогнозов:",
+        stats: [
+          { type: "win", icon: "+", value: 2, label: "Победы" },
+          { type: "lose", icon: "-", value: 3, label: "Поражения" },
+          { type: "refund", icon: "=", value: 0, label: "Возврат" },
+        ],
+        averageOdds: "4.49",
+      };
+
       (function () {
-        if (window.BET_STATS_DATA) return;
-        window.BET_STATS_DATA = {
-          title: "Статистика последних 5 прогнозов:",
-          stats: [
-            { type: "win", icon: "+", value: 2, label: "Победы" },
-            { type: "lose", icon: "-", value: 3, label: "Поражения" },
-            { type: "refund", icon: "=", value: 0, label: "Возврат" },
-          ],
-          averageOdds: "4.49",
-        };
+        var data = window.BET_STATS_DATA;
+        var widgetTitle = document.getElementById("widget-title");
+        var statsIcons = document.getElementById("stats-icons");
+        var avgOdds = document.getElementById("avg-odds");
+
+        var statsMarkup = data.stats
+          .map(function (item) {
+            return (
+              '<div class="stats-item" aria-label="' +
+              item.label +
+              ": " +
+              item.value +
+              '">' +
+              '<span class="stats-icon stats-icon-' +
+              item.type +
+              '" aria-hidden="true">' +
+              item.icon +
+              "</span>" +
+              '<span class="stats-value">' +
+              item.value +
+              "</span>" +
+              "</div>"
+            );
+          })
+          .join("");
+
+        widgetTitle.textContent = data.title;
+        statsIcons.innerHTML = statsMarkup;
+        avgOdds.textContent = data.averageOdds;
       })();
+
+      let lastHeight = null;
+      const resize = ({ force = false }) => {
+        const currentHeight = document.body.scrollHeight;
+
+        if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+          return;
+        }
+
+        lastHeight = currentHeight;
+
+        const dataUTILS = {
+          for: "BASIC_TEST",
+          action: "resizeIframe",
+          selector: `iframe[src*="dumpster.cdn.sports.ru"], iframe[src*="netlify.app"]`,
+          sizes: {
+            height: 2 * Math.floor(currentHeight / 2) + 10,
+          },
+        };
+
+        window?.top?.postMessage(JSON.stringify(dataUTILS), "*");
+      };
+
+      const resizeObserver = new ResizeObserver(() => {
+        resize({});
+      });
+      resizeObserver.observe(document.body);
+      resize({ force: true });
+
+      setTimeout(() => {
+        resize({ force: true });
+      }, 1000);
+
+      setTimeout(() => {
+        resize({ force: true });
+      }, 2000);
+
+      setTimeout(() => {
+        resize({ force: true });
+      }, 3000);
+
+      setTimeout(() => {
+        resize({ force: true });
+      }, 5000);
+
+      setTimeout(() => {
+        resize({ force: true });
+      }, 7000);
     </script>
-    <script src="./main.js"></script>
-    <script src="./resize.js"></script>
   </body>
 </html>
