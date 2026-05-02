@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Виджет статистики ставок</title>
+    <style>
+      @import "https://senoval.cdn.sports.ru/static-resources/fonts/roboto.css";
+      @import "https://senoval.cdn.sports.ru/static-resources/fonts/sports.css";
+
+      :root {
+        --sports-primary-color: #00c78b;
+        --sports-primary-color-hover: #21a67e;
+        --sports-black: #000;
+        --ui-bg: #fff;
+
+        --widget-bg: transparent;
+        --widget-bg-hover: transparent;
+        --widget-border: #ececec;
+        --text-primary: #1c1c1c;
+        --text-secondary: #6b6b6b;
+        --icon-win: #1dbe73;
+        --icon-lose: #ff4d4f;
+        --icon-refund: #f5a623;
+      }
+
+      html {
+        box-sizing: border-box;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        word-break: normal;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "TT Neoris", "Neoris", "Roboto", sans-serif;
+        color: var(--text-primary);
+        background: var(--ui-bg);
+      }
+
+      .page {
+        display: block;
+        width: 100%;
+      }
+
+      .bet-stats-widget {
+        width: 100%;
+        max-width: 660px;
+        margin: 0;
+        min-height: 68px;
+        display: grid;
+        grid-template-columns: minmax(0, auto) auto auto;
+        align-items: center;
+        column-gap: 14px;
+        justify-content: start;
+        padding: 10px 16px;
+        border-radius: 18px;
+        background: var(--widget-bg);
+        border: 1px solid var(--widget-border);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 6px 16px rgba(0, 0, 0, 0.02);
+        transition: background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .widget-title {
+        margin: 0;
+        min-width: 0;
+        max-width: 360px;
+        font-size: 15px;
+        line-height: 19px;
+        font-weight: 500;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        grid-column: 1;
+        justify-self: start;
+      }
+
+      .widget-middle-row {
+        display: contents;
+      }
+
+      .stats-icons {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        grid-column: 2;
+        justify-self: start;
+      }
+
+      .stats-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .stats-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .stats-icon-win {
+        background: var(--icon-win);
+      }
+
+      .stats-icon-lose {
+        background: var(--icon-lose);
+      }
+
+      .stats-icon-refund {
+        background: var(--icon-refund);
+      }
+
+      .stats-value,
+      .metric-value {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .metric {
+        margin: 0;
+        font-size: 15px;
+        line-height: 19px;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        white-space: nowrap;
+        grid-column: 3;
+        justify-self: end;
+      }
+
+      .metric-label {
+        color: var(--text-secondary);
+        font-weight: 400;
+      }
+
+      @media (hover: hover) {
+        .bet-stats-widget:hover {
+          background: var(--widget-bg-hover);
+          border-color: #e7e7e7;
+        }
+      }
+
+      @media (max-width: 639px) {
+        .bet-stats-widget {
+          width: 100%;
+          min-height: 92px;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-items: flex-start;
+          justify-content: stretch;
+          row-gap: 8px;
+          column-gap: 10px;
+          padding: 12px 16px;
+        }
+
+        .widget-title {
+          grid-column: 1 / -1;
+          width: 100%;
+          font-size: 14px;
+          line-height: 18px;
+          margin-bottom: 0;
+          white-space: normal;
+          overflow: visible;
+          text-overflow: clip;
+        }
+
+        .widget-middle-row {
+          display: contents;
+        }
+
+        .stats-icons {
+          grid-column: 1;
+          justify-self: start;
+          gap: 8px;
+        }
+
+        .stats-item {
+          gap: 6px;
+        }
+
+        .metric,
+        .stats-value,
+        .metric-value {
+          font-size: 14px;
+          line-height: 18px;
+        }
+
+        .metric {
+          grid-column: 2;
+          justify-self: end;
+        }
+      }
+
+      @media (max-width: 320px) {
+        .bet-stats-widget {
+          grid-template-columns: 1fr;
+          row-gap: 6px;
+        }
+
+        .stats-icons {
+          grid-column: 1;
+          gap: 8px;
+        }
+
+        .metric {
+          grid-column: 1;
+          justify-self: start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="bet-stats-widget" id="bet-stats-widget" aria-label="Статистика последних прогнозов">
+        <h1 class="widget-title" id="widget-title"></h1>
+
+        <div class="widget-middle-row">
+          <div class="stats-icons" id="stats-icons"></div>
+        </div>
+        <p class="metric metric-odds">
+          <span class="metric-label">Средний кэф:</span>
+          <span class="metric-value" id="avg-odds"></span>
+        </p>
+      </section>
+    </main>
+
+    <script src="./data/widget-data.js"></script>
+    <script src="./main.js"></script>
+    <script src="./resize.js"></script>
+  </body>
+</html>
