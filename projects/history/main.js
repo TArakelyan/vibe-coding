@@ -21,6 +21,10 @@ function initializeApp() {
 
 // Section navigation functionality - make it global
 window.showSection = function(sectionName) {
+    closeGlobalSearchPanel();
+    const gin = document.getElementById('global-search-input');
+    if (gin) gin.value = '';
+
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
         section.classList.remove('active');
@@ -30,14 +34,16 @@ window.showSection = function(sectionName) {
     if (targetSection) {
         targetSection.classList.add('active');
     }
-    
-    // Update navigation buttons
+
     updateNavigation(sectionName);
-}
+};
 
 // Article detail functionality
 window.showArticle = function(articleId) {
-    // Hide all sections
+    closeGlobalSearchPanel();
+    const gin = document.getElementById('global-search-input');
+    if (gin) gin.value = '';
+
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
         section.classList.remove('active');
@@ -229,6 +235,10 @@ function wireBookDetailPage(mount) {
 
 // Book detail functionality
 window.showBook = function(bookId) {
+    closeGlobalSearchPanel();
+    const gin = document.getElementById('global-search-input');
+    if (gin) gin.value = '';
+
     const book = window.libraryBooks?.find(x => x.id === bookId);
     if (!book) {
         showNotification('Книга не найдена', 'info');
@@ -247,42 +257,347 @@ window.showBook = function(bookId) {
     window.scrollTo(0, 0);
 };
 
-// Movie detail functionality
-window.showMovie = function(movieId) {
-    console.log('Showing movie:', movieId);
-    showNotification(`Открывается фильм: ${movieId}`, 'info');
-    // This would show movie detail view
+function enrichMovieForDetail(m) {
+    const previewParagraphs = m.previewParagraphs || [
+        m.description,
+        `Материал «Кинотеатра» дополняет подборку «${m.category}»: ${m.formatLabel === 'Сериал' ? 'формат сериала позволяет раскрыть хронику событий и интервью подробнее, чем в одном фильме.' : 'кино собирает историю в связном повествовании с упором на драматургию спортивного конфликта.'}`
+    ];
+    const reviewText = m.reviewText ||
+        `${m.description} Рекомендуем обратить внимание на работу режиссёра и монтаж архивных материалов — они задают ритм повествования.`;
+    const reviewAuthor = m.reviewAuthor || 'Редакция Спортс';
+    const reviewAuthorRole = m.reviewAuthorRole || 'Раздел «Кинотеатр»';
+    const ratingCount = m.ratingCount != null ? m.ratingCount : Math.max(80, Math.round((Number(m.kinopoiskRating) || Number(m.rating) || 8) * 900));
+    const breadcrumbTail = m.breadcrumbTail || `${m.formatLabel || 'Фильм'} · ${m.category}`;
+    const kinopoiskRating = m.kinopoiskRating != null ? Number(m.kinopoiskRating) : Number(m.rating);
+    const imdbRating = m.imdbRating != null ? Number(m.imdbRating) : null;
+    return {
+        ...m,
+        previewParagraphs,
+        reviewText,
+        reviewAuthor,
+        reviewAuthorRole,
+        ratingCount,
+        breadcrumbTail,
+        kinopoiskRating,
+        imdbRating,
+        formatLabel: m.formatLabel || (String(m.duration || '').includes('эпизод') ? 'Сериал' : 'Фильм'),
+        country: m.country || '—',
+        ageRating: m.ageRating || '—',
+        studio: m.studio || '—',
+        writers: m.writers || '—',
+        producers: m.producers || '—',
+        cast: m.cast || '—'
+    };
 }
 
-function initializeSearch() {
-    const searchInputs = document.querySelectorAll('input[placeholder*="Поиск"]');
-    searchInputs.forEach(input => {
-        input.addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            if (query.length > 2) {
-                console.log('Searching for:', query);
-                // Implement search functionality here
-                performSearch(query);
-            }
+function buildMovieTags(m) {
+    const set = new Set(['кино']);
+    const fmt = (m.formatLabel || '').toLowerCase();
+    if (fmt) set.add(fmt);
+    if (m.genre) set.add(String(m.genre).toLowerCase());
+    if (m.category) set.add(String(m.category).toLowerCase());
+    (m.tags || []).forEach(t => set.add(String(t).toLowerCase()));
+    return Array.from(set);
+}
+
+function renderStarsFromTen(rating10) {
+    const r = Math.min(10, Math.max(0, Number(rating10) || 0));
+    const full = Math.round((r / 10) * 5);
+    const empty = 5 - full;
+    return `<span class="book-stars text-yellow-500" aria-hidden="true">${'★'.repeat(full)}${'☆'.repeat(empty)}</span>`;
+}
+
+function buildMovieDetailHtml(movie) {
+    const m = enrichMovieForDetail(movie);
+    const tagsHtml = buildMovieTags(m).map(t =>
+        `<span class="book-tag-pill"><span class="book-tag-dot" aria-hidden="true"></span>${escapeHtml(t)}</span>`
+    ).join('');
+    const previewHtml = m.previewParagraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    const initials = reviewerInitials(m.reviewAuthor);
+    const orig = m.originalTitle ? `<p class="book-detail-subtitle">${escapeHtml(m.originalTitle)}</p>` : '';
+
+    const kp = Number.isFinite(m.kinopoiskRating) ? m.kinopoiskRating.toFixed(1) : '—';
+    const imdb = m.imdbRating != null && Number.isFinite(m.imdbRating) ? m.imdbRating.toFixed(1) : '—';
+
+    const starsInteractive = [1, 2, 3, 4, 5].map(n =>
+        `<button type="button" class="book-rate-star movie-rate-star" data-value="${n}" aria-label="${n} из 5">☆</button>`
+    ).join('');
+
+    return `
+<button type="button" class="btn btn-secondary mb-6 gap-2 book-back-btn" onclick="showSection('cinema')">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true">
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+    </svg>
+    Назад в кинотеатр
+</button>
+<nav class="book-breadcrumbs" aria-label="Хлебные крошки">
+    <a href="#" onclick="showSection('home'); return false;">Главная</a>
+    <span class="book-bc-sep">/</span>
+    <a href="#" onclick="showSection('cinema'); return false;">Кинотеатр</a>
+    <span class="book-bc-sep">/</span>
+    <span>${escapeHtml(m.breadcrumbTail)}</span>
+</nav>
+<div class="book-tags-row flex flex-wrap gap-2">${tagsHtml}</div>
+<div class="book-detail-grid">
+    <div class="book-detail-cover-col">
+        <div class="book-detail-cover-frame movie-poster-frame">
+            <img src="${escapeHtml(m.image)}" alt="${escapeHtml(m.title)}" class="book-detail-cover-img movie-poster-img" loading="lazy" />
+        </div>
+    </div>
+    <div class="book-detail-main-col flex flex-col items-start">
+        <h1 class="book-detail-title">${escapeHtml(m.title)}</h1>
+        ${orig}
+        <div class="movie-ext-scores flex flex-wrap gap-x-6 gap-y-2 mb-3 text-sm">
+            <span><strong>Кинопоиск:</strong> ${escapeHtml(kp)} / 10</span>
+            <span><strong>IMDb:</strong> ${escapeHtml(imdb)} / 10</span>
+            <span class="flex items-center gap-2 flex-wrap"><strong>Спортс:</strong> ${escapeHtml(String(m.rating))}/10 ${renderStarsFromTen(m.rating)}</span>
+        </div>
+        <p class="text-sm text-muted-foreground mb-4">${m.ratingCount.toLocaleString('ru-RU')} пользовательских отметок по карточке (демо)</p>
+        <dl class="book-meta-list movie-meta-extended">
+            <div><dt>Формат</dt><dd>${escapeHtml(m.formatLabel)}</dd></div>
+            <div><dt>Режиссёр</dt><dd>${escapeHtml(m.director)}</dd></div>
+            <div><dt>Жанр</dt><dd>${escapeHtml(m.genre)}</dd></div>
+            <div><dt>Год</dt><dd>${escapeHtml(String(m.year))}</dd></div>
+            <div><dt>Длительность</dt><dd>${escapeHtml(String(m.duration))}</dd></div>
+            <div><dt>Страна</dt><dd>${escapeHtml(m.country)}</dd></div>
+            <div><dt>Возрастной рейтинг</dt><dd>${escapeHtml(m.ageRating)}</dd></div>
+            <div><dt>Кинопоиск</dt><dd>${escapeHtml(kp)} / 10</dd></div>
+            <div><dt>IMDb</dt><dd>${escapeHtml(imdb)} / 10</dd></div>
+            <div><dt>Сценарий</dt><dd>${escapeHtml(m.writers)}</dd></div>
+            <div><dt>Продюсеры</dt><dd>${escapeHtml(m.producers)}</dd></div>
+            <div><dt>Студия</dt><dd>${escapeHtml(m.studio)}</dd></div>
+            <div><dt>В ролях / участники</dt><dd>${escapeHtml(m.cast)}</dd></div>
+        </dl>
+        <div class="book-detail-actions flex flex-wrap gap-3 mb-6">
+            <button type="button" class="btn btn-read" onclick="document.getElementById('movie-preview-block').scrollIntoView({behavior:'smooth', block:'start'})">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 12h18"/></svg>
+                К обзору
+            </button>
+            <button type="button" class="btn btn-library-add" onclick="showNotification('Добавлено в список к просмотру','info')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                В избранное
+            </button>
+        </div>
+        <p class="book-lead">${escapeHtml(m.description)}</p>
+    </div>
+</div>
+<section class="book-section" id="movie-preview-block">
+    <h2 class="book-section-title">Предпросмотр</h2>
+    <div class="book-preview-text">${previewHtml}</div>
+</section>
+<section class="book-section">
+    <h2 class="book-section-title">Рецензия</h2>
+    <blockquote class="book-review-quote">
+        <span class="book-quote-mark book-quote-open" aria-hidden="true">«</span>
+        <p>${escapeHtml(m.reviewText)}</p>
+        <span class="book-quote-mark book-quote-close" aria-hidden="true">»</span>
+    </blockquote>
+    <div class="book-reviewer flex items-center gap-3 mt-6">
+        <div class="book-reviewer-avatar" aria-hidden="true">${escapeHtml(initials)}</div>
+        <div>
+            <div class="book-reviewer-name">${escapeHtml(m.reviewAuthor)}</div>
+            <div class="book-reviewer-role text-sm text-muted-foreground">${escapeHtml(m.reviewAuthorRole)}</div>
+        </div>
+    </div>
+</section>
+<section class="book-section">
+    <h2 class="book-section-title">Оценки</h2>
+    <form class="book-ratings-card" id="movie-rating-form">
+        <label class="visually-hidden" for="movie-review-textarea">Ваш отзыв о фильме</label>
+        <textarea id="movie-review-textarea" class="book-ratings-input" name="review" rows="5" placeholder="Поделитесь впечатлениями о фильме или сериале…"></textarea>
+        <div class="book-ratings-footer flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-sm text-muted-foreground">Поставьте вашу оценку:</span>
+                <div class="book-rate-stars movie-rate-stars" role="group" aria-label="Оценка">${starsInteractive}</div>
+            </div>
+            <button type="submit" class="btn btn-rating-send">Отправить</button>
+        </div>
+    </form>
+</section>`;
+}
+
+function wireMovieDetailPage(mount) {
+    const form = mount.querySelector('#movie-rating-form');
+    form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        showNotification('Спасибо за отзыв!', 'info');
+        form.reset();
+        mount.querySelectorAll('.movie-rate-star').forEach(s => {
+            s.textContent = '☆';
+            s.classList.remove('is-active');
         });
-        
-        input.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const query = e.target.value;
-                if (query.trim()) {
-                    performSearch(query);
-                }
-            }
+    });
+
+    mount.querySelectorAll('.movie-rate-star').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const v = Number(btn.dataset.value);
+            mount.querySelectorAll('.movie-rate-star').forEach((s, i) => {
+                const on = i < v;
+                s.textContent = on ? '★' : '☆';
+                s.classList.toggle('is-active', on);
+            });
         });
     });
 }
 
+window.showMovie = function(movieId) {
+    closeGlobalSearchPanel();
+    const gin = document.getElementById('global-search-input');
+    if (gin) gin.value = '';
+
+    const movie = window.cinemaMovies?.find(x => x.id === movieId);
+    if (!movie) {
+        showNotification('Фильм не найден', 'info');
+        return;
+    }
+    const mount = document.getElementById('movie-detail-mount');
+    const section = document.getElementById('movie-detail');
+    if (!mount || !section) return;
+
+    mount.innerHTML = buildMovieDetailHtml(movie);
+    wireMovieDetailPage(mount);
+
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    section.classList.add('active');
+    updateNavigation('cinema');
+    window.scrollTo(0, 0);
+};
+
+function collectGlobalSearchHits(query) {
+    const q = query.trim().toLowerCase();
+    if (q.length < 2) return [];
+
+    const hits = [];
+
+    function match(hay) {
+        return hay.toLowerCase().includes(q);
+    }
+
+    (window.wikipediaArticles || []).forEach(a => {
+        const hay = `${a.title} ${a.description || ''} ${a.category || ''}`;
+        if (match(hay)) {
+            hits.push({
+                type: 'Статья',
+                title: a.title,
+                subtitle: a.category,
+                fn() {
+                    showArticle(a.id);
+                }
+            });
+        }
+    });
+
+    (window.libraryBooks || []).forEach(b => {
+        const hay = `${b.title} ${b.titleEn || ''} ${b.author || ''} ${b.description || ''} ${b.category || ''} ${(b.tags || []).join(' ')}`;
+        if (match(hay)) {
+            hits.push({
+                type: 'Книга',
+                title: b.title,
+                subtitle: b.author,
+                fn() {
+                    showBook(b.id);
+                }
+            });
+        }
+    });
+
+    (window.cinemaMovies || []).forEach(m => {
+        const hay = `${m.title} ${m.originalTitle || ''} ${m.director || ''} ${m.description || ''} ${m.genre || ''} ${m.category || ''} ${(m.tags || []).join(' ')}`;
+        if (match(hay)) {
+            hits.push({
+                type: m.formatLabel === 'Сериал' ? 'Сериал' : 'Фильм',
+                title: m.title,
+                subtitle: `${m.year || ''} · ${m.director || ''}`.trim(),
+                fn() {
+                    showMovie(m.id);
+                }
+            });
+        }
+    });
+
+    return hits.slice(0, 14);
+}
+
+function renderGlobalSearchResults(query) {
+    const panel = document.getElementById('global-search-panel');
+    const input = document.getElementById('global-search-input');
+    if (!panel || !input) return;
+
+    const hits = collectGlobalSearchHits(query);
+    if (!hits.length) {
+        panel.innerHTML = '<div class="fox-search-empty">Ничего не найдено — попробуйте другой запрос.</div>';
+        panel.hidden = false;
+        return;
+    }
+
+    panel.innerHTML = hits.map((h, i) => `
+<button type="button" class="fox-search-hit" data-search-idx="${i}">
+<span class="fox-search-hit-type">${escapeHtml(h.type)}</span>
+<span>${escapeHtml(h.title)}</span>
+${h.subtitle ? `<span class="fox-search-hit-sub">${escapeHtml(h.subtitle)}</span>` : ''}
+</button>`).join('');
+    panel.hidden = false;
+
+    panel.querySelectorAll('[data-search-idx]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const i = Number(btn.getAttribute('data-search-idx'));
+            hits[i].fn();
+            panel.hidden = true;
+            panel.innerHTML = '';
+            input.value = '';
+            input.blur();
+        });
+    });
+}
+
+function closeGlobalSearchPanel() {
+    const panel = document.getElementById('global-search-panel');
+    if (panel) {
+        panel.hidden = true;
+        panel.innerHTML = '';
+    }
+}
+
+let globalSearchDebounce;
+
+function initializeSearch() {
+    const input = document.getElementById('global-search-input');
+    const panel = document.getElementById('global-search-panel');
+    if (!input || !panel) return;
+
+    input.addEventListener('input', () => {
+        clearTimeout(globalSearchDebounce);
+        globalSearchDebounce = setTimeout(() => {
+            const q = input.value.trim();
+            if (q.length < 2) {
+                closeGlobalSearchPanel();
+                return;
+            }
+            renderGlobalSearchResults(q);
+        }, 180);
+    });
+
+    input.addEventListener('focus', () => {
+        const q = input.value.trim();
+        if (q.length >= 2) renderGlobalSearchResults(q);
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeGlobalSearchPanel();
+            input.value = '';
+            input.blur();
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.fox-header-search')) closeGlobalSearchPanel();
+    });
+}
+
 function performSearch(query) {
-    showNotification(`Поиск: ${query}`, 'info');
-    // Here you would implement actual search functionality
-    // For example, filter cards based on the query
-    filterContent(query);
+    renderGlobalSearchResults(query.trim());
 }
 
 function filterContent(query) {
@@ -321,7 +636,6 @@ document.addEventListener('click', function(e) {
         e.target.className = e.target.className.replace('btn-secondary', 'btn-primary');
         
         const category = e.target.textContent.trim();
-        console.log('Category selected:', category);
         filterByCategory(category);
     }
 });
@@ -416,29 +730,26 @@ function showNotification(message, type = 'info') {
 
 // Keyboard navigation
 document.addEventListener('keydown', function(e) {
-    // Press '/' to focus search
     if (e.key === '/' && !e.target.matches('input, textarea')) {
         e.preventDefault();
-        const activeSection = document.querySelector('.section.active');
-        const searchInput = activeSection?.querySelector('input[placeholder*="Поиск"]');
-        if (searchInput) {
-            searchInput.focus();
-        }
+        const searchInput = document.getElementById('global-search-input');
+        if (searchInput) searchInput.focus();
     }
-    
-    // Press 'Escape' to clear search and show all content
+
     if (e.key === 'Escape') {
-        if (e.target.matches('input')) {
-        e.target.value = '';
-        e.target.blur();
-            // Reset filters
+        closeGlobalSearchPanel();
+        if (e.target.matches('#global-search-input')) {
+            e.target.value = '';
+            e.target.blur();
+        }
+        if (e.target.matches('input') && !e.target.matches('#global-search-input')) {
+            e.target.value = '';
+            e.target.blur();
             const activeSection = document.querySelector('.section.active');
             if (activeSection) {
-                const cards = activeSection.querySelectorAll('.card, .group');
-                cards.forEach(card => {
+                activeSection.querySelectorAll('.card, .group').forEach(card => {
                     card.style.display = '';
                 });
-                // Reset category buttons
                 const categoryButtons = activeSection.querySelectorAll('.btn.rounded-full');
                 categoryButtons.forEach(btn => {
                     btn.className = btn.className.replace('btn-primary', 'btn-secondary');
