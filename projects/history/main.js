@@ -1055,28 +1055,27 @@ function createBookCard(book) {
     const litUrl = buildLitresUrl(book);
     
     card.innerHTML = `
-        <div class="card h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
-            <div class="book-cover-wrapper overflow-hidden bg-muted" style="aspect-ratio: 2/3;">
+        <div class="card library-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
+            <div class="book-cover-wrapper overflow-hidden bg-muted shrink-0" style="aspect-ratio: 2/3;">
                 <img src="${escapeHtml(book.image)}" alt="${escapeHtml(book.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
-            <div class="p-4 book-card-body-flex">
-                <h3 class="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">${escapeHtml(book.title)}</h3>
-                <p class="text-sm text-muted-foreground mb-3 font-medium">${escapeHtml(book.author)}</p>
-                <div class="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                    <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        ${escapeHtml(String(book.publishYear))}
-                    </span>
-                    <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
-                        ${escapeHtml(String(book.pages))} стр.
-                    </span>
+            <div class="library-card-body">
+                <div class="library-card-stack">
+                    <h3 class="library-card-title group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(book.title)}</h3>
+                    <p class="library-card-author">${escapeHtml(book.author)}</p>
+                    <div class="library-card-meta" aria-label="Год и объём">
+                        <span>
+                            <svg class="library-card-meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            ${escapeHtml(String(book.publishYear))}
+                        </span>
+                        <span class="library-card-meta-dot" aria-hidden="true"></span>
+                        <span>
+                            <svg class="library-card-meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            ${escapeHtml(String(book.pages))} стр.
+                        </span>
+                    </div>
                 </div>
-                <div class="book-card-store-actions flex flex-wrap gap-2 mt-auto">
+                <div class="book-card-store-actions library-card-store-actions">
                     <a href="${escapeHtml(chUrl)}" class="btn btn-read btn-compact-store" target="_blank" rel="noopener noreferrer">Читай-город</a>
                     <a href="${escapeHtml(litUrl)}" class="btn btn-library-add btn-compact-store" target="_blank" rel="noopener noreferrer">Литрес</a>
                 </div>
@@ -1093,17 +1092,17 @@ function createMovieCard(movie) {
     card.onclick = () => showMovie(movie.id);
 
     card.innerHTML = `
-        <div class="card h-full transition-all duration-300 hover:shadow-hover border border-border">
-            <div class="book-cover-wrapper overflow-hidden bg-muted" style="aspect-ratio: 2/3;">
+        <div class="card cinema-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
+            <div class="book-cover-wrapper overflow-hidden bg-muted shrink-0" style="aspect-ratio: 2/3;">
                 <img src="${escapeHtml(movie.image)}" alt="${escapeHtml(movie.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
-            <div class="p-4">
-                <h3 class="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">${escapeHtml(movie.title)}</h3>
-                <div class="flex items-center gap-1 text-sm mb-2" role="img" aria-label="Оценка ${escapeHtml(String(movie.rating))} из 10">
-                    <span class="text-yellow-500" aria-hidden="true">★</span>
-                    <span class="text-muted-foreground font-medium">${escapeHtml(String(movie.rating))}</span>
+            <div class="cinema-card-body">
+                <h3 class="cinema-card-title group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(movie.title)}</h3>
+                <div class="cinema-card-rating-row" role="img" aria-label="Оценка ${escapeHtml(String(movie.rating))} из 10">
+                    <span class="cinema-card-star" aria-hidden="true">★</span>
+                    <span class="cinema-card-rating-num">${escapeHtml(String(movie.rating))}</span>
                 </div>
-                <p class="text-sm text-muted-foreground font-medium">${escapeHtml(movie.director)}</p>
+                <p class="cinema-card-director">${escapeHtml(movie.director)}</p>
             </div>
         </div>
     `;

@@ -1171,11 +1171,163 @@ body {
     object-position: center;
 }
 
-.library-grid-card .card.flex.flex-col > .book-card-body-flex {
+/* Карточки «Библиотека» — как википедия: центр, поля, нижний блок кнопок */
+.library-grid-card {
+    height: 100%;
+}
+
+.library-grid-card .library-card-inner {
+    min-height: 100%;
+}
+
+.library-grid-card .library-card-body {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     min-height: 0;
+    padding: 1.15rem 1.15rem 1.2rem;
+}
+
+.library-grid-card .library-card-stack {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem;
+    text-align: center;
+    padding-bottom: 0.75rem;
+}
+
+.library-grid-card .library-card-title {
+    margin: 0;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-family-heading);
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    color: var(--foreground);
+    text-align: center;
+    text-wrap: balance;
+}
+
+.library-grid-card .library-card-author {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    line-height: 1.45;
+    max-width: 100%;
+}
+
+.library-grid-card .library-card-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 0.6rem;
+    margin: 0;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    background: rgb(21 122 82 / 0.08);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+}
+
+.library-grid-card .library-card-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.library-grid-card .library-card-meta-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+
+.library-grid-card .library-card-meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgb(21 122 82 / 0.35);
+    flex-shrink: 0;
+}
+
+.library-grid-card .library-card-store-actions.book-card-store-actions {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Карточки «Кинотеатр» */
+.cinema-grid-card {
+    height: 100%;
+}
+
+.cinema-grid-card .cinema-card-inner {
+    min-height: 100%;
+}
+
+.cinema-grid-card .cinema-card-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1.15rem 1.15rem 1.25rem;
+    text-align: center;
+}
+
+.cinema-grid-card .cinema-card-title {
+    margin: 0;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-family-heading);
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    color: var(--foreground);
+    text-align: center;
+    text-wrap: balance;
+}
+
+.cinema-grid-card .cinema-card-rating-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgb(234 88 12 / 0.12);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--muted-foreground);
+}
+
+.cinema-grid-card .cinema-card-star {
+    color: var(--fox-orange);
+    line-height: 1;
+}
+
+.cinema-grid-card .cinema-card-rating-num {
+    line-height: 1;
+}
+
+.cinema-grid-card .cinema-card-director {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    line-height: 1.4;
+    max-width: 100%;
 }
 
 .book-card-store-actions {
