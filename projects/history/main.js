@@ -283,9 +283,7 @@ function enrichMovieForDetail(m) {
         formatLabel: m.formatLabel || (String(m.duration || '').includes('эпизод') ? 'Сериал' : 'Фильм'),
         country: m.country || '—',
         ageRating: m.ageRating || '—',
-        studio: m.studio || '—',
         writers: m.writers || '—',
-        producers: m.producers || '—',
         cast: m.cast || '—'
     };
 }
@@ -365,8 +363,6 @@ function buildMovieDetailHtml(movie) {
             <div><dt>Страна</dt><dd>${escapeHtml(m.country)}</dd></div>
             <div><dt>Возрастной рейтинг</dt><dd>${escapeHtml(m.ageRating)}</dd></div>
             <div><dt>Сценарий</dt><dd>${escapeHtml(m.writers)}</dd></div>
-            <div><dt>Продюсеры</dt><dd>${escapeHtml(m.producers)}</dd></div>
-            <div><dt>Студия</dt><dd>${escapeHtml(m.studio)}</dd></div>
             <div class="movie-meta-span-cast"><dt>В ролях / участники</dt><dd>${escapeHtml(m.cast)}</dd></div>
         </dl>
         <div class="book-detail-actions flex flex-wrap gap-3 mb-6">
