@@ -640,11 +640,11 @@ body {
 }
 
 /* Изображения в карточках — без лишнего скругления сверху для FOX */
-.card .aspect-video img {
+.card .aspect-video img,
+.card .book-cover-wrapper img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
 }
 
 .grid {

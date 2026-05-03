@@ -1136,34 +1136,39 @@ function createMovieCard(movie) {
     card.className = 'group cursor-pointer';
     card.onclick = () => showMovie(movie.id);
     
+    const titleEn = movie.originalTitle
+        ? `<p class="text-xs text-muted-foreground mb-1 italic">${escapeHtml(movie.originalTitle)}</p>`
+        : '';
+
     card.innerHTML = `
         <div class="card h-full transition-all duration-300 hover:shadow-hover border border-border">
-            <div class="aspect-video overflow-hidden bg-muted">
-                <img src="${movie.image}" alt="${movie.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            <div class="book-cover-wrapper overflow-hidden bg-muted" style="aspect-ratio: 2/3;">
+                <img src="${escapeHtml(movie.image)}" alt="${escapeHtml(movie.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
             <div class="p-5">
                 <div class="flex items-center justify-between mb-2">
-                    <span class="badge badge-primary">${movie.category}</span>
+                    <span class="badge badge-primary">${escapeHtml(movie.category)}</span>
                     <div class="flex items-center gap-1 text-xs">
                         <span class="text-yellow-500">★</span>
-                        <span class="text-muted-foreground">${movie.rating}</span>
+                        <span class="text-muted-foreground">${escapeHtml(String(movie.rating))}</span>
                     </div>
                 </div>
-                <h3 class="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">${movie.title}</h3>
-                <p class="text-sm text-muted-foreground mb-2 font-medium">${movie.director}</p>
-                <p class="text-sm text-muted-foreground mb-3 line-clamp-2">${movie.description}</p>
+                <h3 class="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">${escapeHtml(movie.title)}</h3>
+                ${titleEn}
+                <p class="text-sm text-muted-foreground mb-2 font-medium">${escapeHtml(movie.director)}</p>
+                <p class="text-sm text-muted-foreground mb-3 line-clamp-2">${escapeHtml(movie.description)}</p>
                 <div class="flex items-center justify-between text-xs text-muted-foreground">
                     <span class="flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        ${movie.year}
+                        ${escapeHtml(String(movie.year))}
                     </span>
                     <span class="flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z"></path>
                         </svg>
-                        ${movie.duration}
+                        ${escapeHtml(String(movie.duration))}
                     </span>
                 </div>
             </div>
