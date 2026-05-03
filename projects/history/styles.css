@@ -1737,10 +1737,6 @@ body {
 }
 
 /* --- Страница обзора книги --- */
-.book-back-btn {
-    margin-bottom: 1.25rem;
-}
-
 .book-breadcrumbs {
     font-size: 0.8125rem;
     color: var(--muted-foreground);

@@ -330,13 +330,6 @@ function buildBookDetailHtml(book) {
     ).join('');
 
     return `
-<button type="button" class="btn btn-secondary mb-6 gap-2 book-back-btn" onclick="showSection('library')">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true">
-        <path d="m12 19-7-7 7-7"></path>
-        <path d="M19 12H5"></path>
-    </svg>
-    Назад в библиотеку
-</button>
 <nav class="book-breadcrumbs" aria-label="Хлебные крошки">
     <a href="#" onclick="showSection('home'); return false;">Главная</a>
     <span class="book-bc-sep">/</span>
@@ -569,13 +562,6 @@ function buildMovieDetailHtml(movie) {
     ).join('');
 
     return `
-<button type="button" class="btn btn-secondary mb-6 gap-2 book-back-btn" onclick="showSection('cinema')">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true">
-        <path d="m12 19-7-7 7-7"></path>
-        <path d="M19 12H5"></path>
-    </svg>
-    Назад в кинотеатр
-</button>
 <nav class="book-breadcrumbs" aria-label="Хлебные крошки">
     <a href="#" onclick="showSection('home'); return false;">Главная</a>
     <span class="book-bc-sep">/</span>
