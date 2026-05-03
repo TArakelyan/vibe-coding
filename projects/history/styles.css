@@ -110,24 +110,21 @@ body {
     }
 }
 
-/* Поиск в шапке */
+/* Поиск в шапке — справа после меню, узкое поле + иконка лупы */
 .fox-header-search {
-    flex: 1 1 160px;
-    min-width: 140px;
-    max-width: 320px;
+    flex: 0 0 auto;
+    width: 9.5rem;
+    min-width: 6.5rem;
+    max-width: 11rem;
     position: relative;
 }
 
 @media (max-width: 899px) {
     .fox-header-search {
-        order: 3;
-        flex-basis: 100%;
-        max-width: none;
-        margin-top: 0.25rem;
-    }
-
-    .fox-primary-nav {
-        order: 2;
+        width: 8.5rem;
+        min-width: 6rem;
+        max-width: 10rem;
+        margin-top: 0;
     }
 }
 
@@ -170,8 +167,9 @@ body {
 .fox-search-panel {
     position: absolute;
     top: calc(100% + 6px);
-    left: 0;
+    left: auto;
     right: 0;
+    width: min(22rem, calc(100vw - 2rem));
     background: var(--fox-card);
     border: 1px solid var(--border);
     box-shadow: var(--shadow-md);
@@ -336,12 +334,13 @@ body {
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    flex: 1;
+    flex: 0 1 auto;
     min-width: 0;
+    margin-left: auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex-wrap: nowrap;
 }
 
