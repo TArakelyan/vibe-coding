@@ -419,6 +419,35 @@ body {
     outline: none;
 }
 
+.filter-dropdown-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.65rem 1.05rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--foreground);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.filter-dropdown-option:hover,
+.filter-dropdown-option:focus-visible {
+    color: var(--fox-blue);
+    background: rgb(21 122 82 / 0.08);
+    outline: none;
+}
+
+.filter-dropdown-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.65rem;
+}
+
 .fox-brand {
     display: flex;
     align-items: stretch;
@@ -2195,6 +2224,16 @@ body {
 }
 
 /* --- Раздел «Сегодня» (история котировок «в этот день») --- */
+/* Единая гарнитура и кегль для переключателя дат и бейджа года в карточке */
+.today-date-tab,
+.today-event-year {
+    font-family: var(--font-family-heading);
+    font-weight: 700;
+    font-size: clamp(0.9375rem, 3.4vw, 1.125rem);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+}
+
 .today-date-strip {
     margin-top: 0.25rem;
 }
@@ -2214,10 +2253,6 @@ body {
     background: transparent;
     border: none;
     cursor: pointer;
-    font-family: var(--font-family-heading);
-    font-size: clamp(1rem, 3.6vw, 1.2rem);
-    font-weight: 700;
-    letter-spacing: 0.02em;
     color: #3f3f3f;
     padding: 0.75rem 0.35rem 0.95rem;
     display: inline-flex;
@@ -2235,9 +2270,7 @@ body {
 
 .today-date-tab.is-active {
     color: var(--foreground);
-    font-weight: 700;
-    border-bottom-color: var(--fox-orange);
-    font-size: clamp(1.05rem, 3.8vw, 1.28rem);
+    border-bottom-color: var(--fox-blue);
 }
 
 .today-date-chevron {
@@ -2351,14 +2384,10 @@ body {
     left: 50%;
     top: 0;
     transform: translate(-50%, -50%);
-    background: var(--fox-orange);
+    background: var(--fox-blue);
     color: #fff;
-    font-family: var(--font-family-heading);
-    font-weight: 700;
-    font-size: 0.9375rem;
     padding: 0.48rem 0.85rem;
     border-radius: 6px;
-    line-height: 1;
     box-shadow: 0 3px 12px rgb(0 0 0 / 0.18);
     white-space: nowrap;
     pointer-events: none;
