@@ -960,6 +960,26 @@ const othersDropdownLandings = {
             ],
             cinemaCategory: 'Биография'
         }
+    ],
+    today: [
+        {
+            slug: 'today-nba-spotlight',
+            title: 'Дайджест NBA в этот день',
+            paragraphs: [
+                'Сюжеты плей-офф, форы и сенсации серий — в одном разделе.',
+                'После перехода фильтр переключится на события NBA.'
+            ],
+            todayCategory: 'nba'
+        },
+        {
+            slug: 'today-racing-notes',
+            title: 'Большие старты и котировки',
+            paragraphs: [
+                'Derby, классические дистанции и значимые победы в календаре.',
+                'Откроется фильтр по скачкам.'
+            ],
+            todayCategory: 'racing'
+        }
     ]
 };
 
@@ -975,7 +995,7 @@ const navigationItems = [
     { name: "Википедия", href: "/wikipedia", icon: "file-text" },
     { name: "Библиотека", href: "/library", icon: "book-open" },
     { name: "Кинотеатр", href: "/cinema", icon: "film" },
-    { name: "Календарь", href: "/calendar", icon: "calendar" }
+    { name: "Сегодня", href: "/today", icon: "calendar" }
 ];
 
 // Делаем переменные глобально доступными

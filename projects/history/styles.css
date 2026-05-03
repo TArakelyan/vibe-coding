@@ -2193,3 +2193,204 @@ body {
     white-space: nowrap;
     border: 0;
 }
+
+/* --- Раздел «Сегодня» (история котировок «в этот день») --- */
+.today-date-strip {
+    margin-top: 0.25rem;
+}
+
+.today-date-strip-track {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.35rem;
+    border-bottom: 1px solid var(--fox-border);
+}
+
+.today-date-tab {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-size: clamp(0.8125rem, 2.8vw, 0.9375rem);
+    font-weight: 600;
+    color: var(--fox-muted);
+    padding: 0.65rem 0.25rem 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.today-date-tab:hover {
+    color: var(--foreground);
+}
+
+.today-date-tab.is-active {
+    color: var(--foreground);
+    font-weight: 700;
+    border-bottom-color: var(--fox-orange);
+}
+
+.today-date-chevron {
+    font-size: 1.15rem;
+    line-height: 1;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.today-events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+}
+
+.today-events-empty {
+    color: var(--muted-foreground);
+    font-size: 0.9375rem;
+    padding: 2rem 0.5rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.today-event-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--fox-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+@media (min-width: 640px) {
+    .today-event-card {
+        flex-direction: row;
+        align-items: stretch;
+    }
+}
+
+.today-event-thumb {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: 220px;
+}
+
+@media (min-width: 640px) {
+    .today-event-thumb {
+        width: 32%;
+        max-width: 280px;
+        max-height: none;
+        min-height: 200px;
+    }
+}
+
+.today-event-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 168px;
+}
+
+@media (min-width: 640px) {
+    .today-event-img {
+        min-height: 100%;
+        position: absolute;
+        inset: 0;
+    }
+
+    .today-event-thumb {
+        position: relative;
+    }
+}
+
+.today-event-year {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--fox-orange);
+    color: #fff;
+    font-family: var(--font-family-heading);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    padding: 0.38rem 0.58rem;
+    border-radius: 4px;
+    line-height: 1;
+    z-index: 2;
+}
+
+.today-event-body {
+    flex: 1 1 auto;
+    padding: 1.15rem 1.2rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.today-event-league {
+    margin: 0;
+    font-family: var(--font-family-heading);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--fox-blue);
+}
+
+.today-event-desc {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--foreground);
+}
+
+.today-event-desc p {
+    margin: 0 0 0.65rem;
+}
+
+.today-event-desc p:last-child {
+    margin-bottom: 0;
+}
+
+.today-event-desc a {
+    color: var(--fox-blue);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.today-event-desc a:hover {
+    color: var(--fox-blue-hover);
+}
+
+.today-event-material {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--fox-blue);
+    text-decoration: none;
+    margin-top: 0.15rem;
+}
+
+.today-event-material:hover {
+    text-decoration: underline;
+    color: var(--fox-blue-hover);
+}
+
+.today-event-credit {
+    margin: 0;
+    margin-top: auto;
+    padding-top: 0.35rem;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--fox-muted);
+}

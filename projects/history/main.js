@@ -3,6 +3,10 @@
 /** При показе #section-landing подсвечиваем пункт меню родительского раздела */
 let landingNavParentSection = null;
 
+/** Раздел «Сегодня»: выбранный календарный день и фильтр категории */
+let todaySelectedDate = new Date();
+let todayCategoryFilter = null;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the application
     initializeApp();
@@ -23,6 +27,7 @@ function initializeApp() {
 
     populateOthersDropdownPanels();
     initFilterDropdowns();
+    initTodaySection();
 }
 
 // Section navigation functionality - make it global
@@ -49,6 +54,10 @@ window.showSection = function(sectionName) {
         ? landingNavParentSection
         : sectionName;
     updateNavigation(navKey);
+
+    if (sectionName === 'today') {
+        renderTodaySection();
+    }
 };
 
 // Article detail functionality
@@ -152,7 +161,8 @@ function populateOthersDropdownPanels() {
     const ids = {
         wikipedia: 'panel-wikipedia-others',
         library: 'panel-library-others',
-        cinema: 'panel-cinema-others'
+        cinema: 'panel-cinema-others',
+        today: 'panel-today-others'
     };
     Object.keys(ids).forEach(key => {
         const panel = document.getElementById(ids[key]);
@@ -206,7 +216,7 @@ window.showLandingPage = function(sectionKey, slug) {
     landingNavParentSection = sectionKey;
     closeAllFilterDropdowns();
 
-    const backLabels = { wikipedia: 'Википедия', library: 'Библиотека', cinema: 'Кинотеатр' };
+    const backLabels = { wikipedia: 'Википедия', library: 'Библиотека', cinema: 'Кинотеатр', today: 'Сегодня' };
     const backLabel = backLabels[sectionKey] || 'Раздел';
     const paras = (entry.paragraphs || []).map(p => `<p>${escapeHtml(p)}</p>`).join('');
     const mount = document.getElementById('landing-mount');
@@ -269,6 +279,13 @@ window.applyLandingFilterAndGo = function(sectionKey, slug) {
         };
         const label = entry.cinemaCategory == null ? 'Все фильмы' : (labelByCat[entry.cinemaCategory] || 'Все фильмы');
         filterCinemaByCategory(label);
+    } else if (sectionKey === 'today') {
+        const labelByCat = {
+            nba: 'NBA',
+            racing: 'Скачки'
+        };
+        const label = entry.todayCategory == null ? 'Все события' : (labelByCat[entry.todayCategory] || 'Все события');
+        filterTodayEvents(label);
     }
 };
 
@@ -872,6 +889,10 @@ document.addEventListener('click', function(e) {
     if (cinemaPill) {
         filterCinemaByCategory(cinemaPill.textContent.trim());
     }
+    const todayPill = e.target.closest('#section-today .filter-pills .btn.rounded-full');
+    if (todayPill) {
+        filterTodayEvents(todayPill.textContent.trim());
+    }
 });
 
 function filterByCategory(category) {
@@ -982,6 +1003,8 @@ document.addEventListener('keydown', function(e) {
                     filterByCategory('Все статьи');
                 } else if (activeSection.id === 'section-cinema') {
                     filterCinemaByCategory('Все фильмы');
+                } else if (activeSection.id === 'section-today') {
+                    filterTodayEvents('Все события');
                 }
             }
         }
@@ -992,7 +1015,8 @@ document.addEventListener('keydown', function(e) {
         '1': 'home',
         '2': 'wikipedia', 
         '3': 'library',
-        '4': 'cinema'
+        '4': 'cinema',
+        '5': 'today'
     };
     
     if (sectionMap[e.key] && !e.target.matches('input, textarea')) {
@@ -1235,3 +1259,131 @@ window.showNotification = showNotification;
 window.loadDynamicContent = loadDynamicContent;
 window.filterLibraryByCategory = filterLibraryByCategory;
 window.filterCinemaByCategory = filterCinemaByCategory;
+
+function initTodaySectionDate() {
+    const key = window.todayDemoAnchorMonthDay || '5-3';
+    const parts = key.split('-').map(Number);
+    const y = new Date().getFullYear();
+    todaySelectedDate = new Date(y, parts[0] - 1, parts[1]);
+    todayCategoryFilter = null;
+}
+
+function formatRuDayMonth(d) {
+    const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    return `${d.getDate()} ${months[d.getMonth()]}`;
+}
+
+function monthDayKeyFromDate(d) {
+    return `${d.getMonth() + 1}-${d.getDate()}`;
+}
+
+function addCalendarDays(base, delta) {
+    const x = new Date(base.getFullYear(), base.getMonth(), base.getDate());
+    x.setDate(x.getDate() + delta);
+    return x;
+}
+
+function onTodayDateStripClick(e) {
+    const tab = e.target.closest('.today-date-tab[data-today-shift]');
+    if (!tab) return;
+    const sh = parseInt(tab.dataset.todayShift, 10);
+    if (sh === -1 || sh === 1) {
+        todaySelectedDate = addCalendarDays(todaySelectedDate, sh);
+        renderTodaySection();
+    }
+}
+
+function initTodaySection() {
+    initTodaySectionDate();
+    const strip = document.getElementById('today-date-strip');
+    if (strip && !strip.dataset.bound) {
+        strip.dataset.bound = '1';
+        strip.addEventListener('click', onTodayDateStripClick);
+    }
+}
+
+function renderTodayDateStrip() {
+    const el = document.getElementById('today-date-strip');
+    if (!el) return;
+
+    const prev = addCalendarDays(todaySelectedDate, -1);
+    const cur = todaySelectedDate;
+    const next = addCalendarDays(todaySelectedDate, 1);
+    const lp = formatRuDayMonth(prev);
+    const lc = formatRuDayMonth(cur);
+    const ln = formatRuDayMonth(next);
+
+    el.innerHTML = `
+<div class="today-date-strip-track">
+    <button type="button" class="today-date-tab" data-today-shift="-1" aria-label="Предыдущий день: ${escapeHtml(lp)}">
+        <span class="today-date-chevron" aria-hidden="true">‹</span>
+        <span>${escapeHtml(lp)}</span>
+    </button>
+    <button type="button" class="today-date-tab is-active" data-today-shift="0" aria-current="date" aria-label="Выбрано: ${escapeHtml(lc)}">
+        ${escapeHtml(lc)}
+    </button>
+    <button type="button" class="today-date-tab" data-today-shift="1" aria-label="Следующий день: ${escapeHtml(ln)}">
+        <span>${escapeHtml(ln)}</span>
+        <span class="today-date-chevron" aria-hidden="true">›</span>
+    </button>
+</div>`;
+}
+
+function renderTodayEventsList() {
+    const mount = document.getElementById('today-events-list');
+    if (!mount) return;
+
+    const key = monthDayKeyFromDate(todaySelectedDate);
+    let items = (window.todayEventsByMonthDay && window.todayEventsByMonthDay[key]) ? window.todayEventsByMonthDay[key].slice() : [];
+
+    if (todayCategoryFilter === 'nba') {
+        items = items.filter(ev => ev.category === 'nba');
+    } else if (todayCategoryFilter === 'racing') {
+        items = items.filter(ev => ev.category === 'racing');
+    }
+
+    if (!items.length) {
+        mount.innerHTML = '<p class="today-events-empty">На выбранную дату в демо-наборе пока нет событий — попробуйте соседние дни или фильтр «Все события».</p>';
+        return;
+    }
+
+    mount.innerHTML = items.map(ev => `
+<article class="today-event-card">
+    <div class="today-event-thumb">
+        <span class="today-event-year">${escapeHtml(String(ev.year))}</span>
+        <img src="${escapeHtml(ev.image)}" alt="${escapeHtml(`${ev.leagueLabel}, ${ev.year}`)}" class="today-event-img" width="320" loading="lazy" />
+    </div>
+    <div class="today-event-body">
+        <p class="today-event-league">${escapeHtml(ev.leagueLabel)}</p>
+        <div class="today-event-desc">${ev.descriptionHtml}</div>
+        <a href="${escapeHtml(ev.materialHref)}" class="today-event-material" target="_blank" rel="noopener noreferrer">${escapeHtml(ev.materialLabel)}</a>
+        <p class="today-event-credit">${escapeHtml(ev.imageCredit)}</p>
+    </div>
+</article>`).join('');
+}
+
+function renderTodaySection() {
+    renderTodayDateStrip();
+    renderTodayEventsList();
+}
+
+function filterTodayEvents(label) {
+    const map = {
+        'Все события': null,
+        NBA: 'nba',
+        Скачки: 'racing'
+    };
+    todayCategoryFilter = Object.prototype.hasOwnProperty.call(map, label) ? map[label] : null;
+
+    const section = document.getElementById('section-today');
+    if (section) {
+        section.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
+            const active = btn.textContent.trim() === label;
+            btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
+        });
+    }
+
+    renderTodayEventsList();
+}
+
+window.filterTodayEvents = filterTodayEvents;
