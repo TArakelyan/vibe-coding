@@ -339,21 +339,23 @@ function buildMovieDetailHtml(movie) {
     <span>${escapeHtml(m.breadcrumbTail)}</span>
 </nav>
 <div class="book-tags-row flex flex-wrap gap-2">${tagsHtml}</div>
-<div class="book-detail-grid">
-    <div class="book-detail-cover-col">
+<div class="book-detail-grid movie-detail-top">
+    <div class="book-detail-cover-col movie-detail-cover-col">
         <div class="book-detail-cover-frame movie-poster-frame">
             <img src="${escapeHtml(m.image)}" alt="${escapeHtml(m.title)}" class="book-detail-cover-img movie-poster-img" loading="lazy" />
         </div>
     </div>
-    <div class="book-detail-main-col flex flex-col items-start">
+    <div class="book-detail-main-col movie-detail-main-col flex flex-col items-start">
         <h1 class="book-detail-title">${escapeHtml(m.title)}</h1>
         ${orig}
-        <div class="movie-ext-scores flex flex-wrap gap-x-6 gap-y-2 mb-3 text-sm">
-            <span><strong>Кинопоиск:</strong> ${escapeHtml(kp)} / 10</span>
-            <span><strong>IMDb:</strong> ${escapeHtml(imdb)} / 10</span>
-            <span class="flex items-center gap-2 flex-wrap"><strong>Спортс:</strong> ${escapeHtml(String(m.rating))}/10 ${renderStarsFromTen(m.rating)}</span>
+        <div class="movie-ext-scores" role="group" aria-label="Оценки">
+            <span class="movie-score-chip"><strong>Кинопоиск:</strong> ${escapeHtml(kp)} / 10</span>
+            <span class="movie-score-divider" aria-hidden="true"></span>
+            <span class="movie-score-chip"><strong>IMDb:</strong> ${escapeHtml(imdb)} / 10</span>
+            <span class="movie-score-divider" aria-hidden="true"></span>
+            <span class="movie-score-chip movie-score-chip--sports"><strong>Спортс:</strong> ${escapeHtml(String(m.rating))}/10 ${renderStarsFromTen(m.rating)}</span>
         </div>
-        <p class="text-sm text-muted-foreground mb-4">${m.ratingCount.toLocaleString('ru-RU')} пользовательских отметок по карточке (демо)</p>
+        <p class="movie-score-meta-note text-sm text-muted-foreground mb-3">${m.ratingCount.toLocaleString('ru-RU')} пользовательских отметок по карточке (демо)</p>
         <dl class="book-meta-list movie-meta-extended">
             <div><dt>Формат</dt><dd>${escapeHtml(m.formatLabel)}</dd></div>
             <div><dt>Режиссёр</dt><dd>${escapeHtml(m.director)}</dd></div>
@@ -362,12 +364,10 @@ function buildMovieDetailHtml(movie) {
             <div><dt>Длительность</dt><dd>${escapeHtml(String(m.duration))}</dd></div>
             <div><dt>Страна</dt><dd>${escapeHtml(m.country)}</dd></div>
             <div><dt>Возрастной рейтинг</dt><dd>${escapeHtml(m.ageRating)}</dd></div>
-            <div><dt>Кинопоиск</dt><dd>${escapeHtml(kp)} / 10</dd></div>
-            <div><dt>IMDb</dt><dd>${escapeHtml(imdb)} / 10</dd></div>
             <div><dt>Сценарий</dt><dd>${escapeHtml(m.writers)}</dd></div>
             <div><dt>Продюсеры</dt><dd>${escapeHtml(m.producers)}</dd></div>
             <div><dt>Студия</dt><dd>${escapeHtml(m.studio)}</dd></div>
-            <div><dt>В ролях / участники</dt><dd>${escapeHtml(m.cast)}</dd></div>
+            <div class="movie-meta-span-cast"><dt>В ролях / участники</dt><dd>${escapeHtml(m.cast)}</dd></div>
         </dl>
         <div class="book-detail-actions flex flex-wrap gap-3 mb-6">
             <button type="button" class="btn btn-read" onclick="document.getElementById('movie-preview-block').scrollIntoView({behavior:'smooth', block:'start'})">
