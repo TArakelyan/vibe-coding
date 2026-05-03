@@ -84,6 +84,19 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+/** Поиск книги на Читай-городе / Литрес (можно задать свои URL в данных книги). */
+function buildChitaiGorodUrl(book) {
+    const u = book.chitaiGorodUrl;
+    if (u && /^https:\/\//i.test(String(u))) return String(u).trim();
+    return `https://www.chitai-gorod.ru/search?phrase=${encodeURIComponent(book.title || '')}`;
+}
+
+function buildLitresUrl(book) {
+    const u = book.litresUrl;
+    if (u && /^https:\/\//i.test(String(u))) return String(u).trim();
+    return `https://www.litres.ru/search/?q=${encodeURIComponent(book.title || '')}`;
+}
+
 function closeAllFilterDropdowns() {
     document.querySelectorAll('.filter-dropdown.is-open').forEach(dd => {
         dd.classList.remove('is-open');
@@ -310,14 +323,8 @@ function buildBookDetailHtml(book) {
             <div><dt>Год</dt><dd>${escapeHtml(String(b.publishYear))}</dd></div>
         </dl>
         <div class="book-detail-actions flex flex-wrap gap-3 mb-6">
-            <button type="button" class="btn btn-read" onclick="document.getElementById('book-preview-block').scrollIntoView({behavior:'smooth', block:'start'})">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                Читать
-            </button>
-            <button type="button" class="btn btn-library-add" onclick="showNotification('Книга добавлена в вашу подборку','info')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
-                В подборку
-            </button>
+            <a href="${escapeHtml(buildChitaiGorodUrl(b))}" class="btn btn-read" target="_blank" rel="noopener noreferrer">Читай-город</a>
+            <a href="${escapeHtml(buildLitresUrl(b))}" class="btn btn-library-add" target="_blank" rel="noopener noreferrer">Литрес</a>
         </div>
         <p class="book-lead">${escapeHtml(b.description)}</p>
     </div>
@@ -842,29 +849,17 @@ document.addEventListener('click', function(e) {
 
 function filterByCategory(category) {
     const showAllLabels = ['Все статьи', 'Все фильмы', 'Все', 'Все книги'];
-    if (showAllLabels.includes(category)) {
-        const activeSection = document.querySelector('.section.active');
-        if (activeSection) {
-            const cards = activeSection.querySelectorAll('.card, .group');
-            cards.forEach(card => {
-                card.style.display = '';
-            });
-        }
-        return;
-    }
-    
-    // Filter by specific category
     const activeSection = document.querySelector('.section.active');
-    if (!activeSection) return;
-    
-    const cards = activeSection.querySelectorAll('.card, .group');
-    cards.forEach(card => {
-        const badge = card.querySelector('.badge');
-        if (badge && badge.textContent.trim() === category) {
-            card.style.display = '';
-        } else {
-            card.style.display = 'none';
+    if (!activeSection || activeSection.id !== 'section-wikipedia') return;
+
+    const rows = activeSection.querySelectorAll('#wikipedia-articles-grid > .group');
+    rows.forEach(row => {
+        if (showAllLabels.includes(category)) {
+            row.style.display = '';
+            return;
         }
+        const cat = row.getAttribute('data-wiki-category') || '';
+        row.style.display = cat === category ? '' : 'none';
     });
 }
 
@@ -1024,48 +1019,22 @@ function loadCinemaMovies() {
 
 function createArticleCard(article) {
     const card = document.createElement('div');
-    card.className = 'group cursor-pointer';
+    card.className = 'group cursor-pointer wiki-grid-card';
+    card.dataset.wikiCategory = article.category || '';
     card.onclick = () => showArticle(article.id);
     
     card.innerHTML = `
         <div class="card h-full transition-all duration-300 hover:shadow-hover border border-border">
             <div class="aspect-video overflow-hidden bg-muted">
-                <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                <img src="${escapeHtml(article.image)}" alt="${escapeHtml(article.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
-            <div class="p-5">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="badge badge-primary">${article.category}</span>
-                    <div class="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span class="flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                            </svg>
-                            ${article.views}
-                        </span>
-                        <span class="flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                            ${article.likes}
-                        </span>
-                    </div>
-                </div>
-                <h3 class="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">${article.title}</h3>
-                <p class="text-sm text-muted-foreground mb-3 line-clamp-2">${article.description}</p>
-                <div class="flex items-center justify-between text-xs text-muted-foreground">
-                    <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        ${article.date}
-                    </span>
-                    <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        ${article.readTime}
-                    </span>
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(article.title)}</h3>
+                <div class="wiki-card-likes flex items-center gap-1 text-sm text-muted-foreground">
+                    <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    <span>${escapeHtml(article.likes)}</span>
                 </div>
             </div>
         </div>
@@ -1076,53 +1045,40 @@ function createArticleCard(article) {
 
 function createBookCard(book) {
     const card = document.createElement('div');
-    card.className = 'group cursor-pointer';
-    card.onclick = () => showBook(book.id);
-    
-    const stars = '★'.repeat(Math.floor(book.rating)) + '☆'.repeat(5 - Math.floor(book.rating));
-    
-    // Создаем теги если они есть
-    const tagsHTML = book.tags ? book.tags.map(tag => 
-        `<span class="inline-block bg-primary/10 text-primary px-2 py-1 rounded text-xs mr-1">${tag}</span>`
-    ).join('') : '';
+    card.className = 'group cursor-pointer library-grid-card';
+    card.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        showBook(book.id);
+    });
+
+    const chUrl = buildChitaiGorodUrl(book);
+    const litUrl = buildLitresUrl(book);
     
     card.innerHTML = `
-        <div class="card h-full transition-all duration-300 hover:shadow-hover border border-border">
+        <div class="card h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
             <div class="book-cover-wrapper overflow-hidden bg-muted" style="aspect-ratio: 2/3;">
-                <img src="${book.image}" alt="${book.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                <img src="${escapeHtml(book.image)}" alt="${escapeHtml(book.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
-            <div class="p-5">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="badge badge-primary">${book.category}</span>
-                    <div class="flex items-center gap-1 text-xs text-yellow-500">
-                        <span>${stars}</span>
-                        <span class="text-muted-foreground ml-1">${book.rating}</span>
-                    </div>
-                </div>
-                <h3 class="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">${book.title}</h3>
-                ${book.titleEn ? `<p class="text-xs text-muted-foreground mb-1 italic">${book.titleEn}</p>` : ''}
-                <p class="text-sm text-muted-foreground mb-2 font-medium">${book.author}</p>
-                <p class="text-sm text-muted-foreground mb-3 line-clamp-2">${book.description}</p>
-                ${tagsHTML ? `<div class="mb-3">${tagsHTML}</div>` : ''}
-                <div class="flex items-center justify-between text-xs text-muted-foreground">
+            <div class="p-4 book-card-body-flex">
+                <h3 class="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">${escapeHtml(book.title)}</h3>
+                <p class="text-sm text-muted-foreground mb-3 font-medium">${escapeHtml(book.author)}</p>
+                <div class="flex items-center gap-4 text-xs text-muted-foreground mb-4">
                     <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        ${book.publishYear}
+                        ${escapeHtml(String(book.publishYear))}
                     </span>
                     <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
-                        ${book.pages} стр.
+                        ${escapeHtml(String(book.pages))} стр.
                     </span>
-                    <span class="flex items-center gap-1" title="Язык">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-                        </svg>
-                        ${book.language}
-                    </span>
+                </div>
+                <div class="book-card-store-actions flex flex-wrap gap-2 mt-auto">
+                    <a href="${escapeHtml(chUrl)}" class="btn btn-read btn-compact-store" target="_blank" rel="noopener noreferrer">Читай-город</a>
+                    <a href="${escapeHtml(litUrl)}" class="btn btn-library-add btn-compact-store" target="_blank" rel="noopener noreferrer">Литрес</a>
                 </div>
             </div>
         </div>
@@ -1133,44 +1089,21 @@ function createBookCard(book) {
 
 function createMovieCard(movie) {
     const card = document.createElement('div');
-    card.className = 'group cursor-pointer';
+    card.className = 'group cursor-pointer cinema-grid-card';
     card.onclick = () => showMovie(movie.id);
-    
-    const titleEn = movie.originalTitle
-        ? `<p class="text-xs text-muted-foreground mb-1 italic">${escapeHtml(movie.originalTitle)}</p>`
-        : '';
 
     card.innerHTML = `
         <div class="card h-full transition-all duration-300 hover:shadow-hover border border-border">
             <div class="book-cover-wrapper overflow-hidden bg-muted" style="aspect-ratio: 2/3;">
                 <img src="${escapeHtml(movie.image)}" alt="${escapeHtml(movie.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
-            <div class="p-5">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="badge badge-primary">${escapeHtml(movie.category)}</span>
-                    <div class="flex items-center gap-1 text-xs">
-                        <span class="text-yellow-500">★</span>
-                        <span class="text-muted-foreground">${escapeHtml(String(movie.rating))}</span>
-                    </div>
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">${escapeHtml(movie.title)}</h3>
+                <div class="flex items-center gap-1 text-sm mb-2" role="img" aria-label="Оценка ${escapeHtml(String(movie.rating))} из 10">
+                    <span class="text-yellow-500" aria-hidden="true">★</span>
+                    <span class="text-muted-foreground font-medium">${escapeHtml(String(movie.rating))}</span>
                 </div>
-                <h3 class="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">${escapeHtml(movie.title)}</h3>
-                ${titleEn}
-                <p class="text-sm text-muted-foreground mb-2 font-medium">${escapeHtml(movie.director)}</p>
-                <p class="text-sm text-muted-foreground mb-3 line-clamp-2">${escapeHtml(movie.description)}</p>
-                <div class="flex items-center justify-between text-xs text-muted-foreground">
-                    <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        ${escapeHtml(String(movie.year))}
-                    </span>
-                    <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z"></path>
-                        </svg>
-                        ${escapeHtml(String(movie.duration))}
-                    </span>
-                </div>
+                <p class="text-sm text-muted-foreground font-medium">${escapeHtml(movie.director)}</p>
             </div>
         </div>
     `;
