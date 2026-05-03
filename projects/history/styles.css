@@ -39,6 +39,9 @@
 
     --transition-colors: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
     --transition-all: all 0.25s ease;
+
+    /* Пустые боковые колонки на десктопе (визуально отступ от края экрана) */
+    --page-side-gutter: clamp(50px, 7vw, 100px);
 }
 
 * {
@@ -57,6 +60,14 @@ body {
     color: var(--foreground);
     background-color: var(--fox-bg);
     -webkit-font-smoothing: antialiased;
+}
+
+/* На широких экранах — боковые «поля» 50–100px (фон страницы виден по краям) */
+@media (min-width: 1024px) {
+    body {
+        padding-left: var(--page-side-gutter);
+        padding-right: var(--page-side-gutter);
+    }
 }
 
 /* Контейнер на всю ширину окна (без max-width) */
