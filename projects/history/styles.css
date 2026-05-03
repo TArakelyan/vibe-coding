@@ -2288,11 +2288,51 @@ body {
 }
 
 .today-events-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
     margin-top: 1.75rem;
     padding-top: 0.35rem;
+}
+
+.today-events-list .today-event-card {
+    min-width: 0;
+}
+
+@media (min-width: 1024px) {
+    #today-events-list.today-events-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 2.25rem;
+    }
+
+    #today-events-list .today-events-empty {
+        grid-column: 1 / -1;
+    }
+
+    /* В три колонки — вертикальная карточка (как на узком экране), чтобы не сжимать горизонтальный ряд */
+    #today-events-list .today-event-shell {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    #today-events-list .today-event-thumb-col {
+        width: 100%;
+        max-width: none;
+        min-height: 11rem;
+        border-radius: 10px 10px 0 0;
+    }
+
+    #today-events-list .today-event-img {
+        position: absolute;
+        inset: 0;
+        min-height: 100%;
+        max-height: none;
+    }
+
+    #today-events-list .today-event-body-col {
+        border-radius: 0 0 10px 10px;
+        flex: 1 1 auto;
+    }
 }
 
 .today-events-empty {

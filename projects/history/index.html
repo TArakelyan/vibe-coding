@@ -196,27 +196,55 @@
                     </div>
                 </div>
 
-                <!-- Фильтры + «Другие» -->
+                <!-- Фильтры -->
                 <div class="mb-8">
                     <div class="filter-row flex flex-wrap gap-3 items-start">
                         <div class="filter-pills flex gap-3 flex-wrap">
-                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все статьи</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Олимпиада</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Легенды</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Спорт</button>
+                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Чемпионы</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Финансы</button>
                         </div>
-                        <div class="filter-dropdown" id="dropdown-wikipedia-others" data-section-context="wikipedia">
-                            <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-wikipedia-others" id="trigger-wikipedia-others">
-                                Другие
-                                <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-                            </button>
-                            <div class="filter-dropdown-panel" id="panel-wikipedia-others" role="menu" hidden></div>
+                        <div class="filter-dropdown-toolbar">
+                            <div class="filter-dropdown" id="dropdown-wiki-sports">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-wiki-sports" id="trigger-wiki-sports">
+                                    Виды спорта
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-wiki-sports" role="menu" hidden>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="sport" data-filter-value="">Все виды</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="sport" data-filter-value="Футбол">Футбол</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="sport" data-filter-value="Баскетбол">Баскетбол</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="sport" data-filter-value="Хоккей">Хоккей</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="sport" data-filter-value="ММА">ММА</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="sport" data-filter-value="Другие">Другие</button>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown" id="dropdown-wiki-taxonomy">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-wiki-taxonomy" id="trigger-wiki-taxonomy">
+                                    По категориям
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-wiki-taxonomy" role="menu" hidden>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="taxonomy" data-filter-value="">Все категории</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="taxonomy" data-filter-value="Правила">Правила</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="taxonomy" data-filter-value="Амплуа">Амплуа</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="taxonomy" data-filter-value="Атрибуты">Атрибуты</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="wikipedia" data-filter-field="taxonomy" data-filter-value="Термины и прочее">Термины и прочее</button>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown" id="dropdown-wikipedia-others" data-section-context="wikipedia">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-wikipedia-others" id="trigger-wikipedia-others">
+                                    Другое
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-wikipedia-others" role="menu" hidden></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Articles Grid -->
-                <div id="wikipedia-articles-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div id="wikipedia-articles-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Articles will be dynamically loaded here -->
                 </div>
             </div>
@@ -232,28 +260,46 @@
                     </div>
                 </div>
 
-                <!-- Фильтры + «Другие» -->
+                <!-- Фильтры -->
                 <div class="mb-8">
                     <div class="filter-row flex flex-wrap gap-3 items-start">
                         <div class="filter-pills flex gap-3 flex-wrap">
-                            <button type="button" class="btn btn-primary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Все книги')">Все книги</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Автобиография')">Автобиография</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Биография')">Биография</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('История')">История</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Учебник')">Учебник</button>
+                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Автобиографии</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Биографии</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Учебники</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">История</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Спортсмены</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Тренеры</button>
                         </div>
-                        <div class="filter-dropdown" id="dropdown-library-others" data-section-context="library">
-                            <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-library-others" id="trigger-library-others">
-                                Другие
-                                <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-                            </button>
-                            <div class="filter-dropdown-panel" id="panel-library-others" role="menu" hidden></div>
+                        <div class="filter-dropdown-toolbar">
+                            <div class="filter-dropdown" id="dropdown-library-sports">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-library-sports">
+                                    Виды спорта
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-library-sports" role="menu" hidden>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="library" data-filter-field="sport" data-filter-value="">Все виды</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="library" data-filter-field="sport" data-filter-value="Футбол">Футбол</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="library" data-filter-field="sport" data-filter-value="Баскетбол">Баскетбол</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="library" data-filter-field="sport" data-filter-value="Хоккей">Хоккей</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="library" data-filter-field="sport" data-filter-value="ММА">ММА</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="library" data-filter-field="sport" data-filter-value="Другие">Другие</button>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown" id="dropdown-library-others" data-section-context="library">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-library-others" id="trigger-library-others">
+                                    Другое
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-library-others" role="menu" hidden></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Books Grid -->
-                <div id="library-books-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div id="library-books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Books will be dynamically loaded here -->
                 </div>
             </div>
@@ -269,21 +315,39 @@
                     </div>
                 </div>
 
-                <!-- Фильтры + «Другие» -->
+                <!-- Фильтры -->
                 <div class="mb-8">
                     <div class="filter-row flex flex-wrap gap-3 items-start">
                         <div class="filter-pills flex gap-3 flex-wrap">
-                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все фильмы</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Документальные</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Драмы</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Биографии</button>
+                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Фильмы</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Сериалы</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Документальное</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">О тренерах</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">О спортсменах</button>
                         </div>
-                        <div class="filter-dropdown" id="dropdown-cinema-others" data-section-context="cinema">
-                            <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-cinema-others" id="trigger-cinema-others">
-                                Другие
-                                <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-                            </button>
-                            <div class="filter-dropdown-panel" id="panel-cinema-others" role="menu" hidden></div>
+                        <div class="filter-dropdown-toolbar">
+                            <div class="filter-dropdown" id="dropdown-cinema-sports">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-cinema-sports">
+                                    Виды спорта
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-cinema-sports" role="menu" hidden>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="cinema" data-filter-field="sport" data-filter-value="">Все виды</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="cinema" data-filter-field="sport" data-filter-value="Футбол">Футбол</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="cinema" data-filter-field="sport" data-filter-value="Баскетбол">Баскетбол</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="cinema" data-filter-field="sport" data-filter-value="Хоккей">Хоккей</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="cinema" data-filter-field="sport" data-filter-value="ММА">ММА</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="cinema" data-filter-field="sport" data-filter-value="Другие">Другие</button>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown" id="dropdown-cinema-others" data-section-context="cinema">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-cinema-others" id="trigger-cinema-others">
+                                    Другое
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-cinema-others" role="menu" hidden></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -308,16 +372,36 @@
                 <div class="mb-8">
                     <div class="filter-row flex flex-wrap gap-3 items-start">
                         <div class="filter-pills flex gap-3 flex-wrap">
-                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все события</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">NBA</button>
-                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Скачки</button>
+                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Матчи</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Явления</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Даты</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Трагедии</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Правила</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Награды</button>
                         </div>
-                        <div class="filter-dropdown" id="dropdown-today-others" data-section-context="today">
-                            <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-today-others" id="trigger-today-others">
-                                Другие
-                                <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-                            </button>
-                            <div class="filter-dropdown-panel" id="panel-today-others" role="menu" hidden></div>
+                        <div class="filter-dropdown-toolbar">
+                            <div class="filter-dropdown" id="dropdown-today-sports">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-today-sports">
+                                    Виды спорта
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-today-sports" role="menu" hidden>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="today" data-filter-field="sport" data-filter-value="">Все виды</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="today" data-filter-field="sport" data-filter-value="Футбол">Футбол</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="today" data-filter-field="sport" data-filter-value="Баскетбол">Баскетбол</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="today" data-filter-field="sport" data-filter-value="Хоккей">Хоккей</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="today" data-filter-field="sport" data-filter-value="ММА">ММА</button>
+                                    <button type="button" class="filter-dropdown-option" data-filter-target="today" data-filter-field="sport" data-filter-value="Другие">Другие</button>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown" id="dropdown-today-others" data-section-context="today">
+                                <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-today-others" id="trigger-today-others">
+                                    Другое
+                                    <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-dropdown-panel" id="panel-today-others" role="menu" hidden></div>
+                            </div>
                         </div>
                     </div>
                 </div>
