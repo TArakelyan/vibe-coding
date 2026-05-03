@@ -110,20 +110,20 @@ body {
     }
 }
 
-/* Поиск в шапке — справа после меню, узкое поле + иконка лупы */
+/* Поиск в шапке — справа после меню, узкое поле + иконка лупы (~половина прежней ширины) */
 .fox-header-search {
     flex: 0 0 auto;
-    width: 9.5rem;
-    min-width: 6.5rem;
-    max-width: 11rem;
+    width: 4.75rem;
+    min-width: 3.25rem;
+    max-width: 5.5rem;
     position: relative;
 }
 
 @media (max-width: 899px) {
     .fox-header-search {
-        width: 8.5rem;
-        min-width: 6rem;
-        max-width: 10rem;
+        width: 4.25rem;
+        min-width: 3rem;
+        max-width: 5rem;
         margin-top: 0;
     }
 }
