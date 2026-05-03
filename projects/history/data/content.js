@@ -1,4 +1,4 @@
-// Данные для проекта Epoch Chronicles Hub
+// Данные проекта «Спортс»
 
 const featuredContent = [
     {

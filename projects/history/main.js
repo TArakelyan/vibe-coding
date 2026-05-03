@@ -1,4 +1,4 @@
-// Epoch Chronicles Hub - Main JavaScript with Tab Navigation
+// Спортс — навигация по разделам
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the application
@@ -21,41 +21,18 @@ function initializeApp() {
 
 // Section navigation functionality - make it global
 window.showSection = function(sectionName) {
-    console.log('showSection called with:', sectionName);
-    
-    // Hide all sections
     const sections = document.querySelectorAll('.section');
-    console.log('Found sections:', sections.length);
     sections.forEach(section => {
         section.classList.remove('active');
     });
-    
-    // Show the selected section
+
     const targetSection = document.getElementById(`section-${sectionName}`);
-    console.log('Target section:', targetSection);
     if (targetSection) {
         targetSection.classList.add('active');
-        console.log('Section activated:', sectionName);
-    } else {
-        console.error('Section not found:', sectionName);
     }
     
     // Update navigation buttons
     updateNavigation(sectionName);
-}
-
-function updateNavigation(activeSection) {
-    // Reset all navigation buttons
-    const navButtons = document.querySelectorAll('nav button');
-    navButtons.forEach(btn => {
-        btn.className = btn.className.replace('btn-primary', 'btn-ghost');
-    });
-    
-    // Activate the current section button
-    const activeButton = document.getElementById(`nav-${activeSection}`);
-    if (activeButton) {
-        activeButton.className = activeButton.className.replace('btn-ghost', 'btn-primary');
-    }
 }
 
 // Article detail functionality
@@ -228,7 +205,7 @@ function showNotification(message, type = 'info') {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: var(--sports-primary-color, #00c78b);
+        background: #005eb8;
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 8px;
@@ -504,57 +481,15 @@ function createMovieCard(movie) {
     return card;
 }
 
-// Mobile menu functionality
-function toggleMobileMenu() {
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    
-    if (mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.remove('hidden');
-        // Change hamburger to X
-        menuBtn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-        `;
-    } else {
-        mobileMenu.classList.add('hidden');
-        // Change X back to hamburger
-        menuBtn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-        `;
-    }
-}
-
-// Enhanced navigation update for both desktop and mobile
 function updateNavigation(activeSection) {
-    // Reset all desktop navigation buttons
-    const navButtons = document.querySelectorAll('nav button[id^="nav-"]');
+    const navButtons = document.querySelectorAll('.fox-primary-nav button[id^="nav-"]');
     navButtons.forEach(btn => {
         btn.className = btn.className.replace('btn-primary', 'btn-ghost');
     });
-    
-    // Reset all mobile navigation buttons
-    const mobileNavButtons = document.querySelectorAll('nav button[id^="mobile-nav-"]');
-    mobileNavButtons.forEach(btn => {
-        btn.className = btn.className.replace('btn-primary', 'btn-ghost justify-start gap-2');
-    });
-    
-    // Activate the current section button (desktop)
+
     const activeButton = document.getElementById(`nav-${activeSection}`);
     if (activeButton) {
         activeButton.className = activeButton.className.replace('btn-ghost', 'btn-primary');
-    }
-    
-    // Activate the current section button (mobile)
-    const activeMobileButton = document.getElementById(`mobile-nav-${activeSection}`);
-    if (activeMobileButton) {
-        activeMobileButton.className = activeMobileButton.className.replace('btn-ghost justify-start gap-2', 'btn-primary justify-start gap-2');
     }
 }
 
@@ -602,5 +537,4 @@ window.showMovie = showMovie;
 window.navigateToSection = navigateToSection;
 window.showNotification = showNotification;
 window.loadDynamicContent = loadDynamicContent;
-window.toggleMobileMenu = toggleMobileMenu;
 window.filterLibraryByCategory = filterLibraryByCategory;
