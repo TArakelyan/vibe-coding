@@ -1024,17 +1024,17 @@ function createArticleCard(article) {
     card.onclick = () => showArticle(article.id);
     
     card.innerHTML = `
-        <div class="card h-full transition-all duration-300 hover:shadow-hover border border-border">
-            <div class="aspect-video overflow-hidden bg-muted">
+        <div class="card wiki-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
+            <div class="aspect-video overflow-hidden bg-muted shrink-0">
                 <img src="${escapeHtml(article.image)}" alt="${escapeHtml(article.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
-            <div class="p-4">
-                <h3 class="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(article.title)}</h3>
-                <div class="wiki-card-likes flex items-center gap-1 text-sm text-muted-foreground">
-                    <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div class="wiki-card-body">
+                <h3 class="wiki-card-title group-hover:text-primary transition-colors line-clamp-4">${escapeHtml(article.title)}</h3>
+                <div class="wiki-card-likes-row">
+                    <svg class="wiki-card-heart" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                     </svg>
-                    <span>${escapeHtml(article.likes)}</span>
+                    <span class="wiki-card-likes-num">${escapeHtml(article.likes)}</span>
                 </div>
             </div>
         </div>

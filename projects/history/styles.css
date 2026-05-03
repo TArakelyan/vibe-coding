@@ -1078,12 +1078,88 @@ body {
     overflow: hidden;
 }
 
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.shrink-0 {
+    flex-shrink: 0;
+}
+
 .inline-block {
     display: inline-block;
 }
 
 .bg-primary\/10 {
     background-color: rgb(21 122 82 / 0.12);
+}
+
+/* Карточки «Википедия»: текстовый блок по центру, равномерные поля */
+.wiki-grid-card {
+    height: 100%;
+}
+
+.wiki-grid-card .wiki-card-inner {
+    min-height: 100%;
+}
+
+.wiki-grid-card .wiki-card-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.15rem 1.15rem 1.25rem;
+    text-align: center;
+}
+
+.wiki-grid-card .wiki-card-title {
+    margin: 0;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-family-heading);
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    color: var(--foreground);
+    text-align: center;
+    text-wrap: balance;
+}
+
+.wiki-grid-card .wiki-card-likes-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0.35rem 0.65rem;
+    border-radius: 999px;
+    background: rgb(21 122 82 / 0.08);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+}
+
+.wiki-grid-card .wiki-card-heart {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: var(--fox-orange);
+}
+
+.wiki-grid-card .wiki-card-likes-num {
+    line-height: 1;
 }
 
 .book-cover-wrapper {
