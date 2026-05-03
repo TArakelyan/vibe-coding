@@ -25,6 +25,9 @@ const wikipediaArticles = [
     {
         id: "miracle-on-ice",
         title: "Чудо на льду: Зимние Олимпийские игры 1980",
+        wikiPillar: "Чемпионы",
+        wikiSport: "Хоккей",
+        wikiTaxonomy: "Термины и прочее",
         category: "Олимпиада",
         image: "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&auto=format&fit=crop",
         description: "Величайшая сенсация в истории спорта - победа сборной США по хоккею над СССР на Олимпиаде в Лейк-Плэсиде.",
@@ -36,6 +39,9 @@ const wikipediaArticles = [
     {
         id: "pele-career",
         title: "Пеле: Король футбола",
+        wikiPillar: "Чемпионы",
+        wikiSport: "Футбол",
+        wikiTaxonomy: "Термины и прочее",
         category: "Легенды",
         image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop",
         description: "Биография величайшего футболиста всех времен и его влияние на мировой спорт.",
@@ -47,6 +53,9 @@ const wikipediaArticles = [
     {
         id: "muhammad-ali",
         title: "Мухаммед Али: Величайший",
+        wikiPillar: "Чемпионы",
+        wikiSport: "ММА",
+        wikiTaxonomy: "Термины и прочее",
         category: "Легенды",
         image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&auto=format&fit=crop",
         description: "История легендарного боксера, который стал символом борьбы за права человека.",
@@ -58,6 +67,9 @@ const wikipediaArticles = [
     {
         id: "dream-team-1992",
         title: "Команда мечты: Олимпиада 1992",
+        wikiPillar: "Чемпионы",
+        wikiSport: "Баскетбол",
+        wikiTaxonomy: "Термины и прочее",
         category: "Олимпиада",
         image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop",
         description: "Легендарная сборная США по баскетболу, которая изменила олимпийский спорт навсегда.",
@@ -774,6 +786,8 @@ const cinemaMovies = [
         title: "Последний танец",
         originalTitle: "The Last Dance",
         director: "Джейсон Хехир",
+        cinemaAbout: "спортсмены",
+        cinemaSport: "Баскетбол",
         category: "Документальный",
         image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&auto=format&fit=crop",
         description: "10-серийный документальный сериал ESPN о Майкле Джордане и династии «Чикаго Буллз» в 1990-х годах.",
@@ -808,6 +822,8 @@ const cinemaMovies = [
         title: "Рокки",
         originalTitle: "Rocky",
         director: "Джон Эвилдсен",
+        cinemaAbout: "спортсмены",
+        cinemaSport: "ММА",
         category: "Драма",
         image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&auto=format&fit=crop",
         description: "Классическая история о боксере-неудачнике, получившем шанс на бой с чемпионом мира.",
@@ -842,6 +858,8 @@ const cinemaMovies = [
         title: "Человек, который изменил все",
         originalTitle: "Moneyball",
         director: "Беннетт Миллер",
+        cinemaAbout: "тренеры",
+        cinemaSport: "Другие",
         category: "Биография",
         image: "https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4?w=800&auto=format&fit=crop",
         description: "Брэд Питт в роли Билли Бина в экранизации книги Майкла Льюиса о бейсбольной аналитике.",
@@ -880,27 +898,27 @@ const othersDropdownLandings = {
             title: 'Олимпийское движение',
             paragraphs: [
                 'Подборка материалов об Играх, символике олимпийского движения и знаковых турнирах — удобная точка входа, если вы начинаете с олимпийской темы.',
-                'После перехода к материалам применится фильтр «Олимпиада» в ленте статей раздела.'
+                'После перехода к материалам включится фильтр «Чемпионы».'
             ],
-            filterCategory: 'Олимпиада'
+            filterPillar: 'Чемпионы'
         },
         {
             slug: 'wiki-legends-hub',
             title: 'Зал легенд',
             paragraphs: [
                 'Персоны и эпохи, которые задали образ большого спорта в массовой культуре и на поле.',
-                'Откройте ленту с фильтром «Легенды», чтобы сузить выдачу до биографических и мифологических сюжетов.'
+                'Откройте ленту с фильтром «Чемпионы», чтобы сузить выдачу до турнирных и персональных сюжетов.'
             ],
-            filterCategory: 'Легенды'
+            filterPillar: 'Чемпионы'
         },
         {
             slug: 'wiki-sport-wide-hub',
             title: 'Широкий контекст спорта',
             paragraphs: [
                 'Разводящая страница для читателя, который хочет пройтись по разным типам статей без узкой категории.',
-                'Дальше показываются все статьи раздела «Википедия» без фильтра по рубрике.'
+                'Дальше показываются все статьи раздела «Википедия» без фильтра по столпам.'
             ],
-            filterCategory: null
+            filterPillar: null
         }
     ],
     library: [
@@ -967,18 +985,20 @@ const othersDropdownLandings = {
             title: 'Дайджест NBA в этот день',
             paragraphs: [
                 'Сюжеты плей-офф, форы и сенсации серий — в одном разделе.',
-                'После перехода фильтр переключится на события NBA.'
+                'После перехода включатся фильтры «Матчи» и вид спорта «Баскетбол».'
             ],
-            todayCategory: 'nba'
+            todayKind: 'Матчи',
+            todaySport: 'Баскетбол'
         },
         {
             slug: 'today-racing-notes',
             title: 'Большие старты и котировки',
             paragraphs: [
                 'Derby, классические дистанции и значимые победы в календаре.',
-                'Откроется фильтр по скачкам.'
+                'Откроется фильтр «Матчи» и вид спорта «Другие».'
             ],
-            todayCategory: 'racing'
+            todayKind: 'Матчи',
+            todaySport: 'Другие'
         }
     ]
 };

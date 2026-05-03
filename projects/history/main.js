@@ -3,9 +3,150 @@
 /** При показе #section-landing подсвечиваем пункт меню родительского раздела */
 let landingNavParentSection = null;
 
-/** Раздел «Сегодня»: выбранный календарный день и фильтр категории */
+/** Раздел «Сегодня»: выбранный календарный день и фильтры */
 let todaySelectedDate = new Date();
-let todayCategoryFilter = null;
+/** @type {{ kind: string, sport: string | null }} */
+let todayFilterState = { kind: 'Все', sport: null };
+
+/** Состояние фильтров разделов */
+let wikiFilterState = { pillar: null, sport: null, taxonomy: null };
+let libraryFilterState = { shelf: 'Все', sport: null };
+let cinemaFilterState = { row: 'Все', sport: null };
+
+const FILTER_MAIN_SPORTS = ['Футбол', 'Баскетбол', 'Хоккей', 'ММА'];
+
+function sportMatchesFilter(articleSport, filterSport) {
+    const s = articleSport || 'Другие';
+    if (!filterSport) return true;
+    if (filterSport === 'Другие') return !FILTER_MAIN_SPORTS.includes(s);
+    return s === filterSport;
+}
+
+function deriveLibrarySport(book) {
+    if (book.librarySport) return book.librarySport;
+    const tags = (book.tags || []).map(t => String(t).toLowerCase());
+    if (tags.some(t => t.includes('футбол'))) return 'Футбол';
+    if (tags.some(t => t.includes('баскетбол') || t.includes('нба'))) return 'Баскетбол';
+    if (tags.some(t => t.includes('хоккей'))) return 'Хоккей';
+    if (tags.some(t => t.includes('бокс') || t.includes('mma') || t.includes('ufc'))) return 'ММА';
+    return 'Другие';
+}
+
+function deriveCinemaSport(movie) {
+    if (movie.cinemaSport) return movie.cinemaSport;
+    const tags = (movie.tags || []).map(t => String(t).toLowerCase());
+    if (tags.some(t => t.includes('баскетбол') || t.includes('нба'))) return 'Баскетбол';
+    if (tags.some(t => t.includes('футбол'))) return 'Футбол';
+    if (tags.some(t => t.includes('хоккей'))) return 'Хоккей';
+    if (tags.some(t => t.includes('бокс') || t.includes('mma'))) return 'ММА';
+    return 'Другие';
+}
+
+function bookMatchesLibraryShelf(book, shelf) {
+    if (shelf === 'Все') return true;
+    const tags = (book.tags || []).map(t => String(t).toLowerCase());
+    const hasAthlete = tags.includes('спортсмен');
+    const hasCoach = tags.includes('тренер');
+    if (shelf === 'Спортсмены') return hasAthlete;
+    if (shelf === 'Тренеры') return hasCoach;
+    const mapSingular = {
+        Автобиографии: 'Автобиография',
+        Биографии: 'Биография',
+        Учебники: 'Учебник',
+        История: 'История'
+    };
+    const cat = mapSingular[shelf];
+    return cat && book.category === cat;
+}
+
+function movieMatchesCinemaRow(movie, row) {
+    if (!row || row === 'Все') return true;
+    if (row === 'Фильмы') return movie.formatLabel === 'Фильм';
+    if (row === 'Сериалы') return movie.formatLabel === 'Сериал';
+    if (row === 'Документальное') return movie.category === 'Документальный';
+    if (row === 'О тренерах') return movie.cinemaAbout === 'тренеры';
+    if (row === 'О спортсменах') return movie.cinemaAbout === 'спортсмены';
+    return true;
+}
+
+function applyWikipediaFilters() {
+    const grid = document.getElementById('wikipedia-articles-grid');
+    if (!grid || !window.wikipediaArticles) return;
+
+    const filtered = window.wikipediaArticles.filter(a => {
+        if (wikiFilterState.pillar && (a.wikiPillar || '') !== wikiFilterState.pillar) return false;
+        if (!sportMatchesFilter(a.wikiSport || 'Другие', wikiFilterState.sport)) return false;
+        if (wikiFilterState.taxonomy && (a.wikiTaxonomy || '') !== wikiFilterState.taxonomy) return false;
+        return true;
+    });
+
+    grid.innerHTML = '';
+    filtered.forEach(article => grid.appendChild(createArticleCard(article)));
+    if (!filtered.length) {
+        grid.innerHTML = '<div class="col-span-full text-center text-muted-foreground py-12">Статей по выбранным фильтрам не найдено</div>';
+    }
+
+    const wikiSection = document.getElementById('section-wikipedia');
+    if (wikiSection) {
+        const pillarLabel = wikiFilterState.pillar == null ? 'Все' : wikiFilterState.pillar;
+        wikiSection.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
+            const active = btn.textContent.trim() === pillarLabel;
+            btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
+        });
+    }
+}
+
+function applyLibraryFilters() {
+    const grid = document.getElementById('library-books-grid');
+    if (!grid || !window.libraryBooks) return;
+
+    const shelf = libraryFilterState.shelf || 'Все';
+    const filtered = window.libraryBooks.filter(book => {
+        if (!bookMatchesLibraryShelf(book, shelf)) return false;
+        if (!sportMatchesFilter(deriveLibrarySport(book), libraryFilterState.sport)) return false;
+        return true;
+    });
+
+    grid.innerHTML = '';
+    filtered.forEach(book => grid.appendChild(createBookCard(book)));
+    if (!filtered.length) {
+        grid.innerHTML = '<div class="col-span-full text-center text-muted-foreground py-12">Книг по выбранным фильтрам не найдено</div>';
+    }
+
+    const librarySection = document.getElementById('section-library');
+    if (librarySection) {
+        librarySection.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
+            const active = btn.textContent.trim() === shelf;
+            btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
+        });
+    }
+}
+
+function applyCinemaFilters() {
+    const grid = document.getElementById('cinema-movies-grid');
+    if (!grid || !window.cinemaMovies) return;
+
+    const row = cinemaFilterState.row || 'Все';
+    const filtered = window.cinemaMovies.filter(m => {
+        if (!movieMatchesCinemaRow(m, row)) return false;
+        if (!sportMatchesFilter(deriveCinemaSport(m), cinemaFilterState.sport)) return false;
+        return true;
+    });
+
+    grid.innerHTML = '';
+    filtered.forEach(movie => grid.appendChild(createMovieCard(movie)));
+    if (!filtered.length) {
+        grid.innerHTML = '<div class="col-span-full text-center text-muted-foreground py-12">В этой подборке пока нет карточек</div>';
+    }
+
+    const cinemaSection = document.getElementById('section-cinema');
+    if (cinemaSection) {
+        cinemaSection.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
+            const active = btn.textContent.trim() === row;
+            btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
+        });
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the application
@@ -193,6 +334,32 @@ function initFilterDropdowns() {
     });
 
     document.addEventListener('click', e => {
+        const opt = e.target.closest('.filter-dropdown-option');
+        if (opt) {
+            e.preventDefault();
+            const target = opt.dataset.filterTarget;
+            const field = opt.dataset.filterField;
+            let val = opt.dataset.filterValue;
+            val = val === '' ? null : (val || null);
+
+            if (target === 'wikipedia') {
+                if (field === 'sport') wikiFilterState.sport = val;
+                if (field === 'taxonomy') wikiFilterState.taxonomy = val;
+                applyWikipediaFilters();
+            } else if (target === 'library') {
+                if (field === 'sport') libraryFilterState.sport = val;
+                applyLibraryFilters();
+            } else if (target === 'cinema') {
+                if (field === 'sport') cinemaFilterState.sport = val;
+                applyCinemaFilters();
+            } else if (target === 'today') {
+                if (field === 'sport') todayFilterState.sport = val;
+                renderTodaySection();
+            }
+            closeAllFilterDropdowns();
+            return;
+        }
+
         const link = e.target.closest('.filter-dropdown-link');
         if (link) {
             e.preventDefault();
@@ -262,30 +429,41 @@ window.applyLandingFilterAndGo = function(sectionKey, slug) {
     showSection(sectionKey);
 
     if (sectionKey === 'library') {
-        filterLibraryByCategory(entry.libraryCategory || 'Все книги');
+        const shelfByCat = {
+            Автобиография: 'Автобиографии',
+            Биография: 'Биографии',
+            Учебник: 'Учебники',
+            История: 'История'
+        };
+        const shelf = entry.libraryCategory == null ? 'Все' : (shelfByCat[entry.libraryCategory] || 'Все');
+        libraryFilterState = { shelf, sport: null };
+        setActiveFilterPill('library', shelf);
+        applyLibraryFilters();
     } else if (sectionKey === 'wikipedia') {
-        if (entry.filterCategory == null) {
-            setActiveFilterPill('wikipedia', 'Все статьи');
-            filterByCategory('Все статьи');
+        if (entry.filterPillar == null) {
+            wikiFilterState = { pillar: null, sport: null, taxonomy: null };
+            setActiveFilterPill('wikipedia', 'Все');
         } else {
-            setActiveFilterPill('wikipedia', entry.filterCategory);
-            filterByCategory(entry.filterCategory);
+            wikiFilterState = { pillar: entry.filterPillar, sport: null, taxonomy: null };
+            setActiveFilterPill('wikipedia', entry.filterPillar);
         }
+        applyWikipediaFilters();
     } else if (sectionKey === 'cinema') {
-        const labelByCat = {
-            Документальный: 'Документальные',
-            Драма: 'Драмы',
-            Биография: 'Биографии'
+        const rowByCat = {
+            Документальный: 'Документальное',
+            Драма: 'Фильмы',
+            Биография: 'Фильмы'
         };
-        const label = entry.cinemaCategory == null ? 'Все фильмы' : (labelByCat[entry.cinemaCategory] || 'Все фильмы');
-        filterCinemaByCategory(label);
+        const row = entry.cinemaCategory == null ? 'Все' : (rowByCat[entry.cinemaCategory] || 'Все');
+        cinemaFilterState = { row, sport: null };
+        setActiveFilterPill('cinema', row);
+        applyCinemaFilters();
     } else if (sectionKey === 'today') {
-        const labelByCat = {
-            nba: 'NBA',
-            racing: 'Скачки'
-        };
-        const label = entry.todayCategory == null ? 'Все события' : (labelByCat[entry.todayCategory] || 'Все события');
-        filterTodayEvents(label);
+        const kind = entry.todayKind == null ? 'Все' : entry.todayKind;
+        const sport = entry.todaySport != null ? entry.todaySport : null;
+        todayFilterState = { kind, sport };
+        setActiveFilterPill('today', kind);
+        renderTodaySection();
     }
 };
 
@@ -873,43 +1051,35 @@ function navigateToSection(section) {
     showSection(section);
 }
 
-// Фильтры: википедия — только кнопки в .filter-pills; кинотеатр — filterCinemaByCategory
+// Фильтры: чипы разделов + выпадающие списки (опции — см. initFilterDropdowns)
 document.addEventListener('click', function(e) {
     const wikiPill = e.target.closest('#section-wikipedia .filter-pills .btn.rounded-full');
     if (wikiPill) {
-        const row = wikiPill.closest('.filter-pills');
-        row.querySelectorAll('.btn.rounded-full').forEach(btn => {
-            btn.className = 'btn btn-secondary rounded-full px-4 py-2';
-        });
-        wikiPill.className = 'btn btn-primary rounded-full px-4 py-2';
-        filterByCategory(wikiPill.textContent.trim());
+        const label = wikiPill.textContent.trim();
+        wikiFilterState.pillar = label === 'Все' ? null : label;
+        applyWikipediaFilters();
+        return;
+    }
+    const libraryPill = e.target.closest('#section-library .filter-pills .btn.rounded-full');
+    if (libraryPill) {
+        libraryFilterState.shelf = libraryPill.textContent.trim();
+        applyLibraryFilters();
         return;
     }
     const cinemaPill = e.target.closest('#section-cinema .filter-pills .btn.rounded-full');
     if (cinemaPill) {
-        filterCinemaByCategory(cinemaPill.textContent.trim());
+        const label = cinemaPill.textContent.trim();
+        cinemaFilterState.row = label === 'Все' ? 'Все' : label;
+        applyCinemaFilters();
+        return;
     }
     const todayPill = e.target.closest('#section-today .filter-pills .btn.rounded-full');
     if (todayPill) {
-        filterTodayEvents(todayPill.textContent.trim());
+        todayFilterState.kind = todayPill.textContent.trim();
+        todayFilterState.sport = null;
+        renderTodaySection();
     }
 });
-
-function filterByCategory(category) {
-    const showAllLabels = ['Все статьи', 'Все фильмы', 'Все', 'Все книги'];
-    const activeSection = document.querySelector('.section.active');
-    if (!activeSection || activeSection.id !== 'section-wikipedia') return;
-
-    const rows = activeSection.querySelectorAll('#wikipedia-articles-grid > .group');
-    rows.forEach(row => {
-        if (showAllLabels.includes(category)) {
-            row.style.display = '';
-            return;
-        }
-        const cat = row.getAttribute('data-wiki-category') || '';
-        row.style.display = cat === category ? '' : 'none';
-    });
-}
 
 // Animation initialization
 function initializeAnimations() {
@@ -997,14 +1167,19 @@ document.addEventListener('keydown', function(e) {
                 categoryButtons.forEach((btn, i) => {
                     btn.className = i === 0 ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
                 });
+                wikiFilterState = { pillar: null, sport: null, taxonomy: null };
+                libraryFilterState = { shelf: 'Все', sport: null };
+                cinemaFilterState = { row: 'Все', sport: null };
+                todayFilterState = { kind: 'Все', sport: null };
+
                 if (activeSection.id === 'section-library') {
-                    filterLibraryByCategory('Все книги');
+                    applyLibraryFilters();
                 } else if (activeSection.id === 'section-wikipedia') {
-                    filterByCategory('Все статьи');
+                    applyWikipediaFilters();
                 } else if (activeSection.id === 'section-cinema') {
-                    filterCinemaByCategory('Все фильмы');
+                    applyCinemaFilters();
                 } else if (activeSection.id === 'section-today') {
-                    filterTodayEvents('Все события');
+                    renderTodaySection();
                 }
             }
         }
@@ -1033,45 +1208,24 @@ function loadDynamicContent() {
 }
 
 function loadWikipediaArticles() {
-    const grid = document.getElementById('wikipedia-articles-grid');
-    if (!grid || !window.wikipediaArticles) return;
-    
-    grid.innerHTML = '';
-    
-    window.wikipediaArticles.forEach(article => {
-        const articleCard = createArticleCard(article);
-        grid.appendChild(articleCard);
-    });
+    applyWikipediaFilters();
 }
 
 function loadLibraryBooks() {
-    const grid = document.getElementById('library-books-grid');
-    if (!grid || !window.libraryBooks) return;
-    
-    grid.innerHTML = '';
-    
-    window.libraryBooks.forEach(book => {
-        const bookCard = createBookCard(book);
-        grid.appendChild(bookCard);
-    });
+    applyLibraryFilters();
 }
 
 function loadCinemaMovies() {
-    const grid = document.getElementById('cinema-movies-grid');
-    if (!grid || !window.cinemaMovies) return;
-    
-    grid.innerHTML = '';
-    
-    window.cinemaMovies.forEach(movie => {
-        const movieCard = createMovieCard(movie);
-        grid.appendChild(movieCard);
-    });
+    applyCinemaFilters();
 }
 
 function createArticleCard(article) {
     const card = document.createElement('div');
     card.className = 'group cursor-pointer wiki-grid-card';
     card.dataset.wikiCategory = article.category || '';
+    card.dataset.wikiPillar = article.wikiPillar || '';
+    card.dataset.wikiSport = article.wikiSport || '';
+    card.dataset.wikiTaxonomy = article.wikiTaxonomy || '';
     card.onclick = () => showArticle(article.id);
     
     card.innerHTML = `
@@ -1185,73 +1339,30 @@ function updateNavigation(activeSection) {
 }
 
 function filterCinemaByCategory(label) {
-    const grid = document.getElementById('cinema-movies-grid');
-    if (!grid || !window.cinemaMovies) return;
-
-    const map = {
-        'Все фильмы': null,
-        Документальные: 'Документальный',
-        Драмы: 'Драма',
-        Биографии: 'Биография'
+    const legacyToRow = {
+        'Все фильмы': 'Все',
+        'Все': 'Все',
+        Документальные: 'Документальное',
+        Драмы: 'Фильмы',
+        Биографии: 'Фильмы'
     };
-    const cat = Object.prototype.hasOwnProperty.call(map, label) ? map[label] : null;
-
-    const cinemaSection = document.getElementById('section-cinema');
-    if (cinemaSection) {
-        cinemaSection.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
-            const active = btn.textContent.trim() === label;
-            btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
-        });
-    }
-
-    grid.innerHTML = '';
-    const movies = cat == null
-        ? window.cinemaMovies
-        : window.cinemaMovies.filter(m => m.category === cat);
-
-    movies.forEach(movie => {
-        grid.appendChild(createMovieCard(movie));
-    });
-
-    if (movies.length === 0) {
-        grid.innerHTML = '<div class="col-span-full text-center text-muted-foreground py-12">В этой категории пока нет карточек</div>';
-    }
+    cinemaFilterState.row = legacyToRow[label] != null ? legacyToRow[label] : 'Все';
+    cinemaFilterState.sport = null;
+    applyCinemaFilters();
 }
 
-// Library filtering function
 function filterLibraryByCategory(category) {
-    const grid = document.getElementById('library-books-grid');
-    if (!grid || !window.libraryBooks) return;
-    
-    // Update button states
-    const librarySection = document.getElementById('section-library');
-    if (librarySection) {
-        const buttons = librarySection.querySelectorAll('.filter-pills .btn.rounded-full');
-        buttons.forEach(btn => {
-            if (btn.textContent.trim() === category) {
-                btn.className = 'btn btn-primary rounded-full px-4 py-2';
-            } else {
-                btn.className = 'btn btn-secondary rounded-full px-4 py-2';
-            }
-        });
-    }
-    
-    // Filter and display books
-    grid.innerHTML = '';
-    
-    const filteredBooks = category === 'Все книги' 
-        ? window.libraryBooks 
-        : window.libraryBooks.filter(book => book.category === category);
-    
-    filteredBooks.forEach(book => {
-        const bookCard = createBookCard(book);
-        grid.appendChild(bookCard);
-    });
-    
-    // Show notification if no books found
-    if (filteredBooks.length === 0) {
-        grid.innerHTML = '<div class="col-span-full text-center text-muted-foreground py-12">Книги не найдены в этой категории</div>';
-    }
+    const legacyToShelf = {
+        'Все книги': 'Все',
+        Все: 'Все',
+        Автобиография: 'Автобиографии',
+        Биография: 'Биографии',
+        Учебник: 'Учебники',
+        История: 'История'
+    };
+    libraryFilterState.shelf = legacyToShelf[category] != null ? legacyToShelf[category] : category;
+    libraryFilterState.sport = null;
+    applyLibraryFilters();
 }
 
 window.navigateToSection = navigateToSection;
@@ -1265,7 +1376,6 @@ function initTodaySectionDate() {
     const parts = key.split('-').map(Number);
     const y = new Date().getFullYear();
     todaySelectedDate = new Date(y, parts[0] - 1, parts[1]);
-    todayCategoryFilter = null;
 }
 
 function formatRuDayMonth(d) {
@@ -1336,14 +1446,18 @@ function renderTodayEventsList() {
     const key = monthDayKeyFromDate(todaySelectedDate);
     let items = (window.todayEventsByMonthDay && window.todayEventsByMonthDay[key]) ? window.todayEventsByMonthDay[key].slice() : [];
 
-    if (todayCategoryFilter === 'nba') {
-        items = items.filter(ev => ev.category === 'nba');
-    } else if (todayCategoryFilter === 'racing') {
-        items = items.filter(ev => ev.category === 'racing');
+    const kind = todayFilterState.kind || 'Все';
+    const sportF = todayFilterState.sport;
+
+    if (kind !== 'Все') {
+        items = items.filter(ev => (ev.todayKind || '') === kind);
+    }
+    if (sportF) {
+        items = items.filter(ev => sportMatchesFilter(ev.todaySport || 'Другие', sportF));
     }
 
     if (!items.length) {
-        mount.innerHTML = '<p class="today-events-empty">На выбранную дату в демо-наборе пока нет событий — попробуйте соседние дни или фильтр «Все события».</p>';
+        mount.innerHTML = '<p class="today-events-empty">На выбранную дату в демо-наборе пока нет событий — попробуйте соседние дни или фильтр «Все».</p>';
         return;
     }
 
@@ -1363,28 +1477,36 @@ function renderTodayEventsList() {
 </article>`).join('');
 }
 
+function syncTodayFilterPills() {
+    const section = document.getElementById('section-today');
+    const kind = todayFilterState.kind || 'Все';
+    if (section) {
+        section.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
+            const active = btn.textContent.trim() === kind;
+            btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
+        });
+    }
+}
+
 function renderTodaySection() {
+    syncTodayFilterPills();
     renderTodayDateStrip();
     renderTodayEventsList();
 }
 
 function filterTodayEvents(label) {
-    const map = {
-        'Все события': null,
-        NBA: 'nba',
-        Скачки: 'racing'
+    const legacy = {
+        'Все события': 'Все',
+        NBA: 'Матчи',
+        Скачки: 'Матчи'
     };
-    todayCategoryFilter = Object.prototype.hasOwnProperty.call(map, label) ? map[label] : null;
+    const kind = legacy[label] != null ? legacy[label] : label;
+    todayFilterState.kind = kind;
+    if (label === 'NBA') todayFilterState.sport = 'Баскетбол';
+    else if (label === 'Скачки') todayFilterState.sport = 'Другие';
+    else if (label === 'Все события') todayFilterState.sport = null;
 
-    const section = document.getElementById('section-today');
-    if (section) {
-        section.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
-            const active = btn.textContent.trim() === label;
-            btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
-        });
-    }
-
-    renderTodayEventsList();
+    renderTodaySection();
 }
 
 window.filterTodayEvents = filterTodayEvents;

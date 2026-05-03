@@ -9,6 +9,8 @@ window.todayEventsByMonthDay = {
             id: 'nba-1981-ecf-g7',
             year: 1981,
             category: 'nba',
+            todayKind: 'Матчи',
+            todaySport: 'Баскетбол',
             leagueLabel: 'NBA',
             image:
                 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=640&auto=format&fit=crop&q=60',
@@ -20,6 +22,8 @@ window.todayEventsByMonthDay = {
             id: 'kentucky-derby-1986',
             year: 1986,
             category: 'racing',
+            todayKind: 'Матчи',
+            todaySport: 'Другие',
             leagueLabel: 'Скачки',
             image:
                 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=640&auto=format&fit=crop&q=60',
@@ -31,6 +35,8 @@ window.todayEventsByMonthDay = {
             id: 'nba-2007-warriors-mavericks',
             year: 2007,
             category: 'nba',
+            todayKind: 'Матчи',
+            todaySport: 'Баскетбол',
             leagueLabel: 'NBA',
             image:
                 'https://images.unsplash.com/photo-1519861531473-9250265384e8?w=640&auto=format&fit=crop&q=60',
