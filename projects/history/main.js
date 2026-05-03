@@ -54,20 +54,198 @@ window.showArticle = function(articleId) {
 }
 
 function loadArticleContent(articleId) {
-    // This would load specific article content
-    // For now, we'll use the default "Miracle on Ice" content
-    console.log('Loading article:', articleId);
-    
-    // You could add dynamic content loading here
     showNotification(`Загружается статья: ${articleId}`, 'info');
+}
+
+function escapeHtml(text) {
+    if (text == null) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function enrichBookForDetail(book) {
+    const genre = book.genre || book.category || 'Спорт';
+    const previewParagraphs = book.previewParagraphs || [
+        book.description,
+        `Материал библиотеки Спортс дополняет подборку «${book.category}»: книга раскрывает контекст карьеры и личного пути авторов в русле большого спорта.`
+    ];
+    const reviewText = book.reviewText ||
+        `${book.description} Рекомендуем читать последовательно: так проще удержать нить биографии и спортивных поворотов сюжета.`;
+    const reviewAuthor = book.reviewAuthor || 'Редакция Спортс';
+    const reviewAuthorRole = book.reviewAuthorRole || 'Обзор раздела «Библиотека»';
+    const ratingCount = book.ratingCount != null ? book.ratingCount : Math.max(4, Math.round((book.rating || 4) * 3));
+    const breadcrumbTail = book.breadcrumbTail || `Книги: ${book.category}`;
+    return {
+        ...book,
+        previewParagraphs,
+        reviewText,
+        reviewAuthor,
+        reviewAuthorRole,
+        ratingCount,
+        breadcrumbTail,
+        genreLabel: genre
+    };
+}
+
+function renderStarsRow(rating) {
+    const full = Math.min(5, Math.max(0, Math.round(Number(rating) || 0)));
+    const empty = 5 - full;
+    return `<span class="book-stars text-yellow-500" aria-hidden="true">${'★'.repeat(full)}${'☆'.repeat(empty)}</span>`;
+}
+
+function reviewerInitials(name) {
+    const parts = String(name).trim().split(/\s+/).filter(Boolean);
+    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+    return (parts[0] || '?').slice(0, 2).toUpperCase();
+}
+
+function buildBookTags(book) {
+    const set = new Set(['книги']);
+    (book.tags || []).forEach(t => set.add(String(t).toLowerCase()));
+    if (book.category) set.add(book.category.toLowerCase());
+    if (book.genre && book.genre !== book.category) set.add(String(book.genre).toLowerCase());
+    return Array.from(set);
+}
+
+function buildBookDetailHtml(book) {
+    const b = enrichBookForDetail(book);
+    const tagsHtml = buildBookTags(b).map(t =>
+        `<span class="book-tag-pill"><span class="book-tag-dot" aria-hidden="true"></span>${escapeHtml(t)}</span>`
+    ).join('');
+    const previewHtml = b.previewParagraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    const initials = reviewerInitials(b.reviewAuthor);
+    const titleEnBlock = b.titleEn ? `<p class="book-detail-subtitle">${escapeHtml(b.titleEn)}</p>` : '';
+
+    const starsInteractive = [1, 2, 3, 4, 5].map(n =>
+        `<button type="button" class="book-rate-star" data-value="${n}" aria-label="${n} из 5">☆</button>`
+    ).join('');
+
+    return `
+<button type="button" class="btn btn-secondary mb-6 gap-2 book-back-btn" onclick="showSection('library')">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true">
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+    </svg>
+    Назад в библиотеку
+</button>
+<nav class="book-breadcrumbs" aria-label="Хлебные крошки">
+    <a href="#" onclick="showSection('home'); return false;">Главная</a>
+    <span class="book-bc-sep">/</span>
+    <a href="#" onclick="showSection('library'); return false;">Библиотека</a>
+    <span class="book-bc-sep">/</span>
+    <span>${escapeHtml(b.breadcrumbTail)}</span>
+</nav>
+<div class="book-tags-row flex flex-wrap gap-2">${tagsHtml}</div>
+<div class="book-detail-grid">
+    <div class="book-detail-cover-col">
+        <div class="book-detail-cover-frame">
+            <img src="${escapeHtml(b.image)}" alt="${escapeHtml(b.title)}" class="book-detail-cover-img" width="280" loading="lazy" />
+        </div>
+    </div>
+    <div class="book-detail-main-col flex flex-col items-start">
+        <h1 class="book-detail-title">${escapeHtml(b.title)}</h1>
+        ${titleEnBlock}
+        <div class="book-detail-rating-row flex items-center gap-3 mb-4">
+            ${renderStarsRow(b.rating)}
+            <span class="text-sm text-muted-foreground">${b.ratingCount} оценок</span>
+        </div>
+        <dl class="book-meta-list">
+            <div><dt>Авторы</dt><dd>${escapeHtml(b.author)}</dd></div>
+            <div><dt>Жанр</dt><dd>${escapeHtml(b.genreLabel)}</dd></div>
+            <div><dt>Год</dt><dd>${escapeHtml(String(b.publishYear))}</dd></div>
+        </dl>
+        <div class="book-detail-actions flex flex-wrap gap-3 mb-6">
+            <button type="button" class="btn btn-read" onclick="document.getElementById('book-preview-block').scrollIntoView({behavior:'smooth', block:'start'})">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Читать
+            </button>
+            <button type="button" class="btn btn-library-add" onclick="showNotification('Книга добавлена в вашу подборку','info')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                В подборку
+            </button>
+        </div>
+        <p class="book-lead">${escapeHtml(b.description)}</p>
+    </div>
+</div>
+<section class="book-section" id="book-preview-block">
+    <h2 class="book-section-title">Предпросмотр</h2>
+    <div class="book-preview-text">${previewHtml}</div>
+</section>
+<section class="book-section">
+    <h2 class="book-section-title">Рецензия</h2>
+    <blockquote class="book-review-quote">
+        <span class="book-quote-mark book-quote-open" aria-hidden="true">«</span>
+        <p>${escapeHtml(b.reviewText)}</p>
+        <span class="book-quote-mark book-quote-close" aria-hidden="true">»</span>
+    </blockquote>
+    <div class="book-reviewer flex items-center gap-3 mt-6">
+        <div class="book-reviewer-avatar" aria-hidden="true">${escapeHtml(initials)}</div>
+        <div>
+            <div class="book-reviewer-name">${escapeHtml(b.reviewAuthor)}</div>
+            <div class="book-reviewer-role text-sm text-muted-foreground">${escapeHtml(b.reviewAuthorRole)}</div>
+        </div>
+    </div>
+</section>
+<section class="book-section">
+    <h2 class="book-section-title">Оценки</h2>
+    <form class="book-ratings-card" id="book-rating-form">
+        <label class="visually-hidden" for="book-review-textarea">Ваш отзыв</label>
+        <textarea id="book-review-textarea" class="book-ratings-input" name="review" rows="5" placeholder="Напишите, что думаете о книге…"></textarea>
+        <div class="book-ratings-footer flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-sm text-muted-foreground">Поставьте вашу оценку:</span>
+                <div class="book-rate-stars" role="group" aria-label="Оценка">${starsInteractive}</div>
+            </div>
+            <button type="submit" class="btn btn-rating-send">Отправить</button>
+        </div>
+    </form>
+</section>`;
+}
+
+function wireBookDetailPage(mount) {
+    const form = mount.querySelector('#book-rating-form');
+    form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        showNotification('Спасибо за отзыв!', 'info');
+        form.reset();
+        mount.querySelectorAll('.book-rate-star').forEach((s, i) => {
+            s.textContent = '☆';
+            s.classList.remove('is-active');
+        });
+    });
+
+    mount.querySelectorAll('.book-rate-star').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const v = Number(btn.dataset.value);
+            mount.querySelectorAll('.book-rate-star').forEach((s, i) => {
+                const on = i < v;
+                s.textContent = on ? '★' : '☆';
+                s.classList.toggle('is-active', on);
+            });
+        });
+    });
 }
 
 // Book detail functionality
 window.showBook = function(bookId) {
-    console.log('Showing book:', bookId);
-    showNotification(`Открывается книга: ${bookId}`, 'info');
-    // This would show book detail view
-}
+    const book = window.libraryBooks?.find(x => x.id === bookId);
+    if (!book) {
+        showNotification('Книга не найдена', 'info');
+        return;
+    }
+    const mount = document.getElementById('book-detail-mount');
+    const section = document.getElementById('book-detail');
+    if (!mount || !section) return;
+
+    mount.innerHTML = buildBookDetailHtml(book);
+    wireBookDetailPage(mount);
+
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    section.classList.add('active');
+    updateNavigation('library');
+    window.scrollTo(0, 0);
+};
 
 // Movie detail functionality
 window.showMovie = function(movieId) {
@@ -205,7 +383,7 @@ function showNotification(message, type = 'info') {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: #005eb8;
+        background: #157a52;
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 8px;
@@ -529,11 +707,6 @@ function filterLibraryByCategory(category) {
     }
 }
 
-// Export functions for global access
-window.showSection = showSection;
-window.showArticle = showArticle;
-window.showBook = showBook;
-window.showMovie = showMovie;
 window.navigateToSection = navigateToSection;
 window.showNotification = showNotification;
 window.loadDynamicContent = loadDynamicContent;
