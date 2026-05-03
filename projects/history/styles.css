@@ -1262,7 +1262,12 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.65rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgb(249 250 251);
 }
 
 /* Карточки «Кинотеатр» */
@@ -1334,16 +1339,83 @@ body {
     width: 100%;
 }
 
-.book-card-store-actions .btn-compact-store {
-    flex: 1 1 7rem;
+/* Пилюли магазинов (Читай-город / Литрес) — как на референсе */
+.btn-store-pill {
     display: inline-flex;
-    justify-content: center;
     align-items: center;
-    padding: 0.4rem 0.65rem;
-    font-size: 0.75rem;
-    line-height: 1.25;
-    text-align: center;
-    white-space: nowrap;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.05rem;
+    border-radius: 999px;
+    font-family: var(--font-family-heading);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    line-height: 1.15;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.14);
+    transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-store-pill:hover {
+    color: #fff;
+    filter: brightness(1.05);
+    box-shadow: 0 3px 14px rgb(0 0 0 / 0.18);
+}
+
+.btn-store-pill:focus-visible {
+    outline: 2px solid var(--fox-sky);
+    outline-offset: 2px;
+}
+
+.btn-store-pill-icon-svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    stroke: currentColor;
+}
+
+.btn-store-pill--chitai {
+    background: var(--fox-orange);
+}
+
+.btn-store-pill--chitai:hover {
+    background: var(--fox-orange-hover);
+}
+
+.btn-store-pill--litres {
+    background: #2563eb;
+}
+
+.btn-store-pill--litres:hover {
+    background: #1d4ed8;
+}
+
+.library-grid-card .btn-store-pill {
+    flex: 1 1 6.5rem;
+    padding: 0.42rem 0.7rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+}
+
+.library-grid-card .btn-store-pill-icon-svg {
+    width: 0.95rem;
+    height: 0.95rem;
+}
+
+.book-detail-store-row {
+    padding: 0.75rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgb(249 250 251);
+}
+
+.book-detail-store-row .btn-store-pill {
+    padding: 0.58rem 1.15rem;
+    font-size: 0.72rem;
 }
 
 .col-span-full {
@@ -1718,26 +1790,26 @@ body {
     display: block;
 }
 
-.book-detail-actions .btn-read {
+.movie-detail-actions .btn-read {
     background: var(--fox-orange);
     color: #fff;
     border: 1px solid var(--fox-orange);
     gap: 0.5rem;
 }
 
-.book-detail-actions .btn-read:hover {
+.movie-detail-actions .btn-read:hover {
     background: var(--fox-orange-hover);
     border-color: var(--fox-orange-hover);
 }
 
-.book-detail-actions .btn-library-add {
+.movie-detail-actions .btn-library-add {
     background: var(--fox-blue);
     color: #fff;
     border: 1px solid var(--fox-blue);
     gap: 0.5rem;
 }
 
-.book-detail-actions .btn-library-add:hover {
+.movie-detail-actions .btn-library-add:hover {
     background: var(--fox-blue-hover);
     border-color: var(--fox-blue-hover);
 }

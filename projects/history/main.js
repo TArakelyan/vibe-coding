@@ -97,6 +97,17 @@ function buildLitresUrl(book) {
     return `https://www.litres.ru/search/?q=${encodeURIComponent(book.title || '')}`;
 }
 
+const STORE_PILL_ICON_CHITAI = `<svg class="btn-store-pill-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="3.5" rx="0.75"/><rect x="5" y="10.25" width="14" height="3.5" rx="0.75"/><rect x="5" y="15.5" width="14" height="3.5" rx="0.75"/></svg>`;
+
+const STORE_PILL_ICON_LITRES = `<svg class="btn-store-pill-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="3.2" height="16" rx="0.65"/><rect x="10.4" y="3" width="3.2" height="17" rx="0.65"/><rect x="14.8" y="5" width="3.2" height="15" rx="0.65"/></svg>`;
+
+/** Кнопки-«пилюли» Читай-город / Литрес (иконка слева, подпись капсом). */
+function storePillLinkHtml(href, kind, label) {
+    const icon = kind === 'chitai' ? STORE_PILL_ICON_CHITAI : STORE_PILL_ICON_LITRES;
+    const mod = kind === 'chitai' ? 'btn-store-pill--chitai' : 'btn-store-pill--litres';
+    return `<a href="${escapeHtml(href)}" class="btn-store-pill ${mod}" target="_blank" rel="noopener noreferrer"><span class="btn-store-pill-ico" aria-hidden="true">${icon}</span><span class="btn-store-pill-txt">${escapeHtml(label)}</span></a>`;
+}
+
 function closeAllFilterDropdowns() {
     document.querySelectorAll('.filter-dropdown.is-open').forEach(dd => {
         dd.classList.remove('is-open');
@@ -322,9 +333,9 @@ function buildBookDetailHtml(book) {
             <div><dt>Жанр</dt><dd>${escapeHtml(b.genreLabel)}</dd></div>
             <div><dt>Год</dt><dd>${escapeHtml(String(b.publishYear))}</dd></div>
         </dl>
-        <div class="book-detail-actions flex flex-wrap gap-3 mb-6">
-            <a href="${escapeHtml(buildChitaiGorodUrl(b))}" class="btn btn-read" target="_blank" rel="noopener noreferrer">Читай-город</a>
-            <a href="${escapeHtml(buildLitresUrl(b))}" class="btn btn-library-add" target="_blank" rel="noopener noreferrer">Литрес</a>
+        <div class="book-detail-actions book-detail-store-row flex flex-wrap gap-3 mb-6">
+            ${storePillLinkHtml(buildChitaiGorodUrl(b), 'chitai', 'Читай-город')}
+            ${storePillLinkHtml(buildLitresUrl(b), 'litres', 'Литрес')}
         </div>
         <p class="book-lead">${escapeHtml(b.description)}</p>
     </div>
@@ -571,7 +582,7 @@ function buildMovieDetailHtml(movie) {
             <div><dt>Сценарий</dt><dd>${escapeHtml(m.writers)}</dd></div>
             <div class="movie-meta-span-cast"><dt>В ролях / участники</dt><dd>${escapeHtml(m.cast)}</dd></div>
         </dl>
-        <div class="book-detail-actions flex flex-wrap gap-3 mb-6">
+        <div class="movie-detail-actions flex flex-wrap gap-3 mb-6">
             <button type="button" class="btn btn-read" onclick="document.getElementById('movie-preview-block').scrollIntoView({behavior:'smooth', block:'start'})">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 12h18"/></svg>
                 К обзору
@@ -1076,8 +1087,8 @@ function createBookCard(book) {
                     </div>
                 </div>
                 <div class="book-card-store-actions library-card-store-actions">
-                    <a href="${escapeHtml(chUrl)}" class="btn btn-read btn-compact-store" target="_blank" rel="noopener noreferrer">Читай-город</a>
-                    <a href="${escapeHtml(litUrl)}" class="btn btn-library-add btn-compact-store" target="_blank" rel="noopener noreferrer">Литрес</a>
+                    ${storePillLinkHtml(chUrl, 'chitai', 'Читай-город')}
+                    ${storePillLinkHtml(litUrl, 'litres', 'Литрес')}
                 </div>
             </div>
         </div>
