@@ -101,16 +101,71 @@ body {
     justify-content: space-between;
     gap: 0.75rem;
     min-height: 3.5rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
-@media (min-width: 900px) {
+/* Мобильная шапка: сетка — логотип | поиск, затем меню на всю ширину с горизонтальной прокруткой */
+@media (max-width: 899px) {
     .fox-header-inner {
-        flex-wrap: nowrap;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(7.5rem, 1.15fr);
+        grid-template-rows: auto auto;
+        gap: 0.55rem 0.65rem;
+        align-items: center;
+        min-height: 0;
+    }
+
+    .fox-brand {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+    }
+
+    .fox-brand-text {
+        font-size: clamp(1.15rem, 4.5vw, 1.4rem);
+    }
+
+    .fox-header-search {
+        grid-column: 2;
+        grid-row: 1;
+        width: 100% !important;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .fox-primary-nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-left: 0;
+        width: 100%;
+        min-width: 0;
+        padding: 0.5rem 0 0.15rem;
+        border-top: 1px solid rgb(255 255 255 / 0.14);
+        gap: 0.35rem;
+        scroll-padding-inline: 4px;
+    }
+
+    .fox-primary-nav .btn {
+        flex-shrink: 0;
+        padding: 0.45rem 0.55rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.03em;
+        gap: 0.35rem;
+    }
+
+    .fox-primary-nav .btn svg {
+        width: 1rem;
+        height: 1rem;
     }
 }
 
-/* Поиск в шапке — справа после меню, узкое поле + иконка лупы (~половина прежней ширины) */
+@media (min-width: 900px) {
+    .fox-primary-nav .btn {
+        flex-shrink: 0;
+    }
+}
+
+/* Поиск в шапке — на десктопе узкий блок справа от меню */
 .fox-header-search {
     flex: 0 0 auto;
     width: 4.75rem;
@@ -120,11 +175,9 @@ body {
 }
 
 @media (max-width: 899px) {
-    .fox-header-search {
-        width: 4.25rem;
-        min-width: 3rem;
-        max-width: 5rem;
-        margin-top: 0;
+    .fox-search-panel {
+        width: min(22rem, calc(100vw - var(--page-side-gutter, 1rem) * 2));
+        max-width: calc(100vw - 2rem);
     }
 }
 
@@ -253,6 +306,68 @@ body {
 /* Выпадающий список «Другие» у фильтров разделов */
 .filter-row {
     align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.filter-row .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Мобильные фильтры: ровная сетка, одинаковая высота кнопок */
+@media (max-width: 639px) {
+    .filter-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.55rem;
+    }
+
+    .filter-row .filter-pills {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.45rem;
+        width: 100%;
+    }
+
+    .filter-row .filter-pills .btn.rounded-full {
+        width: 100%;
+        justify-content: center;
+        min-height: 2.45rem;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.02em;
+        line-height: 1.2;
+        white-space: normal;
+        text-align: center;
+        hyphens: auto;
+    }
+
+    .filter-dropdown {
+        width: 100%;
+        max-width: none;
+    }
+
+    .filter-dropdown-trigger {
+        width: 100%;
+        justify-content: center;
+        min-height: 2.45rem;
+        box-sizing: border-box;
+    }
+
+    .filter-dropdown-panel {
+        left: 0;
+        right: 0;
+        width: auto;
+        min-width: 0;
+        max-width: none;
+    }
 }
 
 .filter-dropdown {
