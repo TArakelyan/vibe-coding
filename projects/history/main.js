@@ -305,6 +305,56 @@ function renderStarsFromTen(rating10) {
     return `<span class="book-stars text-yellow-500" aria-hidden="true">${'★'.repeat(full)}${'☆'.repeat(empty)}</span>`;
 }
 
+/** Допускает стандартный 11-символьный id YouTube, в том числе с ведущим дефисом. */
+function sanitizeYoutubeTrailerId(id) {
+    if (id == null || typeof id !== 'string') return null;
+    const t = id.trim();
+    if (!/^[-a-zA-Z0-9_]{11}$/.test(t)) return null;
+    return t;
+}
+
+function sanitizeTrailerEmbedUrl(raw) {
+    if (raw == null || typeof raw !== 'string') return null;
+    let u;
+    try {
+        u = new URL(raw.trim());
+    } catch {
+        return null;
+    }
+    if (u.protocol !== 'https:') return null;
+    const host = u.hostname.toLowerCase();
+    const allowedHosts = new Set([
+        'www.youtube.com',
+        'youtube.com',
+        'www.youtube-nocookie.com',
+        'youtube-nocookie.com',
+        'player.vimeo.com'
+    ]);
+    if (!allowedHosts.has(host)) return null;
+    return u.href;
+}
+
+function buildMovieTrailerHtml(m) {
+    const customEmbed = sanitizeTrailerEmbedUrl(m.trailerEmbedUrl);
+    const ytId = customEmbed ? null : sanitizeYoutubeTrailerId(m.trailerYoutubeId);
+    const src = customEmbed || (ytId ? `https://www.youtube-nocookie.com/embed/${ytId}` : null);
+
+    let inner;
+    if (src) {
+        inner = `<iframe class="movie-trailer-iframe" src="${escapeHtml(src)}" title="Трейлер: ${escapeHtml(m.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>`;
+    } else {
+        inner = `<div class="movie-trailer-placeholder" role="status"><p class="movie-trailer-placeholder-text">Для этого фильма или сериала ролик пока не добавлен — блок зарезервирован под видео.</p></div>`;
+    }
+
+    return `
+<section class="book-section movie-trailer-section" id="movie-trailer-block" aria-labelledby="movie-trailer-heading">
+    <h2 class="book-section-title" id="movie-trailer-heading">Трейлер</h2>
+    <div class="movie-trailer-aspect">
+        <div class="movie-trailer-inner">${inner}</div>
+    </div>
+</section>`;
+}
+
 function buildMovieDetailHtml(movie) {
     const m = enrichMovieForDetail(movie);
     const tagsHtml = buildMovieTags(m).map(t =>
@@ -382,6 +432,7 @@ function buildMovieDetailHtml(movie) {
     <h2 class="book-section-title">Предпросмотр</h2>
     <div class="book-preview-text">${previewHtml}</div>
 </section>
+${buildMovieTrailerHtml(m)}
 <section class="book-section">
     <h2 class="book-section-title">Рецензия</h2>
     <blockquote class="book-review-quote">
