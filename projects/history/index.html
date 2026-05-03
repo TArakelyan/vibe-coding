@@ -172,13 +172,22 @@
                     </div>
                 </div>
 
-                <!-- Simplified Categories -->
+                <!-- Фильтры + «Другие» -->
                 <div class="mb-8">
-                    <div class="flex gap-3 flex-wrap">
-                        <button class="btn btn-primary rounded-full px-4 py-2">Все статьи</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2">Олимпиада</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2">Легенды</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2">Спорт</button>
+                    <div class="filter-row flex flex-wrap gap-3 items-start">
+                        <div class="filter-pills flex gap-3 flex-wrap">
+                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все статьи</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Олимпиада</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Легенды</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Спорт</button>
+                        </div>
+                        <div class="filter-dropdown" id="dropdown-wikipedia-others" data-section-context="wikipedia">
+                            <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-wikipedia-others" id="trigger-wikipedia-others">
+                                Другие
+                                <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                            </button>
+                            <div class="filter-dropdown-panel" id="panel-wikipedia-others" role="menu" hidden></div>
+                        </div>
                     </div>
                 </div>
 
@@ -199,14 +208,23 @@
                     </div>
                 </div>
 
-                <!-- Simplified Categories -->
+                <!-- Фильтры + «Другие» -->
                 <div class="mb-8">
-                    <div class="flex gap-3 flex-wrap">
-                        <button class="btn btn-primary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Все книги')">Все книги</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Автобиография')">Автобиография</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Биография')">Биография</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('История')">История</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Учебник')">Учебник</button>
+                    <div class="filter-row flex flex-wrap gap-3 items-start">
+                        <div class="filter-pills flex gap-3 flex-wrap">
+                            <button type="button" class="btn btn-primary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Все книги')">Все книги</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Автобиография')">Автобиография</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Биография')">Биография</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('История')">История</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2" onclick="filterLibraryByCategory('Учебник')">Учебник</button>
+                        </div>
+                        <div class="filter-dropdown" id="dropdown-library-others" data-section-context="library">
+                            <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-library-others" id="trigger-library-others">
+                                Другие
+                                <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                            </button>
+                            <div class="filter-dropdown-panel" id="panel-library-others" role="menu" hidden></div>
+                        </div>
                     </div>
                 </div>
 
@@ -227,13 +245,22 @@
                     </div>
                 </div>
 
-                <!-- Simplified Categories -->
+                <!-- Фильтры + «Другие» -->
                 <div class="mb-8">
-                    <div class="flex gap-3 flex-wrap">
-                        <button class="btn btn-primary rounded-full px-4 py-2">Все фильмы</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2">Документальные</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2">Драмы</button>
-                        <button class="btn btn-secondary rounded-full px-4 py-2">Биографии</button>
+                    <div class="filter-row flex flex-wrap gap-3 items-start">
+                        <div class="filter-pills flex gap-3 flex-wrap">
+                            <button type="button" class="btn btn-primary rounded-full px-4 py-2">Все фильмы</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Документальные</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Драмы</button>
+                            <button type="button" class="btn btn-secondary rounded-full px-4 py-2">Биографии</button>
+                        </div>
+                        <div class="filter-dropdown" id="dropdown-cinema-others" data-section-context="cinema">
+                            <button type="button" class="filter-dropdown-trigger btn btn-secondary rounded-full px-4 py-2 gap-2" aria-expanded="false" aria-haspopup="true" aria-controls="panel-cinema-others" id="trigger-cinema-others">
+                                Другие
+                                <svg class="filter-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                            </button>
+                            <div class="filter-dropdown-panel" id="panel-cinema-others" role="menu" hidden></div>
+                        </div>
                     </div>
                 </div>
 
@@ -241,6 +268,13 @@
                 <div id="cinema-movies-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Movies will be dynamically loaded here -->
                 </div>
+            </div>
+        </div>
+
+        <!-- Разводящая страница из «Другие» -->
+        <div id="section-landing" class="section">
+            <div class="container px-4 py-8 section-body">
+                <div id="landing-mount"></div>
             </div>
         </div>
 

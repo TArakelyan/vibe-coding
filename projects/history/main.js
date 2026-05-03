@@ -1,5 +1,8 @@
 // Спортс — навигация по разделам
 
+/** При показе #section-landing подсвечиваем пункт меню родительского раздела */
+let landingNavParentSection = null;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the application
     initializeApp();
@@ -17,10 +20,17 @@ function initializeApp() {
     
     // Load dynamic content
     loadDynamicContent();
+
+    populateOthersDropdownPanels();
+    initFilterDropdowns();
 }
 
 // Section navigation functionality - make it global
 window.showSection = function(sectionName) {
+    if (sectionName !== 'landing') {
+        landingNavParentSection = null;
+    }
+
     closeGlobalSearchPanel();
     const gin = document.getElementById('global-search-input');
     if (gin) gin.value = '';
@@ -35,11 +45,15 @@ window.showSection = function(sectionName) {
         targetSection.classList.add('active');
     }
 
-    updateNavigation(sectionName);
+    const navKey = sectionName === 'landing' && landingNavParentSection
+        ? landingNavParentSection
+        : sectionName;
+    updateNavigation(navKey);
 };
 
 // Article detail functionality
 window.showArticle = function(articleId) {
+    landingNavParentSection = null;
     closeGlobalSearchPanel();
     const gin = document.getElementById('global-search-input');
     if (gin) gin.value = '';
@@ -69,6 +83,140 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+function closeAllFilterDropdowns() {
+    document.querySelectorAll('.filter-dropdown.is-open').forEach(dd => {
+        dd.classList.remove('is-open');
+        const panel = dd.querySelector('.filter-dropdown-panel');
+        const trig = dd.querySelector('.filter-dropdown-trigger');
+        if (panel) panel.hidden = true;
+        if (trig) trig.setAttribute('aria-expanded', 'false');
+    });
+}
+
+function populateOthersDropdownPanels() {
+    const ids = {
+        wikipedia: 'panel-wikipedia-others',
+        library: 'panel-library-others',
+        cinema: 'panel-cinema-others'
+    };
+    Object.keys(ids).forEach(key => {
+        const panel = document.getElementById(ids[key]);
+        const items = window.othersDropdownLandings?.[key] || [];
+        if (!panel) return;
+        panel.innerHTML = items.map(item =>
+            `<a href="#" class="filter-dropdown-link" role="menuitem" data-section="${escapeHtml(key)}" data-slug="${escapeHtml(item.slug)}">${escapeHtml(item.title)}</a>`
+        ).join('');
+    });
+}
+
+function initFilterDropdowns() {
+    document.querySelectorAll('.filter-dropdown').forEach(dd => {
+        const trig = dd.querySelector('.filter-dropdown-trigger');
+        const panel = dd.querySelector('.filter-dropdown-panel');
+        if (!trig || !panel) return;
+        trig.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            const opening = panel.hidden;
+            closeAllFilterDropdowns();
+            if (opening) {
+                dd.classList.add('is-open');
+                panel.hidden = false;
+                trig.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    document.addEventListener('click', e => {
+        const link = e.target.closest('.filter-dropdown-link');
+        if (link) {
+            e.preventDefault();
+            showLandingPage(link.dataset.section, link.dataset.slug);
+            return;
+        }
+        if (!e.target.closest('.filter-dropdown')) {
+            closeAllFilterDropdowns();
+        }
+    });
+}
+
+function findLandingEntry(sectionKey, slug) {
+    const list = window.othersDropdownLandings?.[sectionKey];
+    return list?.find(x => x.slug === slug);
+}
+
+window.showLandingPage = function(sectionKey, slug) {
+    const entry = findLandingEntry(sectionKey, slug);
+    if (!entry) return;
+    landingNavParentSection = sectionKey;
+    closeAllFilterDropdowns();
+
+    const backLabels = { wikipedia: 'Википедия', library: 'Библиотека', cinema: 'Кинотеатр' };
+    const backLabel = backLabels[sectionKey] || 'Раздел';
+    const paras = (entry.paragraphs || []).map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    const mount = document.getElementById('landing-mount');
+    if (!mount) return;
+
+    mount.innerHTML = `
+<button type="button" class="btn btn-secondary mb-6 gap-2 book-back-btn" onclick="closeLandingAndReturn()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true">
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+    </svg>
+    Назад в «${escapeHtml(backLabel)}»
+</button>
+<h1 class="mb-3">${escapeHtml(entry.title)}</h1>
+<div class="section-page-lead landing-lead">${paras}</div>
+<div class="landing-actions flex flex-wrap gap-3 mt-8">
+    <button type="button" class="btn btn-primary" onclick="applyLandingFilterAndGo('${escapeHtml(sectionKey)}', '${escapeHtml(entry.slug)}')">Перейти к материалам</button>
+</div>`;
+
+    showSection('landing');
+    window.scrollTo(0, 0);
+};
+
+window.closeLandingAndReturn = function() {
+    const s = landingNavParentSection || 'home';
+    landingNavParentSection = null;
+    showSection(s);
+};
+
+function setActiveFilterPill(sectionKey, labelText) {
+    const section = document.getElementById(`section-${sectionKey}`);
+    if (!section) return;
+    section.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
+        const active = btn.textContent.trim() === labelText;
+        btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
+    });
+}
+
+window.applyLandingFilterAndGo = function(sectionKey, slug) {
+    const entry = findLandingEntry(sectionKey, slug);
+    if (!entry) return;
+    landingNavParentSection = null;
+    showSection(sectionKey);
+
+    if (sectionKey === 'library') {
+        filterLibraryByCategory(entry.libraryCategory || 'Все книги');
+    } else if (sectionKey === 'wikipedia') {
+        if (entry.filterCategory == null) {
+            setActiveFilterPill('wikipedia', 'Все статьи');
+            filterByCategory('Все статьи');
+        } else {
+            setActiveFilterPill('wikipedia', entry.filterCategory);
+            filterByCategory(entry.filterCategory);
+        }
+    } else if (sectionKey === 'cinema') {
+        const labelByCat = {
+            Документальный: 'Документальные',
+            Драма: 'Драмы',
+            Биография: 'Биографии'
+        };
+        const label = entry.cinemaCategory == null ? 'Все фильмы' : (labelByCat[entry.cinemaCategory] || 'Все фильмы');
+        filterCinemaByCategory(label);
+    }
+};
 
 function enrichBookForDetail(book) {
     const genre = book.genre || book.category || 'Спорт';
@@ -235,6 +383,7 @@ function wireBookDetailPage(mount) {
 
 // Book detail functionality
 window.showBook = function(bookId) {
+    landingNavParentSection = null;
     closeGlobalSearchPanel();
     const gin = document.getElementById('global-search-input');
     if (gin) gin.value = '';
@@ -489,6 +638,7 @@ function wireMovieDetailPage(mount) {
 }
 
 window.showMovie = function(movieId) {
+    landingNavParentSection = null;
     closeGlobalSearchPanel();
     const gin = document.getElementById('global-search-input');
     if (gin) gin.value = '';
@@ -672,24 +822,27 @@ function navigateToSection(section) {
     showSection(section);
 }
 
-// Category filtering functionality
+// Фильтры: википедия — только кнопки в .filter-pills; кинотеатр — filterCinemaByCategory
 document.addEventListener('click', function(e) {
-    if (e.target.matches('.btn.btn-secondary.rounded-full, .btn.btn-primary.rounded-full')) {
-        // Handle category button clicks
-        const categoryButtons = e.target.parentNode.querySelectorAll('.btn.rounded-full');
-        categoryButtons.forEach(btn => {
-            btn.className = btn.className.replace('btn-primary', 'btn-secondary');
+    const wikiPill = e.target.closest('#section-wikipedia .filter-pills .btn.rounded-full');
+    if (wikiPill) {
+        const row = wikiPill.closest('.filter-pills');
+        row.querySelectorAll('.btn.rounded-full').forEach(btn => {
+            btn.className = 'btn btn-secondary rounded-full px-4 py-2';
         });
-        e.target.className = e.target.className.replace('btn-secondary', 'btn-primary');
-        
-        const category = e.target.textContent.trim();
-        filterByCategory(category);
+        wikiPill.className = 'btn btn-primary rounded-full px-4 py-2';
+        filterByCategory(wikiPill.textContent.trim());
+        return;
+    }
+    const cinemaPill = e.target.closest('#section-cinema .filter-pills .btn.rounded-full');
+    if (cinemaPill) {
+        filterCinemaByCategory(cinemaPill.textContent.trim());
     }
 });
 
 function filterByCategory(category) {
-    if (category === 'Все') {
-        // Show all items
+    const showAllLabels = ['Все статьи', 'Все фильмы', 'Все', 'Все книги'];
+    if (showAllLabels.includes(category)) {
         const activeSection = document.querySelector('.section.active');
         if (activeSection) {
             const cards = activeSection.querySelectorAll('.card, .group');
@@ -797,13 +950,16 @@ document.addEventListener('keydown', function(e) {
                 activeSection.querySelectorAll('.card, .group').forEach(card => {
                     card.style.display = '';
                 });
-                const categoryButtons = activeSection.querySelectorAll('.btn.rounded-full');
-                categoryButtons.forEach(btn => {
-                    btn.className = btn.className.replace('btn-primary', 'btn-secondary');
+                const categoryButtons = activeSection.querySelectorAll('.filter-pills .btn.rounded-full');
+                categoryButtons.forEach((btn, i) => {
+                    btn.className = i === 0 ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
                 });
-                const allButton = activeSection.querySelector('.btn.rounded-full');
-                if (allButton) {
-                    allButton.className = allButton.className.replace('btn-secondary', 'btn-primary');
+                if (activeSection.id === 'section-library') {
+                    filterLibraryByCategory('Все книги');
+                } else if (activeSection.id === 'section-wikipedia') {
+                    filterByCategory('Все статьи');
+                } else if (activeSection.id === 'section-cinema') {
+                    filterCinemaByCategory('Все фильмы');
                 }
             }
         }
@@ -1029,6 +1185,40 @@ function updateNavigation(activeSection) {
     }
 }
 
+function filterCinemaByCategory(label) {
+    const grid = document.getElementById('cinema-movies-grid');
+    if (!grid || !window.cinemaMovies) return;
+
+    const map = {
+        'Все фильмы': null,
+        Документальные: 'Документальный',
+        Драмы: 'Драма',
+        Биографии: 'Биография'
+    };
+    const cat = Object.prototype.hasOwnProperty.call(map, label) ? map[label] : null;
+
+    const cinemaSection = document.getElementById('section-cinema');
+    if (cinemaSection) {
+        cinemaSection.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
+            const active = btn.textContent.trim() === label;
+            btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
+        });
+    }
+
+    grid.innerHTML = '';
+    const movies = cat == null
+        ? window.cinemaMovies
+        : window.cinemaMovies.filter(m => m.category === cat);
+
+    movies.forEach(movie => {
+        grid.appendChild(createMovieCard(movie));
+    });
+
+    if (movies.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center text-muted-foreground py-12">В этой категории пока нет карточек</div>';
+    }
+}
+
 // Library filtering function
 function filterLibraryByCategory(category) {
     const grid = document.getElementById('library-books-grid');
@@ -1037,7 +1227,7 @@ function filterLibraryByCategory(category) {
     // Update button states
     const librarySection = document.getElementById('section-library');
     if (librarySection) {
-        const buttons = librarySection.querySelectorAll('.btn.rounded-full');
+        const buttons = librarySection.querySelectorAll('.filter-pills .btn.rounded-full');
         buttons.forEach(btn => {
             if (btn.textContent.trim() === category) {
                 btn.className = 'btn btn-primary rounded-full px-4 py-2';
@@ -1069,3 +1259,4 @@ window.navigateToSection = navigateToSection;
 window.showNotification = showNotification;
 window.loadDynamicContent = loadDynamicContent;
 window.filterLibraryByCategory = filterLibraryByCategory;
+window.filterCinemaByCategory = filterCinemaByCategory;
