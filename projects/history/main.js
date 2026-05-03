@@ -1354,11 +1354,11 @@ function renderTodayEventsList() {
             <img src="${escapeHtml(ev.image)}" alt="${escapeHtml(`${ev.leagueLabel}, ${ev.year}`)}" class="today-event-img" width="320" loading="lazy" />
         </div>
         <div class="today-event-body-col">
-            <span class="today-event-year">${escapeHtml(String(ev.year))}</span>
             <p class="today-event-league">${escapeHtml(ev.leagueLabel)}</p>
             <div class="today-event-desc">${ev.descriptionHtml}</div>
             <a href="${escapeHtml(ev.materialHref)}" class="today-event-material" target="_blank" rel="noopener noreferrer">Читать об этом</a>
         </div>
+        <span class="today-event-year">${escapeHtml(String(ev.year))}</span>
     </div>
 </article>`).join('');
 }
