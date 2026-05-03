@@ -108,6 +108,36 @@ function storePillLinkHtml(href, kind, label) {
     return `<a href="${escapeHtml(href)}" class="btn-store-pill ${mod}" target="_blank" rel="noopener noreferrer"><span class="btn-store-pill-ico" aria-hidden="true">${icon}</span><span class="btn-store-pill-txt">${escapeHtml(label)}</span></a>`;
 }
 
+let streamPillGradientUid = 0;
+
+function streamKinopoiskIconSvg() {
+    const gid = `kp-stream-grad-${streamPillGradientUid++}`;
+    return `<svg class="btn-stream-pill-icon-svg btn-stream-pill-icon-svg--kp" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="${gid}" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#ffe066"/><stop offset="0.45" stop-color="#ff9f1a"/><stop offset="1" stop-color="#ff5c00"/></linearGradient></defs><path fill="url(#${gid})" d="M5 4h3.1v7.5l5.8-7.5h3.7l-6.3 8.1 6.7 7.9h-3.8l-6.1-7.2V20H5V4z"/></svg>`;
+}
+
+const STREAM_OKKO_ICON_SVG = `<svg class="btn-stream-pill-icon-svg btn-stream-pill-icon-svg--okko" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9.2" cy="8.3" r="1.35" fill="currentColor"/><circle cx="12" cy="7.2" r="1.35" fill="currentColor"/><circle cx="14.8" cy="8.3" r="1.35" fill="currentColor"/><circle cx="12" cy="15.2" r="6.2" stroke="currentColor" stroke-width="1.65"/></svg>`;
+
+function buildKinopoiskWatchUrl(movie) {
+    const u = movie.kinopoiskWatchUrl;
+    if (u && /^https:\/\//i.test(String(u))) return String(u).trim();
+    return `https://www.kinopoisk.ru/search/?query=${encodeURIComponent(movie.title || '')}`;
+}
+
+function buildOkkoWatchUrl(movie) {
+    const u = movie.okkoWatchUrl;
+    if (u && /^https:\/\//i.test(String(u))) return String(u).trim();
+    return `https://okko.tv/search?q=${encodeURIComponent(movie.title || '')}`;
+}
+
+/** Пилюли «Кинопоиск» / «ОККО» на карточках кинотеатра (капс «Смотреть»). */
+function streamPillLinkHtml(href, kind) {
+    const kp = kind === 'kp';
+    const icon = kp ? streamKinopoiskIconSvg() : STREAM_OKKO_ICON_SVG;
+    const mod = kp ? 'btn-stream-pill--kp' : 'btn-stream-pill--okko';
+    const aria = kp ? 'Кинопоиск: перейти к просмотру' : 'ОККО: перейти к просмотру';
+    return `<a href="${escapeHtml(href)}" class="btn-stream-pill ${mod}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(aria)}"><span class="btn-stream-pill-ico" aria-hidden="true">${icon}</span><span class="btn-stream-pill-txt">Смотреть</span></a>`;
+}
+
 function closeAllFilterDropdowns() {
     document.querySelectorAll('.filter-dropdown.is-open').forEach(dd => {
         dd.classList.remove('is-open');
@@ -1073,7 +1103,6 @@ function createBookCard(book) {
             <div class="library-card-body">
                 <div class="library-card-stack">
                     <h3 class="library-card-title group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(book.title)}</h3>
-                    <p class="library-card-author">${escapeHtml(book.author)}</p>
                     <div class="library-card-meta" aria-label="Год и объём">
                         <span>
                             <svg class="library-card-meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -1100,7 +1129,13 @@ function createBookCard(book) {
 function createMovieCard(movie) {
     const card = document.createElement('div');
     card.className = 'group cursor-pointer cinema-grid-card';
-    card.onclick = () => showMovie(movie.id);
+    card.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        showMovie(movie.id);
+    });
+
+    const kpUrl = buildKinopoiskWatchUrl(movie);
+    const okkoUrl = buildOkkoWatchUrl(movie);
 
     card.innerHTML = `
         <div class="card cinema-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
@@ -1108,12 +1143,18 @@ function createMovieCard(movie) {
                 <img src="${escapeHtml(movie.image)}" alt="${escapeHtml(movie.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
             <div class="cinema-card-body">
-                <h3 class="cinema-card-title group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(movie.title)}</h3>
-                <div class="cinema-card-rating-row" role="img" aria-label="Оценка ${escapeHtml(String(movie.rating))} из 10">
-                    <span class="cinema-card-star" aria-hidden="true">★</span>
-                    <span class="cinema-card-rating-num">${escapeHtml(String(movie.rating))}</span>
+                <div class="cinema-card-stack">
+                    <h3 class="cinema-card-title group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(movie.title)}</h3>
+                    <div class="cinema-card-rating-row" role="img" aria-label="Оценка ${escapeHtml(String(movie.rating))} из 10">
+                        <span class="cinema-card-star" aria-hidden="true">★</span>
+                        <span class="cinema-card-rating-num">${escapeHtml(String(movie.rating))}</span>
+                    </div>
+                    <p class="cinema-card-director">${escapeHtml(movie.director)}</p>
                 </div>
-                <p class="cinema-card-director">${escapeHtml(movie.director)}</p>
+                <div class="cinema-card-stream-actions">
+                    ${streamPillLinkHtml(kpUrl, 'kp')}
+                    ${streamPillLinkHtml(okkoUrl, 'okko')}
+                </div>
             </div>
         </div>
     `;
