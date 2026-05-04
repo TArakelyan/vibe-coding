@@ -132,9 +132,9 @@ body {
     }
 
     .fox-brand-logo {
-        height: clamp(1.65rem, 5.2vw, 2rem);
+        height: clamp(1.485rem, 4.68vw, 1.8rem);
         width: auto;
-        max-width: min(58vw, 11.5rem);
+        max-width: min(52.2vw, 10.35rem);
     }
 
     .fox-header-search {
@@ -472,9 +472,9 @@ body {
 
 .fox-brand-logo {
     display: block;
-    height: 2rem;
+    height: 1.8rem;
     width: auto;
-    max-width: 10.5rem;
+    max-width: 9.45rem;
     object-fit: contain;
     object-position: left center;
 }
