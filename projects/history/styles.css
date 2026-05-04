@@ -2131,28 +2131,40 @@ body {
     display: block;
 }
 
-.movie-detail-actions .btn-read {
-    background: var(--fox-orange);
-    color: #fff;
-    border: 1px solid var(--fox-orange);
-    gap: 0.5rem;
+/* Пилюли Кинопоиск / ОККО на странице фильма — как в сетке «Кинотеатр» */
+.movie-detail-stream-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgb(249 250 251);
+    width: 100%;
+    max-width: min(100%, 32rem);
+    box-sizing: border-box;
 }
 
-.movie-detail-actions .btn-read:hover {
-    background: var(--fox-orange-hover);
-    border-color: var(--fox-orange-hover);
+.movie-detail-stream-actions .btn-stream-pill {
+    flex: 1 1 9.5rem;
+    min-width: 0;
 }
 
-.movie-detail-actions .btn-library-add {
-    background: var(--fox-blue);
-    color: #fff;
-    border: 1px solid var(--fox-blue);
-    gap: 0.5rem;
+.movie-detail-stream-actions .btn-stream-pill-icon-img {
+    height: 1.1rem;
+    max-width: 3.5rem;
 }
 
-.movie-detail-actions .btn-library-add:hover {
-    background: var(--fox-blue-hover);
-    border-color: var(--fox-blue-hover);
+.movie-detail-stream-actions .btn-stream-pill-icon-img--kp {
+    height: 1.2rem;
+    max-width: 3.65rem;
+}
+
+.movie-detail-stream-actions .btn-stream-pill-icon-img--okko {
+    height: 1.2rem;
+    max-width: 3.75rem;
 }
 
 .book-lead {

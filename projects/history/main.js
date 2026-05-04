@@ -760,6 +760,9 @@ function buildMovieDetailHtml(movie) {
         `<button type="button" class="book-rate-star movie-rate-star" data-value="${n}" aria-label="${n} из 5">☆</button>`
     ).join('');
 
+    const kpUrl = buildKinopoiskWatchUrl(m);
+    const okkoUrl = buildOkkoWatchUrl(m);
+
     return `
 <nav class="book-breadcrumbs" aria-label="Хлебные крошки">
     <a href="#" onclick="showSection('home'); return false;">Главная</a>
@@ -797,15 +800,9 @@ function buildMovieDetailHtml(movie) {
             <div><dt>Сценарий</dt><dd>${escapeHtml(m.writers)}</dd></div>
             <div class="movie-meta-span-cast"><dt>В ролях / участники</dt><dd>${escapeHtml(m.cast)}</dd></div>
         </dl>
-        <div class="movie-detail-actions flex flex-wrap gap-3 mb-6">
-            <button type="button" class="btn btn-read" onclick="document.getElementById('movie-preview-block').scrollIntoView({behavior:'smooth', block:'start'})">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 12h18"/></svg>
-                К обзору
-            </button>
-            <button type="button" class="btn btn-library-add" onclick="showNotification('Добавлено в список к просмотру','info')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
-                В избранное
-            </button>
+        <div class="movie-detail-stream-actions mb-6" role="group" aria-label="Смотреть на сервисах">
+            ${streamPillLinkHtml(kpUrl, 'kp')}
+            ${streamPillLinkHtml(okkoUrl, 'okko')}
         </div>
         <p class="book-lead">${escapeHtml(m.description)}</p>
     </div>
