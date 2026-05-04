@@ -131,8 +131,10 @@ body {
         min-width: 0;
     }
 
-    .fox-brand-text {
-        font-size: clamp(1.15rem, 4.5vw, 1.4rem);
+    .fox-brand-logo {
+        height: clamp(1.65rem, 5.2vw, 2rem);
+        width: auto;
+        max-width: min(58vw, 11.5rem);
     }
 
     .fox-header-search {
@@ -460,28 +462,27 @@ body {
 
 .fox-brand {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     gap: 0;
     text-decoration: none;
     color: #fff;
     flex-shrink: 0;
+    line-height: 0;
 }
 
-.fox-brand-mark {
-    width: 6px;
-    background: linear-gradient(180deg, var(--fox-sky) 0%, var(--fox-blue) 100%);
-    margin-right: 0.65rem;
-    border-radius: 1px;
+.fox-brand-logo {
+    display: block;
+    height: 2rem;
+    width: auto;
+    max-width: 10.5rem;
+    object-fit: contain;
+    object-position: left center;
 }
 
-.fox-brand-text {
-    font-family: var(--font-family-heading);
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 0.02em;
-    line-height: 1;
-    text-transform: uppercase;
-    padding: 0.25rem 0;
+.fox-brand:focus-visible .fox-brand-logo {
+    outline: 2px solid var(--fox-sky);
+    outline-offset: 3px;
+    border-radius: 2px;
 }
 
 .fox-primary-nav {
