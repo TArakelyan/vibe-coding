@@ -71,6 +71,16 @@ body {
         padding-left: var(--page-side-gutter);
         padding-right: var(--page-side-gutter);
     }
+
+    /* Шапка и герой главной — на всю ширину окна (компенсация боковых полей body) */
+    .fox-header,
+    .hero-fox {
+        margin-left: calc(-1 * var(--page-side-gutter));
+        margin-right: calc(-1 * var(--page-side-gutter));
+        width: calc(100% + 2 * var(--page-side-gutter));
+        max-width: none;
+        box-sizing: border-box;
+    }
 }
 
 /* Контейнер на всю ширину окна (без max-width) */
@@ -533,6 +543,10 @@ body {
     align-items: center;
 }
 
+.justify-center {
+    justify-content: center;
+}
+
 .justify-between {
     justify-content: space-between;
 }
@@ -727,6 +741,16 @@ body {
 .section-pill-grid .card:hover {
     box-shadow: var(--shadow-hover);
     transform: translateY(-3px);
+}
+
+/* Иконки в карточках разделов: ровное центрирование в квадрате */
+.section-pill-grid .card .p-6 > div.mb-4.flex {
+    line-height: 0;
+}
+
+.section-pill-grid .card .p-6 > div.mb-4.flex svg {
+    display: block;
+    flex-shrink: 0;
 }
 
 /* Ленты разделов (как блоки FOX) */
