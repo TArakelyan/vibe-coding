@@ -1304,8 +1304,8 @@ function createMovieCard(movie) {
 
     card.innerHTML = `
         <div class="card cinema-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
-            <div class="book-cover-wrapper overflow-hidden bg-muted shrink-0" style="aspect-ratio: 2/3;">
-                <img src="${escapeHtml(movie.image)}" alt="${escapeHtml(movie.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            <div class="book-cover-wrapper overflow-hidden shrink-0" style="aspect-ratio: 2/3;">
+                <img src="${escapeHtml(movie.image)}" alt="${escapeHtml(movie.title)}" class="w-full h-full transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
             <div class="cinema-card-body">
                 <div class="cinema-card-stack">

@@ -1340,6 +1340,16 @@ body {
     object-position: center;
 }
 
+/* Афиши в «Кинотеатре»: без светлых полей — картинка на весь блок 2:3 */
+.cinema-grid-card .book-cover-wrapper {
+    background: #0a0a0a;
+}
+
+.cinema-grid-card .book-cover-wrapper img {
+    object-fit: cover;
+    object-position: center;
+}
+
 /* Карточки «Библиотека» — как википедия: центр, поля, нижний блок кнопок */
 .library-grid-card {
     height: 100%;
