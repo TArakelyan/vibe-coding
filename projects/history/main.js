@@ -1262,8 +1262,8 @@ function createBookCard(book) {
     
     card.innerHTML = `
         <div class="card library-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
-            <div class="book-cover-wrapper overflow-hidden bg-muted shrink-0" style="aspect-ratio: 2/3;">
-                <img src="${escapeHtml(book.image)}" alt="${escapeHtml(book.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            <div class="book-cover-wrapper overflow-hidden shrink-0" style="aspect-ratio: 2/3;">
+                <img src="${escapeHtml(book.image)}" alt="${escapeHtml(book.title)}" class="w-full h-full transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
             <div class="library-card-body">
                 <div class="library-card-stack">

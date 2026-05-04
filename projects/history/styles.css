@@ -1331,21 +1331,12 @@ body {
     line-height: 1;
 }
 
+/* Обложки 2:3 в сетках: без «паспарту» — contain давал светлые поля поверх фона */
 .book-cover-wrapper {
-    background: linear-gradient(145deg, #e8f5ef 0%, #f9fafb 100%);
-}
-
-.book-cover-wrapper img {
-    object-fit: contain;
-    object-position: center;
-}
-
-/* Афиши в «Кинотеатре»: без светлых полей — картинка на весь блок 2:3 */
-.cinema-grid-card .book-cover-wrapper {
     background: #0a0a0a;
 }
 
-.cinema-grid-card .book-cover-wrapper img {
+.book-cover-wrapper img {
     object-fit: cover;
     object-position: center;
 }
@@ -1931,6 +1922,13 @@ body {
     border: 1px solid var(--border);
     padding: 0.75rem;
     box-shadow: var(--shadow-sm);
+}
+
+/* Афиша фильма: без белого поля рамки — как в сетке кинотеатра */
+.book-detail-cover-frame.movie-poster-frame {
+    padding: 0;
+    background: #0a0a0a;
+    overflow: hidden;
 }
 
 .book-detail-cover-img {
