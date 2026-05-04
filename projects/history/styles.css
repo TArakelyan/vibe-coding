@@ -1551,6 +1551,21 @@ body {
     .cinema-grid-card .cinema-card-director {
         font-size: 0.75rem;
     }
+
+    .library-grid-card .btn-store-pill-icon-img {
+        height: 0.88rem;
+        max-width: 2.65rem;
+    }
+
+    .cinema-grid-card .btn-stream-pill-icon-img {
+        height: 0.88rem;
+        max-width: 2.7rem;
+    }
+
+    .cinema-grid-card .btn-stream-pill-icon-img--kp {
+        height: 0.95rem;
+        max-width: 2.85rem;
+    }
 }
 
 /* Просмотр: Кинопоиск (чёрная пилюля) и ОККО (фиолетовая), капс «Смотреть» */
@@ -1585,15 +1600,30 @@ body {
     outline-offset: 2px;
 }
 
-.btn-stream-pill-icon-svg {
-    width: 1.05rem;
-    height: 1.05rem;
+.btn-stream-pill-ico,
+.btn-store-pill-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    line-height: 0;
 }
 
-.btn-stream-pill--kp .btn-stream-pill-icon-svg--kp {
-    width: 1.15rem;
+.btn-stream-pill-icon-img {
+    display: block;
+    height: 1.05rem;
+    width: auto;
+    max-width: 3.35rem;
+    object-fit: contain;
+}
+
+.btn-stream-pill-icon-img--kp {
     height: 1.15rem;
+    max-width: 3.55rem;
+}
+
+.btn-stream-pill-icon-img--okko {
+    max-width: 3.2rem;
 }
 
 .btn-stream-pill--kp {
@@ -1611,10 +1641,6 @@ body {
 
 .btn-stream-pill--okko:hover {
     background: #4a3482;
-}
-
-.btn-stream-pill--okko .btn-stream-pill-icon-svg--okko {
-    color: #fff;
 }
 
 .cinema-grid-card .btn-stream-pill {
@@ -1657,11 +1683,12 @@ body {
     outline-offset: 2px;
 }
 
-.btn-store-pill-icon-svg {
-    width: 1.125rem;
+.btn-store-pill-icon-img {
+    display: block;
     height: 1.125rem;
-    flex-shrink: 0;
-    stroke: currentColor;
+    width: auto;
+    max-width: 3.25rem;
+    object-fit: contain;
 }
 
 .btn-store-pill--chitai {
@@ -1687,9 +1714,19 @@ body {
     letter-spacing: 0.08em;
 }
 
-.library-grid-card .btn-store-pill-icon-svg {
-    width: 0.95rem;
+.library-grid-card .btn-store-pill-icon-img {
     height: 0.95rem;
+    max-width: 2.85rem;
+}
+
+.cinema-grid-card .btn-stream-pill-icon-img {
+    height: 0.95rem;
+    max-width: 2.9rem;
+}
+
+.cinema-grid-card .btn-stream-pill-icon-img--kp {
+    height: 1.02rem;
+    max-width: 3rem;
 }
 
 .book-detail-store-row {
@@ -1702,6 +1739,11 @@ body {
 .book-detail-store-row .btn-store-pill {
     padding: 0.58rem 1.15rem;
     font-size: 0.72rem;
+}
+
+.book-detail-store-row .btn-store-pill-icon-img {
+    height: 1.05rem;
+    max-width: 3.1rem;
 }
 
 .col-span-full {

@@ -247,25 +247,25 @@ function buildLitresUrl(book) {
     return `https://www.litres.ru/search/?q=${encodeURIComponent(book.title || '')}`;
 }
 
-const STORE_PILL_ICON_CHITAI = `<svg class="btn-store-pill-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="3.5" rx="0.75"/><rect x="5" y="10.25" width="14" height="3.5" rx="0.75"/><rect x="5" y="15.5" width="14" height="3.5" rx="0.75"/></svg>`;
+function historyStorePillLogoSrc(kind) {
+    const logos = window.historyPillLogos || {};
+    return kind === 'chitai' ? (logos.chitai || '') : (logos.litres || '');
+}
 
-const STORE_PILL_ICON_LITRES = `<svg class="btn-store-pill-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="3.2" height="16" rx="0.65"/><rect x="10.4" y="3" width="3.2" height="17" rx="0.65"/><rect x="14.8" y="5" width="3.2" height="15" rx="0.65"/></svg>`;
+function historyStreamPillLogoSrc(kind) {
+    const logos = window.historyPillLogos || {};
+    return kind === 'kp' ? (logos.kinopoisk || '') : (logos.okko || '');
+}
 
-/** Кнопки-«пилюли» Читай-город / Литрес (иконка слева, подпись капсом). */
-function storePillLinkHtml(href, kind, label) {
-    const icon = kind === 'chitai' ? STORE_PILL_ICON_CHITAI : STORE_PILL_ICON_LITRES;
+/** Кнопки-«пилюли» Читай-город / Литрес: логотип PNG слева, текст «Читать». */
+function storePillLinkHtml(href, kind) {
+    const logoSrc = historyStorePillLogoSrc(kind);
     const mod = kind === 'chitai' ? 'btn-store-pill--chitai' : 'btn-store-pill--litres';
-    return `<a href="${escapeHtml(href)}" class="btn-store-pill ${mod}" target="_blank" rel="noopener noreferrer"><span class="btn-store-pill-ico" aria-hidden="true">${icon}</span><span class="btn-store-pill-txt">${escapeHtml(label)}</span></a>`;
+    const iconHtml = logoSrc
+        ? `<span class="btn-store-pill-ico" aria-hidden="true"><img class="btn-store-pill-icon-img" src="${escapeHtml(logoSrc)}" alt="" width="96" height="28" decoding="async" /></span>`
+        : '';
+    return `<a href="${escapeHtml(href)}" class="btn-store-pill ${mod}" target="_blank" rel="noopener noreferrer">${iconHtml}<span class="btn-store-pill-txt">Читать</span></a>`;
 }
-
-let streamPillGradientUid = 0;
-
-function streamKinopoiskIconSvg() {
-    const gid = `kp-stream-grad-${streamPillGradientUid++}`;
-    return `<svg class="btn-stream-pill-icon-svg btn-stream-pill-icon-svg--kp" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="${gid}" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#ffe066"/><stop offset="0.45" stop-color="#ff9f1a"/><stop offset="1" stop-color="#ff5c00"/></linearGradient></defs><path fill="url(#${gid})" d="M5 4h3.1v7.5l5.8-7.5h3.7l-6.3 8.1 6.7 7.9h-3.8l-6.1-7.2V20H5V4z"/></svg>`;
-}
-
-const STREAM_OKKO_ICON_SVG = `<svg class="btn-stream-pill-icon-svg btn-stream-pill-icon-svg--okko" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9.2" cy="8.3" r="1.35" fill="currentColor"/><circle cx="12" cy="7.2" r="1.35" fill="currentColor"/><circle cx="14.8" cy="8.3" r="1.35" fill="currentColor"/><circle cx="12" cy="15.2" r="6.2" stroke="currentColor" stroke-width="1.65"/></svg>`;
 
 function buildKinopoiskWatchUrl(movie) {
     const u = movie.kinopoiskWatchUrl;
@@ -279,13 +279,17 @@ function buildOkkoWatchUrl(movie) {
     return `https://okko.tv/search?q=${encodeURIComponent(movie.title || '')}`;
 }
 
-/** Пилюли «Кинопоиск» / «ОККО» на карточках кинотеатра (капс «Смотреть»). */
+/** Пилюли «Кинопоиск» / «ОККО»: логотип PNG слева, текст «Смотреть». */
 function streamPillLinkHtml(href, kind) {
     const kp = kind === 'kp';
-    const icon = kp ? streamKinopoiskIconSvg() : STREAM_OKKO_ICON_SVG;
+    const logoSrc = historyStreamPillLogoSrc(kind);
     const mod = kp ? 'btn-stream-pill--kp' : 'btn-stream-pill--okko';
     const aria = kp ? 'Кинопоиск: перейти к просмотру' : 'ОККО: перейти к просмотру';
-    return `<a href="${escapeHtml(href)}" class="btn-stream-pill ${mod}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(aria)}"><span class="btn-stream-pill-ico" aria-hidden="true">${icon}</span><span class="btn-stream-pill-txt">Смотреть</span></a>`;
+    const imgClass = kp ? 'btn-stream-pill-icon-img btn-stream-pill-icon-img--kp' : 'btn-stream-pill-icon-img btn-stream-pill-icon-img--okko';
+    const iconHtml = logoSrc
+        ? `<span class="btn-stream-pill-ico" aria-hidden="true"><img class="${imgClass}" src="${escapeHtml(logoSrc)}" alt="" width="80" height="26" decoding="async" /></span>`
+        : '';
+    return `<a href="${escapeHtml(href)}" class="btn-stream-pill ${mod}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(aria)}">${iconHtml}<span class="btn-stream-pill-txt">Смотреть</span></a>`;
 }
 
 function closeAllFilterDropdowns() {
@@ -552,8 +556,8 @@ function buildBookDetailHtml(book) {
             <div><dt>Год</dt><dd>${escapeHtml(String(b.publishYear))}</dd></div>
         </dl>
         <div class="book-detail-actions book-detail-store-row flex flex-wrap gap-3 mb-6">
-            ${storePillLinkHtml(buildChitaiGorodUrl(b), 'chitai', 'Читай-город')}
-            ${storePillLinkHtml(buildLitresUrl(b), 'litres', 'Литрес')}
+            ${storePillLinkHtml(buildChitaiGorodUrl(b), 'chitai')}
+            ${storePillLinkHtml(buildLitresUrl(b), 'litres')}
         </div>
         <p class="book-lead">${escapeHtml(b.description)}</p>
     </div>
@@ -1280,8 +1284,8 @@ function createBookCard(book) {
                     </div>
                 </div>
                 <div class="book-card-store-actions library-card-store-actions">
-                    ${storePillLinkHtml(chUrl, 'chitai', 'Читай-город')}
-                    ${storePillLinkHtml(litUrl, 'litres', 'Литрес')}
+                    ${storePillLinkHtml(chUrl, 'chitai')}
+                    ${storePillLinkHtml(litUrl, 'litres')}
                 </div>
             </div>
         </div>
