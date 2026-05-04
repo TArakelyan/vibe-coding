@@ -1931,12 +1931,26 @@ body {
     overflow: hidden;
 }
 
+/* Разводка книги (Библиотека): без padding и contain — как карточки сетки */
+#book-detail .book-detail-cover-frame {
+    padding: 0;
+    background: #0a0a0a;
+    overflow: hidden;
+}
+
 .book-detail-cover-img {
     display: block;
     width: 100%;
     height: auto;
     max-height: 420px;
     object-fit: contain;
+}
+
+#book-detail .book-detail-cover-img {
+    aspect-ratio: 2 / 3;
+    max-height: min(420px, 70vh);
+    object-fit: cover;
+    object-position: center;
 }
 
 .book-detail-title {
