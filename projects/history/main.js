@@ -13,7 +13,7 @@ let wikiFilterState = { pillar: null, sport: null, taxonomy: null };
 let libraryFilterState = { shelf: 'Все', sport: null };
 let cinemaFilterState = { row: 'Все', sport: null };
 
-const FILTER_MAIN_SPORTS = ['Футбол', 'Баскетбол', 'Хоккей', 'ММА'];
+const FILTER_MAIN_SPORTS = ['Футбол', 'Хоккей', 'Баскетбол', 'Теннис', 'ММА', 'Автоспорт', 'Бокс', 'Фигурка'];
 
 function sportMatchesFilter(articleSport, filterSport) {
     const s = articleSport || 'Другие';
@@ -26,19 +26,27 @@ function deriveLibrarySport(book) {
     if (book.librarySport) return book.librarySport;
     const tags = (book.tags || []).map(t => String(t).toLowerCase());
     if (tags.some(t => t.includes('футбол'))) return 'Футбол';
-    if (tags.some(t => t.includes('баскетбол') || t.includes('нба'))) return 'Баскетбол';
     if (tags.some(t => t.includes('хоккей'))) return 'Хоккей';
-    if (tags.some(t => t.includes('бокс') || t.includes('mma') || t.includes('ufc'))) return 'ММА';
+    if (tags.some(t => t.includes('баскетбол') || t.includes('нба'))) return 'Баскетбол';
+    if (tags.some(t => t.includes('теннис'))) return 'Теннис';
+    if (tags.some(t => t.includes('автоспорт') || t.includes('формула-1') || t.includes('формула 1') || t.includes('f1'))) return 'Автоспорт';
+    if (tags.some(t => t.includes('бокс'))) return 'Бокс';
+    if (tags.some(t => t.includes('mma') || t.includes('ufc') || t.includes('мма'))) return 'ММА';
+    if (tags.some(t => t.includes('фигур') || t.includes('фигурка') || t.includes('фигурное'))) return 'Фигурка';
     return 'Другие';
 }
 
 function deriveCinemaSport(movie) {
     if (movie.cinemaSport) return movie.cinemaSport;
     const tags = (movie.tags || []).map(t => String(t).toLowerCase());
-    if (tags.some(t => t.includes('баскетбол') || t.includes('нба'))) return 'Баскетбол';
     if (tags.some(t => t.includes('футбол'))) return 'Футбол';
     if (tags.some(t => t.includes('хоккей'))) return 'Хоккей';
-    if (tags.some(t => t.includes('бокс') || t.includes('mma'))) return 'ММА';
+    if (tags.some(t => t.includes('баскетбол') || t.includes('нба'))) return 'Баскетбол';
+    if (tags.some(t => t.includes('теннис'))) return 'Теннис';
+    if (tags.some(t => t.includes('автоспорт') || t.includes('формула-1') || t.includes('формула 1') || t.includes('f1') || t.includes('гонк'))) return 'Автоспорт';
+    if (tags.some(t => t.includes('бокс'))) return 'Бокс';
+    if (tags.some(t => t.includes('mma') || t.includes('мма') || t.includes('ufc'))) return 'ММА';
+    if (tags.some(t => t.includes('фигур') || t.includes('фигурка') || t.includes('фигурное'))) return 'Фигурка';
     return 'Другие';
 }
 
@@ -88,9 +96,9 @@ function applyWikipediaFilters() {
 
     const wikiSection = document.getElementById('section-wikipedia');
     if (wikiSection) {
-        const pillarLabel = wikiFilterState.pillar == null ? 'Все' : wikiFilterState.pillar;
+        const sportLabel = wikiFilterState.sport == null ? 'Все' : wikiFilterState.sport;
         wikiSection.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
-            const active = btn.textContent.trim() === pillarLabel;
+            const active = btn.textContent.trim() === sportLabel;
             btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
         });
     }
@@ -100,9 +108,7 @@ function applyLibraryFilters() {
     const grid = document.getElementById('library-books-grid');
     if (!grid || !window.libraryBooks) return;
 
-    const shelf = libraryFilterState.shelf || 'Все';
     const filtered = window.libraryBooks.filter(book => {
-        if (!bookMatchesLibraryShelf(book, shelf)) return false;
         if (!sportMatchesFilter(deriveLibrarySport(book), libraryFilterState.sport)) return false;
         return true;
     });
@@ -116,7 +122,7 @@ function applyLibraryFilters() {
     const librarySection = document.getElementById('section-library');
     if (librarySection) {
         librarySection.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
-            const active = btn.textContent.trim() === shelf;
+            const active = btn.textContent.trim() === (libraryFilterState.sport || 'Все');
             btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
         });
     }
@@ -126,9 +132,7 @@ function applyCinemaFilters() {
     const grid = document.getElementById('cinema-movies-grid');
     if (!grid || !window.cinemaMovies) return;
 
-    const row = cinemaFilterState.row || 'Все';
     const filtered = window.cinemaMovies.filter(m => {
-        if (!movieMatchesCinemaRow(m, row)) return false;
         if (!sportMatchesFilter(deriveCinemaSport(m), cinemaFilterState.sport)) return false;
         return true;
     });
@@ -142,7 +146,7 @@ function applyCinemaFilters() {
     const cinemaSection = document.getElementById('section-cinema');
     if (cinemaSection) {
         cinemaSection.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
-            const active = btn.textContent.trim() === row;
+            const active = btn.textContent.trim() === (cinemaFilterState.sport || 'Все');
             btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
         });
     }
@@ -224,7 +228,144 @@ window.showArticle = function(articleId) {
 }
 
 function loadArticleContent(articleId) {
-    showNotification(`Загружается статья: ${articleId}`, 'info');
+    const article = (window.wikipediaArticles || []).find(a => a.id === articleId);
+    const section = document.getElementById('article-detail');
+    if (!section) return;
+
+    if (!article) {
+        section.innerHTML = `
+        <article class="container px-4 py-8 article-shell">
+            <button type="button" class="btn btn-secondary mb-6 gap-2 article-back" onclick="showSection('wikipedia')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <path d="m12 19-7-7 7-7"></path>
+                    <path d="M19 12H5"></path>
+                </svg>
+                Назад к Википедии
+            </button>
+            <h1 class="article-title mt-4 mb-4">Статья не найдена</h1>
+            <p class="text-muted-foreground">Похоже, материал был удален или временно недоступен.</p>
+        </article>`;
+        return;
+    }
+
+    const title = escapeHtml(article.title || 'Материал Википедии');
+    const image = escapeHtml(article.image || 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop');
+    const bodyHtml = buildWikipediaArticleBodyHtml(article);
+
+    section.innerHTML = `
+    <article class="container px-4 py-8 article-shell">
+        <nav class="book-breadcrumbs mb-6" aria-label="Хлебные крошки">
+            <a href="#" onclick="showSection('home'); return false;">Главная</a>
+            <span class="book-bc-sep">/</span>
+            <a href="#" onclick="showSection('wikipedia'); return false;">Википедия</a>
+            <span class="book-bc-sep">/</span>
+            <span>${title}</span>
+        </nav>
+
+        <div class="mb-8">
+            <h1 class="article-title mb-4">${title}</h1>
+        </div>
+
+        <div class="aspect-video rounded-lg overflow-hidden mb-8 bg-muted">
+            <img src="${image}" alt="${title}" class="w-full h-full object-cover">
+        </div>
+
+        <div class="prose prose-lg max-w-none text-foreground" style="line-height: 1.8;">
+            ${bodyHtml}
+        </div>
+        ${buildHistoryRecBlocksWikipedia(articleId)}
+    </article>`;
+    wireHistoryRecommendationBlocks(section);
+}
+
+function buildWikipediaArticleBodyHtml(article) {
+    const title = String(article?.title || '');
+    const map = {
+        'Все чемпионы Англии по годам': `
+            <p>Представляем список всех победителей высшего футбольного дивизиона Англии с 1992 года, с момента образования Английской Премьер-лиги.</p>
+            <h2>1992–2004: рождение АПЛ и доминирование «Манчестер Юнайтед»</h2>
+            <p><strong>Сезон 1992–1993, чемпион – «Манчестер Юнайтед».</strong> Первый сезон в истории образованной Премьер-лиги. Команда Алекса Фергюсона завоевала титул спустя 26 лет после последнего чемпионства. Ключевым моментом стал переход Эрика Кантона из «Лидса» в середине сезона.</p>
+            <p><strong>Сезон 1993–1994, чемпион – «Манчестер Юнайтед».</strong> Манкунианцы доминировали на протяжении всего чемпионата и сделали «золотой дубль», выиграв также Кубок Англии.</p>
+            <p><strong>Сезон 1994–1995, чемпион – «Блэкберн Роверс».</strong> Единственный триумф команды Кенни Далглиша. Судьба титула решилась в последнем туре, когда «Манчестер Юнайтед» не обыграл «Вест Хэм».</p>
+            <p><strong>Сезон 1995–1996, чемпион – «Манчестер Юнайтед».</strong> Сезон запомнился фразой Алана Хансена: «Вы никогда ничего не выиграете с детьми». Фергюсон сделал ставку на выпускников академии, и они взяли титул.</p>
+            <p><strong>Сезон 1996–1997, чемпион – «Манчестер Юнайтед».</strong> Очередная победа «красных дьяволов», которые на финише обошли «Ньюкасл», «Арсенал» и «Ливерпуль».</p>
+            <p><strong>Сезон 1997–1998, чемпион – «Арсенал».</strong> Арсен Венгер в первый полный сезон в Англии привел «канониров» к чемпионству, отыграв большое отставание от «Юнайтед».</p>
+            <p><strong>Сезон 1998–1999, чемпион – «Манчестер Юнайтед».</strong> Легендарный сезон «требла». В АПЛ борьба с «Арсеналом» шла до последней минуты последнего тура.</p>
+            <p><strong>Сезон 1999–2000, чемпион – «Манчестер Юнайтед».</strong> Убедительная победа с большим отрывом от ближайшего преследователя.</p>
+            <p><strong>Сезон 2000–2001, чемпион – «Манчестер Юнайтед».</strong> Третий титул подряд. Фергюсон стал первым тренером в истории Англии с тремя чемпионствами кряду.</p>
+            <p><strong>Сезон 2001–2002, чемпион – «Арсенал».</strong> «Арсенал» оформил чемпионство на «Олд Траффорд», не проиграв ни одного выездного матча за сезон.</p>
+            <p><strong>Сезон 2002–2003, чемпион – «Манчестер Юнайтед».</strong> Титул вернулся в Манчестер после мощной серии во второй половине чемпионата.</p>
+            <p><strong>Сезон 2003–2004, чемпион – «Арсенал».</strong> Уникальное достижение «непобедимых» – 38 матчей без единого поражения.</p>
+            <h2>2004–2016: эра «Челси», второй пик «Юнайтед» и чудо «Лестера»</h2>
+            <p><strong>Сезон 2004–2005, чемпион – «Челси».</strong> Начало эры Жозе Моуринью: 95 очков и рекордно надежная оборона.</p>
+            <p><strong>Сезон 2005–2006, чемпион – «Челси».</strong> Лондонцы защитили титул и подтвердили превосходство над конкурентами.</p>
+            <p><strong>Сезон 2006–2007, чемпион – «Манчестер Юнайтед».</strong> После паузы «Юнайтед» вернул золото благодаря яркой игре лидеров атаки.</p>
+            <p><strong>Сезон 2007–2008, чемпион – «Манчестер Юнайтед».</strong> Команда Фергюсона опередила «Челси» всего на два очка.</p>
+            <p><strong>Сезон 2008–2009, чемпион – «Манчестер Юнайтед».</strong> Вторая серия из трех титулов подряд и закрепление статуса топ-клуба эпохи.</p>
+            <p><strong>Сезон 2009–2010, чемпион – «Челси».</strong> Карло Анчелотти в первый сезон взял титул и поставил рекорд результативности.</p>
+            <p><strong>Сезон 2010–2011, чемпион – «Манчестер Юнайтед».</strong> Рекордный 19-й титул чемпиона Англии.</p>
+            <p><strong>Сезон 2011–2012, чемпион – «Манчестер Сити».</strong> Самая драматичная развязка: легендарный гол Агуэро на последних секундах.</p>
+            <p><strong>Сезон 2012–2013, чемпион – «Манчестер Юнайтед».</strong> Последний сезон сэра Алекса Фергюсона и 20-й титул клуба.</p>
+            <p><strong>Сезон 2013–2014, чемпион – «Манчестер Сити».</strong> Команда Пеллегрини воспользовалась осечкой «Ливерпуля» на финише.</p>
+            <p><strong>Сезон 2014–2015, чемпион – «Челси».</strong> Второе пришествие Моуринью ознаменовалось уверенной победой.</p>
+            <p><strong>Сезон 2015–2016, чемпион – «Лестер Сити».</strong> Главная сенсация современного футбола: команда, которой прогнозировали вылет, выиграла АПЛ.</p>
+            <h2>2016–2024: эра «Манчестер Сити» и чемпионство «Ливерпуля»</h2>
+            <p><strong>Сезон 2016–2017, чемпион – «Челси».</strong> Антонио Конте и переход на схему с тремя защитниками принесли титул.</p>
+            <p><strong>Сезон 2017–2018, чемпион – «Манчестер Сити».</strong> Команда Пепа Гвардиолы первой в истории набрала 100 очков.</p>
+            <p><strong>Сезон 2018–2019, чемпион – «Манчестер Сити».</strong> В невероятной гонке «Сити» опередил «Ливерпуль» всего на одно очко.</p>
+            <p><strong>Сезон 2019–2020, чемпион – «Ливерпуль».</strong> Долгожданное золото спустя 30 лет.</p>
+            <p><strong>Сезон 2020–2021, чемпион – «Манчестер Сити».</strong> После сложного старта команда перестроилась и уверенно вернула трофей.</p>
+            <p><strong>Сезон 2021–2022, чемпион – «Манчестер Сити».</strong> Чемпионство добыто в камбэке против «Астон Виллы» в последнем туре.</p>
+            <p><strong>Сезон 2022–2023, чемпион – «Манчестер Сити».</strong> Часть исторического требла и очередной титул в эпохе Гвардиолы.</p>
+            <p><strong>Сезон 2023–2024, чемпион – «Манчестер Сити».</strong> Первая команда в истории английского футбола, выигравшая четыре титула подряд.</p>
+        `,
+        'Правила биатлона': `
+            <h2>Биатлон: правила, виды гонок, история и экипировка</h2>
+            <p>Биатлон – это уникальное сочетание двух сложных дисциплин: скоростной лыжной гонки и точной стрельбы из винтовки. Главная сложность спорта в том, что после максимальной физической нагрузки спортсмену нужно мгновенно успокоить пульс и поразить мишени с дистанции 50 метров. Именно поэтому биатлон так непредсказуем: один промах на стрельбище может легко перечеркнуть преимущество, наработанное на трассе.</p>
+            <p>Телевизионные трансляции всегда собирают множество зрителей у экранов. Но чтобы по-настоящему понимать происходящее, стоит углубиться в детали. Биатлон – это не просто лыжи и стрельба, это сложная тактическая игра с ветром, рельефом трассы и собственной психологией.</p>
+            <h2>История биатлона</h2>
+            <p>Корни этого занятия уходят в глубокую древность, когда лыжи и лук были единственным способом добыть пропитание зимой. Наскальные рисунки, найденные в Норвегии, подтверждают, что люди охотились на лыжах еще тысячи лет назад. Как спортивная дисциплина биатлон начал формироваться в военной среде: в XVIII веке пограничные отряды скандинавских стран проводили состязания, напоминающие современные гонки.</p>
+            <p>Долгое время этот спорт назывался «гонки военных патрулей» и даже входил в программу первых зимних Олимпиад как демонстрационный вид. Официальное рождение современного биатлона произошло в 1950-х, когда утвердили единые правила, а крупнокалиберные карабины заменили легкими малокалиберными винтовками. В программу Олимпийских игр биатлон окончательно вошел в 1960 году.</p>
+            <h2>Основные правила биатлона</h2>
+            <p>Биатлон регулируется строгим сводом правил Международного союза биатлонистов (IBU). Каждый шаг спортсмена – от старта до поведения на огневом рубеже – подчинен четкому регламенту.</p>
+            <h2>Лыжная гонка</h2>
+            <p>Разрешен свободный стиль (коньковый ход). Спортсмены используют малокалиберные винтовки калибра 5,6 мм (.22 LR) с ручной перезарядкой. Минимально допустимый вес оружия – 3,5 кг (без обойм и патронов), усилие спуска – не менее 500 грамм. На дистанции винтовка находится за спиной стволом вверх, снимать ее можно только на коврике огневого рубежа.</p>
+            <h2>Стрельба</h2>
+            <p>Все действия выполняются с дистанции 50 метров. В положении лежа диаметр цели – 45 мм, в положении стоя – 115 мм. В стрельбе стоя запрещено использовать упор и касаться локтями корпуса или бедер.</p>
+            <h2>Штрафы</h2>
+            <p>В спринте, пасьюте, масс-старте и эстафете за каждый промах спортсмен проходит штрафной круг 150 метров (примерно 25 секунд). В индивидуальной гонке применяется штрафная минута – 60 секунд к итоговому времени за промах. В эстафетах предусмотрены три дополнительных патрона на каждый рубеж.</p>
+            <h2>Виды гонок</h2>
+            <p><strong>Спринт:</strong> мужчины – 10 км, женщины – 7,5 км, два рубежа, раздельный старт.</p>
+            <p><strong>Гонка преследования (пасьют):</strong> 12,5 км у мужчин и 10 км у женщин, четыре рубежа.</p>
+            <p><strong>Индивидуальная гонка:</strong> 20 км у мужчин и 15 км у женщин, четыре рубежа, штрафная минута за промах.</p>
+            <p><strong>Масс-старт:</strong> одновременный старт 30 лучших спортсменов, четыре рубежа.</p>
+            <p><strong>Эстафета:</strong> командный формат 4×7,5 км у мужчин или 4×6 км у женщин, с дополнительными патронами.</p>
+            <h2>Экипировка биатлонистов</h2>
+            <p>Винтовка – малокалиберная, с диоптрическим прицелом (оптика запрещена). Лыжи и палки подбираются под особенности конькового хода и баланс с винтовкой за спиной. Одежда – аэродинамичный комбинезон, термобелье и защитные очки.</p>
+            <h2>Трасса и стрельбище</h2>
+            <p>Лыжная трасса сочетает подъемы, спуски и равнины, а перепад высот регламентируется IBU. Огневой рубеж обычно включает 30 коридоров и ветровые флажки, по которым спортсмены корректируют стрельбу.</p>
+            <h2>Главные турниры</h2>
+            <p>Ключевые соревнования – Олимпийские игры, чемпионат мира, Кубок мира, Кубок IBU и чемпионат Европы. Именно на этих стартах формируется элита биатлона и раскрываются новые имена.</p>
+        `,
+        'Что такое драфт НБА': `
+            <h2>Как устроен драфт НБА: от лотереи до выбора будущих звезд</h2>
+            <p>Драфт НБА – это ежегодное событие, в ходе которого команды лиги выбирают новых игроков. Чаще всего это выпускники американских колледжей, но в последние десятилетия на драфт выходит все больше баскетболистов из Европы, Латинской Америки и Азии. Главная цель драфта – поддержание паритета в лиге: худшие команды прошлого сезона получают возможность выбрать самых талантливых новичков первыми.</p>
+            <h2>История возникновения</h2>
+            <p>Первый драфт прошел в 1947 году. В те времена существовало правило территориального выбора, которое позволяло клубам забирать игроков из местных колледжей еще до начала основной процедуры, чтобы привлечь больше зрителей. Это правило отменили в 1966 году.</p>
+            <h2>Лотерея драфта</h2>
+            <p>Чтобы команды не проигрывали матчи специально ради первого номера («танкинг»), лига ввела систему лотереи. В ней участвуют 14 команд, не попавших в плей-офф. Худшие три команды сезона имеют равные и самые высокие шансы на первый пик – по 14%.</p>
+            <p>Лотерея определяет только первые четыре номера выбора, остальные распределяются в обратном порядке по итогам регулярного чемпионата.</p>
+            <h2>Структура и раунды</h2>
+            <p>Современный драфт состоит из двух раундов. В каждом раунде выбирается по 30 игроков – по одному выбору на каждую команду, если пики не были обменяны заранее.</p>
+            <p><strong>Первый раунд:</strong> выбранные игроки получают гарантированные контракты.</p>
+            <p><strong>Второй раунд:</strong> контракты не гарантированы, клубы чаще отправляют игроков в G-лигу или договариваются индивидуально.</p>
+            <h2>Знаменитые кражи и провалы</h2>
+            <p>История драфта полна примеров, когда будущие звезды выбирались низко: Никола Йокич ушел под 41-м номером, Ману Джинобили – под 57-м. И наоборот, статус первого номера не гарантирует успешную карьеру.</p>
+            <h2>Эволюция процесса</h2>
+            <p>С 2024 года НБА проводит драфт в два дня: первый раунд в один день, второй – на следующий. Это дает клубам больше времени на анализ и сделки и подчеркивает значимость драфта как ключевого инструмента строительства команд-династий.</p>
+        `
+    };
+    return map[title] || `<p>Статья временно обновляется. Скоро здесь появится полноценный материал по теме «${escapeHtml(title)}».</p>`;
 }
 
 function escapeHtml(text) {
@@ -232,6 +373,250 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+/** Ключ «месяц-день» для календаря «Сегодня» (реальная дата пользователя). */
+function historyTodayMonthDayKey(d = new Date()) {
+    return `${d.getMonth() + 1}-${d.getDate()}`;
+}
+
+function historySimpleHash(str) {
+    let h = 0;
+    const s = String(str);
+    for (let i = 0; i < s.length; i++) {
+        h = ((h << 5) - h) + s.charCodeAt(i);
+        h |= 0;
+    }
+    return Math.abs(h);
+}
+
+/** До 3 элементов, стабильный «перемешанный» порядок; исключение по id. */
+function historyPickThree(items, excludeId, idField = 'id') {
+    const list = (items || []).filter(x => x && x[idField] !== excludeId);
+    const scored = list.map(x => ({
+        item: x,
+        score: historySimpleHash(String(x[idField]) + '|' + String(excludeId || ''))
+    }));
+    scored.sort((a, b) => a.score - b.score);
+    return scored.slice(0, 3).map(s => s.item);
+}
+
+function historyRecMeta(seedStr) {
+    const h = historySimpleHash(seedStr);
+    const plus = 12 + (h % 78);
+    const showFlame = (h % 4) !== 0;
+    const flame = 1 + ((h >> 3) % 12);
+    return { plus, showFlame, flame };
+}
+
+function buildHistoryRecCardBook(b) {
+    const meta = historyRecMeta(`b-${b.id}`);
+    const flame = meta.showFlame
+        ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
+        : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
+    const safeId = escapeHtml(b.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return `
+<button type="button" class="history-rec-card" onclick="showBook('${safeId}')">
+    <div class="history-rec-card-img"><img src="${escapeHtml(b.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-body">
+        <div class="history-rec-card-title">${escapeHtml(b.title || '')}</div>
+        <div class="history-rec-card-meta">
+            <span class="history-rec-plus">+${meta.plus}</span>
+            ${flame}
+        </div>
+    </div>
+</button>`;
+}
+
+function buildHistoryRecCardMovie(m) {
+    const meta = historyRecMeta(`m-${m.id}`);
+    const flame = meta.showFlame
+        ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
+        : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
+    const safeId = escapeHtml(m.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return `
+<button type="button" class="history-rec-card" onclick="showMovie('${safeId}')">
+    <div class="history-rec-card-img"><img src="${escapeHtml(m.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-body">
+        <div class="history-rec-card-title">${escapeHtml(m.title || '')}</div>
+        <div class="history-rec-card-meta">
+            <span class="history-rec-plus">+${meta.plus}</span>
+            ${flame}
+        </div>
+    </div>
+</button>`;
+}
+
+function buildHistoryRecCardToday(ev) {
+    const meta = historyRecMeta(`e-${ev.id}`);
+    const flame = meta.showFlame
+        ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
+        : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
+    const href = ev.materialHref && /^https:\/\//i.test(String(ev.materialHref))
+        ? String(ev.materialHref).trim()
+        : 'https://www.sports.ru/?utm_source=special-history';
+    return `
+<a class="history-rec-card history-rec-card--link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">
+    <div class="history-rec-card-img"><img src="${escapeHtml(ev.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-body">
+        <div class="history-rec-card-title">${escapeHtml(ev.title || '')}</div>
+        <div class="history-rec-card-meta">
+            <span class="history-rec-plus">+${meta.plus}</span>
+            ${flame}
+        </div>
+    </div>
+</a>`;
+}
+
+function buildHistoryRecCarousel(title, cardsHtml) {
+    if (!cardsHtml || !String(cardsHtml).trim()) return '';
+    return `
+<section class="history-rec-section" aria-label="${escapeHtml(title)}">
+    <h2 class="history-rec-heading">${escapeHtml(title)}</h2>
+    <div class="history-rec-strip-wrap">
+        <div class="history-rec-scroll" data-rec-scroll tabindex="0">
+            ${cardsHtml}
+        </div>
+        <button type="button" class="history-rec-next" data-rec-next aria-label="Показать ещё">
+            <span class="history-rec-next-arw" aria-hidden="true">›</span>
+        </button>
+    </div>
+</section>`;
+}
+
+function wireHistoryRecommendationBlocks(root) {
+    if (!root) return;
+    root.querySelectorAll('.history-rec-strip-wrap').forEach(wrap => {
+        const track = wrap.querySelector('[data-rec-scroll]');
+        const nextBtn = wrap.querySelector('[data-rec-next]');
+        if (!track || !nextBtn || nextBtn.dataset.bound) return;
+        nextBtn.dataset.bound = '1';
+        nextBtn.addEventListener('click', () => {
+            const step = Math.min(280, Math.floor(track.clientWidth * 0.75));
+            track.scrollBy({ left: step, behavior: 'smooth' });
+        });
+    });
+}
+
+/** Википедия: кино, книги, события сегодня. */
+function buildHistoryRecBlocksWikipedia(currentArticleId) {
+    const movies = historyPickThree(window.cinemaMovies || [], null);
+    const books = historyPickThree(window.libraryBooks || [], null);
+    const dayKey = historyTodayMonthDayKey();
+    const dayEvents = (window.todayEventsByMonthDay && window.todayEventsByMonthDay[dayKey]) || [];
+    const events = historyPickThree(dayEvents, null);
+
+    const h1 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovie).join(''));
+    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBook).join(''));
+    const h3 = buildHistoryRecCarousel('Что было сегодня', events.map(buildHistoryRecCardToday).join(''));
+    const inner = [h1, h2, h3].filter(Boolean).join('');
+    if (!inner) return '';
+    return `<div class="history-rec-blocks">${inner}</div>`;
+}
+
+/** Библиотека: статьи, кино, события сегодня. */
+function buildHistoryRecBlocksLibrary(currentBookId) {
+    const articles = historyPickThree(window.wikipediaArticles || [], null);
+    const movies = historyPickThree(window.cinemaMovies || [], null);
+    const dayKey = historyTodayMonthDayKey();
+    const dayEvents = (window.todayEventsByMonthDay && window.todayEventsByMonthDay[dayKey]) || [];
+    const events = historyPickThree(dayEvents, null);
+
+    const h1 = buildHistoryRecCarousel('Что узнать', articles.map(a => {
+        const meta = historyRecMeta(`w-${a.id}`);
+        const flame = meta.showFlame
+            ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
+            : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
+        const safeId = escapeHtml(a.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        return `
+<button type="button" class="history-rec-card" onclick="showArticle('${safeId}')">
+    <div class="history-rec-card-img"><img src="${escapeHtml(a.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-body">
+        <div class="history-rec-card-title">${escapeHtml(a.title || '')}</div>
+        <div class="history-rec-card-meta">
+            <span class="history-rec-plus">+${meta.plus}</span>
+            ${flame}
+        </div>
+    </div>
+</button>`;
+    }).join(''));
+    const h2 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovie).join(''));
+    const h3 = buildHistoryRecCarousel('Что было сегодня', events.map(buildHistoryRecCardToday).join(''));
+    const inner = [h1, h2, h3].filter(Boolean).join('');
+    if (!inner) return '';
+    return `<div class="history-rec-blocks">${inner}</div>`;
+}
+
+/** Кинотеатр: статьи, книги, события сегодня. */
+function buildHistoryRecBlocksCinema(currentMovieId) {
+    const articles = historyPickThree(window.wikipediaArticles || [], null);
+    const books = historyPickThree(window.libraryBooks || [], null);
+    const dayKey = historyTodayMonthDayKey();
+    const dayEvents = (window.todayEventsByMonthDay && window.todayEventsByMonthDay[dayKey]) || [];
+    const events = historyPickThree(dayEvents, null);
+
+    const h1 = buildHistoryRecCarousel('Что узнать', articles.map(a => {
+        const meta = historyRecMeta(`w-${a.id}`);
+        const flame = meta.showFlame
+            ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
+            : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
+        const safeId = escapeHtml(a.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        return `
+<button type="button" class="history-rec-card" onclick="showArticle('${safeId}')">
+    <div class="history-rec-card-img"><img src="${escapeHtml(a.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-body">
+        <div class="history-rec-card-title">${escapeHtml(a.title || '')}</div>
+        <div class="history-rec-card-meta">
+            <span class="history-rec-plus">+${meta.plus}</span>
+            ${flame}
+        </div>
+    </div>
+</button>`;
+    }).join(''));
+    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBook).join(''));
+    const h3 = buildHistoryRecCarousel('Что было сегодня', events.map(buildHistoryRecCardToday).join(''));
+    const inner = [h1, h2, h3].filter(Boolean).join('');
+    if (!inner) return '';
+    return `<div class="history-rec-blocks">${inner}</div>`;
+}
+
+/** Раздел «Сегодня»: статьи, книги, кино. */
+function buildHistoryRecBlocksTodayPage() {
+    const articles = historyPickThree(window.wikipediaArticles || [], null);
+    const books = historyPickThree(window.libraryBooks || [], null);
+    const movies = historyPickThree(window.cinemaMovies || [], null);
+
+    const h1 = buildHistoryRecCarousel('Что узнать', articles.map(a => {
+        const meta = historyRecMeta(`w-${a.id}`);
+        const flame = meta.showFlame
+            ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
+            : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
+        const safeId = escapeHtml(a.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        return `
+<button type="button" class="history-rec-card" onclick="showArticle('${safeId}')">
+    <div class="history-rec-card-img"><img src="${escapeHtml(a.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-body">
+        <div class="history-rec-card-title">${escapeHtml(a.title || '')}</div>
+        <div class="history-rec-card-meta">
+            <span class="history-rec-plus">+${meta.plus}</span>
+            ${flame}
+        </div>
+    </div>
+</button>`;
+    }).join(''));
+    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBook).join(''));
+    const h3 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovie).join(''));
+    const inner = [h1, h2, h3].filter(Boolean).join('');
+    if (!inner) return '';
+    return `<div class="history-rec-blocks history-rec-blocks--today">${inner}</div>`;
+}
+
+function renderTodayRecommendationsMount() {
+    const mount = document.getElementById('today-rec-mount');
+    if (!mount) return;
+    const html = buildHistoryRecBlocksTodayPage();
+    mount.innerHTML = html || '';
+    wireHistoryRecommendationBlocks(mount);
 }
 
 /** Поиск книги на Читай-городе / Литрес (можно задать свои URL в данных книги). */
@@ -479,8 +864,8 @@ function enrichBookForDetail(book) {
     ];
     const reviewText = book.reviewText ||
         `${book.description} Рекомендуем читать последовательно: так проще удержать нить биографии и спортивных поворотов сюжета.`;
-    const reviewAuthor = book.reviewAuthor || 'Редакция Спортс';
-    const reviewAuthorRole = book.reviewAuthorRole || 'Обзор раздела «Библиотека»';
+    const reviewAuthor = book.reviewAuthor || 'Иван Иванов';
+    const reviewAuthorRole = book.reviewAuthorRole || 'Автор Спортса';
     const ratingCount = book.ratingCount != null ? book.ratingCount : Math.max(4, Math.round((book.rating || 4) * 3));
     const breadcrumbTail = book.breadcrumbTail || `Книги: ${book.category}`;
     return {
@@ -507,6 +892,10 @@ function reviewerInitials(name) {
     return (parts[0] || '?').slice(0, 2).toUpperCase();
 }
 
+function reviewerAvatarUrl(name) {
+    return 'https://dumpster.cdn.sports.ru/f/0d/457ce6558a8fc43eabb0cd900bac1.png';
+}
+
 function buildBookTags(book) {
     const set = new Set(['книги']);
     (book.tags || []).forEach(t => set.add(String(t).toLowerCase()));
@@ -521,7 +910,7 @@ function buildBookDetailHtml(book) {
         `<span class="book-tag-pill"><span class="book-tag-dot" aria-hidden="true"></span>${escapeHtml(t)}</span>`
     ).join('');
     const previewHtml = b.previewParagraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
-    const initials = reviewerInitials(b.reviewAuthor);
+    const reviewerAvatar = reviewerAvatarUrl(b.reviewAuthor);
     const titleEnBlock = b.titleEn ? `<p class="book-detail-subtitle">${escapeHtml(b.titleEn)}</p>` : '';
 
     const starsInteractive = [1, 2, 3, 4, 5].map(n =>
@@ -563,18 +952,18 @@ function buildBookDetailHtml(book) {
     </div>
 </div>
 <section class="book-section" id="book-preview-block">
-    <h2 class="book-section-title">Предпросмотр</h2>
+    <h2 class="book-section-title">Описание</h2>
     <div class="book-preview-text">${previewHtml}</div>
 </section>
 <section class="book-section">
     <h2 class="book-section-title">Рецензия</h2>
     <blockquote class="book-review-quote">
-        <span class="book-quote-mark book-quote-open" aria-hidden="true">«</span>
+        <span class="book-quote-mark book-quote-open" aria-hidden="true">“</span>
         <p>${escapeHtml(b.reviewText)}</p>
-        <span class="book-quote-mark book-quote-close" aria-hidden="true">»</span>
+        <span class="book-quote-mark book-quote-close" aria-hidden="true">”</span>
     </blockquote>
-    <div class="book-reviewer flex items-center gap-3 mt-6">
-        <div class="book-reviewer-avatar" aria-hidden="true">${escapeHtml(initials)}</div>
+    <div class="book-reviewer flex items-center gap-3">
+        <img class="book-reviewer-avatar" src="${escapeHtml(reviewerAvatar)}" alt="${escapeHtml(b.reviewAuthor)}" width="48" height="48" loading="lazy" decoding="async" />
         <div>
             <div class="book-reviewer-name">${escapeHtml(b.reviewAuthor)}</div>
             <div class="book-reviewer-role text-sm text-muted-foreground">${escapeHtml(b.reviewAuthorRole)}</div>
@@ -594,7 +983,8 @@ function buildBookDetailHtml(book) {
             <button type="submit" class="btn btn-rating-send">Отправить</button>
         </div>
     </form>
-</section>`;
+</section>
+${buildHistoryRecBlocksLibrary(book.id)}`;
 }
 
 function wireBookDetailPage(mount) {
@@ -639,6 +1029,7 @@ window.showBook = function(bookId) {
 
     mount.innerHTML = buildBookDetailHtml(book);
     wireBookDetailPage(mount);
+    wireHistoryRecommendationBlocks(mount);
 
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     section.classList.add('active');
@@ -652,9 +1043,9 @@ function enrichMovieForDetail(m) {
         `Материал «Кинотеатра» дополняет подборку «${m.category}»: ${m.formatLabel === 'Сериал' ? 'формат сериала позволяет раскрыть хронику событий и интервью подробнее, чем в одном фильме.' : 'кино собирает историю в связном повествовании с упором на драматургию спортивного конфликта.'}`
     ];
     const reviewText = m.reviewText ||
-        `${m.description} Рекомендуем обратить внимание на работу режиссёра и монтаж архивных материалов — они задают ритм повествования.`;
-    const reviewAuthor = m.reviewAuthor || 'Редакция Спортс';
-    const reviewAuthorRole = m.reviewAuthorRole || 'Раздел «Кинотеатр»';
+        `${m.description} Рекомендуем обратить внимание на работу режиссера и монтаж архивных материалов — они задают ритм повествования.`;
+    const reviewAuthor = m.reviewAuthor || 'Иван Иванов';
+    const reviewAuthorRole = m.reviewAuthorRole || 'Автор Спортса';
     const ratingCount = m.ratingCount != null ? m.ratingCount : Math.max(80, Math.round((Number(m.kinopoiskRating) || Number(m.rating) || 8) * 900));
     const breadcrumbTail = m.breadcrumbTail || `${m.formatLabel || 'Фильм'} · ${m.category}`;
     const kinopoiskRating = m.kinopoiskRating != null ? Number(m.kinopoiskRating) : Number(m.rating);
@@ -750,11 +1141,8 @@ function buildMovieDetailHtml(movie) {
         `<span class="book-tag-pill"><span class="book-tag-dot" aria-hidden="true"></span>${escapeHtml(t)}</span>`
     ).join('');
     const previewHtml = m.previewParagraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
-    const initials = reviewerInitials(m.reviewAuthor);
+    const reviewerAvatar = reviewerAvatarUrl(m.reviewAuthor);
     const orig = m.originalTitle ? `<p class="book-detail-subtitle">${escapeHtml(m.originalTitle)}</p>` : '';
-
-    const kp = Number.isFinite(m.kinopoiskRating) ? m.kinopoiskRating.toFixed(1) : '—';
-    const imdb = m.imdbRating != null && Number.isFinite(m.imdbRating) ? m.imdbRating.toFixed(1) : '—';
 
     const starsInteractive = [1, 2, 3, 4, 5].map(n =>
         `<button type="button" class="book-rate-star movie-rate-star" data-value="${n}" aria-label="${n} из 5">☆</button>`
@@ -781,24 +1169,16 @@ function buildMovieDetailHtml(movie) {
     <div class="book-detail-main-col movie-detail-main-col flex flex-col items-start">
         <h1 class="book-detail-title">${escapeHtml(m.title)}</h1>
         ${orig}
-        <div class="movie-ext-scores" role="group" aria-label="Оценки">
-            <span class="movie-score-chip"><strong>Кинопоиск:</strong> ${escapeHtml(kp)} / 10</span>
-            <span class="movie-score-divider" aria-hidden="true"></span>
-            <span class="movie-score-chip"><strong>IMDb:</strong> ${escapeHtml(imdb)} / 10</span>
-            <span class="movie-score-divider" aria-hidden="true"></span>
-            <span class="movie-score-chip movie-score-chip--sports"><strong>Спортс:</strong> ${escapeHtml(String(m.rating))}/10 ${renderStarsFromTen(m.rating)}</span>
+        <div class="book-detail-rating-row flex items-center gap-3 mb-4" role="group" aria-label="Оценки">
+            ${renderStarsRow(m.rating)}
+            <span class="text-sm text-muted-foreground">${m.ratingCount.toLocaleString('ru-RU')} оценок</span>
         </div>
-        <p class="movie-score-meta-note text-sm text-muted-foreground mb-3">${m.ratingCount.toLocaleString('ru-RU')} пользовательских отметок по карточке (демо)</p>
-        <dl class="book-meta-list movie-meta-extended">
-            <div><dt>Формат</dt><dd>${escapeHtml(m.formatLabel)}</dd></div>
-            <div><dt>Режиссёр</dt><dd>${escapeHtml(m.director)}</dd></div>
-            <div><dt>Жанр</dt><dd>${escapeHtml(m.genre)}</dd></div>
+        <dl class="book-meta-list">
+            <div><dt>Режиссер</dt><dd>${escapeHtml(m.director)}</dd></div>
             <div><dt>Год</dt><dd>${escapeHtml(String(m.year))}</dd></div>
             <div><dt>Длительность</dt><dd>${escapeHtml(String(m.duration))}</dd></div>
-            <div><dt>Страна</dt><dd>${escapeHtml(m.country)}</dd></div>
-            <div><dt>Возрастной рейтинг</dt><dd>${escapeHtml(m.ageRating)}</dd></div>
-            <div><dt>Сценарий</dt><dd>${escapeHtml(m.writers)}</dd></div>
-            <div class="movie-meta-span-cast"><dt>В ролях / участники</dt><dd>${escapeHtml(m.cast)}</dd></div>
+            <div><dt>Рейтинг</dt><dd>${escapeHtml(m.ageRating)}</dd></div>
+            <div><dt>В ролях</dt><dd>${escapeHtml(m.cast)}</dd></div>
         </dl>
         <div class="movie-detail-stream-actions mb-6" role="group" aria-label="Смотреть на сервисах">
             ${streamPillLinkHtml(kpUrl, 'kp')}
@@ -808,19 +1188,19 @@ function buildMovieDetailHtml(movie) {
     </div>
 </div>
 <section class="book-section" id="movie-preview-block">
-    <h2 class="book-section-title">Предпросмотр</h2>
+    <h2 class="book-section-title">Описание</h2>
     <div class="book-preview-text">${previewHtml}</div>
 </section>
 ${buildMovieTrailerHtml(m)}
 <section class="book-section">
     <h2 class="book-section-title">Рецензия</h2>
     <blockquote class="book-review-quote">
-        <span class="book-quote-mark book-quote-open" aria-hidden="true">«</span>
+        <span class="book-quote-mark book-quote-open" aria-hidden="true">“</span>
         <p>${escapeHtml(m.reviewText)}</p>
-        <span class="book-quote-mark book-quote-close" aria-hidden="true">»</span>
+        <span class="book-quote-mark book-quote-close" aria-hidden="true">”</span>
     </blockquote>
-    <div class="book-reviewer flex items-center gap-3 mt-6">
-        <div class="book-reviewer-avatar" aria-hidden="true">${escapeHtml(initials)}</div>
+    <div class="book-reviewer flex items-center gap-3">
+        <img class="book-reviewer-avatar" src="${escapeHtml(reviewerAvatar)}" alt="${escapeHtml(m.reviewAuthor)}" width="48" height="48" loading="lazy" decoding="async" />
         <div>
             <div class="book-reviewer-name">${escapeHtml(m.reviewAuthor)}</div>
             <div class="book-reviewer-role text-sm text-muted-foreground">${escapeHtml(m.reviewAuthorRole)}</div>
@@ -840,7 +1220,8 @@ ${buildMovieTrailerHtml(m)}
             <button type="submit" class="btn btn-rating-send">Отправить</button>
         </div>
     </form>
-</section>`;
+</section>
+${buildHistoryRecBlocksCinema(movie.id)}`;
 }
 
 function wireMovieDetailPage(mount) {
@@ -884,6 +1265,7 @@ window.showMovie = function(movieId) {
 
     mount.innerHTML = buildMovieDetailHtml(movie);
     wireMovieDetailPage(mount);
+    wireHistoryRecommendationBlocks(mount);
 
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     section.classList.add('active');
@@ -1057,27 +1439,28 @@ document.addEventListener('click', function(e) {
     const wikiPill = e.target.closest('#section-wikipedia .filter-pills .btn.rounded-full');
     if (wikiPill) {
         const label = wikiPill.textContent.trim();
-        wikiFilterState.pillar = label === 'Все' ? null : label;
+        wikiFilterState.sport = label === 'Все' ? null : label;
         applyWikipediaFilters();
         return;
     }
     const libraryPill = e.target.closest('#section-library .filter-pills .btn.rounded-full');
     if (libraryPill) {
-        libraryFilterState.shelf = libraryPill.textContent.trim();
+        const label = libraryPill.textContent.trim();
+        libraryFilterState.sport = label === 'Все' ? null : label;
         applyLibraryFilters();
         return;
     }
     const cinemaPill = e.target.closest('#section-cinema .filter-pills .btn.rounded-full');
     if (cinemaPill) {
         const label = cinemaPill.textContent.trim();
-        cinemaFilterState.row = label === 'Все' ? 'Все' : label;
+        cinemaFilterState.sport = label === 'Все' ? null : label;
         applyCinemaFilters();
         return;
     }
     const todayPill = e.target.closest('#section-today .filter-pills .btn.rounded-full');
     if (todayPill) {
-        todayFilterState.kind = todayPill.textContent.trim();
-        todayFilterState.sport = null;
+        const label = todayPill.textContent.trim();
+        todayFilterState.sport = label === 'Все' ? null : label;
         renderTodaySection();
     }
 });
@@ -1268,7 +1651,7 @@ function createBookCard(book) {
             <div class="library-card-body">
                 <div class="library-card-stack">
                     <h3 class="library-card-title group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(book.title)}</h3>
-                    <div class="library-card-meta" aria-label="Год и объём">
+                    <div class="library-card-meta" aria-label="Год и объем">
                         <span>
                             <svg class="library-card-meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             ${escapeHtml(String(book.publishYear))}
@@ -1447,12 +1830,7 @@ function renderTodayEventsList() {
     const key = monthDayKeyFromDate(todaySelectedDate);
     let items = (window.todayEventsByMonthDay && window.todayEventsByMonthDay[key]) ? window.todayEventsByMonthDay[key].slice() : [];
 
-    const kind = todayFilterState.kind || 'Все';
     const sportF = todayFilterState.sport;
-
-    if (kind !== 'Все') {
-        items = items.filter(ev => (ev.todayKind || '') === kind);
-    }
     if (sportF) {
         items = items.filter(ev => sportMatchesFilter(ev.todaySport || 'Другие', sportF));
     }
@@ -1469,9 +1847,8 @@ function renderTodayEventsList() {
             <img src="${escapeHtml(ev.image)}" alt="${escapeHtml(`${ev.leagueLabel}, ${ev.year}`)}" class="today-event-img" width="320" loading="lazy" />
         </div>
         <div class="today-event-body-col">
-            <p class="today-event-league">${escapeHtml(ev.leagueLabel)}</p>
+            <h3 class="today-event-title">${escapeHtml(ev.title || '')}</h3>
             <div class="today-event-desc">${ev.descriptionHtml}</div>
-            <a href="${escapeHtml(ev.materialHref)}" class="today-event-material" target="_blank" rel="noopener noreferrer">Читать об этом</a>
         </div>
         <span class="today-event-year">${escapeHtml(String(ev.year))}</span>
     </div>
@@ -1480,10 +1857,10 @@ function renderTodayEventsList() {
 
 function syncTodayFilterPills() {
     const section = document.getElementById('section-today');
-    const kind = todayFilterState.kind || 'Все';
+    const sport = todayFilterState.sport || 'Все';
     if (section) {
         section.querySelectorAll('.filter-pills .btn.rounded-full').forEach(btn => {
-            const active = btn.textContent.trim() === kind;
+            const active = btn.textContent.trim() === sport;
             btn.className = active ? 'btn btn-primary rounded-full px-4 py-2' : 'btn btn-secondary rounded-full px-4 py-2';
         });
     }
@@ -1493,6 +1870,7 @@ function renderTodaySection() {
     syncTodayFilterPills();
     renderTodayDateStrip();
     renderTodayEventsList();
+    renderTodayRecommendationsMount();
 }
 
 function filterTodayEvents(label) {
