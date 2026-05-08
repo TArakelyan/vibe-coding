@@ -2769,3 +2769,45 @@ body {
 .today-rec-mount {
     margin-top: 0.5rem;
 }
+
+/* Карусели «Что почитать» / «Что посмотреть»: ширина карточки как у колонки сетки (3 / 2 / 1) */
+.history-rec-scroll.history-rec-scroll--matches-section-grid {
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.history-rec-scroll.history-rec-scroll--matches-section-grid .history-rec-card--book-grid,
+.history-rec-scroll.history-rec-scroll--matches-section-grid .history-rec-card--movie-grid {
+    flex: 0 0 calc((100% - 2 * 2rem) / 3);
+    width: calc((100% - 2 * 2rem) / 3);
+    min-width: calc((100% - 2 * 2rem) / 3);
+    max-width: calc((100% - 2 * 2rem) / 3);
+}
+
+@media (max-width: 1023px) {
+    .history-rec-scroll.history-rec-scroll--matches-section-grid .history-rec-card--book-grid,
+    .history-rec-scroll.history-rec-scroll--matches-section-grid .history-rec-card--movie-grid {
+        flex: 0 0 calc((100% - 2rem) / 2);
+        width: calc((100% - 2rem) / 2);
+        min-width: calc((100% - 2rem) / 2);
+        max-width: calc((100% - 2rem) / 2);
+    }
+}
+
+@media (max-width: 639px) {
+    .history-rec-scroll.history-rec-scroll--matches-section-grid .history-rec-card--book-grid,
+    .history-rec-scroll.history-rec-scroll--matches-section-grid .history-rec-card--movie-grid {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
+
+button.history-rec-card--book-grid,
+button.history-rec-card--movie-grid {
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--fox-card);
+    cursor: pointer;
+}

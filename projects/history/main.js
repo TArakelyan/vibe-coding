@@ -249,7 +249,7 @@ function loadArticleContent(articleId) {
     }
 
     const title = escapeHtml(article.title || 'Материал Википедии');
-    const image = escapeHtml(article.image || 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop');
+    const image = escapeHtml(historyResolveMediaUrl(article.image || 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop'));
     const bodyHtml = buildWikipediaArticleBodyHtml(article);
 
     section.innerHTML = `
@@ -375,6 +375,19 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+/** Абсолютный URL для локальных `./data/...` — корректно на деплое и в подпапках. */
+function historyResolveMediaUrl(url) {
+    if (url == null || url === '') return '';
+    const s = String(url).trim();
+    if (/^https?:\/\//i.test(s) || s.startsWith('data:') || s.startsWith('blob:')) return s;
+    try {
+        const rel = s.replace(/^\.\//, '');
+        return new URL(rel, window.location.href).href;
+    } catch {
+        return s;
+    }
+}
+
 /** Ключ «месяц-день» для календаря «Сегодня» (реальная дата пользователя). */
 function historyTodayMonthDayKey(d = new Date()) {
     return `${d.getMonth() + 1}-${d.getDate()}`;
@@ -415,9 +428,10 @@ function buildHistoryRecCardBook(b) {
         ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
         : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
     const safeId = escapeHtml(b.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const imgU = historyResolveMediaUrl(b.image || '');
     return `
 <button type="button" class="history-rec-card" onclick="showBook('${safeId}')">
-    <div class="history-rec-card-img"><img src="${escapeHtml(b.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-img"><img src="${escapeHtml(imgU)}" alt="" loading="lazy" decoding="async" /></div>
     <div class="history-rec-card-body">
         <div class="history-rec-card-title">${escapeHtml(b.title || '')}</div>
         <div class="history-rec-card-meta">
@@ -434,14 +448,69 @@ function buildHistoryRecCardMovie(m) {
         ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
         : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
     const safeId = escapeHtml(m.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const imgU = historyResolveMediaUrl(m.image || '');
     return `
 <button type="button" class="history-rec-card" onclick="showMovie('${safeId}')">
-    <div class="history-rec-card-img"><img src="${escapeHtml(m.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-img"><img src="${escapeHtml(imgU)}" alt="" loading="lazy" decoding="async" /></div>
     <div class="history-rec-card-body">
         <div class="history-rec-card-title">${escapeHtml(m.title || '')}</div>
         <div class="history-rec-card-meta">
             <span class="history-rec-plus">+${meta.plus}</span>
             ${flame}
+        </div>
+    </div>
+</button>`;
+}
+
+/** Карточка книги как в сетке «Библиотека» (обложка 2:3 + блок текста). */
+function buildHistoryRecCardBookGrid(b) {
+    const safeId = escapeHtml(b.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const imgU = historyResolveMediaUrl(b.image || '');
+    const year = escapeHtml(String(b.publishYear ?? ''));
+    const pages = escapeHtml(String(b.pages ?? ''));
+    return `
+<button type="button" class="history-rec-card history-rec-card--book-grid group cursor-pointer library-grid-card card library-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col text-left" onclick="showBook('${safeId}')">
+    <div class="book-cover-wrapper overflow-hidden shrink-0" style="aspect-ratio: 2/3;">
+        <img src="${escapeHtml(imgU)}" alt="" class="w-full h-full transition-transform duration-300 group-hover:scale-105 object-cover" loading="lazy" decoding="async" />
+    </div>
+    <div class="library-card-body">
+        <div class="library-card-stack">
+            <h3 class="library-card-title group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(b.title || '')}</h3>
+            <div class="library-card-meta" aria-label="Год и объем">
+                <span>
+                    <svg class="library-card-meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    ${year}
+                </span>
+                <span class="library-card-meta-dot" aria-hidden="true"></span>
+                <span>
+                    <svg class="library-card-meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    ${pages} стр.
+                </span>
+            </div>
+        </div>
+    </div>
+</button>`;
+}
+
+/** Карточка фильма как в сетке «Кинотеатр». */
+function buildHistoryRecCardMovieGrid(m) {
+    const safeId = escapeHtml(m.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const imgU = historyResolveMediaUrl(m.image || '');
+    const rating = escapeHtml(String(m.rating ?? ''));
+    const director = escapeHtml(m.director || '');
+    return `
+<button type="button" class="history-rec-card history-rec-card--movie-grid group cursor-pointer cinema-grid-card card cinema-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col text-left" onclick="showMovie('${safeId}')">
+    <div class="book-cover-wrapper overflow-hidden shrink-0" style="aspect-ratio: 2/3;">
+        <img src="${escapeHtml(imgU)}" alt="" class="w-full h-full transition-transform duration-300 group-hover:scale-105 object-cover" loading="lazy" decoding="async" />
+    </div>
+    <div class="cinema-card-body">
+        <div class="cinema-card-stack">
+            <h3 class="cinema-card-title group-hover:text-primary transition-colors line-clamp-3">${escapeHtml(m.title || '')}</h3>
+            <div class="cinema-card-rating-row" role="img" aria-label="Оценка ${rating} из 10">
+                <span class="cinema-card-star" aria-hidden="true">★</span>
+                <span class="cinema-card-rating-num">${rating}</span>
+            </div>
+            <p class="cinema-card-director">${director}</p>
         </div>
     </div>
 </button>`;
@@ -455,9 +524,10 @@ function buildHistoryRecCardToday(ev) {
     const href = ev.materialHref && /^https:\/\//i.test(String(ev.materialHref))
         ? String(ev.materialHref).trim()
         : 'https://www.sports.ru/?utm_source=special-history';
+    const imgU = historyResolveMediaUrl(ev.image || '');
     return `
 <a class="history-rec-card history-rec-card--link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">
-    <div class="history-rec-card-img"><img src="${escapeHtml(ev.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-img"><img src="${escapeHtml(imgU)}" alt="" loading="lazy" decoding="async" /></div>
     <div class="history-rec-card-body">
         <div class="history-rec-card-title">${escapeHtml(ev.title || '')}</div>
         <div class="history-rec-card-meta">
@@ -468,13 +538,14 @@ function buildHistoryRecCardToday(ev) {
 </a>`;
 }
 
-function buildHistoryRecCarousel(title, cardsHtml) {
+function buildHistoryRecCarousel(title, cardsHtml, scrollModifierClass) {
     if (!cardsHtml || !String(cardsHtml).trim()) return '';
+    const scrollMod = scrollModifierClass ? ` ${scrollModifierClass}` : '';
     return `
 <section class="history-rec-section" aria-label="${escapeHtml(title)}">
     <h2 class="history-rec-heading">${escapeHtml(title)}</h2>
     <div class="history-rec-strip-wrap">
-        <div class="history-rec-scroll" data-rec-scroll tabindex="0">
+        <div class="history-rec-scroll${scrollMod}" data-rec-scroll tabindex="0">
             ${cardsHtml}
         </div>
         <button type="button" class="history-rec-next" data-rec-next aria-label="Показать ещё">
@@ -506,8 +577,8 @@ function buildHistoryRecBlocksWikipedia(currentArticleId) {
     const dayEvents = (window.todayEventsByMonthDay && window.todayEventsByMonthDay[dayKey]) || [];
     const events = historyPickThree(dayEvents, null);
 
-    const h1 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovie).join(''));
-    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBook).join(''));
+    const h1 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovieGrid).join(''), 'history-rec-scroll--matches-section-grid');
+    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBookGrid).join(''), 'history-rec-scroll--matches-section-grid');
     const h3 = buildHistoryRecCarousel('Что было сегодня', events.map(buildHistoryRecCardToday).join(''));
     const inner = [h1, h2, h3].filter(Boolean).join('');
     if (!inner) return '';
@@ -528,9 +599,10 @@ function buildHistoryRecBlocksLibrary(currentBookId) {
             ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
             : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
         const safeId = escapeHtml(a.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        const imgU = historyResolveMediaUrl(a.image || '');
         return `
 <button type="button" class="history-rec-card" onclick="showArticle('${safeId}')">
-    <div class="history-rec-card-img"><img src="${escapeHtml(a.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-img"><img src="${escapeHtml(imgU)}" alt="" loading="lazy" decoding="async" /></div>
     <div class="history-rec-card-body">
         <div class="history-rec-card-title">${escapeHtml(a.title || '')}</div>
         <div class="history-rec-card-meta">
@@ -540,7 +612,7 @@ function buildHistoryRecBlocksLibrary(currentBookId) {
     </div>
 </button>`;
     }).join(''));
-    const h2 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovie).join(''));
+    const h2 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovieGrid).join(''), 'history-rec-scroll--matches-section-grid');
     const h3 = buildHistoryRecCarousel('Что было сегодня', events.map(buildHistoryRecCardToday).join(''));
     const inner = [h1, h2, h3].filter(Boolean).join('');
     if (!inner) return '';
@@ -561,9 +633,10 @@ function buildHistoryRecBlocksCinema(currentMovieId) {
             ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
             : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
         const safeId = escapeHtml(a.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        const imgU = historyResolveMediaUrl(a.image || '');
         return `
 <button type="button" class="history-rec-card" onclick="showArticle('${safeId}')">
-    <div class="history-rec-card-img"><img src="${escapeHtml(a.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-img"><img src="${escapeHtml(imgU)}" alt="" loading="lazy" decoding="async" /></div>
     <div class="history-rec-card-body">
         <div class="history-rec-card-title">${escapeHtml(a.title || '')}</div>
         <div class="history-rec-card-meta">
@@ -573,7 +646,7 @@ function buildHistoryRecBlocksCinema(currentMovieId) {
     </div>
 </button>`;
     }).join(''));
-    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBook).join(''));
+    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBookGrid).join(''), 'history-rec-scroll--matches-section-grid');
     const h3 = buildHistoryRecCarousel('Что было сегодня', events.map(buildHistoryRecCardToday).join(''));
     const inner = [h1, h2, h3].filter(Boolean).join('');
     if (!inner) return '';
@@ -592,9 +665,10 @@ function buildHistoryRecBlocksTodayPage() {
             ? `<span class="history-rec-flame" aria-hidden="true">🔥 ${meta.flame}</span>`
             : '<span class="history-rec-flame history-rec-flame--empty" aria-hidden="true"></span>';
         const safeId = escapeHtml(a.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        const imgU = historyResolveMediaUrl(a.image || '');
         return `
 <button type="button" class="history-rec-card" onclick="showArticle('${safeId}')">
-    <div class="history-rec-card-img"><img src="${escapeHtml(a.image || '')}" alt="" loading="lazy" decoding="async" /></div>
+    <div class="history-rec-card-img"><img src="${escapeHtml(imgU)}" alt="" loading="lazy" decoding="async" /></div>
     <div class="history-rec-card-body">
         <div class="history-rec-card-title">${escapeHtml(a.title || '')}</div>
         <div class="history-rec-card-meta">
@@ -604,8 +678,8 @@ function buildHistoryRecBlocksTodayPage() {
     </div>
 </button>`;
     }).join(''));
-    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBook).join(''));
-    const h3 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovie).join(''));
+    const h2 = buildHistoryRecCarousel('Что почитать', books.map(buildHistoryRecCardBookGrid).join(''), 'history-rec-scroll--matches-section-grid');
+    const h3 = buildHistoryRecCarousel('Что посмотреть', movies.map(buildHistoryRecCardMovieGrid).join(''), 'history-rec-scroll--matches-section-grid');
     const inner = [h1, h2, h3].filter(Boolean).join('');
     if (!inner) return '';
     return `<div class="history-rec-blocks history-rec-blocks--today">${inner}</div>`;
@@ -644,7 +718,7 @@ function historyStreamPillLogoSrc(kind) {
 
 /** Кнопки-«пилюли» Читай-город / Литрес: логотип PNG слева, текст «Читать». */
 function storePillLinkHtml(href, kind) {
-    const logoSrc = historyStorePillLogoSrc(kind);
+    const logoSrc = historyResolveMediaUrl(historyStorePillLogoSrc(kind) || '');
     const mod = kind === 'chitai' ? 'btn-store-pill--chitai' : 'btn-store-pill--litres';
     const iconHtml = logoSrc
         ? `<span class="btn-store-pill-ico" aria-hidden="true"><img class="btn-store-pill-icon-img" src="${escapeHtml(logoSrc)}" alt="" width="96" height="28" decoding="async" /></span>`
@@ -667,7 +741,7 @@ function buildOkkoWatchUrl(movie) {
 /** Пилюли «Кинопоиск» / «ОККО»: логотип PNG слева, текст «Смотреть». */
 function streamPillLinkHtml(href, kind) {
     const kp = kind === 'kp';
-    const logoSrc = historyStreamPillLogoSrc(kind);
+    const logoSrc = historyResolveMediaUrl(historyStreamPillLogoSrc(kind) || '');
     const mod = kp ? 'btn-stream-pill--kp' : 'btn-stream-pill--okko';
     const aria = kp ? 'Кинопоиск: перейти к просмотру' : 'ОККО: перейти к просмотру';
     const imgClass = kp ? 'btn-stream-pill-icon-img btn-stream-pill-icon-img--kp' : 'btn-stream-pill-icon-img btn-stream-pill-icon-img--okko';
@@ -1615,7 +1689,7 @@ function createArticleCard(article) {
     card.innerHTML = `
         <div class="card wiki-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
             <div class="aspect-video overflow-hidden bg-muted shrink-0">
-                <img src="${escapeHtml(article.image)}" alt="${escapeHtml(article.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                <img src="${escapeHtml(historyResolveMediaUrl(article.image))}" alt="${escapeHtml(article.title)}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
             <div class="wiki-card-body">
                 <h3 class="wiki-card-title group-hover:text-primary transition-colors line-clamp-4">${escapeHtml(article.title)}</h3>
@@ -1646,7 +1720,7 @@ function createBookCard(book) {
     card.innerHTML = `
         <div class="card library-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
             <div class="book-cover-wrapper overflow-hidden shrink-0" style="aspect-ratio: 2/3;">
-                <img src="${escapeHtml(book.image)}" alt="${escapeHtml(book.title)}" class="w-full h-full transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                <img src="${escapeHtml(historyResolveMediaUrl(book.image))}" alt="${escapeHtml(book.title)}" class="w-full h-full transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
             <div class="library-card-body">
                 <div class="library-card-stack">
@@ -1688,7 +1762,7 @@ function createMovieCard(movie) {
     card.innerHTML = `
         <div class="card cinema-card-inner h-full transition-all duration-300 hover:shadow-hover border border-border flex flex-col">
             <div class="book-cover-wrapper overflow-hidden shrink-0" style="aspect-ratio: 2/3;">
-                <img src="${escapeHtml(movie.image)}" alt="${escapeHtml(movie.title)}" class="w-full h-full transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                <img src="${escapeHtml(historyResolveMediaUrl(movie.image))}" alt="${escapeHtml(movie.title)}" class="w-full h-full transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
             <div class="cinema-card-body">
                 <div class="cinema-card-stack">
