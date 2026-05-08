@@ -375,13 +375,33 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-/** Абсолютный URL для локальных `./data/...` — корректно на деплое и в подпапках. */
+/** База каталога проекта для статики, когда страница открыта не из `projects/history/` (например dumpster CDN). */
+function historyStaticAssetBase() {
+    if (window.HISTORY_ASSET_ORIGIN) {
+        const o = String(window.HISTORY_ASSET_ORIGIN).trim();
+        return o.endsWith('/') ? o : `${o}/`;
+    }
+    const h = window.location.hostname || '';
+    const p = window.location.pathname || '';
+    const dumpsterHost = /(^|\.)dumpster\.cdn\.sports\.ru$/i.test(h);
+    const dumpsterPath = /^\/a\/\d+\//.test(p);
+    if (dumpsterHost || dumpsterPath) {
+        return 'https://raw.githubusercontent.com/TArakelyan/vibe-coding/master/projects/history/';
+    }
+    return '';
+}
+
+/** Абсолютный URL для локальных `./data/...` — корректно на деплое, в подпапках и на dumpster. */
 function historyResolveMediaUrl(url) {
     if (url == null || url === '') return '';
     const s = String(url).trim();
     if (/^https?:\/\//i.test(s) || s.startsWith('data:') || s.startsWith('blob:')) return s;
+    const rel = s.replace(/^\.\//, '');
+    const base = historyStaticAssetBase();
     try {
-        const rel = s.replace(/^\.\//, '');
+        if (base) {
+            return new URL(rel, base).href;
+        }
         return new URL(rel, window.location.href).href;
     } catch {
         return s;
