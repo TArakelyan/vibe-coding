@@ -114,8 +114,17 @@
     state.bookmakerPanelOpen = open;
     const panel = document.getElementById('bookmakerSelectPanel');
     const trigger = document.getElementById('bookmakerSelectTrigger');
+    const wrap = document.querySelector('.filter-field--bookmaker');
+    const backdrop = document.getElementById('bookmakerSelectBackdrop');
     trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
     panel.hidden = !open;
+    if (wrap) {
+      wrap.classList.toggle('is-open', open);
+    }
+    if (backdrop) {
+      backdrop.hidden = !open;
+      backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
     if (open) {
       buildBookmakerDropdown();
     }
@@ -249,33 +258,21 @@
     render();
   }
 
-  function isEventInsideBookmakerSelect(e, root) {
-    if (!root) return false;
-    if (typeof e.composedPath === 'function') {
-      const path = e.composedPath();
-      for (let i = 0; i < path.length; i++) {
-        if (path[i] === root) return true;
-      }
-      return false;
-    }
-    return root.contains(e.target);
-  }
-
-  function closeBookmakerPanelIfOutside(e) {
-    const root = document.getElementById('bookmakerSelectRoot');
-    if (!root || !state.bookmakerPanelOpen) return;
-    if (!isEventInsideBookmakerSelect(e, root)) {
-      setBookmakerPanelOpen(false);
-    }
-  }
-
   function bindBookmakerSelect() {
     const trigger = document.getElementById('bookmakerSelectTrigger');
     const panel = document.getElementById('bookmakerSelectPanel');
+    const backdrop = document.getElementById('bookmakerSelectBackdrop');
 
     trigger.addEventListener('click', function () {
       setBookmakerPanelOpen(!state.bookmakerPanelOpen);
     });
+
+    if (backdrop) {
+      backdrop.addEventListener('pointerdown', function (e) {
+        e.preventDefault();
+        setBookmakerPanelOpen(false);
+      });
+    }
 
     panel.addEventListener('click', function (e) {
       const btn = e.target.closest('.bm-select-option');
@@ -286,8 +283,6 @@
       setBookmakerPanelOpen(false);
       render();
     });
-
-    document.addEventListener('pointerdown', closeBookmakerPanelIfOutside, true);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && state.bookmakerPanelOpen) {
