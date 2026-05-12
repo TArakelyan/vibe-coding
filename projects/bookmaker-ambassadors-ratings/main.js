@@ -5,7 +5,6 @@
     search: '',
     bookmakerId: '',
     activity: '',
-    networkId: '',
     sortKey: 'bookmaker',
     sortDir: 'asc',
   };
@@ -25,32 +24,6 @@
     }
     const last = parts.pop();
     return { line1: parts.join(' '), line2: last };
-  }
-
-  function formatFollowers(n) {
-    if (n === null || n === undefined || Number.isNaN(n)) {
-      return '—';
-    }
-    return Number(n).toLocaleString('ru-RU');
-  }
-
-  function networkIconHtml(networkId) {
-    const meta = SOCIAL_NETWORK_META[networkId];
-    if (!meta) {
-      return '<span class="net-icon" title=""></span>';
-    }
-    if (meta.kind === 'img') {
-      return (
-        '<span class="net-icon" title="' +
-        escapeHtml(meta.label) +
-        '"><img src="' +
-        escapeHtml(meta.src) +
-        '" alt="" width="20" height="20" loading="lazy" /></span>'
-      );
-    }
-    return (
-      '<span class="net-icon" title="' + escapeHtml(meta.label) + '">' + meta.svg + '</span>'
-    );
   }
 
   function bookmakerName(id) {
@@ -74,11 +47,9 @@
       return bookmakerName(a).localeCompare(bookmakerName(b), 'ru');
     });
     const activities = uniqueSorted(AMBASSADORS.map(function (r) { return r.activity; }));
-    const nets = uniqueSorted(AMBASSADORS.map(function (r) { return r.primaryNetwork; }));
 
     const selBm = document.getElementById('filterBookmaker');
     const selAct = document.getElementById('filterActivity');
-    const selNet = document.getElementById('filterNetwork');
 
     selBm.innerHTML =
       '<option value="">Все букмекеры</option>' +
@@ -95,32 +66,17 @@
           return '<option value="' + escapeHtml(a) + '">' + escapeHtml(a) + '</option>';
         })
         .join('');
-
-    selNet.innerHTML =
-      '<option value="">Все соцсети</option>' +
-      nets
-        .map(function (nid) {
-          const label = SOCIAL_NETWORK_META[nid] ? SOCIAL_NETWORK_META[nid].label : nid;
-          return '<option value="' + escapeHtml(nid) + '">' + escapeHtml(label) + '</option>';
-        })
-        .join('');
   }
 
   function passesFilters(row) {
     if (state.bookmakerId && row.bookmakerId !== state.bookmakerId) return false;
     if (state.activity && row.activity !== state.activity) return false;
-    if (state.networkId && row.primaryNetwork !== state.networkId) return false;
     if (state.search) {
       const q = state.search.toLowerCase();
       const hay = (row.fullName + ' ' + row.activity).toLowerCase();
       if (hay.indexOf(q) === -1) return false;
     }
     return true;
-  }
-
-  function followerSortValue(row) {
-    if (row.followers === null || row.followers === undefined) return null;
-    return Number(row.followers);
   }
 
   function compareRows(a, b) {
@@ -138,20 +94,6 @@
     if (key === 'activity') {
       const cmp = a.activity.localeCompare(b.activity, 'ru');
       if (cmp !== 0) return cmp * dir;
-      return a.fullName.localeCompare(b.fullName, 'ru');
-    }
-    if (key === 'social') {
-      const cmp = String(a.primaryNetwork).localeCompare(String(b.primaryNetwork), 'ru');
-      if (cmp !== 0) return cmp * dir;
-      return a.fullName.localeCompare(b.fullName, 'ru');
-    }
-    if (key === 'followers') {
-      const va = followerSortValue(a);
-      const vb = followerSortValue(b);
-      if (va === null && vb === null) return a.fullName.localeCompare(b.fullName, 'ru');
-      if (va === null) return 1;
-      if (vb === null) return -1;
-      if (va !== vb) return (va - vb) * dir;
       return a.fullName.localeCompare(b.fullName, 'ru');
     }
     return 0;
@@ -200,8 +142,8 @@
         const logoHtml = bm
           ? '<div class="bm-logo-wrap"><img class="bm-logo" src="' +
             escapeHtml(bm) +
-            '" alt="" width="40" height="40" loading="lazy" /></div>'
-          : '<div class="bm-logo-wrap"></div>';
+            '" alt="" width="27" height="27" loading="lazy" /></div>'
+          : '<div class="bm-logo-wrap bm-logo-wrap--empty"></div>';
 
         return (
           '<div class="data-row" role="row">' +
@@ -223,13 +165,6 @@
           '<div class="cell cell--activity">' +
           escapeHtml(row.activity) +
           '</div>' +
-          '<div class="cell cell--net-icon">' +
-          networkIconHtml(row.primaryNetwork) +
-          '</div>' +
-          '<div class="cell cell--followers">' +
-          '<span class="followers-pill">' +
-          formatFollowers(row.followers) +
-          '</span></div>' +
           '</div>'
         );
       })
@@ -241,7 +176,7 @@
       state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
     } else {
       state.sortKey = key;
-      state.sortDir = key === 'followers' ? 'desc' : 'asc';
+      state.sortDir = 'asc';
     }
     render();
   }
@@ -260,22 +195,16 @@
       state.activity = e.target.value;
       render();
     });
-    document.getElementById('filterNetwork').addEventListener('change', function (e) {
-      state.networkId = e.target.value;
-      render();
-    });
 
     document.getElementById('resetFilters').addEventListener('click', function () {
       state.search = '';
       state.bookmakerId = '';
       state.activity = '';
-      state.networkId = '';
       state.sortKey = 'bookmaker';
       state.sortDir = 'asc';
       document.getElementById('searchInput').value = '';
       document.getElementById('filterBookmaker').value = '';
       document.getElementById('filterActivity').value = '';
-      document.getElementById('filterNetwork').value = '';
       render();
     });
 

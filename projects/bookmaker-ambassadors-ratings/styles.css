@@ -13,9 +13,11 @@
   --accent-soft: rgba(0, 166, 81, 0.12);
   --bg: #fff;
   --row-hover: #fafafa;
-  --pill-border: #d5d5d5;
-  --pill-bg: #f7f7f7;
   --maxw: 660px;
+  /* Логотип букмекера: было 44px, уменьшено в 1.5 раза (~30px) */
+  --bm-logo-size: 30px;
+  /* Колонка шире кружка — подпись «Букмекер» в шапке */
+  --bm-col: 56px;
 }
 
 body {
@@ -30,25 +32,7 @@ body {
 .page {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 20px 16px 28px;
-}
-
-.page-header {
-  margin-bottom: 20px;
-}
-
-.page-title {
-  margin: 0 0 8px;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.page-lead {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-muted);
+  padding: 16px 16px 28px;
 }
 
 .filters {
@@ -91,12 +75,12 @@ body {
 
 .filters-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
   margin-bottom: 10px;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 420px) {
   .filters-row {
     grid-template-columns: 1fr;
   }
@@ -177,8 +161,8 @@ body {
 
 .data-grid--head {
   display: grid;
-  grid-template-columns: 52px minmax(0, 1.15fr) minmax(0, 0.85fr) 40px minmax(76px, auto);
-  gap: 8px 10px;
+  grid-template-columns: var(--bm-col) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px 16px;
   align-items: end;
   padding: 8px 0 10px;
   border-bottom: 1px solid var(--border-strong);
@@ -206,6 +190,15 @@ body {
 
 .th--active {
   color: var(--accent);
+}
+
+#sortBookmaker {
+  width: 100%;
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+  justify-content: center;
+  white-space: normal;
 }
 
 .sort-ind::after {
@@ -236,8 +229,8 @@ body {
 
 .data-row {
   display: grid;
-  grid-template-columns: 52px minmax(0, 1.15fr) minmax(0, 0.85fr) 40px minmax(76px, auto);
-  gap: 8px 10px;
+  grid-template-columns: var(--bm-col) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px 16px;
   align-items: center;
   padding: 12px 0;
   border-bottom: 1px solid var(--border);
@@ -254,27 +247,32 @@ body {
 }
 
 .bm-logo-wrap {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
+  width: var(--bm-logo-size);
+  height: var(--bm-logo-size);
+  border-radius: 50%;
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background: #fff;
+  flex-shrink: 0;
+}
+
+.bm-logo-wrap--empty {
+  background: #f0f0f0;
 }
 
 .bm-logo {
-  max-width: 88%;
-  max-height: 88%;
+  max-width: 78%;
+  max-height: 78%;
   object-fit: contain;
 }
 
 .cell--person {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   min-width: 0;
 }
 
@@ -312,47 +310,7 @@ body {
   font-size: 13px;
   color: var(--text);
   word-break: break-word;
-}
-
-.cell--net-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.net-icon {
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text);
-}
-
-.net-icon img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  display: block;
-}
-
-.net-icon svg {
-  display: block;
-}
-
-.followers-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-width: 0;
-  padding: 4px 10px;
-  border: 1px solid var(--pill-border);
-  border-radius: 999px;
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  color: var(--text);
-  background: var(--pill-bg);
-  white-space: nowrap;
+  padding-right: 4px;
 }
 
 .empty-state {

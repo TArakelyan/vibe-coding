@@ -8,11 +8,6 @@
 </head>
 <body>
   <div class="page" id="app">
-    <header class="page-header">
-      <h1 class="page-title">Амбассадоры российских букмекеров</h1>
-      <p class="page-lead">Сводная таблица: букмекер, лицо, деятельность и основная соцсеть.</p>
-    </header>
-
     <section class="filters" aria-label="Фильтры">
       <div class="filters-search">
         <span class="filters-search-icon" aria-hidden="true">
@@ -29,10 +24,6 @@
         <label class="filter-field">
           <span class="filter-label">Деятельность</span>
           <select id="filterActivity" class="filter-select"></select>
-        </label>
-        <label class="filter-field">
-          <span class="filter-label">Соцсеть</span>
-          <select id="filterNetwork" class="filter-select"></select>
         </label>
       </div>
 
@@ -56,12 +47,6 @@
         <button type="button" class="th th--sort" data-sort="activity" id="sortActivity">
           Деятельность<span class="sort-ind" aria-hidden="true"></span>
         </button>
-        <button type="button" class="th th--sort" data-sort="social" id="sortSocial">
-          Соцсеть<span class="sort-ind" aria-hidden="true"></span>
-        </button>
-        <button type="button" class="th th--sort" data-sort="followers" id="sortFollowers">
-          Подписчики<span class="sort-ind" aria-hidden="true"></span>
-        </button>
       </div>
       <div id="rowsContainer" class="rows"></div>
     </div>
@@ -74,7 +59,6 @@
   </div>
 
   <script src="./data/bookmakers.js"></script>
-  <script src="./data/social-networks.js"></script>
   <script src="./data/ambassadors.js"></script>
   <script src="./main.js"></script>
   <script src="./resize.js"></script>
