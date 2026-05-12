@@ -78,6 +78,70 @@
     });
   }
 
+  function normalizeYo(s) {
+    return String(s).replace(/ё/gi, function (ch) {
+      return ch === 'Ё' ? 'Е' : 'е';
+    });
+  }
+
+  /**
+   * Грубая классификация для групп в селекте "Организация": клуб | федерация | турнир.
+   */
+  function organizationKind(row) {
+    var n = String(row.partnerName || '').trim();
+    var sport = String(row.sport || '').trim();
+    var sl = normalizeYo(sport).toLowerCase();
+    var nl = normalizeYo(n).toLowerCase();
+
+    if (
+      sl === 'федерация' ||
+      nl.indexOf('федерация') === 0 ||
+      nl === 'рфб' ||
+      nl.indexOf('российский футбольный союз') === 0 ||
+      nl.indexOf('всероссийская федерация') === 0 ||
+      nl.indexOf('федерация городошного') === 0
+    ) {
+      return 'federation';
+    }
+
+    if (
+      /(кубок|чемпионат|суперкубок|суперлига|фестиваль|турнир|финал\s)/i.test(n) ||
+      /ночная\s+хоккейная|night\s+hockey/i.test(nl)
+    ) {
+      return 'tournament';
+    }
+    if (/^(рпл|мфл|мхл|вхл|кхл|нхл|uba|ufc|pgl|esl)$/i.test(nl)) {
+      return 'tournament';
+    }
+    if (/^лига\s/i.test(nl) || /лига\s+pari|лига\s+3|лига\s+лапты/i.test(nl)) {
+      return 'tournament';
+    }
+    if (/^женск|^зимн/i.test(nl)) {
+      return 'tournament';
+    }
+    if (/(^|\s)лига(\s|$)/i.test(n) && n.split(/\s+/).length >= 2) {
+      return 'tournament';
+    }
+    if (
+      /^(amateur|united\s+cup|parivision|padel\s+tour|deadlock|valorant|ice\s+fights|force\s+fc|top\s+dog|media\s+(basket|golf|chess|rally|poker)|siberian\s+power\s+show)/i.test(
+        nl
+      )
+    ) {
+      return 'tournament';
+    }
+    if (/^bb\s+dacha|^l1ga\s+team|^blast/i.test(nl)) {
+      return 'tournament';
+    }
+    if (/^prime\s+/i.test(nl) && /mma|fl$/i.test(nl)) {
+      return 'tournament';
+    }
+    if (/\bcup\b/i.test(nl) && nl.indexOf(' ') !== -1 && nl.length < 40) {
+      return 'tournament';
+    }
+
+    return 'club';
+  }
+
   function buildBookmakerOptions() {
     const sel = document.getElementById('filterBookmaker');
     if (!sel) return;
@@ -121,13 +185,39 @@
     if (!sel) return;
     const saved = state.entity;
     const names = uniqueSorted(PARTNERS.map(function (r) { return r.partnerName; }));
-    sel.innerHTML =
-      '<option value="">Все клубы и организации</option>' +
-      names
+
+    const clubs = [];
+    const federations = [];
+    const tournaments = [];
+
+    names.forEach(function (name) {
+      const row = PARTNERS.find(function (r) { return r.partnerName === name; });
+      const kind = organizationKind(row || { partnerName: name, sport: '' });
+      if (kind === 'federation') federations.push(name);
+      else if (kind === 'tournament') tournaments.push(name);
+      else clubs.push(name);
+    });
+
+    function opts(list) {
+      return list
         .map(function (n) {
           return '<option value="' + escapeHtml(n) + '">' + escapeHtml(n) + '</option>';
         })
         .join('');
+    }
+
+    let html = '<option value="">Все организации</option>';
+    if (clubs.length) {
+      html += '<optgroup label="Клуб">' + opts(clubs) + '</optgroup>';
+    }
+    if (federations.length) {
+      html += '<optgroup label="Федерация">' + opts(federations) + '</optgroup>';
+    }
+    if (tournaments.length) {
+      html += '<optgroup label="Турнир">' + opts(tournaments) + '</optgroup>';
+    }
+
+    sel.innerHTML = html;
     sel.value = saved;
     if (sel.value !== saved) {
       sel.value = '';
@@ -152,13 +242,9 @@
     if (state.sport && row.sport !== state.sport) return false;
     if (state.entity && row.partnerName !== state.entity) return false;
     if (state.search) {
-      const q = state.search.toLowerCase();
-      const hay = (
-        row.partnerName +
-        ' ' +
-        row.sport +
-        ' ' +
-        bookmakerName(row.bookmakerId)
+      const q = normalizeYo(state.search).toLowerCase();
+      const hay = normalizeYo(
+        row.partnerName + ' ' + row.sport + ' ' + bookmakerName(row.bookmakerId)
       ).toLowerCase();
       if (hay.indexOf(q) === -1) return false;
     }
@@ -237,7 +323,7 @@
         const rowClass = 'data-row' + (row.isTitular ? ' data-row--titular' : '');
         const partnerCellClass = 'cell cell--partner' + (row.isTitular ? ' cell--partner-titular' : '');
         const titularBadge = row.isTitular
-          ? '<span class="titular-badge" title="Титульное партнёрство">Титульный</span>'
+          ? '<span class="titular-badge" title="Титульное партнерство">Титульный</span>'
           : '';
 
         return (
