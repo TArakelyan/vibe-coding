@@ -29,6 +29,8 @@ body {
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 16px 16px 28px;
+  container-type: inline-size;
+  container-name: amb-page;
 }
 
 .filters {
@@ -253,6 +255,32 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Узкий виджет: до 2 строк по ширине контейнера .page (не только вьюпорт) */
+@container amb-page (max-width: 520px) {
+  .bookmaker-cell-name {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
+
+/* Fallback без container queries: по ширине вьюпорта */
+@media (max-width: 520px) {
+  .bookmaker-cell-name {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
 }
 
 .bm-logo-wrap {
