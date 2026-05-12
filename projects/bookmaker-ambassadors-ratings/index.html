@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Амбассадоры российских букмекеров</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page" id="app">
+    <header class="page-header">
+      <h1 class="page-title">Амбассадоры российских букмекеров</h1>
+      <p class="page-lead">Сводная таблица: букмекер, лицо, деятельность и основная соцсеть.</p>
+    </header>
+
+    <section class="filters" aria-label="Фильтры">
+      <div class="filters-search">
+        <span class="filters-search-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </span>
+        <input type="search" id="searchInput" class="filters-search-input" placeholder="Поиск по имени или деятельности" autocomplete="off" />
+      </div>
+
+      <div class="filters-row">
+        <label class="filter-field">
+          <span class="filter-label">Букмекер</span>
+          <select id="filterBookmaker" class="filter-select"></select>
+        </label>
+        <label class="filter-field">
+          <span class="filter-label">Деятельность</span>
+          <select id="filterActivity" class="filter-select"></select>
+        </label>
+        <label class="filter-field">
+          <span class="filter-label">Соцсеть</span>
+          <select id="filterNetwork" class="filter-select"></select>
+        </label>
+      </div>
+
+      <div class="filters-meta">
+        <button type="button" class="link-reset" id="resetFilters">
+          <span class="link-reset-x" aria-hidden="true">×</span>
+          Сбросить фильтры
+        </button>
+        <span class="filters-count" id="resultCount"></span>
+      </div>
+    </section>
+
+    <div class="table-wrap" role="region" aria-label="Таблица амбассадоров">
+      <div class="data-grid data-grid--head" role="row">
+        <button type="button" class="th th--sort" data-sort="bookmaker" id="sortBookmaker">
+          Букмекер<span class="sort-ind" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="th th--sort" data-sort="name" id="sortName">
+          Имя<span class="sort-ind" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="th th--sort" data-sort="activity" id="sortActivity">
+          Деятельность<span class="sort-ind" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="th th--sort" data-sort="social" id="sortSocial">
+          Соцсеть<span class="sort-ind" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="th th--sort" data-sort="followers" id="sortFollowers">
+          Подписчики<span class="sort-ind" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div id="rowsContainer" class="rows"></div>
+    </div>
+
+    <footer class="page-footer">
+      <a class="sports-logo-link" href="https://www.sports.ru/?utm_source=special-bookmaker-ambassadors-ratings" rel="noopener noreferrer" target="_blank">
+        <img src="https://dumpster.cdn.sports.ru/e/01/b6a5c8d6223d46030fe91d0aa70cc.png" width="120" height="28" alt="Sports.ru" loading="lazy" />
+      </a>
+    </footer>
+  </div>
+
+  <script src="./data/bookmakers.js"></script>
+  <script src="./data/social-networks.js"></script>
+  <script src="./data/ambassadors.js"></script>
+  <script src="./main.js"></script>
+  <script src="./resize.js"></script>
+</body>
+</html>
