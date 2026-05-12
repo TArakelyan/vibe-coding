@@ -17,26 +17,10 @@
       </div>
 
       <div class="filters-row">
-        <div class="filter-field filter-field--bookmaker">
-          <span class="filter-label" id="bookmakerFilterLabel">Букмекер</span>
-          <div class="bm-select" id="bookmakerSelectRoot">
-            <input type="hidden" id="filterBookmaker" value="" />
-            <button
-              type="button"
-              class="bm-select-trigger"
-              id="bookmakerSelectTrigger"
-              aria-haspopup="listbox"
-              aria-expanded="false"
-              aria-labelledby="bookmakerFilterLabel bookmakerTriggerLabel"
-            >
-              <span class="bm-select-trigger-main">
-                <span class="bm-select-trigger-logo" id="bookmakerTriggerLogo" aria-hidden="true"></span>
-                <span class="bm-select-trigger-text" id="bookmakerTriggerLabel">Все букмекеры</span>
-              </span>
-            </button>
-            <div class="bm-select-panel" id="bookmakerSelectPanel" hidden role="listbox" aria-labelledby="bookmakerFilterLabel"></div>
-          </div>
-        </div>
+        <label class="filter-field">
+          <span class="filter-label">Букмекер</span>
+          <select id="filterBookmaker" class="filter-select"></select>
+        </label>
         <label class="filter-field">
           <span class="filter-label">Деятельность</span>
           <select id="filterActivity" class="filter-select"></select>
@@ -51,8 +35,6 @@
         <span class="filters-count" id="resultCount"></span>
       </div>
     </section>
-
-    <div id="bmSelectOverlay" class="bm-select-overlay" hidden aria-hidden="true"></div>
 
     <div class="table-wrap" role="region" aria-label="Таблица амбассадоров">
       <div class="data-grid data-grid--head" role="row">

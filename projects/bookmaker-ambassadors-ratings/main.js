@@ -7,7 +7,6 @@
     activity: '',
     sortKey: 'bookmaker',
     sortDir: 'asc',
-    bookmakerPanelOpen: false,
   };
 
   function escapeHtml(text) {
@@ -63,107 +62,30 @@
     });
   }
 
-  function buildBookmakerDropdown() {
-    const panel = document.getElementById('bookmakerSelectPanel');
+  function buildBookmakerOptions() {
+    const sel = document.getElementById('filterBookmaker');
+    if (!sel) return;
+    const saved = state.bookmakerId;
     const bmIds = getSortedBookmakerIds();
-
-    const allRow =
-      '<button type="button" class="bm-select-option bm-select-option--all" role="option" data-bookmaker-id="" aria-selected="' +
-      (state.bookmakerId === '' ? 'true' : 'false') +
-      '">Все букмекеры</button>';
-
-    const rows = bmIds
-      .map(function (id) {
-        const logo = bookmakerLogo(id);
-        const sel = state.bookmakerId === id ? 'true' : 'false';
-        return (
-          '<button type="button" class="bm-select-option" role="option" data-bookmaker-id="' +
-          escapeHtml(id) +
-          '" aria-selected="' +
-          sel +
-          '">' +
-          bmLogoCircleHtml(logo, 'bm-logo-wrap--in-dropdown') +
-          '<span class="bm-select-option-text">' +
-          escapeHtml(bookmakerName(id)) +
-          '</span></button>'
-        );
-      })
-      .join('');
-
-    panel.innerHTML = allRow + rows;
-  }
-
-  function syncBookmakerTrigger() {
-    const hidden = document.getElementById('filterBookmaker');
-    const labelEl = document.getElementById('bookmakerTriggerLabel');
-    const logoSlot = document.getElementById('bookmakerTriggerLogo');
-    hidden.value = state.bookmakerId;
-
-    if (!state.bookmakerId) {
-      labelEl.textContent = 'Все букмекеры';
-      logoSlot.innerHTML = '';
-      logoSlot.classList.add('bm-select-trigger-logo--empty');
-      return;
+    sel.innerHTML =
+      '<option value="">Все букмекеры</option>' +
+      bmIds
+        .map(function (id) {
+          return '<option value="' + escapeHtml(id) + '">' + escapeHtml(bookmakerName(id)) + '</option>';
+        })
+        .join('');
+    sel.value = saved;
+    if (sel.value !== saved) {
+      sel.value = '';
+      state.bookmakerId = '';
     }
-    labelEl.textContent = bookmakerName(state.bookmakerId);
-    logoSlot.classList.remove('bm-select-trigger-logo--empty');
-    logoSlot.innerHTML = bmLogoCircleHtml(bookmakerLogo(state.bookmakerId), 'bm-logo-wrap--in-trigger');
-  }
-
-  function setBookmakerPanelOpen(open) {
-    state.bookmakerPanelOpen = open;
-    const panel = document.getElementById('bookmakerSelectPanel');
-    const trigger = document.getElementById('bookmakerSelectTrigger');
-    const wrap = document.querySelector('.filter-field--bookmaker');
-    const app = document.getElementById('app');
-    const overlay = document.getElementById('bmSelectOverlay');
-    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    panel.hidden = !open;
-    if (wrap) {
-      wrap.classList.toggle('is-open', open);
-    }
-    if (open) {
-      if (app) {
-        app.classList.add('page--bm-panel-open');
-      }
-      if (overlay) {
-        overlay.hidden = false;
-        overlay.setAttribute('aria-hidden', 'false');
-      }
-      buildBookmakerDropdown();
-      updateBmOverlayTop();
-      requestAnimationFrame(function () {
-        updateBmOverlayTop();
-        requestAnimationFrame(updateBmOverlayTop);
-      });
-    } else {
-      if (app) {
-        app.classList.remove('page--bm-panel-open');
-        app.style.removeProperty('--bm-overlay-top');
-      }
-      if (overlay) {
-        overlay.hidden = true;
-        overlay.setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-
-  function updateBmOverlayTop() {
-    const section = document.querySelector('section.filters');
-    const app = document.getElementById('app');
-    if (!section || !app) return;
-    const bottom = Math.ceil(section.getBoundingClientRect().bottom);
-    app.style.setProperty('--bm-overlay-top', bottom + 'px');
-  }
-
-  function syncBmOverlayLayout() {
-    if (!state.bookmakerPanelOpen) return;
-    updateBmOverlayTop();
   }
 
   function buildActivityOptions() {
-    const activities = uniqueSorted(AMBASSADORS.map(function (r) { return r.activity; }));
     const selAct = document.getElementById('filterActivity');
+    if (!selAct) return;
+    const saved = state.activity;
+    const activities = uniqueSorted(AMBASSADORS.map(function (r) { return r.activity; }));
     selAct.innerHTML =
       '<option value="">Все виды деятельности</option>' +
       activities
@@ -171,6 +93,11 @@
           return '<option value="' + escapeHtml(a) + '">' + escapeHtml(a) + '</option>';
         })
         .join('');
+    selAct.value = saved;
+    if (selAct.value !== saved) {
+      selAct.value = '';
+      state.activity = '';
+    }
   }
 
   function passesFilters(row) {
@@ -289,67 +216,14 @@
     render();
   }
 
-  function bindBookmakerSelect() {
-    const trigger = document.getElementById('bookmakerSelectTrigger');
-    const panel = document.getElementById('bookmakerSelectPanel');
-    const overlay = document.getElementById('bmSelectOverlay');
-
-    trigger.addEventListener('click', function () {
-      setBookmakerPanelOpen(!state.bookmakerPanelOpen);
-    });
-
-    if (overlay) {
-      overlay.addEventListener('pointerdown', function (e) {
-        e.preventDefault();
-        setBookmakerPanelOpen(false);
-      });
-      overlay.addEventListener('touchstart', function () {
-        setBookmakerPanelOpen(false);
-      }, { passive: true });
-    }
-
-    const filtersSection = document.querySelector('section.filters');
-    if (filtersSection) {
-      filtersSection.addEventListener('pointerdown', function (e) {
-        if (!state.bookmakerPanelOpen) return;
-        const root = document.getElementById('bookmakerSelectRoot');
-        if (!root) return;
-        let t = e.target;
-        while (t && t.nodeType !== 1) {
-          t = t.parentElement;
-        }
-        if (!t || root.contains(t)) return;
-        setBookmakerPanelOpen(false);
-      }, true);
-    }
-
-    panel.addEventListener('click', function (e) {
-      const btn = e.target.closest('.bm-select-option');
-      if (!btn) return;
-      const id = btn.getAttribute('data-bookmaker-id') || '';
-      state.bookmakerId = id;
-      syncBookmakerTrigger();
-      setBookmakerPanelOpen(false);
-      render();
-    });
-
-    window.addEventListener('resize', syncBmOverlayLayout);
-    window.addEventListener('scroll', syncBmOverlayLayout, { capture: true, passive: true });
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', syncBmOverlayLayout);
-      window.visualViewport.addEventListener('scroll', syncBmOverlayLayout);
-    }
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && state.bookmakerPanelOpen) {
-        setBookmakerPanelOpen(false);
-      }
-    });
-  }
-
   function bind() {
     document.getElementById('searchInput').addEventListener('input', function (e) {
       state.search = e.target.value.trim();
+      render();
+    });
+
+    document.getElementById('filterBookmaker').addEventListener('change', function (e) {
+      state.bookmakerId = e.target.value;
       render();
     });
 
@@ -365,9 +239,8 @@
       state.sortKey = 'bookmaker';
       state.sortDir = 'asc';
       document.getElementById('searchInput').value = '';
+      document.getElementById('filterBookmaker').value = '';
       document.getElementById('filterActivity').value = '';
-      syncBookmakerTrigger();
-      setBookmakerPanelOpen(false);
       render();
     });
 
@@ -376,8 +249,6 @@
         onSortClick(btn.getAttribute('data-sort'));
       });
     });
-
-    bindBookmakerSelect();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -386,8 +257,8 @@
         '<div class="empty-state">Не загружены данные.</div>';
       return;
     }
+    buildBookmakerOptions();
     buildActivityOptions();
-    syncBookmakerTrigger();
     bind();
     render();
   });
