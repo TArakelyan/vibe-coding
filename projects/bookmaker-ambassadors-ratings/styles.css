@@ -33,6 +33,29 @@ body {
   padding: 16px 16px 28px;
 }
 
+/* Оверлей под выпадашкой букмекеров: ловит клики по таблице/странице внутри iframe */
+.page.page--bm-panel-open > section.filters {
+  position: relative;
+  z-index: 101;
+}
+
+.bm-select-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: var(--bm-overlay-top, 0);
+  z-index: 100;
+  background: transparent;
+  cursor: default;
+  touch-action: none;
+}
+
+.bm-select-overlay[hidden] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
 .filters {
   margin-bottom: 8px;
 }
@@ -121,7 +144,7 @@ body {
 }
 
 .filter-field--bookmaker.is-open {
-  z-index: 10002;
+  z-index: 102;
 }
 
 .bm-select {
