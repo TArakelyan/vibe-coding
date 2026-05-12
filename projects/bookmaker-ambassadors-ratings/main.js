@@ -7,6 +7,7 @@
     activity: '',
     sortKey: 'bookmaker',
     sortDir: 'asc',
+    bookmakerPanelOpen: false,
   };
 
   function escapeHtml(text) {
@@ -36,29 +37,93 @@
     return m && m.logo ? m.logo : '';
   }
 
+  function bmLogoCircleHtml(logoUrl, sizeClass) {
+    const cls = 'bm-logo-wrap' + (sizeClass ? ' ' + sizeClass : '');
+    if (!logoUrl) {
+      return '<div class="' + cls + ' bm-logo-wrap--empty"></div>';
+    }
+    return (
+      '<div class="' +
+      cls +
+      '"><img class="bm-logo" src="' +
+      escapeHtml(logoUrl) +
+      '" alt="" loading="lazy" /></div>'
+    );
+  }
+
   function uniqueSorted(values) {
     return Array.from(new Set(values.filter(Boolean))).sort(function (a, b) {
       return a.localeCompare(b, 'ru');
     });
   }
 
-  function buildFilterOptions() {
-    const bmIds = Object.keys(BOOKMAKER_META).sort(function (a, b) {
+  function getSortedBookmakerIds() {
+    return Object.keys(BOOKMAKER_META).sort(function (a, b) {
       return bookmakerName(a).localeCompare(bookmakerName(b), 'ru');
     });
+  }
+
+  function buildBookmakerDropdown() {
+    const panel = document.getElementById('bookmakerSelectPanel');
+    const bmIds = getSortedBookmakerIds();
+
+    const allRow =
+      '<button type="button" class="bm-select-option bm-select-option--all" role="option" data-bookmaker-id="" aria-selected="' +
+      (state.bookmakerId === '' ? 'true' : 'false') +
+      '">Все букмекеры</button>';
+
+    const rows = bmIds
+      .map(function (id) {
+        const logo = bookmakerLogo(id);
+        const sel = state.bookmakerId === id ? 'true' : 'false';
+        return (
+          '<button type="button" class="bm-select-option" role="option" data-bookmaker-id="' +
+          escapeHtml(id) +
+          '" aria-selected="' +
+          sel +
+          '">' +
+          bmLogoCircleHtml(logo, 'bm-logo-wrap--in-dropdown') +
+          '<span class="bm-select-option-text">' +
+          escapeHtml(bookmakerName(id)) +
+          '</span></button>'
+        );
+      })
+      .join('');
+
+    panel.innerHTML = allRow + rows;
+  }
+
+  function syncBookmakerTrigger() {
+    const hidden = document.getElementById('filterBookmaker');
+    const labelEl = document.getElementById('bookmakerTriggerLabel');
+    const logoSlot = document.getElementById('bookmakerTriggerLogo');
+    hidden.value = state.bookmakerId;
+
+    if (!state.bookmakerId) {
+      labelEl.textContent = 'Все букмекеры';
+      logoSlot.innerHTML = '';
+      logoSlot.classList.add('bm-select-trigger-logo--empty');
+      return;
+    }
+    labelEl.textContent = bookmakerName(state.bookmakerId);
+    logoSlot.classList.remove('bm-select-trigger-logo--empty');
+    logoSlot.innerHTML = bmLogoCircleHtml(bookmakerLogo(state.bookmakerId), 'bm-logo-wrap--in-trigger');
+  }
+
+  function setBookmakerPanelOpen(open) {
+    state.bookmakerPanelOpen = open;
+    const panel = document.getElementById('bookmakerSelectPanel');
+    const trigger = document.getElementById('bookmakerSelectTrigger');
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.hidden = !open;
+    if (open) {
+      buildBookmakerDropdown();
+    }
+  }
+
+  function buildActivityOptions() {
     const activities = uniqueSorted(AMBASSADORS.map(function (r) { return r.activity; }));
-
-    const selBm = document.getElementById('filterBookmaker');
     const selAct = document.getElementById('filterActivity');
-
-    selBm.innerHTML =
-      '<option value="">Все букмекеры</option>' +
-      bmIds
-        .map(function (id) {
-          return '<option value="' + escapeHtml(id) + '">' + escapeHtml(bookmakerName(id)) + '</option>';
-        })
-        .join('');
-
     selAct.innerHTML =
       '<option value="">Все виды деятельности</option>' +
       activities
@@ -139,17 +204,16 @@
       .map(function (row) {
         const bm = bookmakerLogo(row.bookmakerId);
         const names = splitFullName(row.fullName);
-        const logoHtml = bm
-          ? '<div class="bm-logo-wrap"><img class="bm-logo" src="' +
-            escapeHtml(bm) +
-            '" alt="" width="27" height="27" loading="lazy" /></div>'
-          : '<div class="bm-logo-wrap bm-logo-wrap--empty"></div>';
+        const logoHtml = bmLogoCircleHtml(bm, 'bm-logo-wrap--in-table');
+        const bmLabel = escapeHtml(bookmakerName(row.bookmakerId));
 
         return (
           '<div class="data-row" role="row">' +
-          '<div class="cell cell--logo">' +
+          '<div class="cell cell--bookmaker">' +
           logoHtml +
-          '</div>' +
+          '<span class="bookmaker-cell-name">' +
+          bmLabel +
+          '</span></div>' +
           '<div class="cell cell--person">' +
           '<img class="avatar" src="' +
           escapeHtml(row.photoUrl) +
@@ -181,16 +245,49 @@
     render();
   }
 
+  function onDocumentPointerDown(e) {
+    const root = document.getElementById('bookmakerSelectRoot');
+    if (!root || !state.bookmakerPanelOpen) return;
+    if (!root.contains(e.target)) {
+      setBookmakerPanelOpen(false);
+    }
+  }
+
+  function bindBookmakerSelect() {
+    const trigger = document.getElementById('bookmakerSelectTrigger');
+    const panel = document.getElementById('bookmakerSelectPanel');
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setBookmakerPanelOpen(!state.bookmakerPanelOpen);
+    });
+
+    panel.addEventListener('click', function (e) {
+      const btn = e.target.closest('.bm-select-option');
+      if (!btn) return;
+      const id = btn.getAttribute('data-bookmaker-id') || '';
+      state.bookmakerId = id;
+      syncBookmakerTrigger();
+      setBookmakerPanelOpen(false);
+      render();
+    });
+
+    document.addEventListener('mousedown', onDocumentPointerDown);
+    document.addEventListener('touchstart', onDocumentPointerDown, { passive: true });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && state.bookmakerPanelOpen) {
+        setBookmakerPanelOpen(false);
+      }
+    });
+  }
+
   function bind() {
     document.getElementById('searchInput').addEventListener('input', function (e) {
       state.search = e.target.value.trim();
       render();
     });
 
-    document.getElementById('filterBookmaker').addEventListener('change', function (e) {
-      state.bookmakerId = e.target.value;
-      render();
-    });
     document.getElementById('filterActivity').addEventListener('change', function (e) {
       state.activity = e.target.value;
       render();
@@ -203,8 +300,9 @@
       state.sortKey = 'bookmaker';
       state.sortDir = 'asc';
       document.getElementById('searchInput').value = '';
-      document.getElementById('filterBookmaker').value = '';
       document.getElementById('filterActivity').value = '';
+      syncBookmakerTrigger();
+      setBookmakerPanelOpen(false);
       render();
     });
 
@@ -213,6 +311,8 @@
         onSortClick(btn.getAttribute('data-sort'));
       });
     });
+
+    bindBookmakerSelect();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -221,7 +321,8 @@
         '<div class="empty-state">Не загружены данные.</div>';
       return;
     }
-    buildFilterOptions();
+    buildActivityOptions();
+    syncBookmakerTrigger();
     bind();
     render();
   });

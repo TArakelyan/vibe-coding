@@ -14,10 +14,8 @@
   --bg: #fff;
   --row-hover: #fafafa;
   --maxw: 660px;
-  /* Логотип букмекера: было 44px, уменьшено в 1.5 раза (~30px) */
-  --bm-logo-size: 30px;
-  /* Колонка шире кружка — подпись «Букмекер» в шапке */
-  --bm-col: 56px;
+  --bm-dropdown-blue: #2563eb;
+  --bm-dropdown-blue-hover: #1d4ed8;
 }
 
 body {
@@ -116,6 +114,144 @@ body {
   outline-offset: 1px;
 }
 
+/* Кастомный выбор букмекера: круглый логотип + название */
+.filter-field--bookmaker {
+  position: relative;
+  z-index: 2;
+}
+
+.bm-select {
+  position: relative;
+  width: 100%;
+}
+
+.bm-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 30px 9px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  cursor: pointer;
+  text-align: left;
+  min-height: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.bm-select-trigger:hover {
+  border-color: #aaa;
+}
+
+.bm-select-trigger:focus {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 1px;
+}
+
+.bm-select-trigger[aria-expanded="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-soft);
+}
+
+.bm-select-trigger-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.bm-select-trigger-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bm-select-trigger-logo--empty {
+  display: none;
+}
+
+.bm-select-trigger-text {
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  max-height: min(320px, 55vh);
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+}
+
+.bm-select-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.bm-select-option:last-child {
+  border-bottom: none;
+}
+
+.bm-select-option:hover {
+  background: var(--row-hover);
+}
+
+.bm-select-option[aria-selected="true"] {
+  background: var(--accent-soft);
+}
+
+.bm-select-option--all {
+  background: var(--bm-dropdown-blue);
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.bm-select-option--all:hover {
+  background: var(--bm-dropdown-blue-hover);
+}
+
+.bm-select-option--all[aria-selected="true"] {
+  background: var(--bm-dropdown-blue-hover);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.bm-select-option-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .filters-meta {
   display: flex;
   flex-wrap: wrap;
@@ -161,8 +297,8 @@ body {
 
 .data-grid--head {
   display: grid;
-  grid-template-columns: var(--bm-col) minmax(0, 1fr) minmax(0, 1fr);
-  gap: 12px 16px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px 14px;
   align-items: end;
   padding: 8px 0 10px;
   border-bottom: 1px solid var(--border-strong);
@@ -194,11 +330,8 @@ body {
 
 #sortBookmaker {
   width: 100%;
-  font-size: 11px;
-  line-height: 1.2;
-  text-align: center;
-  justify-content: center;
-  white-space: normal;
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .sort-ind::after {
@@ -229,8 +362,8 @@ body {
 
 .data-row {
   display: grid;
-  grid-template-columns: var(--bm-col) minmax(0, 1fr) minmax(0, 1fr);
-  gap: 12px 16px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px 14px;
   align-items: center;
   padding: 12px 0;
   border-bottom: 1px solid var(--border);
@@ -240,15 +373,25 @@ body {
   background: var(--row-hover);
 }
 
-.cell--logo {
+.cell--bookmaker {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.bookmaker-cell-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.25;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .bm-logo-wrap {
-  width: var(--bm-logo-size);
-  height: var(--bm-logo-size);
   border-radius: 50%;
   border: 1px solid var(--border);
   display: flex;
@@ -259,14 +402,32 @@ body {
   flex-shrink: 0;
 }
 
+.bm-logo-wrap--in-table {
+  width: 28px;
+  height: 28px;
+}
+
+.bm-logo-wrap--in-dropdown {
+  width: 26px;
+  height: 26px;
+}
+
+.bm-logo-wrap--in-trigger {
+  width: 24px;
+  height: 24px;
+}
+
 .bm-logo-wrap--empty {
   background: #f0f0f0;
 }
 
 .bm-logo {
-  max-width: 78%;
-  max-height: 78%;
+  max-width: 76%;
+  max-height: 76%;
+  width: auto;
+  height: auto;
   object-fit: contain;
+  display: block;
 }
 
 .cell--person {
