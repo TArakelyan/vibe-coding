@@ -207,6 +207,8 @@
         const logoHtml = bmLogoCircleHtml(bm, 'bm-logo-wrap--in-table');
         const bmLabel = escapeHtml(bookmakerName(row.bookmakerId));
 
+        const nameLinesClass = 'name-lines' + (names.line2 ? '' : ' name-lines--single');
+
         return (
           '<div class="data-row" role="row">' +
           '<div class="cell cell--bookmaker">' +
@@ -218,12 +220,14 @@
           '<img class="avatar" src="' +
           escapeHtml(row.photoUrl) +
           '" alt="" width="40" height="40" loading="lazy" />' +
-          '<div class="name-lines">' +
-          '<span class="name-line1">' +
+          '<div class="' +
+          nameLinesClass +
+          '">' +
+          '<span class="name-line name-line--given">' +
           escapeHtml(names.line1) +
           '</span>' +
           (names.line2
-            ? '<span class="name-line2">' + escapeHtml(names.line2) + '</span>'
+            ? '<span class="name-line name-line--family">' + escapeHtml(names.line2) + '</span>'
             : '') +
           '</div></div>' +
           '<div class="cell cell--activity">' +
@@ -245,10 +249,22 @@
     render();
   }
 
-  function onDocumentPointerDown(e) {
+  function isEventInsideBookmakerSelect(e, root) {
+    if (!root) return false;
+    if (typeof e.composedPath === 'function') {
+      const path = e.composedPath();
+      for (let i = 0; i < path.length; i++) {
+        if (path[i] === root) return true;
+      }
+      return false;
+    }
+    return root.contains(e.target);
+  }
+
+  function closeBookmakerPanelIfOutside(e) {
     const root = document.getElementById('bookmakerSelectRoot');
     if (!root || !state.bookmakerPanelOpen) return;
-    if (!root.contains(e.target)) {
+    if (!isEventInsideBookmakerSelect(e, root)) {
       setBookmakerPanelOpen(false);
     }
   }
@@ -257,8 +273,7 @@
     const trigger = document.getElementById('bookmakerSelectTrigger');
     const panel = document.getElementById('bookmakerSelectPanel');
 
-    trigger.addEventListener('click', function (e) {
-      e.stopPropagation();
+    trigger.addEventListener('click', function () {
       setBookmakerPanelOpen(!state.bookmakerPanelOpen);
     });
 
@@ -272,8 +287,7 @@
       render();
     });
 
-    document.addEventListener('mousedown', onDocumentPointerDown);
-    document.addEventListener('touchstart', onDocumentPointerDown, { passive: true });
+    document.addEventListener('pointerdown', closeBookmakerPanelIfOutside, true);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && state.bookmakerPanelOpen) {
