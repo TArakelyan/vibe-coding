@@ -124,19 +124,6 @@ body {
   z-index: 10002;
 }
 
-.bm-select-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: transparent;
-  cursor: default;
-}
-
-.bm-select-backdrop[hidden] {
-  display: none !important;
-  pointer-events: none !important;
-}
-
 .bm-select {
   position: relative;
   z-index: 1;

@@ -115,19 +115,31 @@
     const panel = document.getElementById('bookmakerSelectPanel');
     const trigger = document.getElementById('bookmakerSelectTrigger');
     const wrap = document.querySelector('.filter-field--bookmaker');
-    const backdrop = document.getElementById('bookmakerSelectBackdrop');
     trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
     panel.hidden = !open;
     if (wrap) {
       wrap.classList.toggle('is-open', open);
     }
-    if (backdrop) {
-      backdrop.hidden = !open;
-      backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
-    }
     if (open) {
       buildBookmakerDropdown();
     }
+  }
+
+  function getEventTargetElement(e) {
+    let t = e.target;
+    while (t && t.nodeType !== 1) {
+      t = t.parentElement;
+    }
+    return t;
+  }
+
+  function closeBookmakerPanelIfClickOutside(e) {
+    if (!state.bookmakerPanelOpen) return;
+    const root = document.getElementById('bookmakerSelectRoot');
+    if (!root) return;
+    const t = getEventTargetElement(e);
+    if (!t || root.contains(t)) return;
+    setBookmakerPanelOpen(false);
   }
 
   function buildActivityOptions() {
@@ -261,18 +273,10 @@
   function bindBookmakerSelect() {
     const trigger = document.getElementById('bookmakerSelectTrigger');
     const panel = document.getElementById('bookmakerSelectPanel');
-    const backdrop = document.getElementById('bookmakerSelectBackdrop');
 
     trigger.addEventListener('click', function () {
       setBookmakerPanelOpen(!state.bookmakerPanelOpen);
     });
-
-    if (backdrop) {
-      backdrop.addEventListener('pointerdown', function (e) {
-        e.preventDefault();
-        setBookmakerPanelOpen(false);
-      });
-    }
 
     panel.addEventListener('click', function (e) {
       const btn = e.target.closest('.bm-select-option');
@@ -282,6 +286,15 @@
       syncBookmakerTrigger();
       setBookmakerPanelOpen(false);
       render();
+    });
+
+    const roots = [document, window];
+    const types = ['pointerdown', 'mousedown', 'touchstart', 'click'];
+    roots.forEach(function (rootEl) {
+      types.forEach(function (type) {
+        const opts = type === 'touchstart' ? { capture: true, passive: true } : true;
+        rootEl.addEventListener(type, closeBookmakerPanelIfClickOutside, opts);
+      });
     });
 
     document.addEventListener('keydown', function (e) {
