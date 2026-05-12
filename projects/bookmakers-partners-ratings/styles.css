@@ -178,7 +178,7 @@ body {
 
 .data-grid--head {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1.45fr) minmax(0, 1fr) 52px;
+  grid-template-columns: 76px minmax(0, 1.05fr) minmax(0, 1.2fr) 52px;
   gap: 12px 14px;
   align-items: center;
   padding: 8px 0 10px;
@@ -187,7 +187,7 @@ body {
 
 .data-row {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1.45fr) minmax(0, 1fr) 52px;
+  grid-template-columns: 76px minmax(0, 1.05fr) minmax(0, 1.2fr) 52px;
   gap: 12px 14px;
   align-items: center;
   padding: 10px 0;
@@ -216,7 +216,7 @@ body {
   border: none;
   background: none;
   font-family: var(--ui-font);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--text);
@@ -226,16 +226,22 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  min-height: 36px;
+  gap: 3px;
+  min-height: 40px;
   position: relative;
 }
 
 .th-text {
   display: block;
-  line-height: 1.25;
+  line-height: 1.3;
   max-width: 100%;
-  hyphens: auto;
+  hyphens: none;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+#sortBookmaker .th-text {
+  white-space: nowrap;
 }
 
 .th:hover {
@@ -249,21 +255,21 @@ body {
 .sort-ind::after {
   content: "";
   display: block;
-  height: 10px;
-  line-height: 10px;
+  height: 12px;
+  line-height: 12px;
   opacity: 0.35;
 }
 
 .th--active .sort-ind--asc::after {
   content: "↑";
   opacity: 1;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .th--active .sort-ind--desc::after {
   content: "↓";
   opacity: 1;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 #sortBookmaker,
@@ -337,7 +343,7 @@ body {
 
 .cell--partner {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   min-width: 0;
 }
@@ -372,7 +378,7 @@ body {
   flex: 1;
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   gap: 6px 8px;
 }
 
@@ -399,9 +405,9 @@ body {
   padding: 2px 8px;
   border-radius: 999px;
   font-family: var(--ui-font);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   text-transform: none;
   color: #1a1400;
   background: linear-gradient(135deg, var(--titular-gold-soft) 0%, rgba(0, 199, 139, 0.18) 100%);
@@ -420,6 +426,9 @@ body {
   padding-left: 2px;
   padding-right: 2px;
   margin-left: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cell--year {
@@ -432,12 +441,15 @@ body {
   text-align: center;
   padding-left: 2px;
   padding-right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @container partners-page (max-width: 480px) {
   .data-grid--head,
   .data-row {
-    grid-template-columns: 40px minmax(0, 1.5fr) minmax(0, 0.95fr) 44px;
+    grid-template-columns: 68px minmax(0, 1.05fr) minmax(0, 1.15fr) 44px;
     gap: 10px 12px;
   }
 
@@ -471,7 +483,7 @@ body {
 @media (max-width: 480px) {
   .data-grid--head,
   .data-row {
-    grid-template-columns: 40px minmax(0, 1.5fr) minmax(0, 0.95fr) 44px;
+    grid-template-columns: 68px minmax(0, 1.05fr) minmax(0, 1.15fr) 44px;
     gap: 10px 12px;
   }
 
