@@ -273,6 +273,15 @@ body {
   width: 100%;
 }
 
+/* Больше воздуха между букмекером и партнером, плотнее между партнером и видом спорта */
+#sortBookmaker {
+  margin-right: 12px;
+}
+
+#sortSport {
+  margin-left: -8px;
+}
+
 .rows {
   min-height: 80px;
 }
@@ -282,6 +291,7 @@ body {
   align-items: center;
   justify-content: center;
   min-width: 0;
+  margin-right: 12px;
 }
 
 .cell-logo-link {
@@ -409,6 +419,7 @@ body {
   word-break: break-word;
   padding-left: 2px;
   padding-right: 2px;
+  margin-left: -8px;
 }
 
 .cell--year {
@@ -430,6 +441,22 @@ body {
     gap: 10px 12px;
   }
 
+  #sortBookmaker {
+    margin-right: 8px;
+  }
+
+  #sortSport {
+    margin-left: -5px;
+  }
+
+  .cell--bookmaker-logo {
+    margin-right: 8px;
+  }
+
+  .cell--sport {
+    margin-left: -5px;
+  }
+
   .bm-logo-wrap--in-table {
     width: 32px;
     height: 32px;
@@ -446,6 +473,32 @@ body {
   .data-row {
     grid-template-columns: 40px minmax(0, 1.5fr) minmax(0, 0.95fr) 44px;
     gap: 10px 12px;
+  }
+
+  #sortBookmaker {
+    margin-right: 8px;
+  }
+
+  #sortSport {
+    margin-left: -5px;
+  }
+
+  .cell--bookmaker-logo {
+    margin-right: 8px;
+  }
+
+  .cell--sport {
+    margin-left: -5px;
+  }
+
+  .bm-logo-wrap--in-table {
+    width: 32px;
+    height: 32px;
+  }
+
+  .partner-logo-wrap {
+    width: 34px;
+    height: 34px;
   }
 }
 
