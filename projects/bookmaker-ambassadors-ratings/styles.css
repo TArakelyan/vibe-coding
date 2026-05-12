@@ -157,8 +157,8 @@ body {
 
 .data-grid--head {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr);
-  gap: 12px 14px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(0, 0.95fr);
+  gap: 14px 20px;
   align-items: end;
   padding: 8px 0 10px;
   border-bottom: 1px solid var(--border-strong);
@@ -222,11 +222,15 @@ body {
 
 .data-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr);
-  gap: 12px 14px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(0, 0.95fr);
+  gap: 14px 20px;
   align-items: center;
   padding: 12px 0;
   border-bottom: 1px solid var(--border);
+}
+
+.data-row > .cell {
+  min-width: 0;
 }
 
 .data-row:hover {
@@ -294,6 +298,9 @@ body {
 
 .name-lines {
   min-width: 0;
+  flex: 1;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .name-line {
@@ -338,7 +345,17 @@ body {
   font-size: 13px;
   color: var(--text);
   word-break: break-word;
+  overflow-wrap: break-word;
+  padding-left: 2px;
   padding-right: 4px;
+}
+
+@media (max-width: 480px) {
+  .data-grid--head,
+  .data-row {
+    gap: 16px 22px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 0.95fr);
+  }
 }
 
 .empty-state {
