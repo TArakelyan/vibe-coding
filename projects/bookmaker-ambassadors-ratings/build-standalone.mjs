@@ -1,6 +1,8 @@
 /**
- * Сборка standalone.html: один файл для деплоя (CSS и JS внутри HTML).
- * Запуск из папки проекта: node build-standalone.mjs
+ * Сборка index.html для деплоя (один файл: стили и скрипты внутри).
+ * Исходная разметка с внешними файлами — index.source.html.
+ * Запуск: node build-standalone.mjs
+ * Дублирует результат в standalone.html (совместимость со старыми ссылками).
  */
 import fs from 'fs';
 import path from 'path';
@@ -21,7 +23,7 @@ const scriptFiles = [
   'resize.js',
 ];
 
-let html = read('index.html');
+let html = read('index.source.html');
 
 html = html.replace(
   /<link\s+rel="stylesheet"\s+href="\.\/styles\.css"\s*\/?>\s*/i,
@@ -31,7 +33,7 @@ html = html.replace(
 const firstScript = html.indexOf('<script src="./data/bookmakers.js"');
 const endBody = html.lastIndexOf('</body>');
 if (firstScript === -1 || endBody === -1) {
-  throw new Error('Не найдена разметка script или </body> в index.html');
+  throw new Error('Не найдена разметка script или </body> в index.source.html');
 }
 
 const inlineScripts = scriptFiles
@@ -40,6 +42,9 @@ const inlineScripts = scriptFiles
 
 html = html.slice(0, firstScript) + inlineScripts + '\n' + html.slice(endBody);
 
-const outPath = path.join(__dirname, 'standalone.html');
-fs.writeFileSync(outPath, html, 'utf8');
-console.log('OK:', outPath, '(' + Math.round(fs.statSync(outPath).size / 1024) + ' KB)');
+const indexPath = path.join(__dirname, 'index.html');
+const standalonePath = path.join(__dirname, 'standalone.html');
+fs.writeFileSync(indexPath, html, 'utf8');
+fs.writeFileSync(standalonePath, html, 'utf8');
+const kb = Math.round(fs.statSync(indexPath).size / 1024);
+console.log('OK: index.html + standalone.html (' + kb + ' KB)');
