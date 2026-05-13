@@ -1,4 +1,3 @@
-/** Логотипы букмекеров для колонки бренда */
 const BOOKMAKER_META = {
   fonbet: { name: 'FONBET', logo: 'https://dumpster.cdn.sports.ru/8/23/31836b8ae127c677c83aa5c2dcc3c.png' },
   winline: { name: 'WINLINE', logo: 'https://dumpster.cdn.sports.ru/b/fc/6d2147368a7165750355955619ca6.png' },
