@@ -21,9 +21,6 @@
   --accent: #00c78b;
   --accent-hover: #21a67e;
   --accent-soft: rgba(0, 199, 139, 0.14);
-  --naming-gold: #ffc300;
-  --naming-gold-soft: rgba(255, 195, 0, 0.22);
-  --naming-ink: #1f6650;
   --bg: #fff;
   --row-hover: #fafafa;
   --maxw: 660px;
@@ -209,14 +206,6 @@ body {
   background: var(--row-hover);
 }
 
-.data-row--naming {
-  background: linear-gradient(90deg, rgba(255, 195, 0, 0.07) 0%, transparent 55%);
-}
-
-.data-row--naming:hover {
-  background: linear-gradient(90deg, rgba(255, 195, 0, 0.12) 0%, var(--row-hover) 55%);
-}
-
 .th {
   margin: 0;
   padding: 0 2px;
@@ -398,27 +387,6 @@ body {
   text-rendering: optimizeLegibility;
   overflow-wrap: break-word;
   word-break: break-word;
-}
-
-.cell--partner-naming .partner-name {
-  color: var(--naming-ink);
-  font-weight: 700;
-}
-
-.naming-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-family: var(--ui-font);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  text-transform: none;
-  color: #1a1400;
-  background: linear-gradient(135deg, var(--naming-gold-soft) 0%, rgba(0, 199, 139, 0.18) 100%);
-  border: 1px solid rgba(255, 195, 0, 0.55);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .cell--sport {
