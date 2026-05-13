@@ -186,7 +186,7 @@ body {
 .data-grid--head {
   display: grid;
   grid-template-columns: 76px minmax(0, 1.3fr) minmax(0, 0.95fr) 52px;
-  gap: 12px 14px;
+  gap: 12px 18px;
   align-items: center;
   padding: 8px 0 10px;
   border-bottom: 1px solid var(--border-strong);
@@ -195,7 +195,7 @@ body {
 .data-row {
   display: grid;
   grid-template-columns: 76px minmax(0, 1.3fr) minmax(0, 0.95fr) 52px;
-  gap: 12px 14px;
+  gap: 12px 18px;
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid var(--border);
@@ -556,9 +556,8 @@ body {
       </div>
 
       <div class="filters-meta">
-        <button type="button" class="link-reset" id="resetFilters">
+        <button type="button" class="link-reset" id="resetFilters" title="Сбросить фильтры">
           <span class="link-reset-x" aria-hidden="true">×</span>
-          Сбросить фильтры
         </button>
         <span class="filters-count" id="resultCount"></span>
       </div>
@@ -944,40 +943,11 @@ const PARTNERS = [
     const sel = document.getElementById('filterEntity');
     if (!sel) return;
     const saved = state.entity;
-    const names = uniqueSorted(PARTNERS.map(function (r) { return r.partnerName; }));
-
-    const clubs = [];
-    const federations = [];
-    const tournaments = [];
-
-    names.forEach(function (name) {
-      const row = PARTNERS.find(function (r) { return r.partnerName === name; });
-      const kind = organizationKind(row || { partnerName: name, sport: '', entityType: '' });
-      if (kind === 'federation') federations.push(name);
-      else if (kind === 'tournament') tournaments.push(name);
-      else clubs.push(name);
-    });
-
-    function opts(list) {
-      return list
-        .map(function (n) {
-          return '<option value="' + escapeHtml(n) + '">' + escapeHtml(n) + '</option>';
-        })
-        .join('');
-    }
-
-    let html = '<option value="">Все организации</option>';
-    if (clubs.length) {
-      html += '<optgroup label="Клуб">' + opts(clubs) + '</optgroup>';
-    }
-    if (federations.length) {
-      html += '<optgroup label="Федерация">' + opts(federations) + '</optgroup>';
-    }
-    if (tournaments.length) {
-      html += '<optgroup label="Турнир">' + opts(tournaments) + '</optgroup>';
-    }
-
-    sel.innerHTML = html;
+    sel.innerHTML =
+      '<option value="">Все организации</option>' +
+      '<option value="клуб">Клуб</option>' +
+      '<option value="турнир">Турнир</option>' +
+      '<option value="федерация">Федерация</option>';
     sel.value = saved;
     if (sel.value !== saved) {
       sel.value = '';
@@ -998,7 +968,7 @@ const PARTNERS = [
   function passesFilters(row) {
     if (state.bookmakerId && row.bookmakerId !== state.bookmakerId) return false;
     if (state.sport && row.sport !== state.sport) return false;
-    if (state.entity && row.partnerName !== state.entity) return false;
+    if (state.entity && row.entityType !== state.entity) return false;
     if (state.search) {
       const q = normalizeYo(state.search).toLowerCase();
       const hay = normalizeYo(
