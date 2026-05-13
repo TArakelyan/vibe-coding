@@ -2,7 +2,7 @@
 const PARTNERS = [
   {
     "bookmakerId": "fonbet",
-    "partnerName": "Кубок России",
+    "partnerName": "FONBET Кубок России",
     "sport": "футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/6/c1/f98a204031669674df84dc3ffbe8c.png",
     "endYear": 2029,
@@ -26,7 +26,7 @@ const PARTNERS = [
   },
   {
     "bookmakerId": "fonbet",
-    "partnerName": "КХЛ",
+    "partnerName": "FONBET КХЛ",
     "sport": "хоккей",
     "partnerLogo": "https://dumpster.cdn.sports.ru/e/cb/b07173eb2edba011bf340de5bfc14.png",
     "endYear": 2028,
@@ -778,7 +778,7 @@ const PARTNERS = [
   },
   {
     "bookmakerId": "olimpbet",
-    "partnerName": "Суперкубок России",
+    "partnerName": "OLIMPBET Суперкубок России",
     "sport": "Футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/3/3d/342218ef65edc906ad677e0f88dc8.png",
     "endYear": 2027,
@@ -940,7 +940,7 @@ const PARTNERS = [
     "bookmakerId": "betboom",
     "partnerName": "Российский футбольный союз",
     "sport": "Федерация",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/3/e3/73f478f7a789f6978cd535ed168ec.png",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/c/1c/a132463136ecba5ee02697ff39d8e.png",
     "endYear": 2027,
     "isTitular": false
   },
@@ -1242,7 +1242,7 @@ const PARTNERS = [
   },
   {
     "bookmakerId": "leon",
-    "partnerName": "Вторая лига",
+    "partnerName": "Leon-Вторая Лига",
     "sport": "Футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/b/cc/92812b068167963017f221ed2152a.png",
     "endYear": null,
