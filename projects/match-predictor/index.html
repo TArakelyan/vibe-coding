@@ -110,32 +110,39 @@ button {
 .lang-switch {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   padding: 2px;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: var(--surface);
 }
 
 .lang-btn {
-  min-width: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
   height: 28px;
-  padding: 0 8px;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--muted);
+  padding: 2px;
+  border: 1px solid transparent;
   border-radius: 2px;
+  background: transparent;
+  opacity: 0.72;
 }
 
 .lang-btn:hover {
-  color: var(--ink);
+  opacity: 1;
 }
 
 .lang-btn--active {
-  background: var(--ink);
-  color: var(--white);
+  opacity: 1;
+  border-color: var(--ink);
+  background: var(--surface);
+}
+
+.lang-btn__flag {
+  display: block;
+  width: 22px;
+  height: 22px;
+  object-fit: cover;
+  border-radius: 2px;
 }
 
 .header-nav {
@@ -804,9 +811,33 @@ button {
         </nav>
 
         <div class="lang-switch" role="group" aria-label="Language">
-          <button type="button" class="lang-btn lang-btn--active" data-lang="ru">RU</button>
-          <button type="button" class="lang-btn" data-lang="hy">AM</button>
-          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn lang-btn--active" data-lang="ru" aria-label="Русский">
+            <img
+              class="lang-btn__flag"
+              src="https://dumpster.cdn.sports.ru/e/02/2145eef1fc5fe04fa7f55c588e92e.png"
+              alt="RU"
+              width="22"
+              height="22"
+            />
+          </button>
+          <button type="button" class="lang-btn" data-lang="hy" aria-label="Հայերեն">
+            <img
+              class="lang-btn__flag"
+              src="https://dumpster.cdn.sports.ru/6/eb/aa1745208712e294ea266fc115759.png"
+              alt="AM"
+              width="22"
+              height="22"
+            />
+          </button>
+          <button type="button" class="lang-btn" data-lang="en" aria-label="English">
+            <img
+              class="lang-btn__flag"
+              src="https://dumpster.cdn.sports.ru/9/b7/75c471004b26a2a9dcbbaff2c1f38.png"
+              alt="EN"
+              width="22"
+              height="22"
+            />
+          </button>
         </div>
 
         <div class="header-actions">
