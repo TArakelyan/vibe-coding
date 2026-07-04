@@ -1,0 +1,2539 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predictor — Армянская Премьер-лига</title>
+    <meta
+      name="description"
+      content="Делайте прогнозы на матчи Армянской Премьер-лиги"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --orange: #e9511c;
+  --orange-dark: #c94516;
+  --orange-soft: #fff4ef;
+  --ink: #141414;
+  --ink-soft: #3a3a3a;
+  --muted: #6b6b6b;
+  --line: #e2e2e2;
+  --surface: #fafafa;
+  --white: #fff;
+  --green: #1a7a42;
+  --red: #b42318;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--orange);
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 54px;
+  padding: 0 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo__img {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+}
+
+.is-hidden,
+[hidden] {
+  display: none !important;
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface);
+}
+
+.lang-btn {
+  min-width: 34px;
+  height: 28px;
+  padding: 0 8px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  border-radius: 2px;
+}
+
+.lang-btn:hover {
+  color: var(--ink);
+}
+
+.lang-btn--active {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.header-nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav-link {
+  padding: 8px 14px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border-radius: 2px;
+}
+
+.nav-link:hover {
+  color: var(--ink);
+}
+
+.nav-link--active {
+  color: var(--orange);
+  box-shadow: inset 0 -2px 0 var(--orange);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-badge {
+  max-width: 110px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.verified-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 14px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+.btn-ghost {
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.btn-ghost:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--orange-dark);
+}
+
+/* Views */
+.view-section {
+  padding: 20px;
+}
+
+.league-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.league-bar__label {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.round-heading {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding: 4px 0;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.round-heading:first-child {
+  margin-top: 0;
+}
+
+.section-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-toolbar h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.round-filter {
+  height: 36px;
+  padding: 0 32px 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--white);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* Cards — 3 в ряд */
+.matches-panel {
+  background: transparent;
+}
+
+.matches-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.match-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  background: var(--white);
+  min-width: 0;
+}
+
+.match-card--saved {
+  border-color: #f0c9b8;
+}
+
+.match-card__head {
+  padding: 16px 14px 12px;
+  background: var(--ink);
+  color: var(--white);
+  text-align: center;
+  min-height: 72px;
+}
+
+.match-card__round {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--orange);
+}
+
+.match-card__date {
+  margin: 0;
+  min-height: 18px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.match-card__body {
+  padding: 18px 12px 14px;
+}
+
+.match-card__scoreline {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.team-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.team__logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.team__name {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.score-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-block {
+  display: flex;
+  gap: 6px;
+}
+
+.score-input {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--white);
+  background: var(--ink);
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.score-input::-webkit-outer-spin-button,
+.score-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.score-input:focus {
+  box-shadow: 0 0 0 2px var(--orange);
+}
+
+.score-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.match-card__footer {
+  margin-top: auto;
+  padding: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.match-card__actions {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.save-btn {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: var(--white);
+  border-radius: 2px;
+}
+
+.save-btn:hover {
+  background: var(--orange-dark);
+}
+
+.booster-btn {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface);
+}
+
+.booster-btn:hover {
+  border-color: var(--orange);
+}
+
+.booster-btn--active {
+  background: #fff8e8;
+  border-color: #f0c000;
+  box-shadow: inset 0 0 0 1px #f0c000;
+}
+
+.booster-btn__icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+}
+
+.match-card__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.match-card__hint--hidden {
+  display: none;
+}
+
+.match-card__hint--error {
+  color: var(--red);
+}
+
+.match-card__hint--ok {
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* Leaderboard */
+.leaderboard {
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.leaderboard__head,
+.leaderboard__row {
+  display: grid;
+  grid-template-columns: 52px 1fr 72px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+}
+
+.leaderboard__head {
+  height: 40px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.leaderboard__head span:last-child,
+.leaderboard__points {
+  text-align: right;
+}
+
+.leaderboard__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderboard__row {
+  min-height: 52px;
+  border-bottom: 1px solid var(--line);
+}
+
+.leaderboard__row:last-child {
+  border-bottom: none;
+}
+
+.leaderboard__row--you {
+  background: var(--orange-soft);
+}
+
+.leaderboard__rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.leaderboard__rank--gold {
+  background: #fff6e5;
+  border-color: #e8b84a;
+  color: #9a6b00;
+}
+
+.leaderboard__rank--silver {
+  background: #f2f4f6;
+  border-color: #b8bec6;
+  color: #5c6570;
+}
+
+.leaderboard__rank--bronze {
+  background: #fdf0e8;
+  border-color: #d4a07a;
+  color: #8b5a3c;
+}
+
+.leaderboard__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboard__points {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.leaderboard__empty {
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.modal-overlay--open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  width: 100%;
+  max-width: 380px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--orange);
+}
+
+.modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 18px 18px 0;
+}
+
+.modal__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.modal__close {
+  width: 30px;
+  height: 30px;
+  color: var(--muted);
+}
+
+.modal__body {
+  padding: 14px 18px 18px;
+}
+
+.modal__field {
+  margin-bottom: 12px;
+}
+
+.modal__field label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.modal__field input {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  outline: none;
+}
+
+.modal__field input:focus {
+  border-color: var(--orange);
+}
+
+.auth-error {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--red);
+}
+
+.auth-note {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.auth-submit {
+  width: 100%;
+  height: 42px;
+  margin-bottom: 10px;
+}
+
+.auth-forgot {
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.auth-switch {
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.auth-cancel {
+  width: 100%;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  z-index: 300;
+  padding: 12px 18px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 2px;
+  opacity: 0;
+  transition: transform 0.25s, opacity 0.25s;
+  pointer-events: none;
+}
+
+.toast--visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .matches-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .header-inner {
+    flex-wrap: wrap;
+    padding: 0 16px;
+    gap: 10px;
+  }
+
+  .header-nav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .lang-switch {
+    margin-left: auto;
+  }
+
+  .view-section {
+    padding: 16px;
+  }
+
+  .matches-list {
+    grid-template-columns: 1fr;
+  }
+
+  .team__logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .save-btn {
+    font-size: 10px;
+  }
+}
+
+</style>
+</head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="#" aria-label="Predictor">
+          <img
+            class="logo__img"
+            src="https://dumpster.cdn.sports.ru/f/73/b3e2fda5bdcf9046fea6dabb85232.png"
+            alt="Predictor"
+            width="140"
+            height="32"
+          />
+        </a>
+
+        <nav class="header-nav" aria-label="Навигация">
+          <a class="nav-link nav-link--active" href="#" id="navMatches">Матчи</a>
+          <a class="nav-link" href="#" id="navLeaderboard">Рейтинг</a>
+        </nav>
+
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn lang-btn--active" data-lang="ru">RU</button>
+          <button type="button" class="lang-btn" data-lang="hy">HY</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
+
+        <div class="header-actions">
+          <span class="verified-badge" id="verifiedBadge" hidden></span>
+          <span class="user-badge" id="userBadge" hidden></span>
+          <button type="button" class="btn btn-ghost" id="loginBtn">Войти</button>
+          <button type="button" class="btn btn-primary" id="registerBtn">Регистрация</button>
+          <button type="button" class="btn btn-ghost is-hidden" id="logoutBtn" hidden>Выйти</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="matchesView" class="view-section">
+      <div class="league-bar">
+        <span class="league-bar__label" id="leagueTitle"
+          >Делайте прогнозы на матчи Армянской Премьер-лиги</span
+        >
+      </div>
+      <div class="matches-panel">
+        <div class="matches-list" id="matchesList"></div>
+      </div>
+    </div>
+
+    <div id="leaderboardView" class="view-section" hidden>
+      <div class="section-toolbar">
+        <h2 id="leaderboardTitle">Рейтинг игроков</h2>
+        <select class="round-filter" id="roundFilter" aria-label="Фильтр по туру"></select>
+      </div>
+      <div class="leaderboard">
+        <div class="leaderboard__head" aria-hidden="true">
+          <span id="lbPlace">Место</span>
+          <span id="lbPlayer">Игрок</span>
+          <span id="lbPoints">Баллы</span>
+        </div>
+        <div class="leaderboard__list" id="leaderboardBody"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="authModal" role="dialog" aria-modal="true">
+      <div class="modal">
+        <div class="modal__header">
+          <h2 class="modal__title" id="authTitle">Вход</h2>
+          <button type="button" class="modal__close" id="authClose" aria-label="Закрыть">✕</button>
+        </div>
+        <div class="modal__body">
+          <p class="auth-note" id="authNote">
+            Прогнозы сохраняются в аккаунте и участвуют в рейтинге
+          </p>
+          <form id="authForm">
+            <div class="modal__field" id="authNameField" hidden>
+              <label for="authName" id="authNameLabel">Имя</label>
+              <input id="authName" type="text" autocomplete="nickname" placeholder="Ваш ник" />
+            </div>
+            <div class="modal__field" id="authEmailField">
+              <label for="authEmail" id="authEmailLabel">Email</label>
+              <input id="authEmail" type="email" autocomplete="email" />
+            </div>
+            <div class="modal__field" id="authPhoneField" hidden>
+              <label for="authPhone" id="authPhoneLabel">Телефон</label>
+              <input
+                id="authPhone"
+                type="tel"
+                autocomplete="tel"
+                placeholder="+374…"
+              />
+            </div>
+            <div class="modal__field" id="authContactField" hidden>
+              <label for="authContact" id="authContactLabel">Email / Телефон</label>
+              <input id="authContact" type="text" autocomplete="username" />
+            </div>
+            <div class="modal__field" id="authPasswordField">
+              <label for="authPassword" id="authPasswordLabel">Пароль</label>
+              <input
+                id="authPassword"
+                type="password"
+                minlength="6"
+                autocomplete="current-password"
+              />
+            </div>
+            <p class="auth-error" id="authError" hidden></p>
+            <button type="submit" class="btn btn-primary auth-submit" id="authSubmit">Войти</button>
+          </form>
+          <p class="auth-forgot">
+            <a href="#" id="authForgotLink">Забыли пароль?</a>
+          </p>
+          <p class="auth-switch" id="authSwitchWrap">
+            <a href="#" id="authSwitchRegister">Регистрация</a>
+            ·
+            <a href="#" id="authSwitchLogin">Вход</a>
+          </p>
+          <button type="button" class="btn btn-ghost auth-cancel" id="authCancel">Отмена</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"><span id="toastText"></span></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script>
+const PREDICTOR_CONFIG = {
+  firebaseEnabled: false,
+  firebase: {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+  },
+};
+
+</script>
+<script>
+var PREDICTOR_I18N = {
+  ru: {
+    pageTitle: "Predictor — Армянская Премьер-лига",
+    pageDesc: "Делайте прогнозы на матчи Армянской Премьер-лиги",
+    navMatches: "Матчи",
+    navLeaderboard: "Рейтинг",
+    login: "Войти",
+    register: "Регистрация",
+    logout: "Выйти",
+    leagueTitle: "Делайте прогнозы на матчи Армянской Премьер-лиги",
+    leaderboardTitle: "Рейтинг игроков",
+    place: "Место",
+    player: "Игрок",
+    points: "Баллы",
+    roundAll: "Все туры",
+    roundN: "{n} тур",
+    roundFilter: "Фильтр по туру",
+    savePrediction: "Сохранить прогноз",
+    saved: "Сохранено",
+    noMatches: "Нет открытых матчей для прогноза",
+    noPlayers: "Пока нет игроков",
+    datePlaceholder: "Дата уточняется",
+    authLoginTitle: "Вход",
+    authRegisterTitle: "Регистрация",
+    authResetTitle: "Сброс пароля",
+    authNote: "Прогнозы сохраняются в аккаунте и участвуют в рейтинге",
+    authResetNote: "Укажите email или телефон — отправим ссылку или обновим пароль",
+    name: "Имя",
+    namePlaceholder: "Ваш ник",
+    email: "Email",
+    phone: "Телефон",
+    phonePlaceholder: "+374…",
+    password: "Пароль",
+    newPassword: "Новый пароль",
+    createAccount: "Создать аккаунт",
+    sendReset: "Сбросить пароль",
+    forgotPassword: "Забыли пароль?",
+    cancel: "Отмена",
+    authSwitchRegister: "Регистрация",
+    authSwitchLogin: "Вход",
+    toastWelcome: "Добро пожаловать!",
+    toastRegistered: "Аккаунт создан",
+    toastLogout: "Вы вышли",
+    toastSaved: "Прогноз сохранён",
+    toastSaveError: "Ошибка сохранения",
+    toastLoginRequired: "Войдите, чтобы сохранить прогноз",
+    toastVerifyEmail: "Подтвердите email перед сохранением",
+    toastResetSent: "Письмо для сброса пароля отправлено",
+    toastResetLocal: "Пароль обновлён",
+    toastBoosterOne: "Бустер можно поставить только на один матч в туре",
+    scoreError: "Счёт: от 0 до 15",
+    teams: {
+      alashkert: "Алашкерт",
+      ararat: "Арарат",
+      bkma: "БКМА",
+      shirak: "Ширак",
+      noah: "Ноа",
+      syunik: "Сюник",
+      gandzasar: "Гандзасар",
+      ararat_armenia: "Арарат-Армения",
+      urartu: "Урарту",
+      pyunik: "Пюник",
+      van: "Ван",
+      sardarapat: "Сардарапат",
+    },
+  },
+  hy: {
+    pageTitle: "Predictor — Հայաստանի Պրեմիեր լիգա",
+    pageDesc: "Կանխատեսեք Հայաստանի Պրեմիեր լիգայի խաղերը",
+    navMatches: "Խաղեր",
+    navLeaderboard: "Վարկանիշ",
+    login: "Մուտք",
+    register: "Գրանցում",
+    logout: "Ելք",
+    leagueTitle: "Կանխատեսեք Հայաստանի Պրեմիեր լիգայի խաղերը",
+    leaderboardTitle: "Խաղացողների վարկանիշ",
+    place: "Տեղ",
+    player: "Խաղացող",
+    points: "Միավորներ",
+    roundAll: "Բոլոր տուրերը",
+    roundN: "{n}-րդ տուր",
+    roundFilter: "Զտել ըստ տուրի",
+    savePrediction: "Պահպանել կանխատեսումը",
+    saved: "Պահպանված է",
+    noMatches: "Բաց խաղեր չկան",
+    noPlayers: "Դեռ խաղացողներ չկան",
+    datePlaceholder: "Ամսաթիվը ճշտվում է",
+    authLoginTitle: "Մուտք",
+    authRegisterTitle: "Գրանցում",
+    authResetTitle: "Գաղտնաբառի վերականգնում",
+    authNote: "Կանխատեսումները պահվում են հաշվում և մասնակցում վարկանիշին",
+    authResetNote: "Նշեք email կամ հեռախոս՝ կուղարկենք հղում կամ կթարմացնենք գաղտնաբառը",
+    name: "Անուն",
+    namePlaceholder: "Ձեր մականունը",
+    email: "Email",
+    phone: "Հեռախոս",
+    phonePlaceholder: "+374…",
+    password: "Գաղտնաբառ",
+    newPassword: "Նոր գաղտնաբառ",
+    createAccount: "Ստեղծել հաշիվ",
+    sendReset: "Վերականգնել գաղտնաբառը",
+    forgotPassword: "Մոռացե՞լ եք գաղտնաբառը",
+    cancel: "Չեղարկել",
+    authSwitchRegister: "Գրանցում",
+    authSwitchLogin: "Մուտք",
+    toastWelcome: "Բարի գալուստ!",
+    toastRegistered: "Հաշիվը ստեղծված է",
+    toastLogout: "Դուք դուրս եկաք",
+    toastSaved: "Կանխատեսումը պահպանված է",
+    toastSaveError: "Պահպանման սխալ",
+    toastLoginRequired: "Մուտք գործեք՝ կանխատեսումը պահպանելու համար",
+    toastVerifyEmail: "Հաստատեք email-ը պահպանումից առաջ",
+    toastResetSent: "Գաղտնաբառի վերականգնման նամակն ուղարկված է",
+    toastResetLocal: "Գաղտնաբառը թարմացված է",
+    toastBoosterOne: "Բուստերը կարելի է դնել միայն մեկ խաղի վրա տուրում",
+    scoreError: "Հաշիվ՝ 0-ից 15",
+    teams: {
+      alashkert: "Ալաշկերտ",
+      ararat: "Արարատ",
+      bkma: "ԲԿՄԱ",
+      shirak: "Շիրակ",
+      noah: "Նոա",
+      syunik: "Սյունիք",
+      gandzasar: "Գանձասար",
+      ararat_armenia: "Արարատ-Արմենիա",
+      urartu: "Ուրարտու",
+      pyunik: "Փյունիկ",
+      van: "Վան",
+      sardarapat: "Սարդարապատ",
+    },
+  },
+  en: {
+    pageTitle: "Predictor — Armenian Premier League",
+    pageDesc: "Make predictions on Armenian Premier League matches",
+    navMatches: "Matches",
+    navLeaderboard: "Leaderboard",
+    login: "Log in",
+    register: "Sign up",
+    logout: "Log out",
+    leagueTitle: "Make predictions on Armenian Premier League matches",
+    leaderboardTitle: "Player rankings",
+    place: "Rank",
+    player: "Player",
+    points: "Points",
+    roundAll: "All rounds",
+    roundN: "Round {n}",
+    roundFilter: "Filter by round",
+    savePrediction: "Save prediction",
+    saved: "Saved",
+    noMatches: "No open matches to predict",
+    noPlayers: "No players yet",
+    datePlaceholder: "Date TBA",
+    authLoginTitle: "Log in",
+    authRegisterTitle: "Sign up",
+    authResetTitle: "Reset password",
+    authNote: "Predictions are saved to your account and count in the rankings",
+    authResetNote: "Enter email or phone — we will send a link or update your password",
+    name: "Name",
+    namePlaceholder: "Your nickname",
+    email: "Email",
+    phone: "Phone",
+    phonePlaceholder: "+374…",
+    password: "Password",
+    newPassword: "New password",
+    createAccount: "Create account",
+    sendReset: "Reset password",
+    forgotPassword: "Forgot password?",
+    cancel: "Cancel",
+    authSwitchRegister: "Sign up",
+    authSwitchLogin: "Log in",
+    toastWelcome: "Welcome!",
+    toastRegistered: "Account created",
+    toastLogout: "You have logged out",
+    toastSaved: "Prediction saved",
+    toastSaveError: "Save error",
+    toastLoginRequired: "Log in to save your prediction",
+    toastVerifyEmail: "Verify your email before saving",
+    toastResetSent: "Password reset email sent",
+    toastResetLocal: "Password updated",
+    toastBoosterOne: "You can use the booster on only one match per round",
+    scoreError: "Score: 0 to 15",
+    teams: {
+      alashkert: "Alashkert",
+      ararat: "Ararat",
+      bkma: "BKMA",
+      shirak: "Shirak",
+      noah: "Noah",
+      syunik: "Syunik",
+      gandzasar: "Gandzasar",
+      ararat_armenia: "Ararat-Armenia",
+      urartu: "Urartu",
+      pyunik: "Pyunik",
+      van: "Van",
+      sardarapat: "Sardarapat",
+    },
+  },
+};
+
+var PredictorI18n = (function () {
+  var LANG_KEY = "predictor_lang";
+  var lang = "ru";
+
+  function detect() {
+    try {
+      var saved = localStorage.getItem(LANG_KEY);
+      if (saved && PREDICTOR_I18N[saved]) return saved;
+    } catch (e) {}
+    return "ru";
+  }
+
+  function init() {
+    lang = detect();
+    document.documentElement.lang = lang === "hy" ? "hy" : lang;
+  }
+
+  function getLang() {
+    return lang;
+  }
+
+  function setLang(next) {
+    if (!PREDICTOR_I18N[next]) return;
+    lang = next;
+    try {
+      localStorage.setItem(LANG_KEY, lang);
+    } catch (e) {}
+    document.documentElement.lang = lang === "hy" ? "hy" : lang;
+  }
+
+  function t(key, vars) {
+    var dict = PREDICTOR_I18N[lang] || PREDICTOR_I18N.ru;
+    var value = dict[key];
+    if (value == null) value = PREDICTOR_I18N.ru[key] || key;
+    if (vars) {
+      Object.keys(vars).forEach(function (k) {
+        value = String(value).split("{" + k + "}").join(vars[k]);
+      });
+    }
+    return value;
+  }
+
+  function teamName(teamId) {
+    var dict = PREDICTOR_I18N[lang] || PREDICTOR_I18N.ru;
+    if (dict.teams && dict.teams[teamId]) return dict.teams[teamId];
+    if (PREDICTOR_I18N.ru.teams[teamId]) return PREDICTOR_I18N.ru.teams[teamId];
+    return teamId;
+  }
+
+  return {
+    init: init,
+    getLang: getLang,
+    setLang: setLang,
+    t: t,
+    teamName: teamName,
+  };
+})();
+
+</script>
+<script>
+const PREDICTOR_BOOSTER = {
+  multiplier: 2,
+  icon: "https://dumpster.cdn.sports.ru/b/2f/a387c9d97edacf02f2ba00355f22d.png",
+};
+
+const PREDICTOR_POINTS = {
+  correctOutcome: 10,
+  correctHomeGoals: 5,
+  correctAwayGoals: 5,
+  correctGoalDiff: 5,
+  correctScoreBonus: 5,
+};
+
+const PREDICTOR_TEAMS = {
+  alashkert: {
+    id: "alashkert",
+    logo: "https://dumpster.cdn.sports.ru/a/38/42d2fe9cae715aadd16141aba4d3f.png",
+  },
+  ararat: {
+    id: "ararat",
+    logo: "https://dumpster.cdn.sports.ru/f/b4/0f3d6cb7368647ca47c088a3b24da.png",
+  },
+  bkma: {
+    id: "bkma",
+    logo: "https://dumpster.cdn.sports.ru/a/bd/68c0ac62f0db0f78919127984c6fe.png",
+  },
+  shirak: {
+    id: "shirak",
+    logo: "https://dumpster.cdn.sports.ru/d/ab/7324aec6ed4d54e8bdd2cc17d4729.png",
+  },
+  noah: {
+    id: "noah",
+    logo: "https://dumpster.cdn.sports.ru/1/df/0ad4dce2d8ebb60a0b2ed7a310ad5.png",
+  },
+  syunik: {
+    id: "syunik",
+    logo: "https://dumpster.cdn.sports.ru/9/83/af3c0bc33eb06ad05cda54e7daf9b.png",
+  },
+  gandzasar: {
+    id: "gandzasar",
+    logo: "https://dumpster.cdn.sports.ru/9/54/1d5c16ed21c1f86e32deb4a90c4aa.png",
+  },
+  ararat_armenia: {
+    id: "ararat_armenia",
+    logo: "https://dumpster.cdn.sports.ru/9/db/71ea26bff148ff219d6ccc9626c40.png",
+  },
+  urartu: {
+    id: "urartu",
+    logo: "https://dumpster.cdn.sports.ru/4/f7/4cc1740ef0b4981703d8b75a8ed3d.png",
+  },
+  pyunik: {
+    id: "pyunik",
+    logo: "https://dumpster.cdn.sports.ru/f/d5/55ab7259d1899dc8395a0ecf511f9.png",
+  },
+  van: {
+    id: "van",
+    logo: "https://dumpster.cdn.sports.ru/d/53/b617ea6a02eb6d88fe81838ce0187.png",
+  },
+  sardarapat: {
+    id: "sardarapat",
+    logo: "https://dumpster.cdn.sports.ru/9/26/24c15f2e270c05ba5e2c63b24986e.png",
+  },
+};
+
+const PREDICTOR_ROUNDS = [
+  { id: "all", labelKey: "roundAll", dates: "" },
+  { id: "round-1", labelKey: "roundN", n: 1, dates: "31.07–02.08.2026" },
+  { id: "round-2", labelKey: "roundN", n: 2, dates: "07–09.08.2026" },
+  { id: "round-3", labelKey: "roundN", n: 3, dates: "14–16.08.2026" },
+  { id: "round-4", labelKey: "roundN", n: 4, dates: "21–23.08.2026" },
+  { id: "round-5", labelKey: "roundN", n: 5, dates: "28–30.08.2026" },
+  { id: "round-6", labelKey: "roundN", n: 6, dates: "04–06.09.2026" },
+  { id: "round-7", labelKey: "roundN", n: 7, dates: "11–13.09.2026" },
+  { id: "round-8", labelKey: "roundN", n: 8, dates: "18–20.09.2026" },
+];
+
+function makeMatch(id, round, homeId, awayId) {
+  return {
+    id: id,
+    round: round,
+    kickoff: null,
+    kickoffDisplay: null,
+    home: PREDICTOR_TEAMS[homeId],
+    away: PREDICTOR_TEAMS[awayId],
+    result: null,
+  };
+}
+
+const PREDICTOR_MATCHES = [
+  makeMatch("apl-r1-alashkert-ararat", "round-1", "alashkert", "ararat"),
+  makeMatch("apl-r1-bkma-shirak", "round-1", "bkma", "shirak"),
+  makeMatch("apl-r1-noah-syunik", "round-1", "noah", "syunik"),
+  makeMatch("apl-r1-gandzasar-ararat_armenia", "round-1", "gandzasar", "ararat_armenia"),
+  makeMatch("apl-r1-urartu-pyunik", "round-1", "urartu", "pyunik"),
+  makeMatch("apl-r1-van-sardarapat", "round-1", "van", "sardarapat"),
+
+  makeMatch("apl-r2-ararat-sardarapat", "round-2", "ararat", "sardarapat"),
+  makeMatch("apl-r2-pyunik-van", "round-2", "pyunik", "van"),
+  makeMatch("apl-r2-ararat_armenia-urartu", "round-2", "ararat_armenia", "urartu"),
+  makeMatch("apl-r2-syunik-gandzasar", "round-2", "syunik", "gandzasar"),
+  makeMatch("apl-r2-shirak-noah", "round-2", "shirak", "noah"),
+  makeMatch("apl-r2-alashkert-bkma", "round-2", "alashkert", "bkma"),
+
+  makeMatch("apl-r3-bkma-ararat", "round-3", "bkma", "ararat"),
+  makeMatch("apl-r3-noah-alashkert", "round-3", "noah", "alashkert"),
+  makeMatch("apl-r3-gandzasar-shirak", "round-3", "gandzasar", "shirak"),
+  makeMatch("apl-r3-urartu-syunik", "round-3", "urartu", "syunik"),
+  makeMatch("apl-r3-van-ararat_armenia", "round-3", "van", "ararat_armenia"),
+  makeMatch("apl-r3-sardarapat-pyunik", "round-3", "sardarapat", "pyunik"),
+
+  makeMatch("apl-r4-ararat-pyunik", "round-4", "ararat", "pyunik"),
+  makeMatch("apl-r4-ararat_armenia-sardarapat", "round-4", "ararat_armenia", "sardarapat"),
+  makeMatch("apl-r4-syunik-van", "round-4", "syunik", "van"),
+  makeMatch("apl-r4-shirak-urartu", "round-4", "shirak", "urartu"),
+  makeMatch("apl-r4-alashkert-gandzasar", "round-4", "alashkert", "gandzasar"),
+  makeMatch("apl-r4-bkma-noah", "round-4", "bkma", "noah"),
+
+  makeMatch("apl-r5-noah-ararat", "round-5", "noah", "ararat"),
+  makeMatch("apl-r5-gandzasar-bkma", "round-5", "gandzasar", "bkma"),
+  makeMatch("apl-r5-urartu-alashkert", "round-5", "urartu", "alashkert"),
+  makeMatch("apl-r5-van-shirak", "round-5", "van", "shirak"),
+  makeMatch("apl-r5-sardarapat-syunik", "round-5", "sardarapat", "syunik"),
+  makeMatch("apl-r5-pyunik-ararat_armenia", "round-5", "pyunik", "ararat_armenia"),
+
+  makeMatch("apl-r6-ararat-ararat_armenia", "round-6", "ararat", "ararat_armenia"),
+  makeMatch("apl-r6-syunik-pyunik", "round-6", "syunik", "pyunik"),
+  makeMatch("apl-r6-shirak-sardarapat", "round-6", "shirak", "sardarapat"),
+  makeMatch("apl-r6-alashkert-van", "round-6", "alashkert", "van"),
+  makeMatch("apl-r6-bkma-urartu", "round-6", "bkma", "urartu"),
+  makeMatch("apl-r6-noah-gandzasar", "round-6", "noah", "gandzasar"),
+
+  makeMatch("apl-r7-gandzasar-ararat", "round-7", "gandzasar", "ararat"),
+  makeMatch("apl-r7-urartu-noah", "round-7", "urartu", "noah"),
+  makeMatch("apl-r7-van-bkma", "round-7", "van", "bkma"),
+  makeMatch("apl-r7-sardarapat-alashkert", "round-7", "sardarapat", "alashkert"),
+  makeMatch("apl-r7-pyunik-shirak", "round-7", "pyunik", "shirak"),
+  makeMatch("apl-r7-ararat_armenia-syunik", "round-7", "ararat_armenia", "syunik"),
+
+  makeMatch("apl-r8-ararat-syunik", "round-8", "ararat", "syunik"),
+  makeMatch("apl-r8-shirak-ararat_armenia", "round-8", "shirak", "ararat_armenia"),
+  makeMatch("apl-r8-alashkert-pyunik", "round-8", "alashkert", "pyunik"),
+  makeMatch("apl-r8-bkma-sardarapat", "round-8", "bkma", "sardarapat"),
+  makeMatch("apl-r8-noah-van", "round-8", "noah", "van"),
+  makeMatch("apl-r8-gandzasar-urartu", "round-8", "gandzasar", "urartu"),
+];
+
+</script>
+<script>
+(function () {
+  var currentUser = null;
+  var onUserChangeCallback = null;
+  var firebaseApp = null;
+  var firebaseAuth = null;
+  var firebaseDb = null;
+  var useFirebase = false;
+
+  var LOCAL_USERS_KEY = "predictor_users";
+  var LOCAL_SESSION_KEY = "predictor_session";
+  var BLOCKED_NAMES = ["aaarql"];
+
+  function isFirebaseConfigured() {
+    if (!PREDICTOR_CONFIG || !PREDICTOR_CONFIG.firebaseEnabled) return false;
+    var cfg = PREDICTOR_CONFIG.firebase || {};
+    return Boolean(cfg.apiKey && cfg.projectId && cfg.authDomain);
+  }
+
+  function notifyUserChange() {
+    if (typeof onUserChangeCallback === "function") {
+      onUserChangeCallback(currentUser);
+    }
+  }
+
+  function predictionsKey(userId) {
+    return "predictor_predictions_" + userId;
+  }
+
+  function readLocalUsers() {
+    try {
+      var raw = localStorage.getItem(LOCAL_USERS_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function writeLocalUsers(users) {
+    localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
+  }
+
+  function normalizePhone(phone) {
+    return String(phone || "").replace(/[^\d+]/g, "").trim();
+  }
+
+  function isBlockedPlayer(player) {
+    var name = String((player && player.name) || "").trim().toLowerCase();
+    var email = String((player && player.email) || "").trim().toLowerCase();
+    return BLOCKED_NAMES.some(function (blocked) {
+      return name === blocked || email === blocked || email.indexOf(blocked + "@") === 0;
+    });
+  }
+
+  function hashPassword(password) {
+    if (window.crypto && crypto.subtle) {
+      var enc = new TextEncoder();
+      return crypto.subtle
+        .digest("SHA-256", enc.encode(password))
+        .then(function (buf) {
+          return Array.from(new Uint8Array(buf))
+            .map(function (b) {
+              return b.toString(16).padStart(2, "0");
+            })
+            .join("");
+        });
+    }
+    var hash = 0;
+    for (var i = 0; i < password.length; i++) {
+      hash = (hash << 5) - hash + password.charCodeAt(i);
+      hash |= 0;
+    }
+    return Promise.resolve("local_" + Math.abs(hash));
+  }
+
+  function mapFirebaseUser(user) {
+    return {
+      id: user.uid,
+      email: user.email || "",
+      phone: user.phoneNumber || "",
+      name: user.displayName || user.email || "Игрок",
+      verified: user.emailVerified,
+      mode: "firebase",
+    };
+  }
+
+  function initFirebase() {
+    if (!window.firebase || !isFirebaseConfigured()) return false;
+    var cfg = PREDICTOR_CONFIG.firebase;
+    firebaseApp = firebase.initializeApp(cfg);
+    firebaseAuth = firebase.auth();
+    firebaseDb = firebase.firestore();
+    firebaseAuth.onAuthStateChanged(function (user) {
+      currentUser = user ? mapFirebaseUser(user) : null;
+      notifyUserChange();
+    });
+    return true;
+  }
+
+  function initLocalSession() {
+    try {
+      var sessionRaw = localStorage.getItem(LOCAL_SESSION_KEY);
+      if (!sessionRaw) {
+        currentUser = null;
+        notifyUserChange();
+        return;
+      }
+      var session = JSON.parse(sessionRaw);
+      var users = readLocalUsers();
+      var user = users.find(function (u) {
+        return u.id === session.userId;
+      });
+      currentUser = user
+        ? {
+            id: user.id,
+            email: user.email,
+            phone: user.phone || "",
+            name: user.name,
+            verified: Boolean(user.verified),
+            mode: "local",
+          }
+        : null;
+    } catch (e) {
+      currentUser = null;
+    }
+    notifyUserChange();
+  }
+
+  function init(onUserChange) {
+    onUserChangeCallback = onUserChange;
+    useFirebase = initFirebase();
+    if (!useFirebase) initLocalSession();
+  }
+
+  function getCurrentUser() {
+    return currentUser;
+  }
+
+  function isLoggedIn() {
+    return Boolean(currentUser);
+  }
+
+  function isEmailValid(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function isPhoneValid(phone) {
+    var n = normalizePhone(phone);
+    return n.length >= 8 && n.length <= 16;
+  }
+
+  function signUp(email, password, name, phone) {
+    email = (email || "").trim().toLowerCase();
+    password = password || "";
+    name = (name || "").trim() || email.split("@")[0];
+    phone = normalizePhone(phone);
+
+    if (!isEmailValid(email)) {
+      return Promise.reject(new Error("Введите корректный email"));
+    }
+    if (phone && !isPhoneValid(phone)) {
+      return Promise.reject(new Error("Введите корректный телефон"));
+    }
+    if (password.length < 6) {
+      return Promise.reject(new Error("Пароль — минимум 6 символов"));
+    }
+
+    if (useFirebase) {
+      return firebaseAuth
+        .createUserWithEmailAndPassword(email, password)
+        .then(function (cred) {
+          return cred.user
+            .updateProfile({ displayName: name })
+            .then(function () {
+              return firebaseDb
+                .collection("predictor_users")
+                .doc(cred.user.uid)
+                .set(
+                  {
+                    email: email,
+                    name: name,
+                    phone: phone || "",
+                    predictions: {},
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                  },
+                  { merge: true }
+                );
+            })
+            .then(function () {
+              return cred.user.sendEmailVerification();
+            })
+            .then(function () {
+              return cred.user.reload().then(function () {
+                return mapFirebaseUser(firebaseAuth.currentUser);
+              });
+            });
+        })
+        .catch(function (err) {
+          throw new Error(formatFirebaseError(err));
+        });
+    }
+
+    var users = readLocalUsers();
+    if (users.some(function (u) {
+      return u.email === email;
+    })) {
+      return Promise.reject(new Error("Email уже зарегистрирован"));
+    }
+    if (phone && users.some(function (u) {
+      return normalizePhone(u.phone) === phone;
+    })) {
+      return Promise.reject(new Error("Телефон уже зарегистрирован"));
+    }
+
+    return hashPassword(password).then(function (passwordHash) {
+      var user = {
+        id: "local_" + Date.now(),
+        email: email,
+        phone: phone || "",
+        name: name,
+        passwordHash: passwordHash,
+        verified: true,
+        createdAt: new Date().toISOString(),
+      };
+      users.push(user);
+      writeLocalUsers(users);
+      localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify({ userId: user.id }));
+      currentUser = {
+        id: user.id,
+        email: user.email,
+        phone: user.phone,
+        name: user.name,
+        verified: true,
+        mode: "local",
+      };
+      notifyUserChange();
+      return currentUser;
+    });
+  }
+
+  function signIn(email, password) {
+    email = (email || "").trim().toLowerCase();
+    password = password || "";
+    if (!email || !password) {
+      return Promise.reject(new Error("Введите email и пароль"));
+    }
+
+    if (useFirebase) {
+      return firebaseAuth
+        .signInWithEmailAndPassword(email, password)
+        .then(function (cred) {
+          return mapFirebaseUser(cred.user);
+        })
+        .catch(function (err) {
+          throw new Error(formatFirebaseError(err));
+        });
+    }
+
+    var users = readLocalUsers();
+    var user = users.find(function (u) {
+      return u.email === email;
+    });
+    if (!user) return Promise.reject(new Error("Пользователь не найден"));
+
+    return hashPassword(password).then(function (passwordHash) {
+      if (user.passwordHash !== passwordHash) {
+        throw new Error("Неверный пароль");
+      }
+      localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify({ userId: user.id }));
+      currentUser = {
+        id: user.id,
+        email: user.email,
+        phone: user.phone || "",
+        name: user.name,
+        verified: Boolean(user.verified),
+        mode: "local",
+      };
+      notifyUserChange();
+      return currentUser;
+    });
+  }
+
+  function resetPassword(contact, newPassword) {
+    contact = String(contact || "").trim();
+    newPassword = newPassword || "";
+
+    if (!contact) {
+      return Promise.reject(new Error("Укажите email или телефон"));
+    }
+
+    var isEmail = contact.indexOf("@") !== -1;
+    var email = isEmail ? contact.toLowerCase() : "";
+    var phone = isEmail ? "" : normalizePhone(contact);
+
+    if (isEmail && !isEmailValid(email)) {
+      return Promise.reject(new Error("Введите корректный email"));
+    }
+    if (!isEmail && !isPhoneValid(phone)) {
+      return Promise.reject(new Error("Введите корректный телефон"));
+    }
+
+    if (useFirebase) {
+      if (!isEmail) {
+        return Promise.reject(
+          new Error("В облачном режиме сброс доступен по email")
+        );
+      }
+      return firebaseAuth
+        .sendPasswordResetEmail(email)
+        .then(function () {
+          return { method: "email" };
+        })
+        .catch(function (err) {
+          throw new Error(formatFirebaseError(err));
+        });
+    }
+
+    if (newPassword.length < 6) {
+      return Promise.reject(new Error("Пароль — минимум 6 символов"));
+    }
+
+    var users = readLocalUsers();
+    var idx = users.findIndex(function (u) {
+      if (isEmail) return u.email === email;
+      return normalizePhone(u.phone) === phone;
+    });
+    if (idx === -1) {
+      return Promise.reject(new Error("Пользователь не найден"));
+    }
+
+    return hashPassword(newPassword).then(function (passwordHash) {
+      users[idx].passwordHash = passwordHash;
+      writeLocalUsers(users);
+      return { method: "local" };
+    });
+  }
+
+  function signOut() {
+    if (useFirebase) {
+      return firebaseAuth.signOut().then(function () {
+        currentUser = null;
+        notifyUserChange();
+      });
+    }
+    localStorage.removeItem(LOCAL_SESSION_KEY);
+    currentUser = null;
+    notifyUserChange();
+    return Promise.resolve();
+  }
+
+  function loadPredictions() {
+    if (!currentUser) return Promise.resolve({});
+
+    if (useFirebase) {
+      return firebaseDb
+        .collection("predictor_users")
+        .doc(currentUser.id)
+        .get()
+        .then(function (doc) {
+          if (!doc.exists) return {};
+          var data = doc.data();
+          return data.predictions && typeof data.predictions === "object"
+            ? data.predictions
+            : {};
+        })
+        .catch(function () {
+          return {};
+        });
+    }
+
+    try {
+      var raw = localStorage.getItem(predictionsKey(currentUser.id));
+      return Promise.resolve(raw ? JSON.parse(raw) : {});
+    } catch (e) {
+      return Promise.resolve({});
+    }
+  }
+
+  function savePredictions(predictions) {
+    if (!currentUser) return Promise.resolve();
+
+    if (useFirebase) {
+      return firebaseDb
+        .collection("predictor_users")
+        .doc(currentUser.id)
+        .set(
+          {
+            email: currentUser.email,
+            name: currentUser.name,
+            phone: currentUser.phone || "",
+            predictions: predictions,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+    }
+
+    localStorage.setItem(
+      predictionsKey(currentUser.id),
+      JSON.stringify(predictions)
+    );
+    return Promise.resolve();
+  }
+
+  function getAllPlayers() {
+    if (useFirebase) {
+      return firebaseDb
+        .collection("predictor_users")
+        .get()
+        .then(function (snap) {
+          var players = [];
+          snap.forEach(function (doc) {
+            var data = doc.data();
+            var player = {
+              id: doc.id,
+              name: data.name || "Игрок",
+              email: data.email || "",
+              phone: data.phone || "",
+              predictions: data.predictions || {},
+            };
+            if (!isBlockedPlayer(player)) players.push(player);
+          });
+          return players;
+        })
+        .catch(function () {
+          return [];
+        });
+    }
+
+    return Promise.resolve(
+      readLocalUsers()
+        .filter(function (u) {
+          return !isBlockedPlayer(u);
+        })
+        .map(function (u) {
+          var raw = localStorage.getItem(predictionsKey(u.id));
+          var predictions = {};
+          try {
+            predictions = raw ? JSON.parse(raw) : {};
+          } catch (e) {}
+          return {
+            id: u.id,
+            name: u.name,
+            email: u.email,
+            phone: u.phone || "",
+            predictions: predictions,
+          };
+        })
+    );
+  }
+
+  function formatFirebaseError(err) {
+    var code = err && err.code ? err.code : "";
+    if (code === "auth/email-already-in-use") return "Email уже зарегистрирован";
+    if (code === "auth/invalid-credential" || code === "auth/wrong-password") {
+      return "Неверный email или пароль";
+    }
+    if (code === "auth/weak-password") return "Пароль слишком слабый";
+    if (code === "auth/invalid-email") return "Некорректный email";
+    if (code === "auth/user-not-found") return "Пользователь не найден";
+    if (code === "auth/too-many-requests") return "Слишком много попыток, подождите";
+    return (err && err.message) || "Ошибка авторизации";
+  }
+
+  window.PredictorAuth = {
+    init: init,
+    isConfigured: isFirebaseConfigured,
+    isLoggedIn: isLoggedIn,
+    getCurrentUser: getCurrentUser,
+    signUp: signUp,
+    signIn: signIn,
+    signOut: signOut,
+    resetPassword: resetPassword,
+    loadPredictions: loadPredictions,
+    savePredictions: savePredictions,
+    getAllPlayers: getAllPlayers,
+  };
+})();
+
+</script>
+<script>
+(function () {
+  var predictions = {};
+  var authMode = "login";
+  var boosterState = {};
+  var activeRoundFilter = "all";
+
+  var matchesList = document.getElementById("matchesList");
+  var leaderboardBody = document.getElementById("leaderboardBody");
+  var roundFilter = document.getElementById("roundFilter");
+  var matchesView = document.getElementById("matchesView");
+  var leaderboardView = document.getElementById("leaderboardView");
+  var navMatches = document.getElementById("navMatches");
+  var navLeaderboard = document.getElementById("navLeaderboard");
+  var loginBtn = document.getElementById("loginBtn");
+  var registerBtn = document.getElementById("registerBtn");
+  var logoutBtn = document.getElementById("logoutBtn");
+  var userBadge = document.getElementById("userBadge");
+  var verifiedBadge = document.getElementById("verifiedBadge");
+  var authOverlay = document.getElementById("authModal");
+  var authForm = document.getElementById("authForm");
+  var authTitle = document.getElementById("authTitle");
+  var authNameField = document.getElementById("authNameField");
+  var authPhoneField = document.getElementById("authPhoneField");
+  var authContactField = document.getElementById("authContactField");
+  var authEmailField = document.getElementById("authEmailField");
+  var authPasswordField = document.getElementById("authPasswordField");
+  var authNameInput = document.getElementById("authName");
+  var authEmailInput = document.getElementById("authEmail");
+  var authPhoneInput = document.getElementById("authPhone");
+  var authContactInput = document.getElementById("authContact");
+  var authPasswordInput = document.getElementById("authPassword");
+  var authSubmitBtn = document.getElementById("authSubmit");
+  var authError = document.getElementById("authError");
+  var authNote = document.getElementById("authNote");
+  var authForgotLink = document.getElementById("authForgotLink");
+  var authSwitchRegister = document.getElementById("authSwitchRegister");
+  var authSwitchLogin = document.getElementById("authSwitchLogin");
+  var authSwitchWrap = document.getElementById("authSwitchWrap");
+  var leagueTitle = document.getElementById("leagueTitle");
+  var leaderboardTitle = document.getElementById("leaderboardTitle");
+  var lbPlace = document.getElementById("lbPlace");
+  var lbPlayer = document.getElementById("lbPlayer");
+  var lbPoints = document.getElementById("lbPoints");
+  var toast = document.getElementById("toast");
+  var toastText = document.getElementById("toastText");
+
+  function t(key, vars) {
+    return PredictorI18n.t(key, vars);
+  }
+
+  function showToast(msg) {
+    toastText.textContent = msg;
+    toast.classList.add("toast--visible");
+    setTimeout(function () {
+      toast.classList.remove("toast--visible");
+    }, 3000);
+  }
+
+  function getRoundMeta(roundId) {
+    return PREDICTOR_ROUNDS.find(function (x) {
+      return x.id === roundId;
+    });
+  }
+
+  function getRoundLabel(roundId) {
+    var r = getRoundMeta(roundId);
+    if (!r) return roundId;
+    if (r.labelKey === "roundN") return t("roundN", { n: r.n });
+    return t(r.labelKey);
+  }
+
+  function formatKickoff(match) {
+    if (match.kickoffDisplay) return match.kickoffDisplay;
+    if (match.kickoff) {
+      var d = new Date(match.kickoff);
+      var lang = PredictorI18n.getLang();
+      var locale = lang === "hy" ? "hy-AM" : lang === "en" ? "en-GB" : "ru-RU";
+      try {
+        return d.toLocaleString(locale, {
+          day: "numeric",
+          month: "long",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      } catch (e) {
+        return match.kickoff;
+      }
+    }
+    return t("datePlaceholder");
+  }
+
+  function getActiveMatches() {
+    return PREDICTOR_MATCHES.filter(function (match) {
+      return !isMatchLocked(match) && !match.result;
+    });
+  }
+
+  function getMatchesForRound(roundId) {
+    if (roundId === "all") return PREDICTOR_MATCHES;
+    return PREDICTOR_MATCHES.filter(function (m) {
+      return m.round === roundId;
+    });
+  }
+
+  function isMatchLocked(match) {
+    if (!match.kickoff) return false;
+    return new Date(match.kickoff).getTime() <= Date.now();
+  }
+
+  function validatePrediction(homeScore, awayScore) {
+    var errors = [];
+    var home = Number(homeScore);
+    var away = Number(awayScore);
+
+    if (!Number.isInteger(home) || home < 0 || home > 15) {
+      errors.push(t("scoreError"));
+    }
+    if (!Number.isInteger(away) || away < 0 || away > 15) {
+      errors.push(t("scoreError"));
+    }
+
+    return errors.length
+      ? { ok: false, errors: errors }
+      : { ok: true, data: { home: home, away: away } };
+  }
+
+  function outcome(home, away) {
+    if (home > away) return "home";
+    if (home < away) return "away";
+    return "draw";
+  }
+
+  function calcPoints(pred, match) {
+    if (!match.result || !pred || !pred.verified) return 0;
+    var pts = 0;
+    var r = match.result;
+    var P = PREDICTOR_POINTS;
+
+    if (outcome(pred.home, pred.away) === outcome(r.home, r.away)) {
+      pts += P.correctOutcome;
+    }
+    if (pred.home === r.home) pts += P.correctHomeGoals;
+    if (pred.away === r.away) pts += P.correctAwayGoals;
+    if (pred.home - pred.away === r.home - r.away) pts += P.correctGoalDiff;
+    if (pred.home === r.home && pred.away === r.away) pts += P.correctScoreBonus;
+
+    if (pred.booster) pts *= PREDICTOR_BOOSTER.multiplier;
+    return pts;
+  }
+
+  function clearBoosterInRound(roundId, exceptMatchId) {
+    PREDICTOR_MATCHES.forEach(function (m) {
+      if (m.round !== roundId || m.id === exceptMatchId) return;
+      boosterState[m.id] = false;
+      if (predictions[m.id]) {
+        predictions[m.id] = Object.assign({}, predictions[m.id], {
+          booster: false,
+        });
+      }
+    });
+  }
+
+  function applyStaticI18n() {
+    document.title = t("pageTitle");
+    var meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", t("pageDesc"));
+
+    navMatches.textContent = t("navMatches");
+    navLeaderboard.textContent = t("navLeaderboard");
+    loginBtn.textContent = t("login");
+    registerBtn.textContent = t("register");
+    logoutBtn.textContent = t("logout");
+    leagueTitle.textContent = t("leagueTitle");
+    leaderboardTitle.textContent = t("leaderboardTitle");
+    lbPlace.textContent = t("place");
+    lbPlayer.textContent = t("player");
+    lbPoints.textContent = t("points");
+    roundFilter.setAttribute("aria-label", t("roundFilter"));
+    authForgotLink.textContent = t("forgotPassword");
+    authSwitchRegister.textContent = t("authSwitchRegister");
+    authSwitchLogin.textContent = t("authSwitchLogin");
+    document.getElementById("authCancel").textContent = t("cancel");
+    document.getElementById("authNameLabel").textContent = t("name");
+    document.getElementById("authEmailLabel").textContent = t("email");
+    document.getElementById("authPhoneLabel").textContent = t("phone");
+    document.getElementById("authContactLabel").textContent =
+      t("email") + " / " + t("phone");
+    document.getElementById("authPasswordLabel").textContent =
+      authMode === "reset" ? t("newPassword") : t("password");
+    authNameInput.placeholder = t("namePlaceholder");
+    authPhoneInput.placeholder = t("phonePlaceholder");
+    authContactInput.placeholder = t("email") + " / " + t("phone");
+
+    document.querySelectorAll(".lang-btn").forEach(function (btn) {
+      btn.classList.toggle(
+        "lang-btn--active",
+        btn.dataset.lang === PredictorI18n.getLang()
+      );
+    });
+
+    syncAuthModalLabels();
+    renderRoundFilter();
+    renderMatches();
+    renderLeaderboard();
+  }
+
+  function syncAuthModalLabels() {
+    if (authMode === "register") {
+      authTitle.textContent = t("authRegisterTitle");
+      authSubmitBtn.textContent = t("createAccount");
+      authNote.textContent = t("authNote");
+    } else if (authMode === "reset") {
+      authTitle.textContent = t("authResetTitle");
+      authSubmitBtn.textContent = t("sendReset");
+      authNote.textContent = t("authResetNote");
+    } else {
+      authTitle.textContent = t("authLoginTitle");
+      authSubmitBtn.textContent = t("login");
+      authNote.textContent = t("authNote");
+    }
+    document.getElementById("authPasswordLabel").textContent =
+      authMode === "reset" ? t("newPassword") : t("password");
+  }
+
+  function renderRoundFilter() {
+    roundFilter.innerHTML = PREDICTOR_ROUNDS.map(function (r) {
+      var sel = r.id === activeRoundFilter ? " selected" : "";
+      var label =
+        r.labelKey === "roundN" ? t("roundN", { n: r.n }) : t(r.labelKey);
+      if (r.dates) label += " · " + r.dates;
+      return (
+        '<option value="' + r.id + '"' + sel + ">" + label + "</option>"
+      );
+    }).join("");
+  }
+
+  function renderMatchCard(match) {
+    var saved = predictions[match.id];
+    var homeVal = saved ? saved.home : "";
+    var awayVal = saved ? saved.away : "";
+    var booster = saved ? saved.booster : boosterState[match.id];
+    boosterState[match.id] = booster;
+
+    var boosterClass = booster ? " booster-btn--active" : "";
+    var hintHtml = "";
+    if (saved && saved.verified) {
+      hintHtml =
+        '<span class="match-card__hint match-card__hint--ok" data-role="hint">' +
+        t("saved") +
+        "</span>";
+    } else {
+      hintHtml =
+        '<span class="match-card__hint match-card__hint--hidden" data-role="hint"></span>';
+    }
+
+    var homeName = PredictorI18n.teamName(match.home.id);
+    var awayName = PredictorI18n.teamName(match.away.id);
+
+    return (
+      '<article class="match-card' +
+      (saved && saved.verified ? " match-card--saved" : "") +
+      '" data-match="' +
+      match.id +
+      '" data-round="' +
+      match.round +
+      '">' +
+      '<header class="match-card__head">' +
+      '<p class="match-card__round">' +
+      getRoundLabel(match.round) +
+      "</p>" +
+      '<p class="match-card__date" data-role="kickoff">' +
+      formatKickoff(match) +
+      "</p>" +
+      "</header>" +
+      '<div class="match-card__body">' +
+      '<div class="match-card__scoreline">' +
+      '<div class="team-col">' +
+      '<img class="team__logo" src="' +
+      match.home.logo +
+      '" alt="' +
+      homeName +
+      '" width="64" height="64" />' +
+      '<span class="team__name">' +
+      homeName +
+      "</span>" +
+      "</div>" +
+      '<div class="score-col">' +
+      '<div class="score-block">' +
+      '<input class="score-input" type="number" min="0" max="15" inputmode="numeric" placeholder="0" data-role="home" value="' +
+      homeVal +
+      '" />' +
+      '<input class="score-input" type="number" min="0" max="15" inputmode="numeric" placeholder="0" data-role="away" value="' +
+      awayVal +
+      '" />' +
+      "</div>" +
+      "</div>" +
+      '<div class="team-col">' +
+      '<img class="team__logo" src="' +
+      match.away.logo +
+      '" alt="' +
+      awayName +
+      '" width="64" height="64" />' +
+      '<span class="team__name">' +
+      awayName +
+      "</span>" +
+      "</div>" +
+      "</div>" +
+      "</div>" +
+      '<footer class="match-card__footer">' +
+      '<div class="match-card__actions">' +
+      '<button type="button" class="save-btn" data-role="save">' +
+      t("savePrediction") +
+      "</button>" +
+      '<button type="button" class="booster-btn' +
+      boosterClass +
+      '" data-role="booster" aria-label="Booster ×2" title="×2">' +
+      '<img class="booster-btn__icon" src="' +
+      PREDICTOR_BOOSTER.icon +
+      '" alt="×2" width="28" height="28" />' +
+      "</button>" +
+      "</div>" +
+      hintHtml +
+      "</footer>" +
+      "</article>"
+    );
+  }
+
+  function renderMatches() {
+    var activeMatches = getActiveMatches();
+
+    if (!activeMatches.length) {
+      matchesList.innerHTML =
+        '<div class="empty-state">' + t("noMatches") + "</div>";
+      return;
+    }
+
+    var html = [];
+    var currentRound = null;
+
+    activeMatches.forEach(function (match) {
+      if (match.round !== currentRound) {
+        currentRound = match.round;
+        var meta = getRoundMeta(match.round);
+        var dates = meta && meta.dates ? " · " + meta.dates : "";
+        html.push(
+          '<div class="round-heading">' +
+            getRoundLabel(match.round) +
+            dates +
+            "</div>"
+        );
+      }
+      html.push(renderMatchCard(match));
+    });
+
+    matchesList.innerHTML = html.join("");
+
+    matchesList.querySelectorAll(".match-card").forEach(function (card) {
+      var matchId = card.dataset.match;
+      var roundId = card.dataset.round;
+
+      card
+        .querySelector('[data-role="booster"]')
+        .addEventListener("click", function () {
+          var next = !boosterState[matchId];
+          if (next) {
+            var hadOther = PREDICTOR_MATCHES.some(function (m) {
+              return (
+                m.round === roundId &&
+                m.id !== matchId &&
+                (boosterState[m.id] ||
+                  (predictions[m.id] && predictions[m.id].booster))
+              );
+            });
+            clearBoosterInRound(roundId, matchId);
+            boosterState[matchId] = true;
+            if (hadOther) showToast(t("toastBoosterOne"));
+          } else {
+            boosterState[matchId] = false;
+          }
+          renderMatches();
+        });
+
+      card
+        .querySelector('[data-role="save"]')
+        .addEventListener("click", function () {
+          saveMatchPrediction(card, matchId);
+        });
+    });
+  }
+
+  function saveMatchPrediction(card, matchId) {
+    if (!PredictorAuth.isLoggedIn()) {
+      openAuthModal("login");
+      showToast(t("toastLoginRequired"));
+      return;
+    }
+
+    var user = PredictorAuth.getCurrentUser();
+    if (user.mode === "firebase" && !user.verified) {
+      showToast(t("toastVerifyEmail"));
+      return;
+    }
+
+    var match = PREDICTOR_MATCHES.find(function (m) {
+      return m.id === matchId;
+    });
+    if (!match || isMatchLocked(match)) return;
+
+    var home = card.querySelector('[data-role="home"]').value;
+    var away = card.querySelector('[data-role="away"]').value;
+    var booster = Boolean(boosterState[matchId]);
+    var hint = card.querySelector('[data-role="hint"]');
+
+    var check = validatePrediction(home, away);
+    if (!check.ok) {
+      hint.textContent = check.errors[0];
+      hint.className = "match-card__hint match-card__hint--error";
+      return;
+    }
+
+    if (booster) clearBoosterInRound(match.round, matchId);
+
+    predictions[matchId] = {
+      home: check.data.home,
+      away: check.data.away,
+      booster: booster,
+      verified: true,
+      savedAt: new Date().toISOString(),
+    };
+
+    PredictorAuth.savePredictions(predictions)
+      .then(function () {
+        showToast(t("toastSaved"));
+        renderMatches();
+        renderLeaderboard();
+      })
+      .catch(function () {
+        showToast(t("toastSaveError"));
+      });
+  }
+
+  function renderLeaderboard() {
+    var roundMatches = getMatchesForRound(activeRoundFilter);
+
+    PredictorAuth.getAllPlayers().then(function (players) {
+      var rows = players
+        .map(function (p) {
+          var pts = 0;
+          roundMatches.forEach(function (m) {
+            var pred = p.predictions[m.id];
+            if (pred && pred.verified) pts += calcPoints(pred, m);
+          });
+          return { id: p.id, name: p.name, points: pts };
+        })
+        .sort(function (a, b) {
+          return b.points - a.points;
+        });
+
+      if (!rows.length) {
+        leaderboardBody.innerHTML =
+          '<div class="leaderboard__empty">' + t("noPlayers") + "</div>";
+        return;
+      }
+
+      var currentId =
+        PredictorAuth.getCurrentUser() && PredictorAuth.getCurrentUser().id;
+
+      leaderboardBody.innerHTML = rows
+        .map(function (row, i) {
+          var rank = i + 1;
+          var rankMod =
+            rank === 1
+              ? " leaderboard__rank--gold"
+              : rank === 2
+                ? " leaderboard__rank--silver"
+                : rank === 3
+                  ? " leaderboard__rank--bronze"
+                  : "";
+          var youClass = row.id === currentId ? " leaderboard__row--you" : "";
+          return (
+            '<div class="leaderboard__row' +
+            youClass +
+            '">' +
+            '<span class="leaderboard__rank' +
+            rankMod +
+            '">' +
+            rank +
+            "</span>" +
+            '<span class="leaderboard__name">' +
+            row.name +
+            "</span>" +
+            '<span class="leaderboard__points">' +
+            row.points +
+            "</span>" +
+            "</div>"
+          );
+        })
+        .join("");
+    });
+  }
+
+  function showView(view) {
+    matchesView.hidden = view !== "matches";
+    leaderboardView.hidden = view !== "leaderboard";
+    navMatches.classList.toggle("nav-link--active", view === "matches");
+    navLeaderboard.classList.toggle("nav-link--active", view === "leaderboard");
+    if (view === "leaderboard") renderLeaderboard();
+  }
+
+  function updateHeaderAuth(user) {
+    var loggedIn = Boolean(user);
+    loginBtn.hidden = loggedIn;
+    registerBtn.hidden = loggedIn;
+    logoutBtn.hidden = !loggedIn;
+    loginBtn.classList.toggle("is-hidden", loggedIn);
+    registerBtn.classList.toggle("is-hidden", loggedIn);
+    logoutBtn.classList.toggle("is-hidden", !loggedIn);
+
+    if (user) {
+      userBadge.hidden = false;
+      userBadge.textContent = user.name;
+      if (user.mode === "firebase") {
+        verifiedBadge.hidden = false;
+        verifiedBadge.textContent = user.verified ? "✓" : "!";
+        verifiedBadge.style.color = user.verified ? "" : "#c0392b";
+      } else {
+        verifiedBadge.hidden = true;
+      }
+    } else {
+      userBadge.hidden = true;
+      verifiedBadge.hidden = true;
+    }
+  }
+
+  function openAuthModal(mode) {
+    authMode =
+      mode === "register" ? "register" : mode === "reset" ? "reset" : "login";
+
+    var firebaseMode = PredictorAuth.isConfigured();
+    var resetNeedsPassword = authMode === "reset" && !firebaseMode;
+
+    authNameField.hidden = authMode !== "register";
+    authPhoneField.hidden = authMode !== "register";
+    authEmailField.hidden = authMode === "reset";
+    authContactField.hidden = authMode !== "reset";
+    authPasswordField.hidden = authMode === "reset" && firebaseMode;
+    authForgotLink.hidden = authMode !== "login";
+    authSwitchWrap.hidden = authMode === "reset";
+
+    authEmailInput.required = authMode !== "reset";
+    authContactInput.required = authMode === "reset";
+    authPasswordInput.required = authMode !== "reset" || resetNeedsPassword;
+    authPasswordInput.autocomplete =
+      authMode === "reset" ? "new-password" : "current-password";
+
+    authError.hidden = true;
+    authForm.reset();
+    syncAuthModalLabels();
+    authOverlay.classList.add("modal-overlay--open");
+  }
+
+  function closeAuthModal() {
+    authOverlay.classList.remove("modal-overlay--open");
+  }
+
+  function loadUserData() {
+    return PredictorAuth.loadPredictions().then(function (data) {
+      predictions = data || {};
+      Object.keys(predictions).forEach(function (id) {
+        if (predictions[id]) boosterState[id] = predictions[id].booster;
+      });
+      renderMatches();
+    });
+  }
+
+  roundFilter.addEventListener("change", function () {
+    activeRoundFilter = roundFilter.value;
+    renderLeaderboard();
+  });
+
+  authForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    authError.hidden = true;
+    authSubmitBtn.disabled = true;
+
+    var action;
+    if (authMode === "register") {
+      action = PredictorAuth.signUp(
+        authEmailInput.value,
+        authPasswordInput.value,
+        authNameInput.value,
+        authPhoneInput.value
+      );
+    } else if (authMode === "reset") {
+      action = PredictorAuth.resetPassword(
+        authContactInput.value,
+        authPasswordInput.value
+      );
+    } else {
+      action = PredictorAuth.signIn(
+        authEmailInput.value,
+        authPasswordInput.value
+      );
+    }
+
+    action
+      .then(function (result) {
+        if (authMode === "reset") {
+          closeAuthModal();
+          if (result && result.method === "email") {
+            showToast(t("toastResetSent"));
+          } else {
+            showToast(t("toastResetLocal"));
+          }
+          openAuthModal("login");
+          return;
+        }
+        closeAuthModal();
+        showToast(
+          authMode === "register" ? t("toastRegistered") : t("toastWelcome")
+        );
+        return loadUserData();
+      })
+      .catch(function (err) {
+        authError.textContent = err.message;
+        authError.hidden = false;
+      })
+      .finally(function () {
+        authSubmitBtn.disabled = false;
+      });
+  });
+
+  loginBtn.addEventListener("click", function () {
+    openAuthModal("login");
+  });
+  registerBtn.addEventListener("click", function () {
+    openAuthModal("register");
+  });
+  logoutBtn.addEventListener("click", function () {
+    PredictorAuth.signOut().then(function () {
+      predictions = {};
+      boosterState = {};
+      renderMatches();
+      renderLeaderboard();
+      showToast(t("toastLogout"));
+    });
+  });
+
+  navMatches.addEventListener("click", function (e) {
+    e.preventDefault();
+    showView("matches");
+  });
+  navLeaderboard.addEventListener("click", function (e) {
+    e.preventDefault();
+    showView("leaderboard");
+  });
+
+  document.getElementById("authClose").addEventListener("click", closeAuthModal);
+  document.getElementById("authCancel").addEventListener("click", closeAuthModal);
+  authSwitchRegister.addEventListener("click", function (e) {
+    e.preventDefault();
+    openAuthModal("register");
+  });
+  authSwitchLogin.addEventListener("click", function (e) {
+    e.preventDefault();
+    openAuthModal("login");
+  });
+  authForgotLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    openAuthModal("reset");
+  });
+
+  authOverlay.addEventListener("click", function (e) {
+    if (e.target === authOverlay) closeAuthModal();
+  });
+
+  document.querySelectorAll(".lang-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      PredictorI18n.setLang(btn.dataset.lang);
+      applyStaticI18n();
+    });
+  });
+
+  PredictorI18n.init();
+
+  PredictorAuth.init(function (user) {
+    updateHeaderAuth(user);
+    if (user) loadUserData();
+    else {
+      predictions = {};
+      renderMatches();
+    }
+    renderLeaderboard();
+  });
+
+  applyStaticI18n();
+})();
+
+</script>
+<script>
+let lastHeight = null;
+
+const resize = ({ force = false }) => {
+  const currentHeight = document.body.scrollHeight;
+  if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+    return;
+  }
+  lastHeight = currentHeight;
+  window?.top?.postMessage(
+    JSON.stringify({
+      for: "BASIC_TEST",
+      action: "resizeIframe",
+      selector: `iframe[src*="netlify.app"]`,
+      sizes: { height: 2 * Math.floor(currentHeight / 2) + 10 },
+    }),
+    "*"
+  );
+};
+
+const resizeObserver = new ResizeObserver(() => resize({}));
+resizeObserver.observe(document.body);
+resize({ force: true });
+[1000, 2000, 3000, 5000, 7000].forEach((ms) =>
+  setTimeout(() => resize({ force: true }), ms)
+);
+
+</script>
+</body>
+</html>

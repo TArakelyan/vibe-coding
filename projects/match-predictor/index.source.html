@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predictor — Армянская Премьер-лига</title>
+    <meta
+      name="description"
+      content="Делайте прогнозы на матчи Армянской Премьер-лиги"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="#" aria-label="Predictor">
+          <img
+            class="logo__img"
+            src="https://dumpster.cdn.sports.ru/f/73/b3e2fda5bdcf9046fea6dabb85232.png"
+            alt="Predictor"
+            width="140"
+            height="32"
+          />
+        </a>
+
+        <nav class="header-nav" aria-label="Навигация">
+          <a class="nav-link nav-link--active" href="#" id="navMatches">Матчи</a>
+          <a class="nav-link" href="#" id="navLeaderboard">Рейтинг</a>
+        </nav>
+
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn lang-btn--active" data-lang="ru">RU</button>
+          <button type="button" class="lang-btn" data-lang="hy">HY</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
+
+        <div class="header-actions">
+          <span class="verified-badge" id="verifiedBadge" hidden></span>
+          <span class="user-badge" id="userBadge" hidden></span>
+          <button type="button" class="btn btn-ghost" id="loginBtn">Войти</button>
+          <button type="button" class="btn btn-primary" id="registerBtn">Регистрация</button>
+          <button type="button" class="btn btn-ghost is-hidden" id="logoutBtn" hidden>Выйти</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="matchesView" class="view-section">
+      <div class="league-bar">
+        <span class="league-bar__label" id="leagueTitle"
+          >Делайте прогнозы на матчи Армянской Премьер-лиги</span
+        >
+      </div>
+      <div class="matches-panel">
+        <div class="matches-list" id="matchesList"></div>
+      </div>
+    </div>
+
+    <div id="leaderboardView" class="view-section" hidden>
+      <div class="section-toolbar">
+        <h2 id="leaderboardTitle">Рейтинг игроков</h2>
+        <select class="round-filter" id="roundFilter" aria-label="Фильтр по туру"></select>
+      </div>
+      <div class="leaderboard">
+        <div class="leaderboard__head" aria-hidden="true">
+          <span id="lbPlace">Место</span>
+          <span id="lbPlayer">Игрок</span>
+          <span id="lbPoints">Баллы</span>
+        </div>
+        <div class="leaderboard__list" id="leaderboardBody"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="authModal" role="dialog" aria-modal="true">
+      <div class="modal">
+        <div class="modal__header">
+          <h2 class="modal__title" id="authTitle">Вход</h2>
+          <button type="button" class="modal__close" id="authClose" aria-label="Закрыть">✕</button>
+        </div>
+        <div class="modal__body">
+          <p class="auth-note" id="authNote">
+            Прогнозы сохраняются в аккаунте и участвуют в рейтинге
+          </p>
+          <form id="authForm">
+            <div class="modal__field" id="authNameField" hidden>
+              <label for="authName" id="authNameLabel">Имя</label>
+              <input id="authName" type="text" autocomplete="nickname" placeholder="Ваш ник" />
+            </div>
+            <div class="modal__field" id="authEmailField">
+              <label for="authEmail" id="authEmailLabel">Email</label>
+              <input id="authEmail" type="email" autocomplete="email" />
+            </div>
+            <div class="modal__field" id="authPhoneField" hidden>
+              <label for="authPhone" id="authPhoneLabel">Телефон</label>
+              <input
+                id="authPhone"
+                type="tel"
+                autocomplete="tel"
+                placeholder="+374…"
+              />
+            </div>
+            <div class="modal__field" id="authContactField" hidden>
+              <label for="authContact" id="authContactLabel">Email / Телефон</label>
+              <input id="authContact" type="text" autocomplete="username" />
+            </div>
+            <div class="modal__field" id="authPasswordField">
+              <label for="authPassword" id="authPasswordLabel">Пароль</label>
+              <input
+                id="authPassword"
+                type="password"
+                minlength="6"
+                autocomplete="current-password"
+              />
+            </div>
+            <p class="auth-error" id="authError" hidden></p>
+            <button type="submit" class="btn btn-primary auth-submit" id="authSubmit">Войти</button>
+          </form>
+          <p class="auth-forgot">
+            <a href="#" id="authForgotLink">Забыли пароль?</a>
+          </p>
+          <p class="auth-switch" id="authSwitchWrap">
+            <a href="#" id="authSwitchRegister">Регистрация</a>
+            ·
+            <a href="#" id="authSwitchLogin">Вход</a>
+          </p>
+          <button type="button" class="btn btn-ghost auth-cancel" id="authCancel">Отмена</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"><span id="toastText"></span></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="./data/config.js"></script>
+    <script src="./data/i18n.js"></script>
+    <script src="./data/matches.js"></script>
+    <script src="./auth.js"></script>
+    <script src="./main.js"></script>
+    <script src="./resize.js"></script>
+  </body>
+</html>
