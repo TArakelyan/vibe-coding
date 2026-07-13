@@ -860,9 +860,9 @@ const PARTNERS = [
     "bookmakerId": "pari",
     "partnerName": "Нижний Новгород",
     "sport": "Футбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/d/8c/ac6c0c0b2b3f8237686408fa7f045.png",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/6/28/d200fd75bb8680fc1fd7d8b75c5a0.png",
     "endYear": null,
-    "isTitular": true
+    "isTitular": false
   },
   {
     "bookmakerId": "pari",
