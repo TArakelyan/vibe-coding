@@ -1,0 +1,1637 @@
+@font-face {
+  font-family: "TT Neoris";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "TT Neoris";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "TT Neoris";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "TT Neoris";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "TT Bluescreens Trial";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/TT_Bluescreens/TT_Bluescreens_Trial_Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "TT Bluescreens Trial";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/TT_Bluescreens/TT_Bluescreens_Trial_Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "TT Sports Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("TT Sports Display"), local("TTSportsDisplay"), local("Sports");
+}
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --grey-line: rgba(255, 255, 255, 0.12);
+  --grey-muted: #767676;
+  --grey-label: #9b9b9b;
+  --grey-secondary: #4a4a4a;
+  --grey-panel: #f2f2f2;
+  --table-col-pad: 12px;
+  --table-pill-pad-x: 14px;
+  --table-text-inset: calc(var(--table-col-pad) + var(--table-pill-pad-x));
+  --table-value-tournament-gap: 16px;
+  --table-head-size: 14px;
+  --table-head-color: #9b9b9b;
+  --table-champion-size: 15px;
+  --table-value-size: 13px;
+  --table-secondary-size: 14px;
+  --table-secondary-color: #323232;
+  --red-plus: #e4002b;
+  --font-hero: "TT Bluescreens Trial", sans-serif;
+  --font-display: "TT Sports Display", sans-serif;
+  --font-body: "TT Neoris", sans-serif;
+  --shell-pad: 16px;
+  --winners-filter-sport-w: 7.5rem;
+  --winners-filter-tournament-w: 7.5rem;
+  --winners-filter-search-w: 7.5rem;
+  --winners-content-max: 960px;
+  --toolbar-block-gap: 12px;
+  --toolbar-h: 32px;
+  --toolbar-filter-radius: 8px;
+  --toolbar-filter-border: rgba(255, 255, 255, 0.18);
+  --toolbar-filter-muted: #757575;
+  --hero-subtitle-offset: clamp(3.4rem, 9vw, 5.8rem);
+  --intro-card-bg: rgba(255, 255, 255, 0.07);
+  --intro-card-bg-alt: rgba(255, 255, 255, 0.04);
+  --intro-card-bg-strong: rgba(255, 255, 255, 0.12);
+  --intro-card-border: rgba(255, 255, 255, 0.12);
+  --intro-icon-size: clamp(29px, 5.3vw, 37px);
+  --dark-text-primary: #ffffff;
+  --dark-text-secondary: rgba(255, 255, 255, 0.88);
+  --dark-text-muted: rgba(255, 255, 255, 0.55);
+  --dark-text-table-value: rgba(255, 255, 255, 0.9);
+  --winners-lead-size: 16px;
+  --winners-lead-color: rgba(255, 255, 255, 0.88);
+  --detail-image-aspect-ratio: 1047 / 754;
+
+  /* Energy in Motion — тёмная палитра */
+  --bg-1: #000000;
+  --bg-2: #061018;
+  --bg-3: #0c1624;
+  --bg-4: #101c2e;
+  --glow: rgba(180, 210, 240, 0.08);
+  --accent-glow: rgba(255, 123, 61, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  zoom: 1.1;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-style: normal;
+  font-synthesis: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--dark-text-primary);
+  background:
+    radial-gradient(circle at 50% 85%, var(--accent-glow), transparent 22%),
+    radial-gradient(circle at 75% 70%, var(--glow), transparent 24%),
+    linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 32%, #040a12 64%, var(--bg-1) 100%);
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::before {
+  background:
+    linear-gradient(
+      110deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.03) 45%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 55%
+    ),
+    linear-gradient(
+      160deg,
+      transparent 0%,
+      rgba(80, 120, 160, 0.06) 48%,
+      transparent 52%
+    );
+  filter: blur(2px);
+  animation: winners-energy-flow 18s linear infinite;
+}
+
+body::after {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.07), transparent 25%),
+    radial-gradient(circle at 80% 60%, rgba(30, 60, 95, 0.14), transparent 30%);
+  animation: winners-parallax-glow 10s ease-in-out infinite alternate;
+}
+
+@keyframes winners-energy-flow {
+  from {
+    transform: translate3d(-8%, 0, 0) skewX(-12deg);
+  }
+
+  to {
+    transform: translate3d(8%, 0, 0) skewX(-12deg);
+  }
+}
+
+@keyframes winners-parallax-glow {
+  from {
+    transform: translateY(-2%) scale(1);
+  }
+
+  to {
+    transform: translateY(2%) scale(1.08);
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+  font-style: normal;
+  font-synthesis: none;
+}
+
+.winners-page {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  background: transparent;
+  font-style: normal;
+  font-synthesis: none;
+  font-variation-settings: "slnt" 0;
+}
+
+.winners-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.winners-page,
+.winners-page * {
+  font-style: normal !important;
+  font-synthesis: none;
+  font-synthesis-style: none;
+}
+
+.winners-page em,
+.winners-page i,
+.winners-page cite,
+.winners-page dfn,
+.winners-page var,
+.winners-page address {
+  font-style: normal !important;
+}
+
+.winners-shell {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding-left: var(--shell-pad);
+  padding-right: var(--shell-pad);
+}
+
+.winners-body {
+  width: 100%;
+  max-width: var(--winners-content-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ——— Hero (на всю ширину) ——— */
+.winners-hero,
+.winners-intro {
+  width: 100%;
+  background: transparent;
+  color: var(--white);
+}
+
+.winners-hero__inner {
+  position: relative;
+  min-height: 440px;
+  padding: 0 var(--shell-pad);
+  text-align: center;
+}
+
+.winners-hero__logo-link {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: 2;
+  display: inline-block;
+  transform: translateX(-50%);
+}
+
+.winners-hero__logo {
+  display: block;
+  width: 102px;
+  height: auto;
+}
+
+.winners-hero__title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: calc(100% - 2 * var(--shell-pad));
+  max-width: 920px;
+  margin: 0;
+  font-family: var(--font-hero);
+  font-size: clamp(104px, 14vw, 168px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+}
+
+.winners-hero__subtitle {
+  position: absolute;
+  top: calc(50% + var(--hero-subtitle-offset));
+  left: 50%;
+  z-index: 1;
+  width: calc(100% - 2 * var(--shell-pad));
+  max-width: 520px;
+  margin: 0;
+  transform: translateX(-50%);
+}
+
+.winners-hero__subtitle,
+.winners-intro__text {
+  font-family: var(--font-body);
+  font-size: var(--winners-lead-size);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--winners-lead-color);
+}
+
+/* ——— Intro (продолжение шапки) ——— */
+.winners-intro {
+  padding: 8px 0 24px;
+}
+
+/* ——— Основной контент (фильтры + таблица) ——— */
+.winners-main {
+  --grey-line: rgba(255, 255, 255, 0.12);
+  --grey-muted: #767676;
+  --grey-panel: rgba(255, 255, 255, 0.06);
+  --table-head-color: #9b9b9b;
+  --table-secondary-color: rgba(255, 255, 255, 0.72);
+  --toolbar-filter-border: rgba(255, 255, 255, 0.18);
+  --toolbar-filter-muted: rgba(255, 255, 255, 0.55);
+  width: 100%;
+  background: transparent;
+  color: var(--dark-text-primary);
+  padding-bottom: 48px;
+}
+
+.winners-intro__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.winners-intro__card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 148px;
+  padding: 20px 18px 22px;
+  border: 1px solid var(--intro-card-border);
+  border-radius: 4px;
+  background: var(--intro-card-bg);
+}
+
+.winners-intro__icon {
+  display: block;
+  width: var(--intro-icon-size);
+  height: var(--intro-icon-size);
+  max-width: var(--intro-icon-size);
+  max-height: var(--intro-icon-size);
+  flex-shrink: 0;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.winners-intro__card:nth-child(3) .winners-intro__icon {
+  width: calc(var(--intro-icon-size) * 0.75);
+  height: calc(var(--intro-icon-size) * 0.75);
+  max-width: calc(var(--intro-icon-size) * 0.75);
+  max-height: calc(var(--intro-icon-size) * 0.75);
+  transform: none;
+}
+
+.winners-intro__text {
+  margin: 0;
+}
+
+/* ——— Toolbar ——— */
+.winners-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  width: 100%;
+  background: transparent;
+  border-bottom: none;
+}
+
+.winners-toolbar .winners-shell {
+  transition: background-color 0.2s ease, border-radius 0.2s ease;
+}
+
+.winners-toolbar.is-floating .winners-shell {
+  background-color: rgba(6, 16, 24, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--toolbar-filter-radius);
+  box-sizing: border-box;
+}
+
+.winners-toolbar--mobile.is-floating {
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(6, 16, 24, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.winners-toolbar--mobile.is-floating .winners-shell {
+  padding: 8px var(--shell-pad) 6px;
+  background-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.winners-toolbar--desktop {
+  display: none;
+}
+
+.winners-toolbar--mobile {
+  display: block;
+  padding: 14px 0 16px;
+}
+
+.winners-toolbar--desktop .winners-shell {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.winners-toolbar--desktop.is-floating .winners-shell {
+  padding: 12px 14px;
+}
+
+.winners-toolbar__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 18px;
+}
+
+.winners-toolbar__group--mode {
+  flex: 0 0 auto;
+}
+
+.winners-toolbar__group--sort {
+  flex: 0 0 auto;
+}
+
+.winners-toolbar__group--sport {
+  flex: 0 0 var(--winners-filter-sport-w);
+  width: var(--winners-filter-sport-w);
+  max-width: var(--winners-filter-sport-w);
+  min-width: 0;
+}
+
+.winners-toolbar__group--tournament {
+  flex: 0 0 var(--winners-filter-tournament-w);
+  width: var(--winners-filter-tournament-w);
+  max-width: var(--winners-filter-tournament-w);
+  min-width: 0;
+}
+
+.winners-toolbar__group--search {
+  flex: 0 0 var(--winners-filter-search-w);
+  width: var(--winners-filter-search-w);
+  max-width: var(--winners-filter-search-w);
+  min-width: 0;
+}
+
+/* Сегмент Коэффициент / Вероятность */
+.winners-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.winners-segment__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--toolbar-h);
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: var(--toolbar-filter-radius);
+  background: transparent;
+  color: var(--toolbar-filter-muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--table-secondary-size);
+  font-weight: 400;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.winners-segment__btn.is-active {
+  background: var(--intro-card-bg-strong);
+  border-color: var(--intro-card-border);
+  color: var(--dark-text-primary);
+}
+
+/* Сортировка */
+.winners-sort-group {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.winners-sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--toolbar-h);
+  padding: 0 14px;
+  border: 1px solid var(--intro-card-border);
+  border-radius: var(--toolbar-filter-radius);
+  background: var(--intro-card-bg);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--table-secondary-size);
+  font-weight: 400;
+  color: var(--dark-text-secondary);
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.winners-sort-btn.is-active {
+  border-color: var(--intro-card-border);
+  background: var(--intro-card-bg-strong);
+  color: var(--dark-text-primary);
+  font-weight: 400;
+}
+
+.winners-sort-btn__arrows {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark-text-primary);
+}
+
+.winners-sort-arrows {
+  display: block;
+  width: 14px;
+  height: 16px;
+}
+
+.winners-sort-arrows__up,
+.winners-sort-arrows__down {
+  opacity: 0.35;
+}
+
+.winners-sort-btn.is-active .winners-sort-arrows__up,
+.winners-sort-btn.is-active .winners-sort-arrows__down {
+  opacity: 0.35;
+}
+
+.winners-sort-btn.is-active.is-asc .winners-sort-arrows__up {
+  opacity: 1;
+}
+
+.winners-sort-btn.is-active.is-asc .winners-sort-arrows__down {
+  opacity: 0.35;
+}
+
+.winners-sort-btn.is-active.is-desc .winners-sort-arrows__down {
+  opacity: 1;
+}
+
+.winners-sort-btn.is-active.is-desc .winners-sort-arrows__up {
+  opacity: 0.35;
+}
+
+/* Выпадающие списки */
+.winners-field__label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-body);
+  font-size: var(--table-head-size);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--table-head-color);
+}
+
+.winners-dropdown {
+  position: relative;
+}
+
+.winners-dropdown__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--toolbar-h);
+  padding: 0 14px;
+  border: 1px solid var(--intro-card-border);
+  border-radius: var(--toolbar-filter-radius);
+  background: var(--intro-card-bg);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--table-secondary-size);
+  font-weight: 400;
+  color: var(--dark-text-secondary);
+  text-align: left;
+}
+
+.winners-dropdown__trigger > span:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.winners-dropdown__trigger svg {
+  width: 12px;
+  height: 8px;
+  flex-shrink: 0;
+  margin-left: 8px;
+  color: var(--toolbar-filter-muted);
+}
+
+.winners-dropdown__panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid var(--intro-card-border);
+  border-radius: 4px;
+  background: rgba(12, 12, 12, 0.98);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.winners-dropdown.is-open .winners-dropdown__panel {
+  display: block;
+}
+
+.winners-dropdown__option {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--table-secondary-size);
+  font-weight: 400;
+  color: var(--dark-text-secondary);
+}
+
+.winners-dropdown__option:hover,
+.winners-dropdown__option.is-selected {
+  background: var(--intro-card-bg-strong);
+  color: var(--dark-text-primary);
+}
+
+/* Поиск */
+.winners-search {
+  position: relative;
+}
+
+.winners-search input {
+  width: 100%;
+  height: var(--toolbar-h);
+  padding: 0 40px 0 14px;
+  border: 1px solid var(--intro-card-border);
+  border-radius: var(--toolbar-filter-radius);
+  background: var(--intro-card-bg);
+  font-family: var(--font-body);
+  font-size: var(--table-secondary-size);
+  font-weight: 400;
+  color: var(--dark-text-primary);
+  outline: none;
+}
+
+.winners-search input::placeholder {
+  color: var(--dark-text-muted);
+}
+
+.winners-search input:focus {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: var(--intro-card-bg-strong);
+}
+
+.winners-search__icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  color: var(--grey-muted);
+}
+
+/* ——— Mobile toolbar ——— */
+.winners-mobile-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.winners-mobile-controls__row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+}
+
+.winners-mobile-controls__row .winners-filters-btn,
+.winners-mobile-controls__row .winners-segment--mobile {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+.winners-mobile-controls__row .winners-segment--mobile {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+}
+
+.winners-mobile-controls__row .winners-segment--mobile .winners-segment__btn {
+  flex: 1 1 50%;
+  min-width: 0;
+  justify-content: center;
+  padding: 0 8px;
+}
+
+.winners-mobile-controls__row .winners-sort-group--mobile {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+}
+
+.winners-mobile-controls__row .winners-sort-group--mobile .winners-sort-btn {
+  flex: 1 1 50%;
+  justify-content: center;
+  min-width: 0;
+}
+
+.winners-filters-btn.winners-sort-btn {
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  min-width: 0;
+}
+
+.winners-mobile-search {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.winners-mobile-search input {
+  width: 100%;
+  height: var(--toolbar-h);
+  padding: 0 40px 0 14px;
+  border: 1px solid var(--intro-card-border);
+  border-radius: var(--toolbar-filter-radius);
+  background: var(--intro-card-bg);
+  font-family: var(--font-body);
+  font-size: var(--table-secondary-size);
+  font-weight: 400;
+  color: var(--dark-text-primary);
+  outline: none;
+}
+
+.winners-mobile-search input::placeholder {
+  color: var(--dark-text-muted);
+}
+
+.winners-mobile-search input:focus {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: var(--intro-card-bg-strong);
+}
+
+.winners-mobile-search__icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  color: var(--grey-muted);
+}
+
+.winners-filters-panel {
+  display: none;
+  margin-top: 8px;
+  padding: 16px 14px 18px;
+  border: 1px solid var(--intro-card-border);
+  border-radius: 4px;
+  background: var(--intro-card-bg);
+}
+
+.winners-filters-panel.is-open {
+  display: block;
+}
+
+.winners-filter-block + .winners-filter-block {
+  margin-top: 18px;
+}
+
+.winners-filter-block__title {
+  margin: 0 0 10px;
+  font-family: var(--font-body);
+  font-size: var(--table-head-size);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--table-head-color);
+}
+
+.winners-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.winners-chip {
+  padding: 8px 14px;
+  border: 1px solid var(--intro-card-border);
+  border-radius: 4px;
+  background: var(--intro-card-bg);
+  font-family: var(--font-body);
+  font-size: var(--table-secondary-size);
+  font-weight: 400;
+  color: var(--dark-text-secondary);
+  cursor: pointer;
+}
+
+.winners-chip.is-active {
+  border-color: var(--intro-card-border);
+  background: var(--intro-card-bg-strong);
+  color: var(--dark-text-primary);
+}
+
+/* ——— Table ——— */
+.winners-table-section {
+  width: 100%;
+  padding-bottom: 0;
+}
+
+.winners-table-wrap {
+  width: 100%;
+  padding-top: 12px;
+}
+
+.winners-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  table-layout: fixed;
+}
+
+.winners-table thead th {
+  padding-top: 8px;
+  padding-bottom: 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.winners-table__head-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: max-content;
+  min-height: 28px;
+  padding: 5px var(--table-pill-pad-x);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-family: var(--font-body);
+  font-size: var(--table-head-size);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--dark-text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.winners-table .head-short {
+  display: none;
+}
+
+.winners-table thead th.col-champion,
+.winners-table col.col-champion {
+  width: 40%;
+}
+
+.winners-table thead th.col-tournament,
+.winners-table col.col-tournament {
+  width: 42%;
+}
+
+.winners-table thead th.col-value,
+.winners-table col.col-value {
+  width: 18%;
+}
+
+.winners-table__head-champion {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.winners-table__expand-all-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--dark-text-primary);
+  cursor: pointer;
+  font-family: var(--font-hero);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.winners-table thead th.col-champion,
+.winners-table thead th.col-value,
+.winners-table thead th.col-tournament {
+  overflow: visible;
+  padding-top: 8px;
+  padding-bottom: 12px;
+  padding-left: var(--table-col-pad);
+  padding-right: var(--table-col-pad);
+}
+
+.winners-table thead th.col-champion {
+  text-align: left;
+}
+
+.winners-table thead th.col-tournament {
+  text-align: left;
+}
+
+.winners-table thead th.col-value {
+  text-align: center;
+}
+
+.winners-table thead th.col-champion .winners-table__head-pill,
+.winners-table thead th.col-value .winners-table__head-pill,
+.winners-table thead th.col-tournament .winners-table__head-pill {
+  justify-content: center;
+}
+
+.winners-table thead th.col-champion .winners-table__head-pill {
+  justify-content: flex-start;
+}
+
+.winners-table thead th.col-tournament {
+  padding-left: var(--table-col-pad);
+  padding-right: var(--table-col-pad);
+}
+
+.winners-table thead th.col-tournament .winners-table__head-pill {
+  justify-content: flex-start;
+}
+
+.winners-table thead th.col-value .winners-table__head-pill {
+  margin-right: 8px;
+}
+
+.winners-row__name {
+  text-align: left;
+}
+
+.winners-row__tournament {
+  text-align: left;
+}
+
+.winners-row__value {
+  text-align: center;
+}
+
+.winners-row td.winners-row__name {
+  padding-left: calc(var(--table-col-pad) + 10px);
+  padding-right: var(--table-col-pad);
+}
+
+.winners-row__name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.winners-row__avatar {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--intro-card-border);
+  background: var(--intro-card-bg-strong);
+  object-fit: cover;
+  object-position: center center;
+}
+
+.winners-row__avatar--empty {
+  display: block;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.winners-row__logo-wrap {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.winners-row__avatar--logo {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  object-fit: contain;
+  object-position: center center;
+  transform-origin: center center;
+}
+
+.winners-row__tournament-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.winners-row__tournament-logo {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--intro-card-border);
+  background: #000;
+  object-fit: contain;
+  object-position: center center;
+  padding: 3px;
+}
+
+.winners-row__tournament-text {
+  min-width: 0;
+  word-break: break-word;
+}
+
+.winners-row__name-text {
+  min-width: 0;
+  word-break: break-word;
+}
+
+.winners-row td.winners-row__tournament {
+  padding-left: var(--table-col-pad);
+  padding-right: var(--table-col-pad);
+}
+
+.winners-row td.winners-row__value {
+  padding-left: var(--table-col-pad);
+  padding-right: calc(var(--table-col-pad) + 8px);
+}
+
+.winners-row td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-top: 1px solid var(--intro-card-border);
+  border-bottom: 1px solid var(--intro-card-border);
+  background: var(--intro-card-bg);
+  vertical-align: middle;
+  font-family: var(--font-body);
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.winners-row td:first-child {
+  border-left: 1px solid var(--intro-card-border);
+  border-radius: 4px 0 0 4px;
+}
+
+.winners-row td:last-child {
+  border-right: 1px solid var(--intro-card-border);
+  border-radius: 0 4px 4px 0;
+}
+
+.winners-row__name,
+.winners-row__tournament {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.winners-row td.winners-row__name {
+  overflow: visible;
+}
+
+.winners-row td.winners-row__name,
+.winners-row td.winners-row__tournament {
+  font-size: var(--table-champion-size);
+  font-weight: 500;
+  color: var(--dark-text-table-value);
+  word-break: break-word;
+}
+
+.winners-row td.winners-row__value {
+  font-size: var(--table-value-size);
+  font-weight: 500;
+  color: var(--dark-text-table-value);
+  font-variant-numeric: tabular-nums;
+  word-break: normal;
+  white-space: nowrap;
+}
+
+.winners-row {
+  cursor: pointer;
+}
+
+.winners-row:hover td {
+  background: var(--intro-card-bg-strong);
+}
+
+.winners-row--even td {
+  background-color: var(--intro-card-bg);
+}
+
+.winners-row--odd td {
+  background-color: var(--intro-card-bg-alt);
+}
+
+.winners-row.is-expanded td,
+.winners-row:has(+ .winners-detail-row.is-visible) td {
+  background: var(--intro-card-bg-strong);
+  border-bottom-color: transparent;
+}
+
+.winners-row.is-expanded td:first-child,
+.winners-row:has(+ .winners-detail-row.is-visible) td:first-child {
+  border-bottom-left-radius: 0;
+}
+
+.winners-row.is-expanded td:last-child,
+.winners-row:has(+ .winners-detail-row.is-visible) td:last-child {
+  border-bottom-right-radius: 0;
+}
+
+.winners-detail-row {
+  display: none;
+}
+
+.winners-detail-row.is-visible {
+  display: table-row;
+}
+
+.winners-detail-row td {
+  padding: 0 0 8px;
+  border: none;
+  background: transparent;
+}
+
+.winners-detail {
+  margin-top: -8px;
+  padding: 20px calc(var(--table-col-pad) + 10px) 24px calc(var(--table-col-pad) + 52px);
+  border: 1px solid var(--intro-card-border);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background: var(--intro-card-bg);
+}
+
+.winners-detail__text {
+  margin: 0;
+  font-size: var(--table-champion-size);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--dark-text-secondary);
+}
+
+.winners-empty {
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px solid var(--intro-card-border);
+  border-radius: 4px;
+  background: var(--intro-card-bg);
+  color: var(--dark-text-muted);
+  font-size: 15px;
+}
+
+/* ——— Desktop ——— */
+@media (min-width: 768px) {
+  :root {
+    --shell-pad: 48px;
+  }
+
+  .winners-hero__inner {
+    min-height: 560px;
+  }
+
+  .winners-hero__logo-link {
+    top: 24px;
+  }
+
+  .winners-hero__subtitle {
+    top: auto;
+    bottom: 36px;
+    max-width: calc(100% - 2 * var(--shell-pad));
+  }
+
+  .winners-intro {
+    padding: 12px 0 32px;
+  }
+
+  .winners-main {
+    padding-bottom: 64px;
+  }
+
+  .winners-intro__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .winners-intro__card {
+    min-height: 200px;
+    padding: 24px 22px 28px;
+    gap: 16px;
+  }
+
+  .winners-toolbar--desktop {
+    display: block;
+  }
+
+  .winners-toolbar--mobile {
+    display: none;
+  }
+
+  .winners-body {
+    --winners-width-factor: 1.5645;
+    width: 100%;
+    max-width: var(--winners-content-max);
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .winners-toolbar--desktop {
+    width: 100%;
+  }
+
+  .winners-toolbar--desktop .winners-shell,
+  .winners-table-section > .winners-shell {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .winners-toolbar--desktop .winners-shell {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .winners-toolbar--desktop.is-floating .winners-shell {
+    padding: 12px 14px;
+  }
+
+  .winners-toolbar__row {
+    --toolbar-dropdown-base: calc(10.5rem * var(--winners-width-factor));
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--toolbar-block-gap);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .winners-toolbar__group--mode,
+  .winners-toolbar__group--sort,
+  .winners-toolbar__group--sport,
+  .winners-toolbar__group--tournament,
+  .winners-toolbar__group--search {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .winners-toolbar__group--sport {
+    width: var(--winners-filter-sport-w);
+    max-width: var(--winners-filter-sport-w);
+  }
+
+  .winners-toolbar__group--tournament {
+    width: var(--winners-filter-tournament-w);
+    max-width: var(--winners-filter-tournament-w);
+  }
+
+  .winners-toolbar__group--search {
+    width: var(--winners-filter-search-w);
+    max-width: var(--winners-filter-search-w);
+  }
+
+  .winners-table-section {
+    width: 100%;
+  }
+
+  .winners-table-section > .winners-shell,
+  .winners-table-wrap,
+  .winners-table {
+    width: 100%;
+  }
+
+  .winners-segment,
+  .winners-sort-group {
+    display: inline-flex;
+    width: auto;
+  }
+
+  .winners-segment__btn {
+    flex: 0 0 auto;
+    padding: 0 calc(18px * var(--winners-width-factor));
+  }
+
+  .winners-sort-btn {
+    flex: 0 0 auto;
+    justify-content: center;
+    padding: 0 calc(14px * var(--winners-width-factor));
+  }
+
+  :root {
+    --table-head-size: 15px;
+    --table-champion-size: 16px;
+    --table-value-size: 15px;
+    --table-secondary-size: 14px;
+  }
+
+  .winners-row td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  :root {
+    --table-col-pad: 14px;
+    --table-value-tournament-gap: 20px;
+  }
+
+  .winners-row--even td {
+    background-color: var(--intro-card-bg);
+  }
+
+  .winners-row--odd td {
+    background-color: var(--intro-card-bg-alt);
+  }
+
+  .winners-table {
+    border-spacing: 0 10px;
+  }
+
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --shell-pad: 64px;
+  }
+
+  .winners-hero__inner {
+    min-height: 640px;
+  }
+
+  .winners-hero__logo-link {
+    top: 28px;
+  }
+
+  .winners-hero__title {
+    font-size: 184px;
+  }
+
+  .winners-hero__subtitle {
+    bottom: 48px;
+  }
+
+  .winners-intro {
+    padding-bottom: 40px;
+  }
+
+  .winners-main {
+    padding-bottom: 80px;
+  }
+
+  .winners-intro__card {
+    min-height: 220px;
+    padding: 28px 24px 32px;
+  }
+}
+
+/* ——— Mobile table ——— */
+@media (max-width: 767px) {
+  :root {
+    --shell-pad: 16px;
+  }
+
+  .winners-hero {
+    min-height: 100dvh;
+    min-height: 100svh;
+  }
+
+  .winners-hero__inner {
+    min-height: 100dvh;
+    min-height: 100svh;
+  }
+
+  .winners-hero__subtitle {
+    top: auto;
+    bottom: 28px;
+    max-width: calc(100% - 2 * var(--shell-pad));
+  }
+
+  .winners-shell--mobile {
+    max-width: var(--winners-content-max);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .winners-filters-panel .winners-mobile-search,
+  .winners-filters-panel .winners-field {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .winners-filters-panel .winners-mobile-search,
+  .winners-filters-panel #sportDropdownMobile,
+  .winners-filters-panel #tournamentDropdownMobile {
+    max-width: none;
+    width: 100%;
+  }
+
+  .winners-filters-panel .winners-field + .winners-field {
+    margin-top: 18px;
+  }
+
+  .winners-filters-panel .winners-dropdown__panel {
+    z-index: 50;
+  }
+
+  .winners-row td.winners-row__name {
+    border-left: 1px solid var(--intro-card-border);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .winners-row.is-expanded td.winners-row__name,
+  .winners-row:has(+ .winners-detail-row.is-visible) td.winners-row__name {
+    border-bottom-left-radius: 0;
+  }
+
+  .winners-table col.col-champion,
+  .winners-table thead th.col-champion,
+  .winners-row__name {
+    width: 48%;
+  }
+
+  .winners-table col.col-value,
+  .winners-table thead th.col-value,
+  .winners-row__value {
+    width: 20%;
+  }
+
+  .winners-table col.col-tournament,
+  .winners-table thead th.col-tournament,
+  .winners-row__tournament {
+    width: 32%;
+  }
+
+  :root {
+    --table-col-pad: 6px;
+    --table-pill-pad-x: 10px;
+    --table-value-tournament-gap: 8px;
+  }
+
+  .winners-table .head-long {
+    display: none;
+  }
+
+  .winners-table .head-short {
+    display: inline;
+  }
+
+  .winners-table__head-pill {
+    min-height: 24px;
+    padding: 4px 10px;
+  }
+
+  :root {
+    --table-head-size: 12px;
+    --table-champion-size: 13px;
+    --table-value-size: 13px;
+    --table-secondary-size: 13px;
+  }
+
+  .winners-row td.winners-row__value {
+    padding-left: 4px;
+    padding-right: var(--table-col-pad);
+  }
+
+  .winners-row td {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .winners-row__tournament-logo {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+  }
+
+  .winners-row__logo-wrap {
+    width: 22px;
+    height: 22px;
+  }
+
+  .winners-row__avatar--logo {
+    width: 22px;
+    height: 22px;
+  }
+
+  .winners-row__avatar {
+    width: 22px;
+    height: 22px;
+  }
+
+  .winners-row__name-cell {
+    gap: 6px;
+  }
+
+  .winners-row td.winners-row__name {
+    padding-left: calc(var(--table-col-pad) + 4px);
+    padding-right: 4px;
+  }
+
+  .winners-row__name-text {
+    white-space: nowrap;
+    word-break: normal;
+    overflow: visible;
+    font-size: clamp(10px, 2.7vw, 12px);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  .winners-row td.winners-row__tournament {
+    padding-left: 4px;
+    font-size: clamp(10px, 2.55vw, 12px);
+    letter-spacing: -0.02em;
+  }
+
+  .winners-detail {
+    padding: 16px 16px 20px;
+  }
+
+  .winners-detail__text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 399px) {
+  :root {
+    --table-head-size: 11px;
+    --table-champion-size: 12px;
+    --table-value-size: 12px;
+    --table-secondary-size: 12px;
+  }
+
+  .winners-table col.col-champion,
+  .winners-table thead th.col-champion,
+  .winners-row__name {
+    width: 50%;
+  }
+
+  .winners-table col.col-value,
+  .winners-table thead th.col-value,
+  .winners-row__value {
+    width: 18%;
+  }
+
+  .winners-table col.col-tournament,
+  .winners-table thead th.col-tournament,
+  .winners-row__tournament {
+    width: 32%;
+  }
+
+  .winners-row__name-text {
+    font-size: clamp(9.5px, 2.85vw, 11px);
+    letter-spacing: -0.035em;
+  }
+
+  .winners-row td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .winners-detail__text {
+    font-size: 13px;
+  }
+}
