@@ -26,14 +26,6 @@ const AMBASSADORS = [
   },
   {
     "bookmakerId": "fonbet",
-    "fullName": "Егор Дёмин",
-    "activity": "Баскетбол",
-    "photoUrl": "https://dumpster.cdn.sports.ru/6/f3/4f8e0d529c3fe265da44a788462ea.png",
-    "primaryNetwork": "vk",
-    "followers": null
-  },
-  {
-    "bookmakerId": "fonbet",
     "fullName": "Сергей Бурунов",
     "activity": "Актер",
     "photoUrl": "https://dumpster.cdn.sports.ru/d/cd/f85c8199efaa6b1b4a2f4c742633b.png",
@@ -89,10 +81,26 @@ const AMBASSADORS = [
     "followers": null
   },
   {
+    "bookmakerId": "melbet",
+    "fullName": "BITTUEV",
+    "activity": "Артист",
+    "photoUrl": "https://dumpster.cdn.sports.ru/0/7b/a961f62a1cba6dd3d1e1a84deb6c3.png",
+    "primaryNetwork": "instagram",
+    "followers": null
+  },
+  {
     "bookmakerId": "fonbet",
     "fullName": "Антон Понкрашов",
     "activity": "Баскетбол",
     "photoUrl": "https://dumpster.cdn.sports.ru/e/11/8adf0f669539812623bd0ecfcb3fd.png",
+    "primaryNetwork": "vk",
+    "followers": null
+  },
+  {
+    "bookmakerId": "fonbet",
+    "fullName": "Егор Дёмин",
+    "activity": "Баскетбол",
+    "photoUrl": "https://dumpster.cdn.sports.ru/6/f3/4f8e0d529c3fe265da44a788462ea.png",
     "primaryNetwork": "vk",
     "followers": null
   },
@@ -685,6 +693,14 @@ const AMBASSADORS = [
     "fullName": "Кирилл Капризов",
     "activity": "Хоккей",
     "photoUrl": "https://dumpster.cdn.sports.ru/a/74/4bade78e837f2b7056589a2c0e78e.png",
+    "primaryNetwork": "instagram",
+    "followers": null
+  },
+  {
+    "bookmakerId": "winline",
+    "fullName": "Влад Голдин",
+    "activity": "Баскетбол",
+    "photoUrl": "https://dumpster.cdn.sports.ru/8/f5/fe63a72cbc9d18b350822133b2507.png",
     "primaryNetwork": "instagram",
     "followers": null
   },
