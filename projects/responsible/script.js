@@ -100,7 +100,7 @@ function showResults() {
     // В ответах "Да" индекс 0, "Нет" индекс 1
     const yesCount = answers.filter(answer => answer === 0).length;
     const hasProblem = yesCount >= 4;
-    const resultColor = hasProblem ? 'rgb(255, 0, 60)' : 'rgb(4, 120, 87)';
+    const resultColor = hasProblem ? '#ff003c' : '#00c48a';
     const resultText = hasProblem
         ? 'У вас есть признаки проблемного игрового поведения. Рекомендуем ограничить участие в азартных играх и обратиться за консультацией к специалисту.'
         : 'Признаков выраженных проблем не выявлено. Продолжайте играть ответственно, соблюдайте лимиты и контролируйте бюджет.';

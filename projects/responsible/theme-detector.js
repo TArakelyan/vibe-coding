@@ -1,5 +1,5 @@
-// Виджет всегда в светлой палитре из CSS. Системная тёмная тема не должна
-// задавать color/background на body — иначе светлый текст наследуется на блоках #f4f4f4.
+// Страница всегда в Camp-палитре из styles.css.
+// Системная тема не должна перебивать background/color на body.
 (function () {
     function clearBodyOverrides() {
         document.body.style.removeProperty('background');

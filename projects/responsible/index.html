@@ -3,278 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ответственная игра 2026 - обновлено</title>
-    <link rel="stylesheet" href="https://dumpster.cdn.sports.ru/0/56/f551162b73054e102066169138227.css">
-    <style>
-        /* Быстрые переопределения поверх CSS с dumpster:
-           - убираем эмодзи и рисуем “стоп” через CSS
-           - выставляем TT Neoris + TT Sports Display (Sports) */
-
-        @font-face {
-            font-family: 'TT Neoris';
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-            src: local('TT Neoris'), local('TTNeoris');
-        }
-        @font-face {
-            font-family: 'TT Neoris';
-            font-weight: 500;
-            font-style: normal;
-            font-display: swap;
-            src: local('TT Neoris Medium'), local('TTNeoris-Medium');
-        }
-        @font-face {
-            font-family: 'TT Neoris';
-            font-weight: 700;
-            font-style: normal;
-            font-display: swap;
-            src: local('TT Neoris Bold'), local('TTNeoris-Bold');
-        }
-
-        body {
-            font-family: "TT Neoris", "Neoris", "Roboto", sans-serif;
-        }
-
-        .hero-stop-icon {
-            display: none !important;
-        }
-
-        .hero-stop-icon {
-            width: 64px;
-            height: 64px;
-            flex-shrink: 0;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: #ff003c;
-            clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
-        }
-
-        .hero-stop-icon::after {
-            content: "!";
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -54%);
-            color: #fff;
-            font-family: "Sports", "TT Sports Display", sans-serif;
-            font-weight: 900;
-            font-size: 34px;
-            line-height: 1;
-        }
-
-        .hero-main-title {
-            font-family: "Sports", "TT Sports Display", sans-serif;
-        }
-
-        .section-title,
-        .test-title,
-        .recommendations-title,
-        .help-title,
-        .emergency-title,
-        .test-question-text,
-        .test-result-title,
-        .test-result-score,
-        .recommendation-number,
-        .help-card-title,
-        .murphy-title,
-        .final-title,
-        .help-box-headline,
-        .murphy-content .murphy-title,
-        .final-strong,
-        .test-answer-button,
-        .recommendation-text,
-        .hero-description,
-        .murphy-quote {
-            font-family: inherit;
-        }
-
-        .section-title,
-        .test-title,
-        .recommendations-title,
-        .help-title,
-        .emergency-title,
-        .test-question-text,
-        .test-result-title,
-        .test-result-score,
-        .recommendation-number,
-        .help-card-title,
-        .murphy-title,
-        .final-title,
-        .help-box-headline,
-        .murphy-content .murphy-title,
-        .final-strong {
-            font-family: "Sports", "TT Sports Display", sans-serif;
-        }
-
-        .recommendation-text,
-        .hero-description,
-        .murphy-quote,
-        .test-answer-button {
-            font-family: "TT Neoris", "Neoris", "Roboto", sans-serif;
-        }
-
-        /* Дублируем ключевые правки верстки/дизайна inline, чтобы они
-           работали даже при неперезалитом CSS на dumpster. */
-        .hero-title-row { justify-content: center; gap: 0; }
-        .hero-main-title { text-align: center; }
-
-        .recommendations-title { white-space: nowrap; }
-        .recommendations-title br { display: none; }
-        @media (max-width: 640px) {
-            .recommendations-title { white-space: normal; }
-            .recommendations-title br { display: block; }
-        }
-
-        .info-box { border-radius: 12px; }
-        .recommendation-item { border-radius: 12px; overflow: hidden; }
-        .test-section { border-radius: 14px; }
-        .test-inline { border-radius: 12px; }
-        .help-card { border-radius: 12px; }
-        .emergency-section { grid-template-columns: 1fr; border-radius: 12px; }
-        .murphy-card { border-radius: 16px; }
-        .final-box { border-radius: 12px; }
-
-        .test-label { margin-bottom: 18px; }
-        .test-button { font-size: 15px; border-radius: 12px; }
-        .test-answer-button { border-radius: 10px; }
-        .test-restart-button { border-radius: 12px; }
-
-        .emergency-title-link {
-            color: inherit;
-            text-decoration: none;
-            font-weight: inherit;
-        }
-    </style>
+    <title>Ответственная игра — Спортс''</title>
+    <meta name="description" content="Лендинг ответственной игры на Спортс'': осознанный подход к ставкам, рекомендации, тест и помощь.">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <section class="hero-section">
-        <header class="hero-header">
-            <div class="hero-title-row">
-                <span class="hero-stop-icon" role="img" aria-label="Стоп"></span>
-                <h1 class="recommendations-title hero-main-title">ОТВЕТСТВЕННАЯ<br><span class="green-text">ИГРА</span></h1>
+    <div class="page">
+        <header class="site-header" id="siteHeader">
+            <div class="site-header__inner">
+                <a class="site-logo" href="https://www.sports.ru/?utm_source=special-responsible" aria-label="Спортс''">
+                    <img
+                        src="https://dumpster.cdn.sports.ru/e/01/b6a5c8d6223d46030fe91d0aa70cc.png"
+                        alt="Спортс''"
+                        width="102"
+                        height="36"
+                    >
+                </a>
+
+                <button class="nav-toggle" type="button" id="navToggle" aria-label="Меню" aria-expanded="false">
+                    <span></span>
+                </button>
+
+                <ul class="site-nav" id="siteNav">
+                    <li><a href="#recommendations">Рекомендации</a></li>
+                    <li><a href="#test">Тест</a></li>
+                    <li><a href="#help">Помощь</a></li>
+                </ul>
+
+                <a class="btn btn--mint header-cta" href="#test">Пройти тест</a>
             </div>
         </header>
-        <div class="info-box hero-intro-box">
-            <p class="hero-description">Это осознанный подход к ставкам. Понимание, что это всего лишь форма досуга, а не способ заработка. Ведь игра должна только развлекать</p>
-        </div>
-    </section>
 
-    <section class="recommendations-section">
-        <div class="recommendations-header">
-            <div class="recommendations-label">РЕКОМЕНДАЦИИ</div>
-            <h2 class="recommendations-title">КАК ПРАВИЛЬНО <br><span class="green-text">ИГРАТЬ</span></h2>
-        </div>
-        
-        <div class="recommendations-grid">
-            <div class="recommendation-item">
-                <div class="recommendation-number">1</div>
-                <div class="recommendation-text">Это развлечение, форма досуга</div>
+        <section class="hero">
+            <p class="eyebrow">спортс'' представляет</p>
+            <img
+                class="hero__mark"
+                src="https://dumpster.cdn.sports.ru/f/e0/60702eec43e45f8b7ea3251644488.png"
+                alt=""
+                width="72"
+                height="72"
+                decoding="async"
+                aria-hidden="true"
+            >
+            <h1 class="hero__title">
+                <span class="hero__title-line">Ответственная</span>
+                <span class="hero__title-line"><span class="highlight">игра</span></span>
+            </h1>
+            <div class="highlight-stack" aria-hidden="false">
+                <span class="highlight">Это форма досуга, а не способ заработка</span>
+                <span class="highlight">Игра должна только развлекать</span>
             </div>
-            
-            <div class="recommendation-item">
-                <div class="recommendation-number">2</div>
-                <div class="recommendation-text">Никогда не спешите отыгрываться, не будьте заложником</div>
+            <p class="hero__sub">Осознанный подход к ставкам на Спортс''</p>
+        </section>
+
+        <section class="section section--tight">
+            <div class="paper">
+                <span class="paper__clip" aria-hidden="true"></span>
+                <div class="paper__label">Что это</div>
+                <p class="paper__text">
+                    <strong>Ответственная игра</strong> — это осознанный подход к ставкам.
+                    Понимание, что это всего лишь форма досуга, а не способ заработка.
+                    Ведь игра должна только развлекать.
+                </p>
             </div>
-            
-            <div class="recommendation-item">
-                <div class="recommendation-number">3</div>
-                <div class="recommendation-text">Делайте перерывы</div>
+        </section>
+
+        <section class="section" id="recommendations">
+            <div class="section-head">
+                <div class="section-kicker">Рекомендации</div>
+                <h2 class="section-title">Как правильно <span class="mint">играть</span></h2>
+                <p class="section-lead">Шесть простых правил, которые помогают держать ставки под контролем.</p>
             </div>
-            
-            <div class="recommendation-item">
-                <div class="recommendation-number">4</div>
-                <div class="recommendation-text">Ставьте те деньги, которые вы готовы потратить</div>
+
+            <div class="recs">
+                <div class="rec-card">
+                    <div class="rec-card__num">1</div>
+                    <div class="rec-card__text">Это развлечение, форма досуга</div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-card__num">2</div>
+                    <div class="rec-card__text">Никогда не спешите отыгрываться, не будьте заложником</div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-card__num">3</div>
+                    <div class="rec-card__text">Делайте перерывы</div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-card__num">4</div>
+                    <div class="rec-card__text">Ставьте те деньги, которые вы готовы потратить</div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-card__num">5</div>
+                    <div class="rec-card__text">Контролируйте общие расходы на игру</div>
+                </div>
+                <a
+                    href="https://www.sports.ru/betting/ratings/legal-bookie-rating/?utm_source=special-responsible"
+                    class="rec-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <div class="rec-card__num">6</div>
+                    <div class="rec-card__text">Выбирайте только легальных букмекеров</div>
+                    <span class="rec-card__arrow" aria-hidden="true">→</span>
+                </a>
             </div>
-            
-            <div class="recommendation-item">
-                <div class="recommendation-number">5</div>
-                <div class="recommendation-text">Контролируйте общие расходы на игру</div>
+        </section>
+
+        <section class="section section--tight">
+            <div class="murphy">
+                <div class="murphy__icon" aria-hidden="true">!</div>
+                <div>
+                    <div class="section-kicker">Закон Мерфи</div>
+                    <h2 class="murphy__title">Всегда помните о законе Мерфи</h2>
+                    <p class="murphy__quote">
+                        «Если есть вероятность того, что какая-нибудь неприятность может случиться,
+                        то она <span class="highlight">обязательно произойдет</span>»
+                    </p>
+                </div>
             </div>
-            
-            <a href="https://www.sports.ru/betting/ratings/legal-bookie-rating/?utm_source=special-responsible" class="recommendation-item recommendation-item-link" target="_blank">
-                <div class="recommendation-number">6</div>
-                <div class="recommendation-text">Выбирайте только легальных букмекеров</div>
-                <span class="recommendation-arrow" aria-hidden="true">→</span>
-            </a>
-        </div>
-    </section>
+        </section>
 
-    <section class="murphy-section">
-        <div class="murphy-card">
-            <div class="murphy-icon">!</div>
-            <div class="murphy-content">
-                <div class="murphy-label">ЗАКОН МЕРФИ</div>
-                <h2 class="murphy-title">Всегда помните о законе Мерфи</h2>
-                <div class="murphy-quote">«Если есть вероятность того, что какая-нибудь неприятность может случиться, то она <span class="green-text">обязательно произойдет</span>».</div>
+        <section class="section">
+            <div class="section-head section-head--center">
+                <div class="section-kicker">Важно</div>
+                <h2 class="section-title">Как понять, есть ли у вас игромания?</h2>
             </div>
-        </div>
-    </section>
-
-    <section class="section-green-accent">
-        <h2 class="section-title">КАК ПОНЯТЬ, ЕСТЬ ЛИ У ВАС ИГРОМАНИЯ?</h2>
-        <div class="info-box">
-            <p>Когда игра перестает быть развлечением и становится навязчивой потребностью, которая разрушает жизнь. Игра из способа отдыха превращается в проблему, которая управляет человеком, а не наоборот.</p>
-        </div>
-    </section>
-
-    <section class="test-section">
-        <div class="test-label">ДИАГНОСТИКА</div>
-        <h2 class="test-title">ПРОЙДИТЕ ТЕСТ</h2>
-        <p class="test-description">10 вопросов, которые помогут определить наличие проблемы</p>
-        <button class="test-button" id="startTestBtn">Начать тест</button>
-        <div class="test-inline" id="testInline" style="display: none;">
-            <div id="testQuestionContainer"></div>
-            <div id="testResultContainer" style="display: none;"></div>
-        </div>
-    </section>
-
-    <section class="help-section">
-        <div class="help-header">
-            <div class="help-label">ВАЖНО</div>
-            <h2 class="help-title">КАК <span class="green-text">ОСТАНОВИТЬСЯ</span></h2>
-        </div>
-        
-        <div class="help-cards">
-            <a href="https://sprts.cc/b8c3oe" target="_blank" class="help-card help-card-clickable">
-                <img src="https://dumpster.cdn.sports.ru/3/00/0c517c06ddd1e2fa98c5671c2cdf9.png" alt="Единый ЦУПИС" class="help-card-logo">
-                <h3 class="help-card-title">ЕДИНЫЙ ЦУПИС</h3>
-                <p class="help-card-text">Установите самоограничение на время и лимиты</p>
-            </a>
-        </div>
-
-        <div class="help-box-title">ПОМОЩЬ</div>
-        <h2 class="help-box-headline">ЕСЛИ ВАМ НУЖНА<br>ПОМОЩЬ</h2>
-
-        <div class="emergency-section emergency-light">
-            <div class="emergency-content">
-                <div class="emergency-label">Позвоните в Национальную наркологическую службу</div>
-                <h3 class="emergency-title">
-                    <a href="tel:88006003139" class="emergency-title-link" aria-label="Позвонить в Национальную наркологическую службу">8 800 600-31-39</a>
-                </h3>
+            <div class="cream-panel">
+                <p>
+                    Когда игра перестает быть развлечением и становится навязчивой потребностью,
+                    которая разрушает жизнь. Игра из способа отдыха превращается в проблему,
+                    которая управляет человеком, а не наоборот.
+                </p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="final-section">
-        <div class="final-label">ВСЕГДА ПОМНИТЕ</div>
-        <h2 class="final-title">ГЛАВНОЕ</h2>
-        <div class="final-box">
-            <p class="final-text">Воспринимайте ставки как развлечение, не бойтесь лимитов и при необходимости отказывайтесь от игры. Тогда вы сможете избежать негативных последствий.</p>
-            <p class="final-strong">СТАВКИ НА СПОРТ НЕ ДОЛЖНЫ ПРИВОДИТЬ К ПРОБЛЕМАМ</p>
-        </div>
-    </section>
+        <section class="section test-section" id="test">
+            <div class="section-head section-head--center">
+                <div class="section-kicker">Диагностика</div>
+                <h2 class="section-title">Пройдите тест</h2>
+                <p class="section-lead">10 вопросов, которые помогут определить наличие проблемы</p>
+            </div>
 
-    <footer class="page-footer">
-        <div>ИГРАЙТЕ ОТВЕТСТВЕННО</div>
-        <div>© 2026 ОТВЕТСТВЕННАЯ ИГРА</div>
-    </footer>
+            <div class="test-shell">
+                <button class="btn btn--mint btn--lg" type="button" id="startTestBtn">Начать тест</button>
+                <div class="test-inline" id="testInline" style="display: none;">
+                    <div id="testQuestionContainer"></div>
+                    <div id="testResultContainer" style="display: none;"></div>
+                </div>
+            </div>
+        </section>
 
-    <script src="./data/questions.js?v=20260318-1"></script>
+        <section class="section" id="help">
+            <div class="section-head">
+                <div class="section-kicker">Важно</div>
+                <h2 class="section-title">Как <span class="mint">остановиться</span></h2>
+                <p class="section-lead">Инструменты самоограничения и экстренная помощь.</p>
+            </div>
+
+            <div class="help-cards">
+                <a href="https://1cupis.ru/rg/" target="_blank" rel="noopener noreferrer" class="help-card">
+                    <img
+                        src="https://dumpster.cdn.sports.ru/3/00/0c517c06ddd1e2fa98c5671c2cdf9.png"
+                        alt="Единый ЦУПИС"
+                        class="help-card-logo"
+                        width="72"
+                        height="72"
+                    >
+                    <h3 class="help-card-title">Единый ЦУПИС</h3>
+                    <p class="help-card-text">Установите самоограничение на время и лимиты</p>
+                </a>
+            </div>
+
+            <div class="section-head" style="margin-top: 48px; margin-bottom: 16px;">
+                <div class="section-kicker">Помощь</div>
+                <h2 class="section-title">Если вам нужна помощь</h2>
+            </div>
+
+            <div class="emergency">
+                <div class="emergency__label">Позвоните в Национальную наркологическую службу</div>
+                <a class="emergency__phone" href="tel:88006003139" aria-label="Позвонить 8 800 600-31-39">
+                    8 800 600-31-39
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head section-head--center">
+                <div class="section-kicker">Всегда помните</div>
+                <h2 class="section-title">Главное</h2>
+            </div>
+            <div class="paper final-box">
+                <span class="paper__clip" aria-hidden="true"></span>
+                <p class="paper__text">
+                    Воспринимайте ставки как развлечение, не бойтесь лимитов и при необходимости
+                    отказывайтесь от игры. Тогда вы сможете избежать негативных последствий.
+                </p>
+                <p class="final-strong">
+                    Ставки на спорт <span class="highlight">не должны</span> приводить к проблемам
+                </p>
+            </div>
+            <div class="cta-band">
+                <a class="btn btn--mint btn--lg" href="#test">Пройти тест ещё раз</a>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div>© 2026 Ответственная игра · Спортс''</div>
+            <div>
+                <a href="https://camp.sports.ru/" target="_blank" rel="noopener noreferrer">Спортс'' Кэмп</a>
+                ·
+                <a href="https://www.sports.ru/?utm_source=special-responsible">sports.ru</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="./data/questions.js"></script>
+    <script src="./theme-detector.js"></script>
     <script>
-        /* Если на CDN выложен только HTML без ./data/questions.js — подставляем данные (копия data/questions.js). */
         if (typeof testQuestions === 'undefined') {
             var testQuestions = [
                 { id: 1, question: 'Думали ли вы, как найти еще больше денег для азартных игр?', answers: ['Да', 'Нет'] },
@@ -290,8 +235,27 @@
             ];
         }
     </script>
-    <script src="https://dumpster.cdn.sports.ru/0/64/2e5505892f47d6bcb8cda89f4b547.js"></script>
-    <script src="https://dumpster.cdn.sports.ru/2/6e/c1db662cf0a0243bc158984dcc566.js"></script>
-    <script src="https://dumpster.cdn.sports.ru/4/32/b82406376abf3ffba3f80ff232fbf.js"></script>
+    <script src="./script.js"></script>
+    <script>
+        (function () {
+            var header = document.getElementById('siteHeader');
+            var toggle = document.getElementById('navToggle');
+            var nav = document.getElementById('siteNav');
+            if (!header || !toggle || !nav) return;
+
+            toggle.addEventListener('click', function () {
+                var open = header.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+
+            nav.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    header.classList.remove('is-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+        })();
+    </script>
+    <script src="./resize.js"></script>
 </body>
 </html>
