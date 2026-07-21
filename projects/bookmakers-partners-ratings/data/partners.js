@@ -90,14 +90,6 @@ const PARTNERS = [
   },
   {
     "bookmakerId": "fonbet",
-    "partnerName": "РФБ",
-    "sport": "федерация",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/0/98/d3b6003d1c8e9d654869d3d3aa433.png",
-    "endYear": 2027,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "fonbet",
     "partnerName": "Федерация дзюдо России",
     "sport": "федерация",
     "partnerLogo": "https://dumpster.cdn.sports.ru/7/54/437bea0d02d99caf7922dc90333d7.png",
@@ -269,14 +261,6 @@ const PARTNERS = [
     "partnerName": "Единая Лига ВТБ",
     "sport": "баскетбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/d/9d/43378cedfbd7fa013501e470bb111.png",
-    "endYear": null,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "winline",
-    "partnerName": "Зенит",
-    "sport": "баскетбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/8/6a/b3ec72836cebff6d54dbd5b94cf2e.png",
     "endYear": null,
     "isTitular": false
   },
@@ -1223,14 +1207,6 @@ const PARTNERS = [
     "partnerLogo": "https://dumpster.cdn.sports.ru/2/a2/e88a26cce0d74d8a533a93f3d7e6b.png",
     "endYear": null,
     "yearUnknown": true,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "melbet",
-    "partnerName": "Локомотив-Кубань",
-    "sport": "Баскетбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/a/3d/2cf27bf8a42ae8186898fb32aab65.png",
-    "endYear": 2028,
     "isTitular": false
   },
   {
