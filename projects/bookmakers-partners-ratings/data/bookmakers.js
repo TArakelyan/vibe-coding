@@ -1,7 +1,7 @@
 const BOOKMAKER_META = {
   fonbet: { name: 'FONBET', logo: 'https://dumpster.cdn.sports.ru/8/23/31836b8ae127c677c83aa5c2dcc3c.png' },
   winline: { name: 'WINLINE', logo: 'https://dumpster.cdn.sports.ru/b/fc/6d2147368a7165750355955619ca6.png' },
-  betboom: { name: 'BetBoom', logo: 'https://dumpster.cdn.sports.ru/3/e5/5f377db01eb4c060a6cc0c2b5ecaf.jpg' },
+  betboom: { name: 'BETBOOM', logo: 'https://dumpster.cdn.sports.ru/e/63/6a84d1664140550c0c754205a94e2.webp' },
   pari: { name: 'PARI', logo: 'https://dumpster.cdn.sports.ru/d/ba/d2462eaba730d24c1b99b66b08c99.png' },
   'liga-stavok': { name: 'Лига Ставок', logo: 'https://dumpster.cdn.sports.ru/9/0e/8461bf68298af754aca1e11ca053b.png' },
   olimpbet: { name: 'OLIMPBET', logo: 'https://dumpster.cdn.sports.ru/b/4b/09a1ae66b9dfe5d3b89b3e19a2483.png' },

@@ -21,7 +21,7 @@ const PARTNERS = [
     "partnerName": "Рубин",
     "sport": "футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/3/98/e405e32c4f53eb5fb25642b20e7ab.png",
-    "endYear": 2026,
+    "endYear": 2029,
     "isTitular": false
   },
   {
@@ -53,7 +53,7 @@ const PARTNERS = [
     "partnerName": "Крылья Советов",
     "sport": "футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/d/a4/b0d6b7c241e5787ff9219809b2706.png",
-    "endYear": 2026,
+    "endYear": 2029,
     "isTitular": false
   },
   {
@@ -61,7 +61,7 @@ const PARTNERS = [
     "partnerName": "Ростов",
     "sport": "футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/c/2e/9db3850af9a1bf98f262fd3854ba6.png",
-    "endYear": 2026,
+    "endYear": 2029,
     "isTitular": false
   },
   {
@@ -273,6 +273,22 @@ const PARTNERS = [
     "isTitular": false
   },
   {
+    "bookmakerId": "liga-stavok",
+    "partnerName": "Зенит",
+    "sport": "баскетбол",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/8/6a/b3ec72836cebff6d54dbd5b94cf2e.png",
+    "endYear": 2027,
+    "isTitular": false
+  },
+  {
+    "bookmakerId": "liga-stavok",
+    "partnerName": "Шанхай Дрэгонс",
+    "sport": "хоккей",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/9/22/5af5073d1993f52c223d74b8ccb38.png",
+    "endYear": null,
+    "isTitular": false
+  },
+  {
     "bookmakerId": "winline",
     "partnerName": "Автомобилист",
     "sport": "хоккей",
@@ -333,6 +349,14 @@ const PARTNERS = [
     "partnerName": "FC 10",
     "sport": "медиафутбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/0/fe/b01110c35ef88681e3128de8f58d9.png",
+    "endYear": null,
+    "isTitular": false
+  },
+  {
+    "bookmakerId": "winline",
+    "partnerName": "СиндЕкат",
+    "sport": "медиафутбол",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/4/8d/7df000a8382022c017163f54339a1.png",
     "endYear": null,
     "isTitular": false
   },
@@ -762,46 +786,6 @@ const PARTNERS = [
   },
   {
     "bookmakerId": "olimpbet",
-    "partnerName": "Force FC",
-    "sport": "Единоборства",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/4/a6/1d91863c07d6c55e11015ce53bde7.png",
-    "endYear": 2028,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "olimpbet",
-    "partnerName": "Ice Fights",
-    "sport": "Единоборства",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/f/b9/8dae137eb73eb1ea65375a6550f84.png",
-    "endYear": null,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "olimpbet",
-    "partnerName": "Суперлига",
-    "sport": "Гандбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/1/9d/25bcc8d4f55a4b2bf77d5655265bd.png",
-    "endYear": 2026,
-    "isTitular": true
-  },
-  {
-    "bookmakerId": "olimpbet",
-    "partnerName": "Чеховские медведи",
-    "sport": "Гандбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/d/e8/68b7c1c3d39bae35372c50d85b21f.png",
-    "endYear": 2026,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "olimpbet",
-    "partnerName": "Финал 4-х",
-    "sport": "Гандбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/b/6b/81b63a002e442955516b4a0fa44d4.png",
-    "endYear": null,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "olimpbet",
     "partnerName": "Чемпионат России",
     "sport": "Пляжный футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/2/52/eed30c6413de39bf0c6fda5e11bc.png",
@@ -845,6 +829,14 @@ const PARTNERS = [
     "partnerName": "Нижний Новгород",
     "sport": "Футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/6/28/d200fd75bb8680fc1fd7d8b75c5a0.png",
+    "endYear": null,
+    "isTitular": false
+  },
+  {
+    "bookmakerId": "pari",
+    "partnerName": "Родина",
+    "sport": "футбол",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/f/06/7f44bfd06fed69a9f55ff5969a141.png",
     "endYear": null,
     "isTitular": false
   },
@@ -934,6 +926,14 @@ const PARTNERS = [
     "sport": "Медиафутбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/2/2a/ef47ae015f49684f9d20e8dd96cc8.png",
     "endYear": 2026,
+    "isTitular": false
+  },
+  {
+    "bookmakerId": "betboom",
+    "partnerName": "Lit Energy",
+    "sport": "Медиафутбол",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/0/62/3b134e939f5aaf43852e7ac82831c.png",
+    "endYear": 2027,
     "isTitular": false
   },
   {
@@ -1113,6 +1113,30 @@ const PARTNERS = [
     "isTitular": false
   },
   {
+    "bookmakerId": "winline",
+    "partnerName": "Всероссийская федерация волейбола",
+    "sport": "волейбол",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/5/5f/c3cbecd13434deb7665b46d43623e.png",
+    "endYear": null,
+    "isTitular": false
+  },
+  {
+    "bookmakerId": "fonbet",
+    "partnerName": "Всероссийская федерация волейбола",
+    "sport": "волейбол",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/5/5f/c3cbecd13434deb7665b46d43623e.png",
+    "endYear": null,
+    "isTitular": false
+  },
+  {
+    "bookmakerId": "betboom",
+    "partnerName": "Всероссийская федерация волейбола",
+    "sport": "волейбол",
+    "partnerLogo": "https://dumpster.cdn.sports.ru/5/5f/c3cbecd13434deb7665b46d43623e.png",
+    "endYear": null,
+    "isTitular": false
+  },
+  {
     "bookmakerId": "betcity",
     "partnerName": "Факел",
     "sport": "Футбол",
@@ -1145,52 +1169,12 @@ const PARTNERS = [
     "isTitular": true
   },
   {
-    "bookmakerId": "betcity",
-    "partnerName": "Ростов-Дон",
-    "sport": "Гандбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/2/07/f61542b04e64b2d19b723fa68c049.png",
-    "endYear": null,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "betcity",
-    "partnerName": "Лада",
-    "sport": "Хоккей",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/5/76/837b905e5772a0f56ddd2c3539786.png",
-    "endYear": 2028,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "tennisi",
-    "partnerName": "КАМАЗ",
-    "sport": "Футбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/4/b0/4d25963f24d33f203b865088d26ef.png",
-    "endYear": null,
-    "isTitular": false
-  },
-  {
     "bookmakerId": "leon",
     "partnerName": "Leon-Вторая Лига",
     "sport": "Футбол",
     "partnerLogo": "https://dumpster.cdn.sports.ru/b/cc/92812b068167963017f221ed2152a.png",
     "endYear": null,
     "isTitular": true
-  },
-  {
-    "bookmakerId": "leon",
-    "partnerName": "Амкар",
-    "sport": "Футбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/7/23/520bf061835c1cbdc83b4d5bd887c.png",
-    "endYear": null,
-    "isTitular": false
-  },
-  {
-    "bookmakerId": "leon",
-    "partnerName": "Ротор",
-    "sport": "Футбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/b/dd/696960165b0a88e3defe0fc70cd44.png",
-    "endYear": null,
-    "isTitular": false
   },
   {
     "bookmakerId": "leon",
@@ -1216,13 +1200,5 @@ const PARTNERS = [
     "partnerLogo": "https://dumpster.cdn.sports.ru/d/35/980249e07c61497fa4160d9e384f1.png",
     "endYear": null,
     "isTitular": true
-  },
-  {
-    "bookmakerId": "bettery",
-    "partnerName": "Черноморец Нв",
-    "sport": "Футбол",
-    "partnerLogo": "https://dumpster.cdn.sports.ru/5/72/de2131c113e38522565809a4c365b.png",
-    "endYear": null,
-    "isTitular": false
   }
 ];
