@@ -1,0 +1,47 @@
+Дела<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подбор Букмекера - Опросник</title>
+    <link rel="stylesheet" href="./quiz.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Найди своего букмекера</h1>
+            <p class="subtitle">Ответьте на несколько вопросов, и мы подберем для вас лучшего букмекера</p>
+        </header>
+
+        <div id="quiz-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            <div class="question-counter">
+                <span id="current-question">1</span> / <span id="total-questions">7</span>
+            </div>
+
+            <div id="question-card" class="question-card">
+                <!-- Вопросы будут генерироваться динамически -->
+            </div>
+
+            <div class="navigation">
+                <button id="prev-btn" class="btn btn-secondary" style="display: none;">← Назад</button>
+                <button id="next-btn" class="btn btn-primary">Далее →</button>
+            </div>
+        </div>
+
+        <div id="result-container" style="display: none;">
+            <div class="result-card">
+                <h2>🏆 Ваш идеальный букмекер</h2>
+                <div id="result-content"></div>
+                <button id="restart-btn" class="btn btn-primary">Пройти опрос заново</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./bookmakers-data.js"></script>
+    <script src="./quiz.js"></script>
+    <script src="./resize.js"></script>
+</body>
+</html>
