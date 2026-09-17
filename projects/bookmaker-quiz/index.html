@@ -1,10 +1,348 @@
-Дела<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Подбор Букмекера - Опросник</title>
-    <link rel="stylesheet" href="./quiz.css">
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  line-height: 1.6;
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 1.1em;
+  opacity: 0.95;
+}
+
+#quiz-container {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.question-counter {
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.question-card {
+  min-height: 300px;
+}
+
+.question-text {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option-btn {
+  padding: 18px 25px;
+  font-size: 1.1em;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-weight: 500;
+  color: #333;
+}
+
+.option-btn:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+  transform: translateX(5px);
+}
+
+.option-btn.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: scale(1.02);
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 15px;
+}
+
+.btn {
+  padding: 15px 35px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+#result-container {
+  background: white;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-card h2 {
+  text-align: center;
+  font-size: 2.2em;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.winner {
+  text-align: center;
+  padding: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.winner-logo {
+  width: 200px;
+  height: 120px;
+  background: white;
+  border-radius: 15px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.winner-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.winner-name {
+  font-size: 2em;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.winner-description {
+  font-size: 1.2em;
+  opacity: 0.95;
+}
+
+.other-recommendations {
+  margin-bottom: 30px;
+}
+
+.other-recommendations h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.recommendation-item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.recommendation-item:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+  transform: translateX(5px);
+}
+
+.rec-logo {
+  width: 100px;
+  height: 60px;
+  object-fit: contain;
+  margin-right: 20px;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.rec-info h4 {
+  font-size: 1.3em;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.rec-info p {
+  color: #666;
+  font-size: 0.95em;
+}
+
+#restart-btn {
+  width: 100%;
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  
+  header h1 {
+    font-size: 1.8em;
+  }
+  
+  .subtitle {
+    font-size: 1em;
+  }
+  
+  #quiz-container {
+    padding: 25px;
+  }
+  
+  #result-container {
+    padding: 30px;
+  }
+  
+  .question-text {
+    font-size: 1.4em;
+  }
+  
+  .option-btn {
+    padding: 15px 20px;
+    font-size: 1em;
+  }
+  
+  .navigation {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  .winner-logo {
+    width: 150px;
+    height: 90px;
+  }
+  
+  .winner-name {
+    font-size: 1.5em;
+  }
+  
+  .recommendation-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .rec-logo {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
+    </style>
 </head>
 <body>
     <div class="container">
@@ -40,8 +378,501 @@
         </div>
     </div>
 
-    <script src="./bookmakers-data.js"></script>
-    <script src="./quiz.js"></script>
-    <script src="./resize.js"></script>
+    <script>
+// Данные о букмекерах с оценками по критериям (от 1 до 10)
+const BOOKMAKERS_DATA = {
+  fonbet: {
+    name: 'FONBET',
+    logo: 'https://dumpster.cdn.sports.ru/8/23/31836b8ae127c677c83aa5c2dcc3c.png',
+    scores: {
+      popularity: 9,
+      reliability: 10,
+      coefficients: 7,
+      withdrawSpeed: 8,
+      appConvenience: 9,
+      bonusSize: 8,
+      longTermBets: 9,
+      expressBets: 8,
+      editorialRating: 9,
+      userRating: 8
+    },
+    description: 'Один из самых надежных и популярных букмекеров в России'
+  },
+  betboom: {
+    name: 'BETBOOM',
+    logo: 'https://dumpster.cdn.sports.ru/e/63/6a84d1664140550c0c754205a94e2.webp',
+    scores: {
+      popularity: 8,
+      reliability: 9,
+      coefficients: 8,
+      withdrawSpeed: 9,
+      appConvenience: 9,
+      bonusSize: 10,
+      longTermBets: 7,
+      expressBets: 9,
+      editorialRating: 8,
+      userRating: 9
+    },
+    description: 'Современный букмекер с щедрыми бонусами и удобным приложением'
+  },
+  winline: {
+    name: 'WINLINE',
+    logo: 'https://dumpster.cdn.sports.ru/b/fc/6d2147368a7165750355955619ca6.png',
+    scores: {
+      popularity: 7,
+      reliability: 9,
+      coefficients: 8,
+      withdrawSpeed: 8,
+      appConvenience: 8,
+      bonusSize: 7,
+      longTermBets: 8,
+      expressBets: 8,
+      editorialRating: 8,
+      userRating: 7
+    },
+    description: 'Надежный букмекер с хорошими условиями для игры'
+  },
+  pari: {
+    name: 'PARI',
+    logo: 'https://dumpster.cdn.sports.ru/d/ba/d2462eaba730d24c1b99b66b08c99.png',
+    scores: {
+      popularity: 9,
+      reliability: 8,
+      coefficients: 9,
+      withdrawSpeed: 8,
+      appConvenience: 10,
+      bonusSize: 9,
+      longTermBets: 8,
+      expressBets: 9,
+      editorialRating: 8,
+      userRating: 9
+    },
+    description: 'Популярный букмекер с высокими коэффициентами и отличным приложением'
+  },
+  'liga-stavok': {
+    name: 'Лига Ставок',
+    logo: 'https://dumpster.cdn.sports.ru/9/0e/8461bf68298af754aca1e11ca053b.png',
+    scores: {
+      popularity: 8,
+      reliability: 10,
+      coefficients: 7,
+      withdrawSpeed: 9,
+      appConvenience: 8,
+      bonusSize: 7,
+      longTermBets: 9,
+      expressBets: 7,
+      editorialRating: 9,
+      userRating: 8
+    },
+    description: 'Один из старейших и надежнейших букмекеров'
+  },
+  olimpbet: {
+    name: 'OLIMPBET',
+    logo: 'https://dumpster.cdn.sports.ru/b/4b/09a1ae66b9dfe5d3b89b3e19a2483.png',
+    scores: {
+      popularity: 7,
+      reliability: 9,
+      coefficients: 8,
+      withdrawSpeed: 9,
+      appConvenience: 8,
+      bonusSize: 8,
+      longTermBets: 8,
+      expressBets: 8,
+      editorialRating: 8,
+      userRating: 8
+    },
+    description: 'Стабильный букмекер с быстрыми выплатами'
+  },
+  betcity: {
+    name: 'БЕТСИТИ',
+    logo: 'https://dumpster.cdn.sports.ru/6/5d/3e1621d0edebd2abb1ac8b059d867.jpg',
+    scores: {
+      popularity: 7,
+      reliability: 9,
+      coefficients: 7,
+      withdrawSpeed: 8,
+      appConvenience: 7,
+      bonusSize: 7,
+      longTermBets: 8,
+      expressBets: 7,
+      editorialRating: 8,
+      userRating: 7
+    },
+    description: 'Классический букмекер с проверенной репутацией'
+  },
+  leon: {
+    name: 'LEON',
+    logo: 'https://dumpster.cdn.sports.ru/5/48/ea6b6533bf8c30bcdf8a9479111e4.png',
+    scores: {
+      popularity: 6,
+      reliability: 8,
+      coefficients: 9,
+      withdrawSpeed: 7,
+      appConvenience: 8,
+      bonusSize: 8,
+      longTermBets: 7,
+      expressBets: 9,
+      editorialRating: 7,
+      userRating: 8
+    },
+    description: 'Букмекер с конкурентными коэффициентами и хорошими условиями для экспрессов'
+  },
+  melbet: {
+    name: 'Мелбет',
+    logo: 'https://dumpster.cdn.sports.ru/3/95/b803d3289aae7797635a551d71575.jpg',
+    scores: {
+      popularity: 6,
+      reliability: 7,
+      coefficients: 9,
+      withdrawSpeed: 7,
+      appConvenience: 7,
+      bonusSize: 9,
+      longTermBets: 10,
+      expressBets: 9,
+      editorialRating: 7,
+      userRating: 7
+    },
+    description: 'Широкая линия с большим выбором долгосрочных ставок'
+  }
+};
+
+// Вопросы опросника
+const QUESTIONS = [
+  {
+    id: 1,
+    text: 'Важна ли вам популярность букмекерской компании?',
+    criteria: 'popularity',
+    options: [
+      { text: 'Да, хочу известного букмекера', weight: 10 },
+      { text: 'Скорее да', weight: 7 },
+      { text: 'Не очень важно', weight: 3 },
+      { text: 'Совсем не важно', weight: 0 }
+    ]
+  },
+  {
+    id: 2,
+    text: 'Что для вас важнее?',
+    criteria: ['reliability', 'coefficients'],
+    options: [
+      { text: 'Надежность БК', weights: [10, 0] },
+      { text: 'Скорее надежность', weights: [8, 3] },
+      { text: 'Одинаково важно', weights: [5, 5] },
+      { text: 'Скорее коэффициенты', weights: [3, 8] },
+      { text: 'Высокие коэффициенты', weights: [0, 10] }
+    ]
+  },
+  {
+    id: 3,
+    text: 'Что для вас важнее?',
+    criteria: ['withdrawSpeed', 'appConvenience'],
+    options: [
+      { text: 'Быстрый вывод средств', weights: [10, 0] },
+      { text: 'Скорее быстрый вывод', weights: [8, 3] },
+      { text: 'Одинаково важно', weights: [5, 5] },
+      { text: 'Скорее удобство приложения', weights: [3, 8] },
+      { text: 'Удобство приложения', weights: [0, 10] }
+    ]
+  },
+  {
+    id: 4,
+    text: 'Чем больше сумма стартового бонуса, тем лучше?',
+    criteria: 'bonusSize',
+    options: [
+      { text: 'Да, чем больше, тем лучше', weight: 10 },
+      { text: 'Скорее да', weight: 7 },
+      { text: 'Не принципиально', weight: 3 },
+      { text: 'Бонусы не интересуют', weight: 0 }
+    ]
+  },
+  {
+    id: 5,
+    text: 'Интересны ли вам долгосрочные ставки?',
+    criteria: 'longTermBets',
+    options: [
+      { text: 'Да, очень интересны', weight: 10 },
+      { text: 'Скорее да', weight: 7 },
+      { text: 'Иногда делаю', weight: 4 },
+      { text: 'Нет, не интересны', weight: 0 }
+    ]
+  },
+  {
+    id: 6,
+    text: 'Планируете делать ставки экспрессом?',
+    criteria: 'expressBets',
+    options: [
+      { text: 'Да, в основном экспрессы', weight: 10 },
+      { text: 'Часто делаю экспрессы', weight: 7 },
+      { text: 'Иногда', weight: 4 },
+      { text: 'Нет, только ординары', weight: 0 }
+    ]
+  },
+  {
+    id: 7,
+    text: 'Что для вас важнее при выборе?',
+    criteria: ['editorialRating', 'userRating'],
+    options: [
+      { text: 'Оценка редакции "Спортса"', weights: [10, 0] },
+      { text: 'Скорее оценка редакции', weights: [8, 3] },
+      { text: 'Одинаково важно', weights: [5, 5] },
+      { text: 'Скорее мнение пользователей', weights: [3, 8] },
+      { text: 'Мнение других пользователей', weights: [0, 10] }
+    ]
+  }
+];
+
+// Состояние опроса
+let currentQuestion = 0;
+let userAnswers = {};
+let criteriaWeights = {};
+
+// DOM элементы
+const quizContainer = document.getElementById('quiz-container');
+const resultContainer = document.getElementById('result-container');
+const questionCard = document.getElementById('question-card');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const progress = document.getElementById('progress');
+const currentQuestionSpan = document.getElementById('current-question');
+const totalQuestionsSpan = document.getElementById('total-questions');
+
+// Инициализация
+function init() {
+  totalQuestionsSpan.textContent = QUESTIONS.length;
+  renderQuestion();
+}
+
+// Отображение вопроса
+function renderQuestion() {
+  const question = QUESTIONS[currentQuestion];
+  currentQuestionSpan.textContent = currentQuestion + 1;
+  
+  let html = `
+    <h2 class="question-text">${question.text}</h2>
+    <div class="options">
+  `;
+  
+  question.options.forEach((option, index) => {
+    const isSelected = userAnswers[question.id] === index;
+    html += `
+      <button class="option-btn ${isSelected ? 'selected' : ''}" 
+              onclick="selectOption(${index})">
+        ${option.text}
+      </button>
+    `;
+  });
+  
+  html += '</div>';
+  questionCard.innerHTML = html;
+  
+  updateProgress();
+  updateNavigation();
+}
+
+// Выбор опции
+function selectOption(optionIndex) {
+  userAnswers[QUESTIONS[currentQuestion].id] = optionIndex;
+  
+  const buttons = document.querySelectorAll('.option-btn');
+  buttons.forEach((btn, index) => {
+    btn.classList.toggle('selected', index === optionIndex);
+  });
+  
+  nextBtn.disabled = false;
+}
+
+// Обновление прогресс-бара
+function updateProgress() {
+  const progressPercent = ((currentQuestion + 1) / QUESTIONS.length) * 100;
+  progress.style.width = progressPercent + '%';
+}
+
+// Обновление навигации
+function updateNavigation() {
+  prevBtn.style.display = currentQuestion > 0 ? 'block' : 'none';
+  nextBtn.disabled = userAnswers[QUESTIONS[currentQuestion].id] === undefined;
+  
+  if (currentQuestion === QUESTIONS.length - 1) {
+    nextBtn.textContent = 'Показать результат';
+  } else {
+    nextBtn.textContent = 'Далее →';
+  }
+}
+
+// Следующий вопрос
+function nextQuestion() {
+  if (currentQuestion < QUESTIONS.length - 1) {
+    currentQuestion++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+// Предыдущий вопрос
+function previousQuestion() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+  }
+}
+
+// Расчет результатов
+function calculateResults() {
+  const criteriaScores = {};
+  
+  QUESTIONS.forEach(question => {
+    const answerIndex = userAnswers[question.id];
+    const option = question.options[answerIndex];
+    
+    if (Array.isArray(question.criteria)) {
+      question.criteria.forEach((criterion, idx) => {
+        if (!criteriaScores[criterion]) criteriaScores[criterion] = 0;
+        criteriaScores[criterion] += option.weights[idx];
+      });
+    } else {
+      if (!criteriaScores[question.criteria]) criteriaScores[question.criteria] = 0;
+      criteriaScores[question.criteria] += option.weight;
+    }
+  });
+  
+  const bookmakersScores = {};
+  
+  Object.keys(BOOKMAKERS_DATA).forEach(bookmakerKey => {
+    const bookmaker = BOOKMAKERS_DATA[bookmakerKey];
+    let totalScore = 0;
+    
+    Object.keys(criteriaScores).forEach(criterion => {
+      const userWeight = criteriaScores[criterion];
+      const bookmakerScore = bookmaker.scores[criterion];
+      totalScore += userWeight * bookmakerScore;
+    });
+    
+    bookmakersScores[bookmakerKey] = {
+      ...bookmaker,
+      totalScore: totalScore
+    };
+  });
+  
+  const sortedBookmakers = Object.entries(bookmakersScores)
+    .sort((a, b) => b[1].totalScore - a[1].totalScore);
+  
+  return sortedBookmakers;
+}
+
+// Отображение результатов
+function showResults() {
+  const results = calculateResults();
+  const topBookmaker = results[0][1];
+  
+  let html = `
+    <div class="winner">
+      <div class="winner-logo">
+        <img src="${topBookmaker.logo}" alt="${topBookmaker.name}">
+      </div>
+      <h3 class="winner-name">${topBookmaker.name}</h3>
+      <p class="winner-description">${topBookmaker.description}</p>
+    </div>
+    
+    <div class="other-recommendations">
+      <h3>Другие подходящие варианты:</h3>
+      <div class="recommendations-list">
+  `;
+  
+  for (let i = 1; i < Math.min(4, results.length); i++) {
+    const bookmaker = results[i][1];
+    html += `
+      <div class="recommendation-item">
+        <img src="${bookmaker.logo}" alt="${bookmaker.name}" class="rec-logo">
+        <div class="rec-info">
+          <h4>${bookmaker.name}</h4>
+          <p>${bookmaker.description}</p>
+        </div>
+      </div>
+    `;
+  }
+  
+  html += `
+      </div>
+    </div>
+  `;
+  
+  document.getElementById('result-content').innerHTML = html;
+  
+  quizContainer.style.display = 'none';
+  resultContainer.style.display = 'block';
+}
+
+// Перезапуск опроса
+function restartQuiz() {
+  currentQuestion = 0;
+  userAnswers = {};
+  criteriaWeights = {};
+  
+  quizContainer.style.display = 'block';
+  resultContainer.style.display = 'none';
+  
+  renderQuestion();
+}
+
+// Обработчики событий
+nextBtn.addEventListener('click', nextQuestion);
+prevBtn.addEventListener('click', previousQuestion);
+document.getElementById('restart-btn').addEventListener('click', restartQuiz);
+
+// Запуск приложения
+init();
+    </script>
+    <script>
+let lastHeight = null;
+let resizeTimeout;
+
+const resize = ({force = false}) => {
+ const currentHeight = document.body.scrollHeight;
+ 
+ if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+ return;
+ }
+ 
+ lastHeight = currentHeight;
+ 
+ const dataUTILS = {
+ for: 'BASIC_TEST',
+ action: 'resizeIframe',
+ selector: `iframe[src*="netlify.app"]`,
+ sizes: {
+ height: 2 * Math.floor(currentHeight / 2) + 10,
+ },
+ };
+
+ window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
+ }
+
+
+const resizeObserver = new ResizeObserver(() => {
+ resize({});
+});
+resizeObserver.observe(document.body);
+resize({force: true});
+
+setTimeout(() => {
+ resize({force: true});
+}, 1000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 2000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 3000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 5000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 7000);
+    </script>
 </body>
 </html>
