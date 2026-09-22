@@ -184,7 +184,7 @@ header h1 {
   text-align: center;
   font-size: 2.2em;
   color: #333;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .winner {
@@ -224,60 +224,6 @@ header h1 {
 .winner-description {
   font-size: 1.2em;
   opacity: 0.95;
-}
-
-.other-recommendations {
-  margin-bottom: 30px;
-}
-
-.other-recommendations h3 {
-  font-size: 1.5em;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.recommendations-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.recommendation-item {
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.recommendation-item:hover {
-  border-color: #667eea;
-  background: #f8f9ff;
-  transform: translateX(5px);
-}
-
-.rec-logo {
-  width: 100px;
-  height: 60px;
-  object-fit: contain;
-  margin-right: 20px;
-  padding: 10px;
-  background: white;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-
-.rec-info h4 {
-  font-size: 1.3em;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.rec-info p {
-  color: #666;
-  font-size: 0.95em;
 }
 
 #restart-btn {
@@ -331,16 +277,6 @@ header h1 {
   .winner-name {
     font-size: 1.5em;
   }
-  
-  .recommendation-item {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .rec-logo {
-    margin-right: 0;
-    margin-bottom: 15px;
-  }
 }
     </style>
 </head>
@@ -371,7 +307,7 @@ header h1 {
 
         <div id="result-container" style="display: none;">
             <div class="result-card">
-                <h2>🏆 Ваш идеальный букмекер</h2>
+                <h2>Результаты опроса</h2>
                 <div id="result-content"></div>
                 <button id="restart-btn" class="btn btn-primary">Пройти опрос заново</button>
             </div>
@@ -543,34 +479,26 @@ const QUESTIONS = [
     text: 'Важна ли вам популярность букмекерской компании?',
     criteria: 'popularity',
     options: [
-      { text: 'Да, хочу известного букмекера', weight: 10 },
-      { text: 'Скорее да', weight: 7 },
-      { text: 'Не очень важно', weight: 3 },
-      { text: 'Совсем не важно', weight: 0 }
+      { text: 'Да', weight: 10 },
+      { text: 'Нет', weight: 0 }
     ]
   },
   {
     id: 2,
-    text: 'Что для вас важнее?',
+    text: 'Что для вас важнее: надежность БК или высокие коэффициенты?',
     criteria: ['reliability', 'coefficients'],
     options: [
-      { text: 'Надежность БК', weights: [10, 0] },
-      { text: 'Скорее надежность', weights: [8, 3] },
-      { text: 'Одинаково важно', weights: [5, 5] },
-      { text: 'Скорее коэффициенты', weights: [3, 8] },
-      { text: 'Высокие коэффициенты', weights: [0, 10] }
+      { text: 'Надежность', weights: [10, 0] },
+      { text: 'Коэффициенты', weights: [0, 10] }
     ]
   },
   {
     id: 3,
-    text: 'Что для вас важнее?',
-    criteria: ['withdrawSpeed', 'appConvenience'],
+    text: 'Что для вас важнее: удобство приложения или скорость вывода средств?',
+    criteria: ['appConvenience', 'withdrawSpeed'],
     options: [
-      { text: 'Быстрый вывод средств', weights: [10, 0] },
-      { text: 'Скорее быстрый вывод', weights: [8, 3] },
-      { text: 'Одинаково важно', weights: [5, 5] },
-      { text: 'Скорее удобство приложения', weights: [3, 8] },
-      { text: 'Удобство приложения', weights: [0, 10] }
+      { text: 'Удобство приложения', weights: [10, 0] },
+      { text: 'Скорость вывода', weights: [0, 10] }
     ]
   },
   {
@@ -578,44 +506,37 @@ const QUESTIONS = [
     text: 'Чем больше сумма стартового бонуса, тем лучше?',
     criteria: 'bonusSize',
     options: [
-      { text: 'Да, чем больше, тем лучше', weight: 10 },
-      { text: 'Скорее да', weight: 7 },
-      { text: 'Не принципиально', weight: 3 },
-      { text: 'Бонусы не интересуют', weight: 0 }
+      { text: 'Да', weight: 10 },
+      { text: 'Не всегда', weight: 5 },
+      { text: 'Нет', weight: 0 }
     ]
   },
   {
     id: 5,
-    text: 'Интересны ли вам долгосрочные ставки?',
+    text: 'Интересны ли вам ставки на долгосрочные события?',
     criteria: 'longTermBets',
     options: [
-      { text: 'Да, очень интересны', weight: 10 },
-      { text: 'Скорее да', weight: 7 },
-      { text: 'Иногда делаю', weight: 4 },
-      { text: 'Нет, не интересны', weight: 0 }
+      { text: 'Да', weight: 10 },
+      { text: 'Нет', weight: 0 }
     ]
   },
   {
     id: 6,
-    text: 'Планируете делать ставки экспрессом?',
+    text: 'Планируете собирать экспрессы?',
     criteria: 'expressBets',
     options: [
-      { text: 'Да, в основном экспрессы', weight: 10 },
-      { text: 'Часто делаю экспрессы', weight: 7 },
-      { text: 'Иногда', weight: 4 },
-      { text: 'Нет, только ординары', weight: 0 }
+      { text: 'Да', weight: 10 },
+      { text: 'Иногда', weight: 5 },
+      { text: 'Нет', weight: 0 }
     ]
   },
   {
     id: 7,
-    text: 'Что для вас важнее при выборе?',
+    text: 'Что для вас важнее: оценка редакции "Спортса" или мнение других пользователей?',
     criteria: ['editorialRating', 'userRating'],
     options: [
-      { text: 'Оценка редакции "Спортса"', weights: [10, 0] },
-      { text: 'Скорее оценка редакции', weights: [8, 3] },
-      { text: 'Одинаково важно', weights: [5, 5] },
-      { text: 'Скорее мнение пользователей', weights: [3, 8] },
-      { text: 'Мнение других пользователей', weights: [0, 10] }
+      { text: 'Оценка редакции', weights: [10, 0] },
+      { text: 'Мнение пользователей', weights: [0, 10] }
     ]
   }
 ];
@@ -769,30 +690,7 @@ function showResults() {
       <div class="winner-logo">
         <img src="${topBookmaker.logo}" alt="${topBookmaker.name}">
       </div>
-      <h3 class="winner-name">${topBookmaker.name}</h3>
-      <p class="winner-description">${topBookmaker.description}</p>
-    </div>
-    
-    <div class="other-recommendations">
-      <h3>Другие подходящие варианты:</h3>
-      <div class="recommendations-list">
-  `;
-  
-  for (let i = 1; i < Math.min(4, results.length); i++) {
-    const bookmaker = results[i][1];
-    html += `
-      <div class="recommendation-item">
-        <img src="${bookmaker.logo}" alt="${bookmaker.name}" class="rec-logo">
-        <div class="rec-info">
-          <h4>${bookmaker.name}</h4>
-          <p>${bookmaker.description}</p>
-        </div>
-      </div>
-    `;
-  }
-  
-  html += `
-      </div>
+      <h3 class="winner-name">Вам подходит ${topBookmaker.name}</h3>
     </div>
   `;
   
