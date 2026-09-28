@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сегодня - Календарь спортивных событий</title>
+    <link rel="stylesheet" href="https://senoval.cdn.sports.ru/static-resources/fonts/roboto.css">
+    <link rel="stylesheet" href="https://senoval.cdn.sports.ru/static-resources/fonts/sports.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <a href="https://www.sports.ru/?utm_source=special-segodnya" class="logo">
+                <img src="https://dumpster.cdn.sports.ru/e/01/b6a5c8d6223d46030fe91d0aa70cc.png" alt="Sports.ru" class="logo-img">
+            </a>
+            <nav class="nav">
+                <a href="#" class="nav-link active">Календарь</a>
+            </nav>
+        </header>
+
+        <!-- Описание -->
+        <section class="intro">
+            <h1 class="intro-title">Сегодня в спорте</h1>
+            <p class="intro-description">366 дней в году, самые интересные и забавные события из истории спорта</p>
+        </section>
+
+        <!-- Навигация по датам -->
+        <div class="date-navigation">
+            <button class="date-nav-btn" id="prevDay">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            
+            <div class="date-selector">
+                <input type="date" id="dateInput" class="date-input">
+                <div class="current-date">
+                    <span class="date-day" id="currentDay"></span>
+                    <span class="date-month" id="currentMonth"></span>
+                </div>
+            </div>
+
+            <button class="date-nav-btn" id="nextDay">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Фильтры -->
+        <div class="filters">
+            <div class="filter-label">Виды спорта:</div>
+            <div class="filter-buttons" id="sportFilters"></div>
+        </div>
+
+        <!-- События -->
+        <section class="events-section">
+            <div class="events-container" id="eventsContainer">
+                <!-- События добавляются через JS -->
+            </div>
+        </section>
+
+        <!-- Модальное окно детали события -->
+        <div class="modal" id="eventModal">
+            <div class="modal-overlay" id="modalOverlay"></div>
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <div class="modal-body" id="modalBody">
+                    <!-- Контент модального окна -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Подвал -->
+        <footer class="footer">
+            <p class="footer-text">Если вы нашли ошибку, сообщите нам об этом: support@sports.ru</p>
+            <p class="footer-copyright">© 2026 Sports.ru</p>
+        </footer>
+    </div>
+
+    <script src="./data/events.js"></script>
+    <script src="./script.js"></script>
+    <script src="./resize.js"></script>
+</body>
+</html>
