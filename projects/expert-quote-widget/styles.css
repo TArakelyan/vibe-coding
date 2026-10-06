@@ -45,8 +45,8 @@ body {
 
 .quote-widget {
     max-width: 770px;
-    min-height: 140px;
-    background: var(--sports-yellow-100);
+    min-height: 120px;
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--sports-grey-100);
     border-radius: 16px;
     padding: 24px;
