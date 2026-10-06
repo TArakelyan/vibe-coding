@@ -4,7 +4,202 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Виджет отзыва эксперта</title>
-    <link rel="stylesheet" href="./styles.css">
+    <style>
+        @import "https://senoval.cdn.sports.ru/static-resources/fonts/roboto.css";
+        @import "https://senoval.cdn.sports.ru/static-resources/fonts/sports.css";
+
+        :root {
+            --sports-primary-color: #00c78b;
+            --sports-primary-color-hover: #21a67e;
+            --sports-grey-1000: #171717;
+            --sports-grey-900: #222;
+            --sports-grey-850: #323232;
+            --sports-grey-800: #4a4a4a;
+            --sports-grey-700: #4c4c4c;
+            --sports-grey-600: #757575;
+            --sports-grey-500: #7f7f7f;
+            --sports-grey-400: #9b9b9b;
+            --sports-grey-100: #d8d8d8;
+            --sports-grey-50: #efefef;
+            --sports-yellow-100: #f2f2f0;
+            --ui-font-family-body: "Neoris", "Roboto", sans-serif;
+            --ui-font-family-heading: "Sports", sans-serif;
+        }
+
+        html {
+            box-sizing: border-box;
+            -moz-tab-size: 4;
+            -o-tab-size: 4;
+            tab-size: 4;
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            word-break: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--ui-font-family-body);
+            background-color: transparent;
+            padding: 20px;
+            color: var(--sports-grey-900);
+        }
+
+        .quote-widget {
+            max-width: 770px;
+            min-height: 120px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--sports-grey-100);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .quote-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .expert-photo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .expert-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .expert-name {
+            font-family: var(--ui-font-family-heading);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--sports-grey-900);
+            line-height: 1.2;
+        }
+
+        .expert-position {
+            font-family: var(--ui-font-family-body);
+            font-size: 14px;
+            color: var(--sports-grey-600);
+            line-height: 1.4;
+        }
+
+        .quote-content {
+            position: relative;
+            padding-right: 60px;
+        }
+
+        .quote-text {
+            font-family: var(--ui-font-family-body);
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--sports-grey-700);
+        }
+
+        .quote-mark {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 48px;
+            height: 48px;
+            color: #b89968;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            .quote-widget {
+                padding: 20px;
+                min-height: auto;
+                gap: 14px;
+            }
+            
+            .quote-header {
+                gap: 12px;
+            }
+            
+            .expert-photo {
+                width: 56px;
+                height: 56px;
+            }
+            
+            .expert-name {
+                font-size: 18px;
+            }
+            
+            .expert-position {
+                font-size: 13px;
+            }
+            
+            .quote-content {
+                padding-right: 50px;
+            }
+            
+            .quote-text {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+            
+            .quote-mark {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            
+            .quote-widget {
+                padding: 16px;
+                gap: 12px;
+            }
+            
+            .expert-photo {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .expert-name {
+                font-size: 16px;
+            }
+            
+            .expert-position {
+                font-size: 12px;
+            }
+            
+            .quote-content {
+                padding-right: 44px;
+            }
+            
+            .quote-text {
+                font-size: 12px;
+            }
+            
+            .quote-mark {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="quote-widget">
@@ -24,6 +219,56 @@
         </div>
     </div>
     
-    <script src="./resize.js"></script>
+    <script>
+        let lastHeight = null;
+        let resizeTimeout;
+
+        const resize = ({force = false}) => {
+            const currentHeight = document.body.scrollHeight;
+            
+            if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+                return;
+            }
+            
+            lastHeight = currentHeight;
+            
+            const dataUTILS = {
+                for: 'BASIC_TEST',
+                action: 'resizeIframe',
+                selector: `iframe[src*="dumpster.cdn.sports.ru"]`,
+                sizes: {
+                    height: 2 * Math.floor(currentHeight / 2) + 10,
+                },
+            };
+
+            window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
+        }
+
+        const resizeObserver = new ResizeObserver(() => {
+            resize({});
+        });
+        resizeObserver.observe(document.body);
+        resize({force: true});
+
+        setTimeout(() => {
+            resize({force: true});
+        }, 1000);
+
+        setTimeout(() => {
+            resize({force: true});
+        }, 2000);
+
+        setTimeout(() => {
+            resize({force: true});
+        }, 3000);
+
+        setTimeout(() => {
+            resize({force: true});
+        }, 5000);
+
+        setTimeout(() => {
+            resize({force: true});
+        }, 7000);
+    </script>
 </body>
 </html>
