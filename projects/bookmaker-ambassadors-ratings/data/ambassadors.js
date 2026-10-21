@@ -129,6 +129,14 @@ const AMBASSADORS = [
     "followers": null
   },
   {
+    "bookmakerId": "winline",
+    "fullName": "Александр Кокорин",
+    "activity": "Футбол",
+    "photoUrl": "https://dumpster.cdn.sports.ru/0/c2/58a4c75319419024cdf4ee8b25c9a.png",
+    "primaryNetwork": "instagram",
+    "followers": null
+  },
+  {
     "bookmakerId": "fonbet",
     "fullName": "Иван Карпов",
     "activity": "Журналист",
@@ -230,6 +238,14 @@ const AMBASSADORS = [
     "activity": "Комментатор",
     "photoUrl": "https://dumpster.cdn.sports.ru/9/b4/9bac4b24fe0439efde15e097bacab.png",
     "primaryNetwork": "youtube",
+    "followers": null
+  },
+  {
+    "bookmakerId": "winline",
+    "fullName": "Егор Шкред",
+    "activity": "Блогер",
+    "photoUrl": "https://dumpster.cdn.sports.ru/e/60/d8d4106232e497822c2d607b9dfaf.png",
+    "primaryNetwork": "instagram",
     "followers": null
   },
   {
@@ -420,15 +436,15 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Валерий Карпин",
     "activity": "Тренер",
-    "photoUrl": "https://dumpster.cdn.sports.ru/0/68/a515008d7bddf9b870a70d35ede25.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/8/91/e12a47af833251a548f5851b6587e.webp",
     "primaryNetwork": "vk",
     "followers": null
   },
   {
     "bookmakerId": "betboom",
-    "fullName": "Фёдор Смолов",
+    "fullName": "Федор Смолов",
     "activity": "Футболист",
-    "photoUrl": "https://dumpster.cdn.sports.ru/e/4f/391644d26599ce0d04e30348c4529.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/9/76/18d3ca7f43d96dc45232589cf1dea.webp",
     "primaryNetwork": "instagram",
     "followers": null
   },
@@ -436,7 +452,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Павел Погребняк",
     "activity": "Экс-футболист",
-    "photoUrl": "https://dumpster.cdn.sports.ru/a/d0/b9485f071f81a35fc7c49e1c70d87.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/b/63/efe012f0e47069d6aeaa268493767.webp",
     "primaryNetwork": "instagram",
     "followers": null
   },
@@ -444,7 +460,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Nix",
     "activity": "Стример",
-    "photoUrl": "https://dumpster.cdn.sports.ru/a/f7/0bfe411edef529009958c7f49f442.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/5/ad/c3046ee23212a235e4be907e7e6b8.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -452,7 +468,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Shadowkek",
     "activity": "Стример",
-    "photoUrl": "https://dumpster.cdn.sports.ru/a/cc/5dcfa4a19ffc3ba76f1e6a104337d.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/e/ec/827d1d8e01cee70ca382286d139c3.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -460,7 +476,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Exile",
     "activity": "Блогер",
-    "photoUrl": "https://dumpster.cdn.sports.ru/9/61/8ecd7d748e9458e17e1de686f3915.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/7/eb/753b32f2b485eeb6117b114a50ede.webp",
     "primaryNetwork": "instagram",
     "followers": null
   },
@@ -468,7 +484,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Paradeevich",
     "activity": "Блогер",
-    "photoUrl": "https://dumpster.cdn.sports.ru/7/c0/f59149531d2559bca75afeedbced3.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/c/78/ba445b6b7d245734051883a088599.webp",
     "primaryNetwork": "instagram",
     "followers": null
   },
@@ -476,7 +492,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Райзен",
     "activity": "Медиафутбол",
-    "photoUrl": "https://dumpster.cdn.sports.ru/f/68/3d6b81c0e3788fb91abaeda7fa655.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/f/ff/d547b806dfd65f4ec59c8e43a3dcc.webp",
     "primaryNetwork": "instagram",
     "followers": null
   },
@@ -484,7 +500,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Дмитрий Егоров",
     "activity": "Медиафутбол",
-    "photoUrl": "https://dumpster.cdn.sports.ru/7/b0/ab969e8862093717bfc882c812dfc.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/9/c7/51eff9da1c97ef26a6f2bd7910887.webp",
     "primaryNetwork": "instagram",
     "followers": null
   },
@@ -492,23 +508,15 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Никита Ковальчук",
     "activity": "Блогер",
-    "photoUrl": "https://dumpster.cdn.sports.ru/0/c6/ee5eac01a38aeeec8a3d898327a83.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/6/67/0d73731826ebd0f4d62d6558a2984.webp",
     "primaryNetwork": "instagram",
-    "followers": null
-  },
-  {
-    "bookmakerId": "betboom",
-    "fullName": "Fallen",
-    "activity": "Киберспортсмен",
-    "photoUrl": "https://dumpster.cdn.sports.ru/4/5d/61fbc99a1bbb03b5e14fa4963a53a.png",
-    "primaryNetwork": "twitch",
     "followers": null
   },
   {
     "bookmakerId": "betboom",
     "fullName": "Эрик Шоков",
     "activity": "Стример",
-    "photoUrl": "https://dumpster.cdn.sports.ru/c/d0/8c64636d51d786f5b4ced12d79cb3.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/2/a4/c38adcf47545b2fd89c7268d35306.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -516,7 +524,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Solo",
     "activity": "Киберспорт",
-    "photoUrl": "https://dumpster.cdn.sports.ru/3/75/3446e003719dc31db7eadfe8861f3.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/8/51/7e3f140901cb4a6f6a3c5320a01d2.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -524,7 +532,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Travoman",
     "activity": "Стример",
-    "photoUrl": "https://dumpster.cdn.sports.ru/4/a2/00afacddd4a9482ae6b6a0bb98343.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/2/b2/67d1a7763c654f3030ef61141426a.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -564,7 +572,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Aunkere",
     "activity": "Киберспорт",
-    "photoUrl": "https://dumpster.cdn.sports.ru/a/1d/4e4bc9ab3cc8ff7395e198fbac767.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/6/5e/b145d710d4806d5517ac5db115da4.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -572,7 +580,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Илья Сатир",
     "activity": "Комик",
-    "photoUrl": "https://dumpster.cdn.sports.ru/6/f3/e85a9856d0e05573512113f85447a.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/1/4b/2d409b4a049063214ca7152007074.webp",
     "primaryNetwork": "instagram",
     "followers": null
   },
@@ -580,7 +588,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Кореш",
     "activity": "Стример",
-    "photoUrl": "https://dumpster.cdn.sports.ru/3/95/9b12bf3f7e066a4e2cc0b9b15f7c7.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/4/db/4faf3d48fae7c31381a462d1245db.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -588,7 +596,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Андрей Кокошка",
     "activity": "Блогер",
-    "photoUrl": "https://dumpster.cdn.sports.ru/7/0c/004bbb90fae41ba3a3410bfff4af3.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/5/e1/2943b0a7ca585cf7224551617d58c.webp",
     "primaryNetwork": "instagram",
     "followers": null
   },
@@ -596,7 +604,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Дмитрий Коваль",
     "activity": "Стример",
-    "photoUrl": "https://dumpster.cdn.sports.ru/d/6a/641e1095580a0e64555c0a9e72bd6.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/0/b6/7219170227ca1e4e815620b606412.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -604,7 +612,7 @@ const AMBASSADORS = [
     "bookmakerId": "betboom",
     "fullName": "Влад Раговский",
     "activity": "Стример",
-    "photoUrl": "https://dumpster.cdn.sports.ru/3/df/e0bab2401291db68a5a6762d8d3c6.png",
+    "photoUrl": "https://dumpster.cdn.sports.ru/1/fe/2360d9256861c6b4ddc650574466c.webp",
     "primaryNetwork": "twitch",
     "followers": null
   },
@@ -654,14 +662,6 @@ const AMBASSADORS = [
     "activity": "Комментатор",
     "photoUrl": "https://dumpster.cdn.sports.ru/9/3c/9d57c4abf879b81c978fc1c971820.png",
     "primaryNetwork": "youtube",
-    "followers": null
-  },
-  {
-    "bookmakerId": "betcity",
-    "fullName": "Ольга Тигина",
-    "activity": "Медиафутбол",
-    "photoUrl": "https://dumpster.cdn.sports.ru/9/7c/083612281693fa1bf8e6cbc0c2c1d.png",
-    "primaryNetwork": "instagram",
     "followers": null
   },
   {
@@ -821,6 +821,30 @@ const AMBASSADORS = [
     "fullName": "Adm1tripov",
     "activity": "Стример",
     "photoUrl": "https://dumpster.cdn.sports.ru/b/8b/2587aced674b893f13dd5461cce00.png",
+    "primaryNetwork": "twitch",
+    "followers": null
+  },
+  {
+    "bookmakerId": "bet-m",
+    "fullName": "Yueechka",
+    "activity": "Стример",
+    "photoUrl": "https://dumpster.cdn.sports.ru/e/02/f75ce3ac3f4eccf4c90934d018506.png",
+    "primaryNetwork": "twitch",
+    "followers": null
+  },
+  {
+    "bookmakerId": "bet-m",
+    "fullName": "Uraniumrr",
+    "activity": "Стример",
+    "photoUrl": "https://dumpster.cdn.sports.ru/5/c2/589fe737e9bc1cb63d6ddf491f443.png",
+    "primaryNetwork": "twitch",
+    "followers": null
+  },
+  {
+    "bookmakerId": "bet-m",
+    "fullName": "NSTV",
+    "activity": "Стример",
+    "photoUrl": "https://dumpster.cdn.sports.ru/8/7d/f94006fd12cd26ccf514f5dd65136.png",
     "primaryNetwork": "twitch",
     "followers": null
   }
