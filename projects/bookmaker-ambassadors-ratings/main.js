@@ -184,6 +184,7 @@
           bmLabel +
           '</span></div>' +
           '<div class="cell cell--person">' +
+          '<div class="cell--person-inner">' +
           '<img class="avatar" src="' +
           escapeHtml(row.photoUrl) +
           '" alt="" width="40" height="40" loading="lazy" />' +
@@ -196,7 +197,7 @@
           (names.line2
             ? '<span class="name-line name-line--family">' + escapeHtml(names.line2) + '</span>'
             : '') +
-          '</div></div>' +
+          '</div></div></div>' +
           '<div class="cell cell--activity">' +
           escapeHtml(row.activity) +
           '</div>' +

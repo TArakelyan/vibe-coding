@@ -352,6 +352,18 @@ body {
   color: var(--text);
 }
 
+.cell--person-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.cell--person-inner:hover .name-line--family,
+.cell--person-inner:hover .name-lines--single .name-line--given {
+  color: var(--sports-primary-color, #00c78b);
+}
+
 .cell--person {
   display: flex;
   align-items: center;
@@ -378,11 +390,93 @@ body {
   padding-right: 4px;
 }
 
-@media (max-width: 480px) {
+@container amb-page (max-width: 480px) {
   .data-grid--head,
   .data-row {
-    gap: 16px 22px;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 0.95fr);
+    gap: 6px 8px;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr) minmax(0, 0.7fr);
+  }
+
+  .bm-logo-wrap--in-table {
+    width: 26px;
+    height: 26px;
+  }
+
+  .cell--bookmaker {
+    gap: 6px;
+  }
+
+  .bookmaker-cell-name {
+    font-size: 11px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cell--person,
+  .person-link {
+    gap: 8px;
+  }
+
+  .name-line {
+    font-size: 11px;
+  }
+
+  .cell--activity {
+    font-size: 11px;
+  }
+
+  .th {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 12px 10px 24px;
+  }
+
+  .data-grid--head,
+  .data-row {
+    gap: 6px 8px;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr) minmax(0, 0.7fr);
+  }
+
+  .bm-logo-wrap--in-table {
+    width: 26px;
+    height: 26px;
+  }
+
+  .cell--bookmaker {
+    gap: 6px;
+  }
+
+  .bookmaker-cell-name {
+    font-size: 11px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cell--person,
+  .person-link {
+    gap: 8px;
+  }
+
+  .name-line {
+    font-size: 11px;
+  }
+
+  .cell--activity {
+    font-size: 11px;
+  }
+
+  .th {
+    font-size: 10px;
   }
 }
 

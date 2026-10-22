@@ -705,6 +705,14 @@ const AMBASSADORS = [
     "followers": null
   },
   {
+    "bookmakerId": "winline",
+    "fullName": "Эдгар Давидс",
+    "activity": "Футбол",
+    "photoUrl": "https://dumpster.cdn.sports.ru/3/c7/135925079d87d72c009f189374fb0.png",
+    "primaryNetwork": "instagram",
+    "followers": null
+  },
+  {
     "bookmakerId": "liga-stavok",
     "fullName": "Илья Ковальчук",
     "activity": "Хоккей",
