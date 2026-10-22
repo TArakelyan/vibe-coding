@@ -25,6 +25,14 @@ const AMBASSADORS = [
     "followers": null
   },
   {
+    "bookmakerId": "winline",
+    "fullName": "Эдгар Давидс",
+    "activity": "Футбол",
+    "photoUrl": "https://dumpster.cdn.sports.ru/3/c7/135925079d87d72c009f189374fb0.png",
+    "primaryNetwork": "instagram",
+    "followers": null
+  },
+  {
     "bookmakerId": "fonbet",
     "fullName": "Сергей Бурунов",
     "activity": "Актер",
@@ -701,14 +709,6 @@ const AMBASSADORS = [
     "fullName": "Влад Голдин",
     "activity": "Баскетбол",
     "photoUrl": "https://dumpster.cdn.sports.ru/8/f5/fe63a72cbc9d18b350822133b2507.png",
-    "primaryNetwork": "instagram",
-    "followers": null
-  },
-  {
-    "bookmakerId": "winline",
-    "fullName": "Эдгар Давидс",
-    "activity": "Футбол",
-    "photoUrl": "https://dumpster.cdn.sports.ru/3/c7/135925079d87d72c009f189374fb0.png",
     "primaryNetwork": "instagram",
     "followers": null
   },
