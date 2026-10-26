@@ -93,7 +93,7 @@ const EXPERTS = [
   {
     photoUrl: 'https://dumpster.cdn.sports.ru/7/66/2d18149dd1c72e69724d8df6ce4cb.jpg',
     description: 'Digital-директор BETBOOM',
-    sportsUrl: 'https://www.sports.ru/betting/',
+    sportsUrl: 'https://www.sports.ru/betting/gleb-danilov/',
     fullName: 'Глеб Данилов',
     companyLogo: COMPANY_LOGOS.betboom,
   },
