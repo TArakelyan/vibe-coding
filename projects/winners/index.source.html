@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шансы на титул</title>
+  <meta name="description" content="Спецпроект Спортса — все чемпионы с 2000 года и вероятности их побед.">
+  <link rel="dns-prefetch" href="https://dumpster.cdn.sports.ru">
+  <link rel="preconnect" href="https://dumpster.cdn.sports.ru" crossorigin>
+  <link rel="preload" href="./fonts/TT_Bluescreens/TT_Bluescreens_Trial_Bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    /* Не показываем заголовок системным шрифтом до готовности TT Bluescreens */
+    .winners-hero__title { visibility: hidden; }
+    html.fonts-ready .winners-hero__title { visibility: visible; }
+  </style>
+  <script>
+    (function () {
+      var done = false;
+      function ready() {
+        if (done) return;
+        done = true;
+        document.documentElement.classList.add('fonts-ready');
+      }
+      if (document.fonts && document.fonts.load) {
+        document.fonts
+          .load('700 120px "TT Bluescreens Trial"')
+          .then(ready)
+          .catch(ready);
+        if (document.fonts.ready) {
+          document.fonts.ready.then(ready);
+        }
+      } else {
+        ready();
+      }
+      setTimeout(ready, 1200);
+    })();
+  </script>
+</head>
+<body>
+  <div class="winners-page">
+    <header class="winners-hero">
+      <div class="winners-hero__inner">
+        <a class="winners-hero__logo-link" href="https://www.sports.ru/?utm_source=special-winners" target="_blank" rel="noopener noreferrer">
+          <img
+            class="winners-hero__logo"
+            src="https://dumpster.cdn.sports.ru/e/01/b6a5c8d6223d46030fe91d0aa70cc.png"
+            alt="Спортс"
+            width="102"
+            height="26"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </a>
+        <h1 class="winners-hero__title">Шансы<br>на титул</h1>
+        <p class="winners-hero__subtitle">Спецпроект Спортса'' — все чемпионы с 2000 года и вероятности их побед</p>
+                    </div>
+    </header>
+
+    <section class="winners-intro" aria-label="Как устроен проект">
+      <div class="winners-shell">
+        <ol class="winners-intro__grid" id="winnersIntroGrid"></ol>
+      </div>
+    </section>
+
+    <div class="winners-main">
+    <section class="winners-toolbar winners-toolbar--mobile" aria-label="Поиск и фильтры">
+      <div class="winners-shell winners-shell--mobile">
+        <div class="winners-mobile-controls">
+          <div class="winners-mobile-controls__row">
+            <button type="button" class="winners-sort-btn winners-filters-btn" id="mobileFiltersBtn" aria-expanded="false" aria-controls="mobileFiltersPanel">
+              Фильтры
+            </button>
+            <div class="winners-segment winners-segment--mobile" role="group" aria-label="Кэф или вероятность">
+              <button type="button" class="winners-segment__btn is-active" data-mode="odds">Кэф</button>
+              <button type="button" class="winners-segment__btn" data-mode="probability">Вероятность</button>
+                    </div>
+                    </div>
+          <div class="winners-mobile-controls__row">
+            <div class="winners-sort-group winners-sort-group--mobile">
+              <button type="button" class="winners-sort-btn is-active" data-sort="date">
+                По дате
+                <span class="winners-sort-btn__arrows" aria-hidden="true">
+                  <svg class="winners-sort-arrows" viewBox="0 0 14 16" width="14" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="winners-sort-arrows__down" d="M4.5 2v9M2.75 11L4.5 13.5L6.25 11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="winners-sort-arrows__up" d="M9.5 14V5M7.75 5L9.5 2L11.25 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                </span>
+              </button>
+              <button type="button" class="winners-sort-btn" data-sort="odds">
+                По кэфу
+                <span class="winners-sort-btn__arrows" aria-hidden="true">
+                  <svg class="winners-sort-arrows" viewBox="0 0 14 16" width="14" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="winners-sort-arrows__down" d="M4.5 2v9M2.75 11L4.5 13.5L6.25 11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="winners-sort-arrows__up" d="M9.5 14V5M7.75 5L9.5 2L11.25 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+                    </div>
+                        </div>
+                        </div>
+        <div class="winners-filters-panel" id="mobileFiltersPanel">
+          <div class="winners-mobile-search">
+            <input type="search" id="championSearchMobile" placeholder="Найти" autocomplete="off" aria-label="Поиск чемпиона" />
+            <svg class="winners-mobile-search__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+              <path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="winners-field winners-dropdown" id="sportDropdownMobile">
+            <button type="button" class="winners-dropdown__trigger" aria-haspopup="listbox" aria-label="Вид спорта">
+              <span id="sportDropdownLabelMobile">Вид спорта</span>
+              <svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="winners-dropdown__panel" id="sportDropdownPanelMobile" role="listbox"></div>
+                        </div>
+          <div class="winners-field winners-dropdown" id="tournamentDropdownMobile">
+            <button type="button" class="winners-dropdown__trigger" aria-haspopup="listbox" aria-label="Турнир">
+              <span id="tournamentDropdownLabelMobile">Турнир</span>
+              <svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="winners-dropdown__panel" id="tournamentDropdownPanelMobile" role="listbox"></div>
+                        </div>
+                        </div>
+                        </div>
+    </section>
+
+    <div class="winners-body">
+    <section class="winners-toolbar winners-toolbar--desktop" aria-label="Фильтры">
+      <div class="winners-shell">
+        <div class="winners-toolbar__row">
+          <div class="winners-toolbar__group winners-toolbar__group--mode">
+            <div class="winners-segment" role="group" aria-label="Режим отображения">
+              <button type="button" class="winners-segment__btn is-active" data-mode="odds">Коэффициент</button>
+              <button type="button" class="winners-segment__btn" data-mode="probability">Вероятность</button>
+                    </div>
+                </div>
+          <div class="winners-toolbar__group winners-toolbar__group--sort">
+            <div class="winners-sort-group">
+              <button type="button" class="winners-sort-btn is-active" data-sort="date">
+                По дате
+                <span class="winners-sort-btn__arrows" aria-hidden="true">
+                  <svg class="winners-sort-arrows" viewBox="0 0 14 16" width="14" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="winners-sort-arrows__down" d="M4.5 2v9M2.75 11L4.5 13.5L6.25 11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="winners-sort-arrows__up" d="M9.5 14V5M7.75 5L9.5 2L11.25 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+              </button>
+              <button type="button" class="winners-sort-btn" data-sort="odds">
+                По кэфу
+                <span class="winners-sort-btn__arrows" aria-hidden="true">
+                  <svg class="winners-sort-arrows" viewBox="0 0 14 16" width="14" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="winners-sort-arrows__down" d="M4.5 2v9M2.75 11L4.5 13.5L6.25 11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="winners-sort-arrows__up" d="M9.5 14V5M7.75 5L9.5 2L11.25 5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+                </div>
+            </div>
+          <div class="winners-toolbar__group winners-toolbar__group--sport winners-field winners-dropdown" id="sportDropdown">
+            <button type="button" class="winners-dropdown__trigger" aria-haspopup="listbox" aria-label="Вид спорта">
+              <span id="sportDropdownLabel">Вид спорта</span>
+              <svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </button>
+            <div class="winners-dropdown__panel" id="sportDropdownPanel" role="listbox"></div>
+            </div>
+          <div class="winners-toolbar__group winners-toolbar__group--tournament winners-field winners-dropdown" id="tournamentDropdown">
+            <button type="button" class="winners-dropdown__trigger" aria-haspopup="listbox" aria-label="Турнир">
+              <span id="tournamentDropdownLabel">Турнир</span>
+              <svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="winners-dropdown__panel" id="tournamentDropdownPanel" role="listbox"></div>
+                </div>
+          <div class="winners-toolbar__group winners-toolbar__group--search winners-search">
+            <input type="search" id="championSearch" placeholder="Найти" autocomplete="off" aria-label="Поиск чемпиона" />
+            <svg class="winners-search__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+              <path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+                </div>
+                    </div>
+                </div>
+            </section>
+
+    <div class="winners-table-section">
+      <div class="winners-shell">
+        <div class="winners-table-wrap">
+          <table class="winners-table" id="winnersTable">
+            <colgroup>
+              <col class="col-champion" />
+              <col class="col-tournament" />
+              <col class="col-value" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th class="col-champion" scope="col">
+                  <div class="winners-table__head-champion">
+                    <span class="winners-table__head-pill">Чемпион</span>
+                    <button type="button" class="winners-table__expand-all-btn" id="expandAllBtn" aria-expanded="false" aria-label="Показать все описания">+</button>
+                  </div>
+                </th>
+                <th class="col-tournament" scope="col"><span class="winners-table__head-pill">Турнир</span></th>
+                <th class="col-value" scope="col" id="valueColumnHead"><span class="winners-table__head-pill"><span class="head-long">Коэффициент</span><span class="head-short">Кэф</span></span></th>
+              </tr>
+            </thead>
+            <tbody id="winnersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+  <script src="./data/config.js"></script>
+  <script src="./data/intro.js"></script>
+  <script src="./data/champions.js"></script>
+  <script src="./data/search-aliases.js"></script>
+  <script src="./data/logo-scales.js"></script>
+  <script src="./main.js"></script>
+  <script src="./resize.js"></script>
+</body>
+</html>

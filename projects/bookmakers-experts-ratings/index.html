@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Эксперты букмекерской индустрии</title>
+  <style>
+@import "https://senoval.cdn.sports.ru/static-resources/fonts/roboto.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --border: #e0e0e0;
+  --accent: #00c78b;
+  --accent-hover: #21a67e;
+  --accent-soft: rgba(0, 199, 139, 0.14);
+  --bg: #fff;
+  --row-hover: #fafafa;
+  --maxw: 660px;
+  --ui-font: "Neoris", "Roboto", sans-serif;
+}
+
+html {
+  tab-size: 4;
+  text-size-adjust: 100%;
+  word-break: normal;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ui-font);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 16px 16px 28px;
+  container-type: inline-size;
+  container-name: experts-page;
+}
+
+.table-wrap {
+  margin-top: 0;
+}
+
+.rows {
+  min-height: 40px;
+}
+
+.expert-row {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: 10px 14px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.expert-row:hover {
+  background: var(--row-hover);
+}
+
+.expert-row:hover .name-line--family {
+  color: var(--accent);
+}
+
+.expert-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.expert-row > .cell {
+  min-width: 0;
+}
+
+.cell--company-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.company-logo-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #dcdcdc;
+  overflow: hidden;
+  background: #fff;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.cell--person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.expert-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  background: #eee;
+}
+
+.name-lines {
+  min-width: 0;
+  flex: 1;
+}
+
+.name-line {
+  display: block;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.name-line--given {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.name-line--family {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.name-lines--single .name-line--given {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.cell--description {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text);
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+@container experts-page (max-width: 480px) {
+  .expert-row {
+    gap: 6px 8px;
+    grid-template-columns: 38px minmax(0, 0.95fr) minmax(0, 1.05fr);
+    padding: 10px 0;
+  }
+
+  .company-logo-wrap {
+    width: 28px;
+    height: 28px;
+  }
+
+  .expert-photo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cell--person {
+    gap: 8px;
+  }
+
+  .name-line {
+    font-size: 12px;
+  }
+
+  .cell--description {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 12px 10px 24px;
+  }
+
+  .expert-row {
+    gap: 6px 8px;
+    grid-template-columns: 38px minmax(0, 0.95fr) minmax(0, 1.05fr);
+    padding: 10px 0;
+  }
+
+  .company-logo-wrap {
+    width: 28px;
+    height: 28px;
+  }
+
+  .expert-photo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cell--person {
+    gap: 8px;
+  }
+
+  .name-line {
+    font-size: 12px;
+  }
+
+  .cell--description {
+    font-size: 11px;
+  }
+}
+
+.empty-state {
+  padding: 28px 12px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+</style>
+</head>
+<body>
+  <div class="page" id="app">
+    <div class="table-wrap" role="region" aria-label="Список экспертов">
+      <div id="rowsContainer" class="rows"></div>
+    </div>
+  </div>
+
+  <script>
+/** Логотипы букмекеров и организаций для первого столбца */
+const COMPANY_LOGOS = {
+  fonbet: 'https://dumpster.cdn.sports.ru/8/23/31836b8ae127c677c83aa5c2dcc3c.png',
+  pari: 'https://dumpster.cdn.sports.ru/d/ba/d2462eaba730d24c1b99b66b08c99.png',
+  betboom: 'https://dumpster.cdn.sports.ru/e/63/6a84d1664140550c0c754205a94e2.webp',
+  'liga-stavok': 'https://dumpster.cdn.sports.ru/b/a4/2e07bd22655fab6c23c90f6833c07.png',
+  olimpbet: 'https://dumpster.cdn.sports.ru/b/4b/09a1ae66b9dfe5d3b89b3e19a2483.png',
+  betcity: 'https://dumpster.cdn.sports.ru/6/5d/3e1621d0edebd2abb1ac8b059d867.jpg',
+  melbet: 'https://dumpster.cdn.sports.ru/3/95/b803d3289aae7797635a551d71575.jpg',
+  leon: 'https://dumpster.cdn.sports.ru/5/48/ea6b6533bf8c30bcdf8a9479111e4.png',
+  tennisi: 'https://dumpster.cdn.sports.ru/4/ad/00d06bd5d30711030149bb7a7aae8.png',
+  cupis: 'https://dumpster.cdn.sports.ru/5/9a/797278835094a01ce55912886e8dd.jpg',
+  erai: 'https://dumpster.cdn.sports.ru/7/d3/d49d93ce06410e40b7713b988194a.png',
+  iba: 'https://dumpster.cdn.sports.ru/8/ac/3ab5f50b208f774994f2b65b3cfd8.png',
+  'first-sro': 'https://dumpster.cdn.sports.ru/4/7c/da3f2f6358680bdac0dfc5b114469.png',
+};
+
+</script>
+<script>
+const EXPERTS = [
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/e/8a/7d7bad616a3d9105e9ae48ad99828.png',
+    description: 'Управляющий партнер FONBET',
+    sportsUrl: 'https://www.sports.ru/betting/valentin-golovanov/',
+    fullName: 'Валентин Голованов',
+    companyLogo: COMPANY_LOGOS.fonbet,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/d/b5/398363cd79b35d94eda593e52414f.jfif',
+    description: 'Советник генерального директора FONBET, заместитель председателя комитета ТПП РФ по предпринимательству в сфере спорта',
+    sportsUrl: 'https://www.sports.ru/betting/person/nikolai-oganezov/',
+    fullName: 'Николай Оганезов',
+    companyLogo: COMPANY_LOGOS.fonbet,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/8/bc/16d52b1844ee9a21db9505bf66ea4.png',
+    description: 'CEO PARI',
+    sportsUrl: 'https://www.sports.ru/betting/ruslan-medved/',
+    fullName: 'Руслан Медведь',
+    companyLogo: COMPANY_LOGOS.pari,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/b/13/2babff1e4a3a443300d7adca5ba7a.png',
+    description: 'Директор по развитию OLIMPBET',
+    sportsUrl: 'https://www.sports.ru/betting/konstantin-gusev/',
+    fullName: 'Константин Гусев',
+    companyLogo: COMPANY_LOGOS.olimpbet,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/f/69/435cc9022cc63688a3b8703bf4cf9.png',
+    description: 'Президент и сооснователь БК «Лига Ставок»',
+    sportsUrl: 'https://www.sports.ru/betting/yuri-krasovskyi/',
+    fullName: 'Юрий Красовский',
+    companyLogo: COMPANY_LOGOS['liga-stavok'],
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/e/83/b5b7b15a3018fd99a308e890a3872.png',
+    description: 'Президент IBA',
+    sportsUrl: 'https://www.sports.ru/boxing/person/umar-kremlev/',
+    fullName: 'Умар Кремлев',
+    companyLogo: COMPANY_LOGOS.iba,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/1/ae/bf46207a8301137e3b17e347a713a.png',
+    description: 'Генеральный директор FONBET',
+    sportsUrl: 'https://www.sports.ru/betting/alexander-paramonov/',
+    fullName: 'Александр Парамонов',
+    companyLogo: COMPANY_LOGOS.fonbet,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/0/21/4a5b4b2ecc87884051314a9e5b1c2.png',
+    description: 'Директор по маркетингу BETBOOM',
+    sportsUrl: 'https://www.sports.ru/betting/mikhail-artemiev/',
+    fullName: 'Михаил Артемьев',
+    companyLogo: COMPANY_LOGOS.betboom,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/9/fb/5635e081e957a8ffdd926cfc76ea8.jpg',
+    description: 'Директор по маркетингу PARI',
+    sportsUrl: 'https://www.sports.ru/betting/alexey-levinskiy/',
+    fullName: 'Алексей Левинский',
+    companyLogo: COMPANY_LOGOS.pari,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/6/1a/bbb994104fa7d17f0a3747e416d68.jpeg',
+    description: 'Президент Первой СРО Букмекеров, вице-президентом БК «Лига Ставок»',
+    sportsUrl: 'https://www.sports.ru/betting/olga-zhuravskaya/',
+    fullName: 'Ольга Журавская',
+    companyLogo: COMPANY_LOGOS['liga-stavok'],
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/9/15/7dcfe1ed26b227f26c5af3b17913a.jpg',
+    description: 'Президент холдинга BETBOOM',
+    sportsUrl: 'https://www.sports.ru/betting/konstantin-makarov/',
+    fullName: 'Константин Макаров',
+    companyLogo: COMPANY_LOGOS.betboom,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/d/6e/eedbb70697e1c36bd8cf3ae99522c.png',
+    description: 'Генеральный директор БЕТСИТИ',
+    sportsUrl: 'https://www.sports.ru/betting/elena-serova/',
+    fullName: 'Елена Серова',
+    companyLogo: COMPANY_LOGOS.betcity,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/0/8a/95d6cb35ecc4d0ba42573e7304f60.png',
+    description: 'Вице-президент БК «Лига Ставок»',
+    sportsUrl: 'https://www.sports.ru/betting/ratmir-ronami/',
+    fullName: 'Ратмир Ронами',
+    companyLogo: COMPANY_LOGOS['liga-stavok'],
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/5/6c/8e3d0db771b1a6d7404b2f70ed98f.jfif',
+    description: 'Директор по коммуникациям и устойчивому развитию, Букмекерская компания PARI',
+    sportsUrl: 'https://www.sports.ru/betting/alexey-babichev/',
+    fullName: 'Алексей Бабичев',
+    companyLogo: COMPANY_LOGOS.pari,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/5/7c/2cd93fff973467db2f9bddad71f99.png',
+    description: 'Директор по маркетингу БК «Лига Ставок»',
+    sportsUrl: 'https://www.sports.ru/betting/viktoria-alemanova/',
+    fullName: 'Виктория Алеманова',
+    companyLogo: COMPANY_LOGOS['liga-stavok'],
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/b/c1/c94e717dcce77b1083268f1e70d0f.png',
+    description: 'Президент российского подразделения BETBOOM',
+    sportsUrl: 'https://www.sports.ru/betting/yuri-ermantraut/',
+    fullName: 'Юрий Эрмантраут',
+    companyLogo: COMPANY_LOGOS.betboom,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/2/81/d9ac287252ee513f94b7b993b7491.png',
+    description: 'Deputy CEO, исполнительный директор PARI',
+    sportsUrl: 'https://www.sports.ru/betting/evgeniy-lugovskiy/',
+    fullName: 'Евгений Луговский',
+    companyLogo: COMPANY_LOGOS.pari,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/e/21/96f5ec88ab798503c96e02c09d30a.jpg',
+    description: 'Директор по продукту БК «Лига Ставок»',
+    sportsUrl: 'https://www.sports.ru/betting/denis-teplov/',
+    fullName: 'Денис Теплов',
+    companyLogo: COMPANY_LOGOS['liga-stavok'],
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/d/48/cacfeff20910980fcb3283e63350e.jfif',
+    description: 'Генеральный директор Tennisi',
+    sportsUrl: 'https://www.sports.ru/betting/ruslan-suleimanov/',
+    fullName: 'Руслан Сулейманов',
+    companyLogo: COMPANY_LOGOS.tennisi,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/4/05/fa8af6338e0aa36d09f4efa4a8a6e.png',
+    description: 'Генеральный директор «Единого регулятора азартных игр»',
+    sportsUrl: 'https://www.sports.ru/betting/aleksei-grachev/',
+    fullName: 'Алексей Грачев',
+    companyLogo: COMPANY_LOGOS.erai,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/d/77/1fb34adf273486951e89222e67ae8.jpg',
+    description: 'Председатель правления ЕДИНЫЙ ЦУПИС',
+    sportsUrl: 'https://www.sports.ru/betting/elena-sheikina/',
+    fullName: 'Елена Шейкина',
+    companyLogo: COMPANY_LOGOS.cupis,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/c/f0/dc0a369470e7e6b4d6001194a04de.png',
+    description: 'Коммерческий директор ЕДИНЫЙ ЦУПИС',
+    sportsUrl: 'https://www.sports.ru/betting/artem-sychev/',
+    fullName: 'Артем Сычев',
+    companyLogo: COMPANY_LOGOS.cupis,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/7/27/8572e1ee8eccccfe793db8db8307e.png',
+    description: 'PR-директор LEON',
+    sportsUrl: 'https://www.sports.ru/betting/nina-podgornova/',
+    fullName: 'Нина Подгорнова',
+    companyLogo: COMPANY_LOGOS.leon,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/3/bc/8a78a6897b34070be3b70e41d57d3.webp',
+    description: 'Бренд-директор Мелбет',
+    sportsUrl: 'https://www.sports.ru/betting/evgeniya-grigoryeva/',
+    fullName: 'Евгения Григорьева',
+    companyLogo: COMPANY_LOGOS.melbet,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/5/5c/d5f3f90094b8a8494ff1681f211fc.png',
+    description: 'Глава отдела спонсорства PARI',
+    sportsUrl: 'https://www.sports.ru/betting/kirill-bogomolov/',
+    fullName: 'Кирилл Богомолов',
+    companyLogo: COMPANY_LOGOS.pari,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/9/8f/a7230b902889ac0cd2fbc8c7eb2cd.jpg',
+    description: 'Исполнительный директор Первой СРО',
+    sportsUrl: 'https://www.sports.ru/betting/oleg-davydov/',
+    fullName: 'Олег Давыдов',
+    companyLogo: COMPANY_LOGOS['first-sro'],
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/7/47/c827ca71c0ba109bacf8e0b916804.png',
+    description: 'Вредный букмекер, беттинг-эксперт Спортса',
+    sportsUrl: 'https://www.sports.ru/betting/vladimir-prokofiev/',
+    fullName: 'Владимир Прокофьев',
+    companyLogo: null,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/e/a0/253214ccde5fee240d78cf2f93620.png',
+    description: 'CEO 9Red, экс-управляющий партнер PARI',
+    sportsUrl: 'https://www.sports.ru/football/person/dmitriy-sergeev/',
+    fullName: 'Дмитрий Сергеев',
+    companyLogo: null,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/3/b3/cee3a5160a9cb15a7a399657f1bdb.png',
+    description: 'Экс-глава отдела спонсорства БЕТСИТИ, эксперт в сфере спортивного бизнеса',
+    sportsUrl: 'https://www.sports.ru/betting/alexander-guryanov/',
+    fullName: 'Александр Гурьянов',
+    companyLogo: null,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/c/fd/aa69c1e12a266e2b524f957e5447b.png',
+    description: 'Экс-директор по глобальному маркетингу и развитию BETBOOM, продюсер MVP Awards',
+    sportsUrl: 'https://www.sports.ru/betting/petr-kipa/',
+    fullName: 'Петр Кипа',
+    companyLogo: null,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/0/69/d67b2c08e47b8cc20c83d31298ead.png',
+    description: 'Экс-глава отдела спонсорства и ТВ-баинга BETBOOM',
+    sportsUrl: 'https://www.sports.ru/betting/pavel-krasnov/',
+    fullName: 'Павел Краснов',
+    companyLogo: null,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/2/4c/51a5d09cdeb7bd6e08499604d3502.png',
+    description: 'Эксперт игорного рынка, автор телеграм-канала Panda Ludens',
+    sportsUrl: 'https://www.sports.ru/betting/evgeniy-lebedev/',
+    fullName: 'Евгений Лебедев',
+    companyLogo: null,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/8/db/055e9f1ea6c7afbc81b9dd0273819.png',
+    description: 'Автор телеграм-канала «Молодой медиабайер»',
+    sportsUrl: 'https://www.sports.ru/betting/andrey-nesterov/',
+    fullName: 'Андрей Нестеров',
+    companyLogo: null,
+  },
+  {
+    photoUrl: 'https://dumpster.cdn.sports.ru/2/f6/d7be7ab7daf8a14fb1738e6ecaa23.png',
+    description: 'Эксперт в сфере маркетинга и спонсорства',
+    sportsUrl: 'https://www.sports.ru/betting/alexey-botika/',
+    fullName: 'Алексей Ботика',
+    companyLogo: null,
+  },
+];
+
+</script>
+<script>
+(function () {
+  'use strict';
+
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function splitFullName(fullName) {
+    const parts = String(fullName).trim().split(/\s+/);
+    if (parts.length <= 1) {
+      return { line1: parts[0] || '', line2: '' };
+    }
+    const last = parts.pop();
+    return { line1: parts.join(' '), line2: last };
+  }
+
+  function companyLogoHtml(logoUrl) {
+    if (!logoUrl) {
+      return '<span class="cell cell--company-logo" aria-hidden="true"></span>';
+    }
+    return (
+      '<span class="cell cell--company-logo">' +
+      '<span class="company-logo-wrap">' +
+      '<img class="company-logo" src="' +
+      escapeHtml(logoUrl) +
+      '" alt="" loading="lazy" />' +
+      '</span></span>'
+    );
+  }
+
+  function render() {
+    const container = document.getElementById('rowsContainer');
+
+    if (typeof EXPERTS === 'undefined' || !EXPERTS.length) {
+      container.innerHTML = '<div class="empty-state">Не загружены данные.</div>';
+      return;
+    }
+
+    container.innerHTML = EXPERTS.map(function (row) {
+      const names = splitFullName(row.fullName);
+      const nameLinesClass = 'name-lines' + (names.line2 ? '' : ' name-lines--single');
+
+      return (
+        '<a class="expert-row" href="' +
+        escapeHtml(row.sportsUrl) +
+        '" target="_blank" rel="noopener noreferrer">' +
+        companyLogoHtml(row.companyLogo) +
+        '<span class="cell cell--person">' +
+        '<img class="expert-photo" src="' +
+        escapeHtml(row.photoUrl) +
+        '" alt="" width="44" height="44" loading="lazy" />' +
+        '<span class="' +
+        nameLinesClass +
+        '">' +
+        '<span class="name-line name-line--given">' +
+        escapeHtml(names.line1) +
+        '</span>' +
+        (names.line2
+          ? '<span class="name-line name-line--family">' + escapeHtml(names.line2) + '</span>'
+          : '') +
+        '</span></span>' +
+        '<span class="cell cell--description">' +
+        escapeHtml(row.description) +
+        '</span>' +
+        '</a>'
+      );
+    }).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', render);
+})();
+
+</script>
+<script>
+let lastHeight = null; // null означает что это первый вызов
+let resizeTimeout;
+
+const resize = ({force = false}) => {
+ const currentHeight = document.body.scrollHeight;
+ 
+ // Проверяем изменения только если это не первый вызов
+ if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+ return; // Игнорируем незначительные изменения
+ }
+ 
+ lastHeight = currentHeight;
+ 
+ const dataUTILS = {
+ for: 'BASIC_TEST',
+ action: 'resizeIframe',
+ selector: `iframe[src*="netlify.app"]`,
+ sizes: {
+ height: 2 * Math.floor(currentHeight / 2) + 10,
+ },
+ };
+
+ window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
+ }
+
+
+const resizeObserver = new ResizeObserver(() => {
+ resize({});
+});
+resizeObserver.observe(document.body);
+resize({force: true});
+
+setTimeout(() => {
+ resize({force: true});
+}, 1000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 2000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 3000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 5000);
+
+setTimeout(() => {
+ resize({force: true});
+}, 7000);
+
+</script>
+</body>
+</html>

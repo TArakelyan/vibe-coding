@@ -1,0 +1,131 @@
+/* Минимальные правки поверх оригинальных стилей sports.ru — без уменьшения ширины */
+
+/* На главной seo-links дублирует табы — скрываем только там */
+.columns:not(.category-page) .seo-links {
+  overflow: hidden;
+  width: 0;
+  height: 0;
+}
+
+/* На страницах видов спорта фильтры — в табах, seo-links не нужны */
+.columns.category-page .seo-links {
+  display: none;
+}
+
+/* Выпадающий список «Ещё» */
+.navigation-betting__tabs-wrapper .tabs {
+  position: relative;
+}
+
+.navigation-betting__tabs-wrapper .tabs.wiki-tabs--more-open {
+  z-index: 30;
+}
+
+.wiki-tabs-more-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 40;
+  min-width: 200px;
+  padding: 4px;
+  margin: 0;
+  list-style: none;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.wiki-tabs-more-dropdown--open {
+  display: block;
+}
+
+.wiki-tabs-more-dropdown__list {
+  display: flex;
+  flex-direction: column;
+  max-height: 240px;
+  padding: 4px;
+  margin: 0;
+  gap: 2px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.wiki-tabs-more-dropdown__item {
+  display: block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: #222;
+  font-family: var(--ui-font-family-body, "Neoris", "Roboto", sans-serif);
+  font-size: 14px;
+  line-height: 22px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.wiki-tabs-more-dropdown__item:hover {
+  background: #f4f4f4;
+}
+
+.columns:not(.category-page) .tabs__item--last {
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Мобильная версия фильтров */
+@media screen and (max-width: 639px) {
+  .navigation-betting__tabs-wrapper .tabs__content[data-v-284cf98d] {
+    height: auto !important;
+    min-height: 48px;
+    padding: 8px 12px;
+    gap: 8px;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .navigation-betting__tabs-wrapper .tabs__list[data-v-284cf98d] {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .navigation-betting__tabs-wrapper .tabs__list[data-v-284cf98d]::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navigation-betting__tabs-wrapper .tabs__item[data-v-284cf98d] {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .navigation-betting__tabs-wrapper .tabs__item--last[data-v-284cf98d] {
+    flex-shrink: 0;
+  }
+
+  .wiki-tabs-more-dropdown {
+    right: 0;
+    left: auto;
+    max-width: calc(100vw - 32px);
+  }
+}
+
+.columns.category-page .navigation-betting__tabs-wrapper .tabs__content[data-v-284cf98d] {
+  min-height: 56px;
+}
+
+.cards-with-slider .glider,
+.bookmaker-bonus-block__slider {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.cards-with-slider .glider::-webkit-scrollbar,
+.bookmaker-bonus-block__slider::-webkit-scrollbar {
+  display: none;
+}

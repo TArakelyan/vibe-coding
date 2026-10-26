@@ -1,0 +1,25 @@
+const CHANCE_CARDS = [
+  { type: 'jailfree', text: 'Բանտից անվճար ազատվելու քարտ։ Պահեք մինչև անհրաժեշտ լինի։' },
+  { type: 'jailfree', text: 'Բանտից անվճար ազատվելու քարտ։ Պահեք մինչև անհրաժեշտ լինի։' },
+  { type: 'skip', text: 'Բաց եք թողնում 1 հերթ։' },
+  { type: 'skip', text: 'Բաց եք թողնում 1 հերթ։' },
+  { type: 'skip', text: 'Բաց եք թողնում 1 հերթ։' },
+  { type: 'goto', target: 0, collectGo: true, text: 'Անցեք ՍԿԻԶԲ և ստացեք 200 000 ֏' },
+  { type: 'goto', target: 12, text: 'Գնացեք ԳԱԶ' },
+  { type: 'goto', target: 28, text: 'Գնացեք ԼՈՒՅՍ' },
+  { type: 'goto', target: 'nearestRailroad', text: 'Գնացեք մոտակա ծառայության' },
+  { type: 'goto', target: 10, text: 'Գնացեք ԲԱՆՏ' },
+  { type: 'goto', target: 39, text: 'Տեղափոխվեք Քաղաքապետարան' },
+  { type: 'goto', target: 9, text: 'Տեղափոխվեք TUMO' },
+  { type: 'collectFromAll', amount: 20000, text: 'Բոլոր խաղացողներից ստացեք 20 000 ֏' },
+  { type: 'payToAll', amount: 20000, text: 'Յուրաքանչյուր խաղացողին տվեք 20 000 ֏' },
+  { type: 'payPerBuilding', house: 25000, hotel: 100000, text: 'Վճարեք յուրաքանչյուր տան համար 25 000 ֏, յուրաքանչյուր հյուրանոցի համար՝ 100 000 ֏' },
+  { type: 'receive', amount: 150000, text: 'Ստացեք 150 000 ֏' },
+  { type: 'pay', amount: 150000, text: 'Վճարեք 150 000 ֏' },
+  { type: 'move', steps: 3, text: 'Առաջ շարժվեք 3 դաշտ' },
+  { type: 'move', steps: -3, text: 'Հետ գնացեք 3 դաշտ' },
+  { type: 'receive', amount: 50000, text: 'Ստացեք 50 000 ֏' },
+  { type: 'pay', amount: 50000, text: 'Վճարեք 50 000 ֏' },
+];
+
+const RAILROAD_IDS = [5, 15, 25, 35];

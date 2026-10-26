@@ -449,68 +449,136 @@ body {
 @container partners-page (max-width: 480px) {
   .data-grid--head,
   .data-row {
-    grid-template-columns: 68px minmax(0, 1.05fr) minmax(0, 1.15fr) 44px;
-    gap: 10px 12px;
-  }
-
-  #sortBookmaker {
-    margin-right: 8px;
-  }
-
-  #sortSport {
-    margin-left: -5px;
-  }
-
-  .cell--bookmaker-logo {
-    margin-right: 8px;
-  }
-
-  .cell--sport {
-    margin-left: -5px;
+    grid-template-columns: 46px minmax(0, 1fr) 36px 40px;
+    gap: 6px 6px;
   }
 
   .bm-logo-wrap--in-table {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .cell--bookmaker-logo {
+    margin-right: 0;
   }
 
   .partner-logo-wrap {
-    width: 34px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .cell--partner {
+    gap: 6px;
+  }
+
+  .partner-name-block {
+    gap: 4px 6px;
+  }
+
+  .partner-name {
+    font-size: 12px;
+  }
+
+  .titular-badge {
+    font-size: 9px;
+    padding: 1px 5px;
+  }
+
+  .cell--sport {
+    margin-left: 0;
+    font-size: 12px;
+  }
+
+  .cell--year {
+    font-size: 12px;
+  }
+
+  .th {
+    font-size: 10px;
+    min-height: 32px;
+    padding: 0;
+  }
+
+  .th-text {
+    word-break: break-word;
+  }
+
+  #sortBookmaker {
+    margin-right: 0;
+  }
+
+  #sortSport {
+    margin-left: 0;
   }
 }
 
 @media (max-width: 480px) {
+  .page {
+    padding: 12px 10px 24px;
+  }
+
   .data-grid--head,
   .data-row {
-    grid-template-columns: 68px minmax(0, 1.05fr) minmax(0, 1.15fr) 44px;
-    gap: 10px 12px;
-  }
-
-  #sortBookmaker {
-    margin-right: 8px;
-  }
-
-  #sortSport {
-    margin-left: -5px;
-  }
-
-  .cell--bookmaker-logo {
-    margin-right: 8px;
-  }
-
-  .cell--sport {
-    margin-left: -5px;
+    grid-template-columns: 46px minmax(0, 1fr) 36px 40px;
+    gap: 6px 6px;
   }
 
   .bm-logo-wrap--in-table {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .cell--bookmaker-logo {
+    margin-right: 0;
   }
 
   .partner-logo-wrap {
-    width: 34px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .cell--partner {
+    gap: 6px;
+  }
+
+  .partner-name-block {
+    gap: 4px 6px;
+  }
+
+  .partner-name {
+    font-size: 12px;
+  }
+
+  .titular-badge {
+    font-size: 9px;
+    padding: 1px 5px;
+  }
+
+  .cell--sport {
+    margin-left: 0;
+    font-size: 12px;
+  }
+
+  .cell--year {
+    font-size: 12px;
+  }
+
+  .th {
+    font-size: 10px;
+    min-height: 32px;
+    padding: 0;
+  }
+
+  .th-text {
+    word-break: break-word;
+  }
+
+  #sortBookmaker {
+    margin-right: 0;
+  }
+
+  #sortSport {
+    margin-left: 0;
   }
 }
 

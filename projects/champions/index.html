@@ -93,6 +93,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-.woff2" as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Sriracha&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://dumpster.cdn.sports.ru/4/8e/f62cd6b56ab534bf5849608e38f25.css">
     
     <style>
         /* Animated Background */
@@ -2252,62 +2253,11 @@
             padding: 8px 0;
             margin: 8px 0;
             height: auto;
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: var(--ui-font-family-body);
             letter-spacing: 0.01em;
-            max-height: 3em;
-        }
-
-        .champion-description.expanded {
-            max-height: 500px;
-        }
-
-        .champion-description-wrapper {
-            position: relative;
-        }
-
-        .read-more-btn {
-            background: linear-gradient(135deg, rgba(244, 208, 63, 0.15), rgba(244, 208, 63, 0.25));
-            border: 1px solid rgba(244, 208, 63, 0.3);
-            color: rgba(244, 208, 63, 1);
-            padding: 6px 16px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 8px;
-            font-family: var(--ui-font-family-body);
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 2;
-            backdrop-filter: blur(4px);
-        }
-
-        .read-more-btn:hover {
-            background: linear-gradient(135deg, rgba(244, 208, 63, 0.25), rgba(244, 208, 63, 0.35));
-            border-color: rgba(244, 208, 63, 0.5);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(244, 208, 63, 0.2);
-        }
-
-        .read-more-btn:active {
-            transform: translateY(0);
-        }
-
-        .read-more-btn svg {
-            width: 12px;
-            height: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .read-more-btn.expanded svg {
-            transform: rotate(180deg);
+            max-height: none;
         }
 
         .probability-indicator {
@@ -2342,16 +2292,7 @@
                 padding: 12px 0;
                 min-height: auto;
                 margin: 12px 0;
-                max-height: 4.5em;
-            }
-
-            .champion-description.expanded {
-                max-height: 1000px;
-            }
-
-            .read-more-btn {
-                font-size: 11px;
-                padding: 5px 14px;
+                max-height: none;
             }
         }
 
@@ -3687,8 +3628,9 @@
         </main>
     </div>
 
-    <script src="./data/config.js"></script>
-    <script src="./data/all-champions.js"></script>
+    <script src="https://dumpster.cdn.sports.ru/6/68/ed2cbf04ea7b6d9cf2cc59c2fa997.js"></script>
+    <script src="https://dumpster.cdn.sports.ru/0/19/24441e80229923c9002072fea2084.js"></script>
+    <script src="https://dumpster.cdn.sports.ru/f/a7/5819005136ed390c37193c335c245.js"></script>
     <script>
         // Установка темной темы навсегда
         function initializeDarkTheme() {
@@ -4262,16 +4204,8 @@
                                 <span class="meta-tournament">${sportIcon} ${tournamentLabels[champion.tournament]?.name || champion.tournament}</span>
                             </div>
 
-                            <div class="champion-description-wrapper">
-                                <div class="champion-description" id="desc-${cardId}">
-                                    ${champion.description.split('\n').join('<br>')}
-                                </div>
-                                <button class="read-more-btn" onclick="toggleDescription('${cardId}')">
-                                    <span class="read-more-text">Читать далее</span>
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M6 9l6 6 6-6"/>
-                                    </svg>
-                                </button>
+                            <div class="champion-description">
+                                ${champion.description.split('\n').join('<br>')}
                             </div>
                     </div>
                     <div class="probability-indicator">
@@ -4292,22 +4226,6 @@
             const [day, month, year] = dateString.split('.');
             const monthIndex = parseInt(month) - 1;
             return `${parseInt(day)} ${months[monthIndex]} ${year}`;
-        }
-
-        function toggleDescription(cardId) {
-            const description = document.getElementById(`desc-${cardId}`);
-            const button = event.target.closest('.read-more-btn');
-            const buttonText = button.querySelector('.read-more-text');
-            
-            if (description.classList.contains('expanded')) {
-                description.classList.remove('expanded');
-                button.classList.remove('expanded');
-                buttonText.textContent = 'Читать далее';
-            } else {
-                description.classList.add('expanded');
-                button.classList.add('expanded');
-                buttonText.textContent = 'Свернуть';
-            }
         }
 
         function handleImageError(img, sport) {
@@ -4493,7 +4411,7 @@
     <script>
     </script>
 
-    <script src="theme-detector.js"></script>
+    <script src="https://dumpster.cdn.sports.ru/5/82/23a46ae41a1358e245acce7972144.js"></script>
     
     <!-- Динамический фон -->
     <script>
@@ -4593,6 +4511,6 @@
         }
     </script>
     
-    <script src="resize.js"></script>
+    <script src="https://dumpster.cdn.sports.ru/8/39/26cc621445f65c81db42431fb2715.js"></script>
 </body>
 </html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      var slug = new URLSearchParams(location.search).get('slug') || 'futbol';
+      var known = ["futbol","basketbol","hokkej","tennis","avtosport","boks-mma","kiber","figurka","lyzhi","plavanie","legkaya-atletika","gandbol","volejbol","shahmaty","darts"];
+      if (known.indexOf(slug) === -1) slug = 'futbol';
+      location.replace('./pages/' + slug + '.html');
+    })();
+  </script>
+  <title>Переход…</title>
+</head>
+<body></body>
+</html>

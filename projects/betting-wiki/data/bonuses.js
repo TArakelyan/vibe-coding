@@ -1,0 +1,1 @@
+const WIKI_BONUSES = [];

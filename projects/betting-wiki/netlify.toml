@@ -1,0 +1,46 @@
+[build]
+  command = "node build.mjs"
+  publish = "."
+
+# HTML — всегда свежий после деплоя
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/pages/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/category.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# patch.js / patch.css / data — с ?v= из build.mjs, но на всякий случай без долгого кэша
+[[headers]]
+  for = "/patch.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/patch.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Статика (картинки, css sports.ru) — можно кэшировать
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, immutable"

@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Монополия — Armenia Edition</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+:root {
+  --felt: #1a6b42;
+  --felt-dark: #0f4a2d;
+  --board-bg: #f5e6c8;
+  --cell-bg: #fff8ee;
+  --border: #2c1810;
+  --red: #c0392b;
+  --gold: #f1c40f;
+  --text: #1a1a1a;
+  --panel: #fff;
+  --shadow: 0 4px 20px rgba(0,0,0,.25);
+}
+
+html { text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #0d3d26 0%, #1a6b42 50%, #0d3d26 100%);
+  color: var(--text);
+  min-width: 1100px;
+}
+
+.app { padding: 20px; }
+
+.screen.is-hidden { display: none; }
+
+/* Setup */
+.setup {
+  max-width: 480px;
+  margin: 40px auto;
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.setup__title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 42px;
+  color: var(--red);
+  margin: 0 0 4px;
+  letter-spacing: 2px;
+}
+
+.setup__subtitle {
+  margin: 0 0 24px;
+  color: #666;
+  font-size: 15px;
+}
+
+.setup__field { margin-bottom: 20px; text-align: left; }
+
+.setup__field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.setup select, .setup__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 15px;
+}
+
+.setup__label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.setup__label input { margin-top: 4px; }
+
+/* Game layout */
+.game {
+  display: grid;
+  grid-template-columns: minmax(700px, 1fr) 280px;
+  gap: 20px;
+  align-items: start;
+}
+
+.game__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Board */
+.board-wrap {
+  background: var(--felt-dark);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--board-bg);
+  border: 3px solid var(--border);
+  position: relative;
+}
+
+.board__center {
+  grid-row: 2 / 11;
+  grid-column: 2 / 11;
+  background: radial-gradient(ellipse at center, var(--felt) 0%, var(--felt-dark) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border: 2px solid var(--border);
+  text-align: center;
+  padding: 16px;
+}
+
+.center__title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--red);
+  text-shadow: 2px 2px 0 #fff, 3px 3px 0 rgba(0,0,0,.3);
+  letter-spacing: 4px;
+  line-height: 1;
+}
+
+.center__subtitle {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  opacity: .85;
+  margin: 4px 0 16px;
+  letter-spacing: 2px;
+}
+
+.center__dice {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.die {
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  color: var(--text);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  box-shadow: 0 3px 8px rgba(0,0,0,.3);
+}
+
+.center__bank { font-size: 13px; opacity: .8; }
+
+/* Cells */
+.board__cell {
+  background: var(--cell-bg);
+  border: 1px solid var(--border);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 9px;
+  line-height: 1.15;
+}
+
+.board__cell--corner-br,
+.board__cell--corner-bl,
+.board__cell--corner-tl,
+.board__cell--corner-tr {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.board__cell--bottom,
+.board__cell--top { flex-direction: column-reverse; }
+.board__cell--left { flex-direction: row-reverse; }
+.board__cell--right { flex-direction: row; }
+
+.board__cell--left .cell__name,
+.board__cell--right .cell__name {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  font-size: 8px;
+}
+
+.board__cell--bottom .cell__name,
+.board__cell--top .cell__name {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2px 1px;
+  font-weight: 600;
+  font-size: 8px;
+}
+
+.board__cell--corner-br .cell__name,
+.board__cell--corner-bl .cell__name,
+.board__cell--corner-tl .cell__name,
+.board__cell--corner-tr .cell__name {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4px;
+}
+
+.cell__color {
+  height: 18%;
+  min-height: 8px;
+  flex-shrink: 0;
+}
+
+.board__cell--left .cell__color,
+.board__cell--right .cell__color {
+  width: 18%;
+  height: auto;
+  min-width: 8px;
+}
+
+.cell__color--rail { background: #333; }
+.cell__color--util { background: #f9e79f; }
+
+.cell__price {
+  font-size: 7px;
+  color: #666;
+  text-align: center;
+  padding: 1px;
+}
+
+.cell__houses {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 8px;
+  color: var(--green, #228B22);
+  line-height: 1;
+}
+
+.cell__houses--hotel { color: var(--red); font-size: 10px; }
+
+.cell__tokens {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  display: flex;
+  gap: 1px;
+  flex-wrap: wrap;
+}
+
+.cell__token {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  border: 1px solid rgba(0,0,0,.3);
+}
+
+.board__cell.is-owned {
+  box-shadow: inset 0 0 0 2px var(--owner-color);
+}
+
+.board__cell.is-mortgaged { opacity: .55; }
+
+/* Sidebar panels */
+.panel {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.panel__title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--red);
+}
+
+.player-card {
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #eee;
+  margin-bottom: 8px;
+  transition: border-color .15s;
+}
+
+.player-card--active {
+  border-color: var(--gold);
+  background: #fffdf0;
+}
+
+.player-card--out { opacity: .4; }
+
+.player-card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.player-card__token {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.player-card__name { font-weight: 700; font-size: 14px; }
+
+.player-card__money {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--felt-dark);
+}
+
+.player-card__meta { font-size: 11px; color: #888; margin-top: 2px; }
+
+.log {
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.log__item {
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.log__item:first-child { font-weight: 600; color: var(--felt-dark); }
+
+/* Buttons */
+.controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform .1s, opacity .15s;
+}
+
+.btn:hover:not(:disabled) { transform: translateY(-1px); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.btn--primary {
+  background: var(--red);
+  color: #fff;
+}
+
+.btn--buy {
+  background: var(--felt);
+  color: #fff;
+}
+
+.btn--secondary {
+  background: #eee;
+  color: var(--text);
+}
+
+.btn--small {
+  flex: none;
+  padding: 6px 10px;
+  font-size: 11px;
+  margin: 2px;
+  background: #e8f5e9;
+  color: var(--felt-dark);
+  border: 1px solid #a5d6a7;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.action__text {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.action__build {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.status {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--felt-dark);
+  margin-bottom: 8px;
+}
+
+#start-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#start-btn:hover { background: #a93226; }
+
+@media (max-width: 1100px) {
+  body { min-width: 0; }
+  .game { grid-template-columns: 1fr; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="setup screen" id="setup-screen">
+      <h1 class="setup__title">MONOPOLY</h1>
+      <p class="setup__subtitle">Armenia Edition · 1 500 000 ֏ на старте</p>
+      <div class="setup__field">
+        <label for="player-count">Количество игроков</label>
+        <select id="player-count">
+          <option value="2">2 игрока</option>
+          <option value="3">3 игрока</option>
+          <option value="4" selected>4 игрока</option>
+          <option value="5">5 игроков</option>
+          <option value="6">6 игроков</option>
+        </select>
+      </div>
+      <div id="player-names"></div>
+      <button id="start-btn">Начать игру</button>
+    </section>
+    <section class="game screen is-hidden" id="game-screen">
+      <div class="board-wrap">
+        <div class="board" id="board"></div>
+      </div>
+      <aside class="game__sidebar">
+        <div class="panel">
+          <p class="status" id="status-text">—</p>
+          <div class="controls">
+            <button class="btn btn--primary" id="roll-btn">Бросить кубики</button>
+            <button class="btn btn--secondary" id="end-btn">Завершить ход</button>
+          </div>
+          <div id="action-panel"></div>
+        </div>
+        <div class="panel">
+          <h3 class="panel__title">Игроки</h3>
+          <div id="players-panel"></div>
+        </div>
+        <div class="panel">
+          <h3 class="panel__title">Журнал</h3>
+          <div class="log" id="game-log"></div>
+        </div>
+      </aside>
+    </section>
+  </div>
+  <script>
+const GAME_CONFIG = {
+  projectName: 'armenia-monopoly',
+  currency: '֏',
+  startMoney: 1500000,
+  passGoBonus: 200000,
+  jailFine: 50000,
+  maxPlayers: 6,
+  minPlayers: 2,
+  defaultPlayers: 4,
+  mortgageRate: 0.5,
+  maxHouses: 4,
+  hotelIsFifth: true,
+  playerColors: ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'],
+  playerTokens: ['🚗', '🎩', '🐕', '⛵', '👢', '🎲'],
+  bankDenominations: [1000, 5000, 10000, 20000, 50000, 100000, 500000],
+  incomeTax: 200000,
+  luxuryTax: 100000,
+};
+
+const PROPERTY_GROUPS = {
+  brown: { color: '#8B4513', houseCost: 50000, rents: [2000, 10000, 30000, 90000, 160000, 250000] },
+  lightblue: { color: '#87CEEB', houseCost: 50000, rents: [6000, 30000, 90000, 270000, 400000, 550000] },
+  pink: { color: '#FF69B4', houseCost: 100000, rents: [10000, 50000, 150000, 450000, 625000, 750000] },
+  orange: { color: '#FF8C00', houseCost: 100000, rents: [14000, 70000, 200000, 550000, 750000, 950000] },
+  red: { color: '#DC143C', houseCost: 150000, rents: [18000, 90000, 250000, 700000, 875000, 1050000] },
+  yellow: { color: '#FFD700', houseCost: 150000, rents: [22000, 110000, 330000, 800000, 975000, 1150000] },
+  green: { color: '#228B22', houseCost: 200000, rents: [26000, 130000, 390000, 900000, 1100000, 1275000] },
+  darkblue: { color: '#00008B', houseCost: 200000, rents: [35000, 175000, 500000, 1100000, 1300000, 1500000] },
+};
+
+const BOARD_SPACES = [
+  { id: 0, type: 'go', name: 'ՍԿԻԶԲ', nameRu: 'Старт' },
+  { id: 1, type: 'property', name: 'Հացատուն', group: 'brown', price: 60000 },
+  { id: 2, type: 'chest', name: 'Գանձապետարան', nameRu: 'Казна' },
+  { id: 3, type: 'property', name: 'Հիվանդ', group: 'brown', price: 60000 },
+  { id: 4, type: 'tax', name: 'Հարկ', nameRu: 'Подоходный налог', amount: 200000 },
+  { id: 5, type: 'railroad', name: 'Դատարան', price: 200000 },
+  { id: 6, type: 'property', name: 'Ավագ Դպրոց', group: 'lightblue', price: 100000 },
+  { id: 7, type: 'chance', name: 'Շանս', nameRu: 'Шанс' },
+  { id: 8, type: 'property', name: 'Ղուլյանի Դպրոց', group: 'lightblue', price: 100000 },
+  { id: 9, type: 'property', name: 'TUMO', group: 'lightblue', price: 120000 },
+  { id: 10, type: 'jail', name: 'ԲԱՆՏ', nameRu: 'Тюрьма' },
+  { id: 11, type: 'property', name: 'Շանթ', group: 'pink', price: 140000 },
+  { id: 12, type: 'utility', name: 'Գազ', price: 150000 },
+  { id: 13, type: 'property', name: 'Արծվաշենի տաղավար', group: 'pink', price: 140000 },
+  { id: 14, type: 'property', name: 'Դանգյոյի օբյեկտ', group: 'pink', price: 160000 },
+  { id: 15, type: 'railroad', name: 'Զինվորական կոմիսարիատ', price: 200000 },
+  { id: 16, type: 'property', name: '#1', group: 'orange', price: 180000 },
+  { id: 17, type: 'chest', name: 'Գանձապետարան', nameRu: 'Казна' },
+  { id: 18, type: 'property', name: 'Երիցյանների խանութ', group: 'orange', price: 180000 },
+  { id: 19, type: 'property', name: 'Բիրիքանոց', group: 'orange', price: 200000 },
+  { id: 20, type: 'free', name: 'ԿԱՅԱՆԳԱՌ', nameRu: 'Бесплатная остановка' },
+  { id: 21, type: 'property', name: 'Երաժշտական դպրոց', group: 'red', price: 220000 },
+  { id: 22, type: 'chance', name: 'Շանս', nameRu: 'Шанс' },
+  { id: 23, type: 'property', name: 'Գեղարվեստ', group: 'red', price: 220000 },
+  { id: 24, type: 'property', name: 'Թանգարան', group: 'red', price: 240000 },
+  { id: 25, type: 'railroad', name: 'Ռազմական ոստիկանություն', price: 200000 },
+  { id: 26, type: 'property', name: 'Ավտոկայան', group: 'yellow', price: 260000 },
+  { id: 27, type: 'property', name: 'ԱԳԼՃԿ', group: 'yellow', price: 260000 },
+  { id: 28, type: 'utility', name: 'Լույս', price: 150000 },
+  { id: 29, type: 'property', name: 'Ալրաղաց', group: 'yellow', price: 280000 },
+  { id: 30, type: 'gotojail', name: 'ԳՆԱ ԲԱՆՏ', nameRu: 'Отправляйся в тюрьму' },
+  { id: 31, type: 'property', name: 'HayPost', group: 'green', price: 300000 },
+  { id: 32, type: 'property', name: 'Viva MTS', group: 'green', price: 300000 },
+  { id: 33, type: 'chest', name: 'Գանձապետարան', nameRu: 'Казна' },
+  { id: 34, type: 'property', name: 'Beeline', group: 'green', price: 320000 },
+  { id: 35, type: 'railroad', name: 'Հրշեջ ծառայություն', price: 200000 },
+  { id: 36, type: 'chance', name: 'Շանս', nameRu: 'Шанс' },
+  { id: 37, type: 'property', name: 'Acba', group: 'darkblue', price: 350000 },
+  { id: 38, type: 'tax', name: 'Հարկ', nameRu: 'Роскошный налог', amount: 100000 },
+  { id: 39, type: 'property', name: 'Քաղաքապետարան', group: 'darkblue', price: 400000 },
+];
+
+const RAILROAD_RENTS = [25000, 50000, 100000, 200000];
+
+const TREASURY_CARDS = [
+  { type: 'receive', amount: 50000, text: 'Խոպանից գումար ստացաք — Ստացեք 50 000 ֏' },
+  { type: 'receive', amount: 100000, text: 'World Vision-ից աջակցություն ստացաք — Ստացեք 100 000 ֏' },
+  { type: 'receive', amount: 200000, text: 'Աշխատավարձ ստացաք — Ստացեք 200 000 ֏' },
+  { type: 'receive', amount: 100000, text: 'Ձեզ վերադարձրեցին պարտքը — Ստացեք 100 000 ֏' },
+  { type: 'receive', amount: 80000, text: 'Կաթը փոխանակեցիք փողի հետ — Ստացեք 80 000 ֏' },
+  { type: 'receive', amount: 150000, text: 'Մեղր վաճառեցիք — Ստացեք 150 000 ֏' },
+  { type: 'receive', amount: 100000, text: 'Ժառանգություն ստացաք — Ստացեք 100 000 ֏' },
+  { type: 'receive', amount: 200000, text: 'ԵՄ-ից աջակցություն ստացաք — Ստացեք 200 000 ֏' },
+  { type: 'receive', amount: 150000, text: 'Ոսկի գրավ դրեցիք — Ստացեք 150 000 ֏' },
+  { type: 'receive', amount: 50000, text: 'Տոն արեցիք, գումար մնաց — Ստացեք 50 000 ֏' },
+  { type: 'receive', amount: 120000, text: 'Տրակտորով թուկ հավաքեցիք — Ստացեք 120 000 ֏' },
+  { type: 'receive', amount: 100000, text: 'Հաղթեցիք մրցաշարում — Ստացեք 100 000 ֏' },
+  { type: 'receive', amount: 150000, text: 'Եռամսյակային պարգևավճար ստացաք — Ստացեք 150 000 ֏' },
+  { type: 'pay', amount: 50000, text: 'Խանութի նիսյան փակեք — Վճարեք 50 000 ֏' },
+  { type: 'pay', amount: 30000, text: 'Օգնեցիք հարազատի կամ հարևանի երեխային — Վճարեք 30 000 ֏' },
+  { type: 'pay', amount: 150000, text: 'Վարկի վճարում — Վճարեք 150 000 ֏' },
+  { type: 'pay', amount: 100000, text: 'Գրվել եք (տուգանք/վճար) — Վճարեք 100 000 ֏' },
+  { type: 'pay', amount: 120000, text: 'Բաքսի տեղադրեցիք — Վճարեք 120 000 ֏' },
+  { type: 'pay', amount: 40000, text: 'Աթոռի փող տվեք — Վճարեք 40 000 ֏' },
+  { type: 'pay', amount: 70000, text: 'Երեխաներին նվերներ գնեցիք — Վճարեք 70 000 ֏' },
+  { type: 'pay', amount: 50000, text: 'Թուկի վճար կատարեք — Վճարեք 50 000 ֏' },
+  { type: 'pay', amount: 80000, text: 'Պարեկների տուգանք — Վճարեք 80 000 ֏' },
+  { type: 'pay', amount: 30000, text: '«Լավ ախպեր»՝ փող տվեք — Վճարեք 30 000 ֏' },
+  { type: 'pay', amount: 100000, text: 'Եկեղեցուն նվիրատվություն արեցիք — Վճարեք 100 000 ֏' },
+];
+
+const CHANCE_CARDS = [
+  { type: 'jailfree', text: 'Բանտից անվճար ազատվելու քարտ։ Պահեք մինչև անհրաժեշտ լինի։' },
+  { type: 'jailfree', text: 'Բանտից անվճար ազատվելու քարտ։ Պահեք մինչև անհրաժեշտ լինի։' },
+  { type: 'skip', text: 'Բաց եք թողնում 1 հերթ։' },
+  { type: 'skip', text: 'Բաց եք թողնում 1 հերթ։' },
+  { type: 'skip', text: 'Բաց եք թողնում 1 հերթ։' },
+  { type: 'goto', target: 0, collectGo: true, text: 'Անցեք ՍԿԻԶԲ և ստացեք 200 000 ֏' },
+  { type: 'goto', target: 12, text: 'Գնացեք ԳԱԶ' },
+  { type: 'goto', target: 28, text: 'Գնացեք ԼՈՒՅՍ' },
+  { type: 'goto', target: 'nearestRailroad', text: 'Գնացեք մոտակա ծառայության' },
+  { type: 'goto', target: 10, text: 'Գնացեք ԲԱՆՏ' },
+  { type: 'goto', target: 39, text: 'Տեղափոխվեք Քաղաքապետարան' },
+  { type: 'goto', target: 9, text: 'Տեղափոխվեք TUMO' },
+  { type: 'collectFromAll', amount: 20000, text: 'Բոլոր խաղացողներից ստացեք 20 000 ֏' },
+  { type: 'payToAll', amount: 20000, text: 'Յուրաքանչյուր խաղացողին տվեք 20 000 ֏' },
+  { type: 'payPerBuilding', house: 25000, hotel: 100000, text: 'Վճարեք յուրաքանչյուր տան համար 25 000 ֏, յուրաքանչյուր հյուրանոցի համար՝ 100 000 ֏' },
+  { type: 'receive', amount: 150000, text: 'Ստացեք 150 000 ֏' },
+  { type: 'pay', amount: 150000, text: 'Վճարեք 150 000 ֏' },
+  { type: 'move', steps: 3, text: 'Առաջ շարժվեք 3 դաշտ' },
+  { type: 'move', steps: -3, text: 'Հետ գնացեք 3 դաշտ' },
+  { type: 'receive', amount: 50000, text: 'Ստացեք 50 000 ֏' },
+  { type: 'pay', amount: 50000, text: 'Վճարեք 50 000 ֏' },
+];
+
+const RAILROAD_IDS = [5, 15, 25, 35];
+
+const MonopolyGame = (function () {
+  const TOTAL_HOUSES = 32;
+  const TOTAL_HOTELS = 12;
+
+  let state = null;
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function createPlayer(id, name) {
+    return {
+      id,
+      name,
+      money: GAME_CONFIG.startMoney,
+      position: 0,
+      properties: {},
+      inJail: false,
+      jailTurns: 0,
+      jailCards: 0,
+      bankrupt: false,
+      skipTurn: false,
+    };
+  }
+
+  function initGame(playerNames) {
+    state = {
+      players: playerNames.map((name, i) => createPlayer(i, name)),
+      currentPlayer: 0,
+      ownership: {},
+      housesLeft: TOTAL_HOUSES,
+      hotelsLeft: TOTAL_HOTELS,
+      chanceDeck: shuffle(CHANCE_CARDS.map((c, i) => ({ ...c, deckId: i }))),
+      treasuryDeck: shuffle(TREASURY_CARDS.map((c, i) => ({ ...c, deckId: i }))),
+      dice: [1, 1],
+      doublesCount: 0,
+      phase: 'roll',
+      log: ['Игра началась! Каждый игрок получает 1 500 000 ֏'],
+      pending: null,
+      winner: null,
+    };
+    return getState();
+  }
+
+  function getState() {
+    return state;
+  }
+
+  function currentPlayer() {
+    return state.players[state.currentPlayer];
+  }
+
+  function activePlayers() {
+    return state.players.filter((p) => !p.bankrupt);
+  }
+
+  function log(msg) {
+    state.log.unshift(msg);
+    if (state.log.length > 80) state.log.pop();
+  }
+
+  function formatMoney(n) {
+    return new Intl.NumberFormat('ru-RU').format(n) + ' ' + GAME_CONFIG.currency;
+  }
+
+  function getSpace(id) {
+    return BOARD_SPACES[id];
+  }
+
+  function getOwner(spaceId) {
+    const oid = state.ownership[spaceId];
+    return oid !== undefined ? state.players[oid] : null;
+  }
+
+  function ownsMonopoly(player, group) {
+    const groupSpaces = BOARD_SPACES.filter((s) => s.group === group);
+    return groupSpaces.every((s) => state.ownership[s.id] === player.id);
+  }
+
+  function countRailroads(player) {
+    return RAILROAD_IDS.filter((id) => state.ownership[id] === player.id).length;
+  }
+
+  function countUtilities(player) {
+    return BOARD_SPACES.filter((s) => s.type === 'utility' && state.ownership[s.id] === player.id).length;
+  }
+
+  function getNearestRailroad(from) {
+    for (let i = 1; i <= 40; i++) {
+      const pos = (from + i) % 40;
+      if (RAILROAD_IDS.includes(pos)) return pos;
+    }
+    return 5;
+  }
+
+  function transferMoney(from, to, amount) {
+    from.money -= amount;
+    to.money += amount;
+  }
+
+  function payBank(player, amount) {
+    player.money -= amount;
+  }
+
+  function receiveFromBank(player, amount) {
+    player.money += amount;
+  }
+
+  function checkBankrupt(player) {
+    if (player.money < 0) {
+      player.bankrupt = true;
+      player.money = 0;
+      Object.keys(state.ownership).forEach((sid) => {
+        if (state.ownership[sid] === player.id) delete state.ownership[sid];
+      });
+      player.properties = {};
+      log(player.name + ' обанкротился!');
+      const remaining = activePlayers();
+      if (remaining.length === 1) {
+        state.winner = remaining[0];
+        state.phase = 'gameover';
+        log('Победитель: ' + state.winner.name + '!');
+      }
+      return true;
+    }
+    return false;
+  }
+
+  function moveTo(player, target, collectGo) {
+    const oldPos = player.position;
+    if (target < oldPos || (collectGo && target !== 0)) {
+      receiveFromBank(player, GAME_CONFIG.passGoBonus);
+      log(player.name + ' прошёл Старт и получил ' + formatMoney(GAME_CONFIG.passGoBonus));
+    }
+    player.position = target;
+  }
+
+  function moveSteps(player, steps) {
+    const oldPos = player.position;
+    const newPos = (oldPos + steps + 40) % 40;
+    if (newPos < oldPos || (steps > 0 && oldPos + steps >= 40)) {
+      receiveFromBank(player, GAME_CONFIG.passGoBonus);
+      log(player.name + ' прошёл Старт и получил ' + formatMoney(GAME_CONFIG.passGoBonus));
+    }
+    player.position = newPos;
+    return newPos;
+  }
+
+  function calcRent(space, owner, houses) {
+    if (space.type === 'property') {
+      const g = PROPERTY_GROUPS[space.group];
+      let rentIdx = houses;
+      if (houses === 5) rentIdx = 5;
+      let rent = g.rents[rentIdx] || g.rents[0];
+      if (houses === 0 && ownsMonopoly(owner, space.group)) rent *= 2;
+      return rent;
+    }
+    if (space.type === 'railroad') {
+      const count = countRailroads(owner);
+      return RAILROAD_RENTS[count - 1] || RAILROAD_RENTS[0];
+    }
+    if (space.type === 'utility') {
+      const count = countUtilities(owner);
+      const mult = count >= 2 ? 10 : 4;
+      return mult * (state.dice[0] + state.dice[1]) * 1000;
+    }
+    return 0;
+  }
+
+  function getHouses(spaceId) {
+    const owner = getOwner(spaceId);
+    if (!owner) return 0;
+    return owner.properties[spaceId]?.houses || 0;
+  }
+
+  function isMortgaged(spaceId) {
+    const owner = getOwner(spaceId);
+    return owner?.properties[spaceId]?.mortgaged || false;
+  }
+
+  function handleLanding(player) {
+    const space = getSpace(player.position);
+    const owner = getOwner(space.id);
+
+    if (space.type === 'property' || space.type === 'railroad' || space.type === 'utility') {
+      if (!owner) {
+        state.pending = { type: 'buy', spaceId: space.id, price: space.price };
+        state.phase = 'action';
+        log(player.name + ' может купить «' + space.name + '» за ' + formatMoney(space.price));
+        return;
+      }
+      if (owner.id !== player.id && !isMortgaged(space.id)) {
+        const rent = calcRent(space, owner, getHouses(space.id));
+        transferMoney(player, owner, rent);
+        log(player.name + ' платит аренду ' + formatMoney(rent) + ' → ' + owner.name);
+        checkBankrupt(player);
+        state.phase = 'endturn';
+        return;
+      }
+      state.phase = 'endturn';
+      return;
+    }
+
+    if (space.type === 'tax') {
+      payBank(player, space.amount);
+      log(player.name + ' платит налог ' + formatMoney(space.amount));
+      checkBankrupt(player);
+      state.phase = 'endturn';
+      return;
+    }
+
+    if (space.type === 'chest') {
+      drawTreasury(player);
+      return;
+    }
+
+    if (space.type === 'chance') {
+      drawChance(player);
+      return;
+    }
+
+    if (space.type === 'gotojail') {
+      sendToJail(player);
+      return;
+    }
+
+    state.phase = 'endturn';
+  }
+
+  function sendToJail(player) {
+    player.position = 10;
+    player.inJail = true;
+    player.jailTurns = 0;
+    log(player.name + ' отправляется в тюрьму!');
+    state.phase = 'endturn';
+  }
+
+  function drawCard(deckName) {
+    const deck = state[deckName];
+    const card = deck.shift();
+    deck.push(card);
+    return card;
+  }
+
+  function drawTreasury(player) {
+    const card = drawCard('treasuryDeck');
+    log('Казна: ' + card.text);
+    applyMoneyCard(player, card);
+  }
+
+  function drawChance(player) {
+    const card = drawCard('chanceDeck');
+    log('Шанс: ' + card.text);
+    applyChanceCard(player, card);
+  }
+
+  function applyMoneyCard(player, card) {
+    if (card.type === 'receive') {
+      receiveFromBank(player, card.amount);
+    } else if (card.type === 'pay') {
+      payBank(player, card.amount);
+      checkBankrupt(player);
+    }
+    state.phase = state.winner ? 'gameover' : 'endturn';
+  }
+
+  function applyChanceCard(player, card) {
+    if (card.type === 'jailfree') {
+      player.jailCards++;
+      state.phase = 'endturn';
+      return;
+    }
+    if (card.type === 'skip') {
+      player.skipTurn = true;
+      state.phase = 'endturn';
+      return;
+    }
+    if (card.type === 'receive') {
+      receiveFromBank(player, card.amount);
+      state.phase = 'endturn';
+      return;
+    }
+    if (card.type === 'pay') {
+      payBank(player, card.amount);
+      checkBankrupt(player);
+      state.phase = 'endturn';
+      return;
+    }
+    if (card.type === 'collectFromAll') {
+      state.players.forEach((p) => {
+        if (p.id !== player.id && !p.bankrupt) {
+          transferMoney(p, player, card.amount);
+          checkBankrupt(p);
+        }
+      });
+      state.phase = 'endturn';
+      return;
+    }
+    if (card.type === 'payToAll') {
+      state.players.forEach((p) => {
+        if (p.id !== player.id && !p.bankrupt) {
+          transferMoney(player, p, card.amount);
+        }
+      });
+      checkBankrupt(player);
+      state.phase = 'endturn';
+      return;
+    }
+    if (card.type === 'payPerBuilding') {
+      let total = 0;
+      Object.keys(player.properties).forEach((sid) => {
+        const h = player.properties[sid].houses || 0;
+        if (h === 5) total += card.hotel;
+        else total += h * card.house;
+      });
+      payBank(player, total);
+      log(player.name + ' платит ' + formatMoney(total) + ' за дома/отели');
+      checkBankrupt(player);
+      state.phase = 'endturn';
+      return;
+    }
+    if (card.type === 'goto') {
+      let target = card.target;
+      if (target === 'nearestRailroad') target = getNearestRailroad(player.position);
+      moveTo(player, target, card.collectGo);
+      if (target === 10) {
+        player.inJail = true;
+        player.jailTurns = 0;
+        state.phase = 'endturn';
+        return;
+      }
+      handleLanding(player);
+      return;
+    }
+    if (card.type === 'move') {
+      moveSteps(player, card.steps);
+      handleLanding(player);
+      return;
+    }
+    state.phase = 'endturn';
+  }
+
+  function rollDice() {
+    if (state.phase !== 'roll' || state.winner) return null;
+
+    const player = currentPlayer();
+    if (player.bankrupt) {
+      endTurn();
+      return getState();
+    }
+
+    if (player.inJail) {
+      return rollInJail(player);
+    }
+
+    const d1 = Math.floor(Math.random() * 6) + 1;
+    const d2 = Math.floor(Math.random() * 6) + 1;
+    state.dice = [d1, d2];
+    const isDouble = d1 === d2;
+
+    if (isDouble) {
+      state.doublesCount++;
+      if (state.doublesCount >= 3) {
+        log(player.name + ' выбросил 3 дубля подряд — в тюрьму!');
+        sendToJail(player);
+        state.doublesCount = 0;
+        return getState();
+      }
+    } else {
+      state.doublesCount = 0;
+    }
+
+    log(player.name + ' бросает кубики: ' + d1 + ' + ' + d2 + ' = ' + (d1 + d2));
+    const newPos = moveSteps(player, d1 + d2);
+    log(player.name + ' перемещается на «' + getSpace(newPos).name + '»');
+
+    handleLanding(player);
+
+    if (isDouble && state.phase === 'endturn') {
+      state.phase = 'roll';
+      log(player.name + ' выбросил дубль — ходит ещё раз!');
+    }
+
+    return getState();
+  }
+
+  function rollInJail(player) {
+    const d1 = Math.floor(Math.random() * 6) + 1;
+    const d2 = Math.floor(Math.random() * 6) + 1;
+    state.dice = [d1, d2];
+    player.jailTurns++;
+
+    if (d1 === d2) {
+      player.inJail = false;
+      player.jailTurns = 0;
+      log(player.name + ' выбросил дубль и выходит из тюрьмы!');
+      moveSteps(player, d1 + d2);
+      handleLanding(player);
+      return getState();
+    }
+
+    if (player.jailTurns >= 3) {
+      payBank(player, GAME_CONFIG.jailFine);
+      player.inJail = false;
+      player.jailTurns = 0;
+      log(player.name + ' платит ' + formatMoney(GAME_CONFIG.jailFine) + ' и выходит из тюрьмы');
+      checkBankrupt(player);
+      moveSteps(player, d1 + d2);
+      handleLanding(player);
+      return getState();
+    }
+
+    log(player.name + ' в тюрьме: ' + d1 + ' + ' + d2 + ' (не дубль). Ход ' + player.jailTurns + '/3');
+    state.phase = 'endturn';
+    return getState();
+  }
+
+  function buyProperty() {
+    if (state.phase !== 'action' || state.pending?.type !== 'buy') return getState();
+    const player = currentPlayer();
+    const { spaceId, price } = state.pending;
+    if (player.money < price) {
+      log('Недостаточно средств для покупки!');
+      state.pending = null;
+      state.phase = 'endturn';
+      return getState();
+    }
+    payBank(player, price);
+    state.ownership[spaceId] = player.id;
+    player.properties[spaceId] = { houses: 0, mortgaged: false };
+    log(player.name + ' покупает «' + getSpace(spaceId).name + '» за ' + formatMoney(price));
+    state.pending = null;
+    state.phase = state.doublesCount > 0 ? 'roll' : 'endturn';
+    if (state.doublesCount > 0) log(player.name + ' выбросил дубль — ходит ещё раз!');
+    return getState();
+  }
+
+  function declineProperty() {
+    state.pending = null;
+    state.phase = state.doublesCount > 0 ? 'roll' : 'endturn';
+    if (state.doublesCount > 0) log(currentPlayer().name + ' выбросил дубль — ходит ещё раз!');
+    log(currentPlayer().name + ' отказывается от покупки');
+    return getState();
+  }
+
+  function payJailFine() {
+    const player = currentPlayer();
+    if (!player.inJail || player.money < GAME_CONFIG.jailFine) return getState();
+    payBank(player, GAME_CONFIG.jailFine);
+    player.inJail = false;
+    player.jailTurns = 0;
+    log(player.name + ' платит штраф ' + formatMoney(GAME_CONFIG.jailFine) + ' и выходит из тюрьмы');
+    state.phase = 'roll';
+    return getState();
+  }
+
+  function useJailCard() {
+    const player = currentPlayer();
+    if (!player.inJail || player.jailCards < 1) return getState();
+    player.jailCards--;
+    player.inJail = false;
+    player.jailTurns = 0;
+    log(player.name + ' использует карту «Выход из тюрьмы бесплатно»');
+    state.phase = 'roll';
+    return getState();
+  }
+
+  function buildHouse(spaceId) {
+    const player = currentPlayer();
+    const space = getSpace(spaceId);
+    if (!space.group || state.ownership[spaceId] !== player.id) return getState();
+    if (!ownsMonopoly(player, space.group)) {
+      log('Нужно владеть всей группой для строительства!');
+      return getState();
+    }
+    const prop = player.properties[spaceId];
+    if (prop.mortgaged) return getState();
+
+    const groupSpaces = BOARD_SPACES.filter((s) => s.group === space.group);
+    const minHouses = Math.min(...groupSpaces.map((s) => player.properties[s.id]?.houses || 0));
+    if ((prop.houses || 0) > minHouses) {
+      log('Нужно строить равномерно!');
+      return getState();
+    }
+
+    const cost = PROPERTY_GROUPS[space.group].houseCost;
+    if (prop.houses >= 4) {
+      if (state.hotelsLeft < 1 || state.housesLeft < 4) return getState();
+      payBank(player, cost);
+      state.housesLeft += 4;
+      state.hotelsLeft--;
+      prop.houses = 5;
+    } else {
+      if (state.housesLeft < 1) return getState();
+      payBank(player, cost);
+      state.housesLeft--;
+      prop.houses = (prop.houses || 0) + 1;
+    }
+    log(player.name + ' строит на «' + space.name + '» (уровень ' + prop.houses + ')');
+    return getState();
+  }
+
+  function mortgage(spaceId) {
+    const player = currentPlayer();
+    if (state.ownership[spaceId] !== player.id) return getState();
+    const space = getSpace(spaceId);
+    const prop = player.properties[spaceId];
+    if (prop.mortgaged || (prop.houses && prop.houses > 0)) return getState();
+    const amount = Math.floor(space.price * GAME_CONFIG.mortgageRate);
+    prop.mortgaged = true;
+    receiveFromBank(player, amount);
+    log(player.name + ' закладывает «' + space.name + '» за ' + formatMoney(amount));
+    return getState();
+  }
+
+  function unmortgage(spaceId) {
+    const player = currentPlayer();
+    if (state.ownership[spaceId] !== player.id) return getState();
+    const space = getSpace(spaceId);
+    const prop = player.properties[spaceId];
+    if (!prop.mortgaged) return getState();
+    const amount = Math.floor(space.price * GAME_CONFIG.mortgageRate * 1.1);
+    if (player.money < amount) return getState();
+    payBank(player, amount);
+    prop.mortgaged = false;
+    log(player.name + ' выкупает «' + space.name + '» за ' + formatMoney(amount));
+    return getState();
+  }
+
+  function endTurn() {
+    if (state.winner) return getState();
+
+    if (state.phase === 'action') return getState();
+
+    let next = (state.currentPlayer + 1) % state.players.length;
+    let guard = 0;
+    while (state.players[next].bankrupt && guard < state.players.length) {
+      next = (next + 1) % state.players.length;
+      guard++;
+    }
+
+    state.currentPlayer = next;
+    const p = currentPlayer();
+
+    if (p.skipTurn) {
+      p.skipTurn = false;
+      log(p.name + ' пропускает ход');
+      return endTurn();
+    }
+
+    state.phase = 'roll';
+    state.doublesCount = 0;
+    log('Ход игрока: ' + p.name);
+    return getState();
+  }
+
+  return {
+    initGame,
+    getState,
+    rollDice,
+    buyProperty,
+    declineProperty,
+    payJailFine,
+    useJailCard,
+    buildHouse,
+    mortgage,
+    unmortgage,
+    endTurn,
+    formatMoney,
+    getSpace,
+    getOwner,
+    getHouses,
+    isMortgaged,
+    ownsMonopoly,
+  };
+})();
+
+const BOARD_LAYOUT = {
+  0: { row: 11, col: 11, edge: 'corner-br' },
+  1: { row: 11, col: 10, edge: 'bottom' },
+  2: { row: 11, col: 9, edge: 'bottom' },
+  3: { row: 11, col: 8, edge: 'bottom' },
+  4: { row: 11, col: 7, edge: 'bottom' },
+  5: { row: 11, col: 6, edge: 'bottom' },
+  6: { row: 11, col: 5, edge: 'bottom' },
+  7: { row: 11, col: 4, edge: 'bottom' },
+  8: { row: 11, col: 3, edge: 'bottom' },
+  9: { row: 11, col: 2, edge: 'bottom' },
+  10: { row: 11, col: 1, edge: 'corner-bl' },
+  11: { row: 10, col: 1, edge: 'left' },
+  12: { row: 9, col: 1, edge: 'left' },
+  13: { row: 8, col: 1, edge: 'left' },
+  14: { row: 7, col: 1, edge: 'left' },
+  15: { row: 6, col: 1, edge: 'left' },
+  16: { row: 5, col: 1, edge: 'left' },
+  17: { row: 4, col: 1, edge: 'left' },
+  18: { row: 3, col: 1, edge: 'left' },
+  19: { row: 2, col: 1, edge: 'left' },
+  20: { row: 1, col: 1, edge: 'corner-tl' },
+  21: { row: 1, col: 2, edge: 'top' },
+  22: { row: 1, col: 3, edge: 'top' },
+  23: { row: 1, col: 4, edge: 'top' },
+  24: { row: 1, col: 5, edge: 'top' },
+  25: { row: 1, col: 6, edge: 'top' },
+  26: { row: 1, col: 7, edge: 'top' },
+  27: { row: 1, col: 8, edge: 'top' },
+  28: { row: 1, col: 9, edge: 'top' },
+  29: { row: 1, col: 10, edge: 'top' },
+  30: { row: 1, col: 11, edge: 'corner-tr' },
+  31: { row: 2, col: 11, edge: 'right' },
+  32: { row: 3, col: 11, edge: 'right' },
+  33: { row: 4, col: 11, edge: 'right' },
+  34: { row: 5, col: 11, edge: 'right' },
+  35: { row: 6, col: 11, edge: 'right' },
+  36: { row: 7, col: 11, edge: 'right' },
+  37: { row: 8, col: 11, edge: 'right' },
+  38: { row: 9, col: 11, edge: 'right' },
+  39: { row: 10, col: 11, edge: 'right' },
+};
+
+(function () {
+  const els = {
+    setup: document.getElementById('setup-screen'),
+    game: document.getElementById('game-screen'),
+    board: document.getElementById('board'),
+    playersPanel: document.getElementById('players-panel'),
+    log: document.getElementById('game-log'),
+    dice: document.getElementById('dice-display'),
+    actions: document.getElementById('action-panel'),
+    status: document.getElementById('status-text'),
+    playerCount: document.getElementById('player-count'),
+    playerNames: document.getElementById('player-names'),
+    startBtn: document.getElementById('start-btn'),
+    rollBtn: document.getElementById('roll-btn'),
+    endBtn: document.getElementById('end-btn'),
+  };
+
+  function formatMoney(n) {
+    return MonopolyGame.formatMoney(n);
+  }
+
+  function buildBoard() {
+    els.board.innerHTML = '<div class="board__center" id="board-center"></div>';
+
+    BOARD_SPACES.forEach((space) => {
+      const layout = BOARD_LAYOUT[space.id];
+      const cell = document.createElement('div');
+      cell.className = 'board__cell board__cell--' + layout.edge;
+      cell.style.gridRow = layout.row;
+      cell.style.gridColumn = layout.col;
+      cell.dataset.spaceId = space.id;
+
+      let colorBar = '';
+      if (space.group) {
+        colorBar = '<div class="cell__color" style="background:' + PROPERTY_GROUPS[space.group].color + '"></div>';
+      } else if (space.type === 'railroad') {
+        colorBar = '<div class="cell__color cell__color--rail"></div>';
+      } else if (space.type === 'utility') {
+        colorBar = '<div class="cell__color cell__color--util"></div>';
+      }
+
+      const priceHtml = space.price
+        ? '<div class="cell__price">' + new Intl.NumberFormat('ru-RU').format(space.price) + ' ֏</div>'
+        : '';
+
+      cell.innerHTML =
+        colorBar +
+        '<div class="cell__name">' + space.name + '</div>' +
+        priceHtml +
+        '<div class="cell__houses" data-houses></div>' +
+        '<div class="cell__tokens" data-tokens></div>';
+
+      els.board.appendChild(cell);
+    });
+  }
+
+  function renderPlayerInputs(count) {
+    els.playerNames.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+      const label = document.createElement('label');
+      label.className = 'setup__label';
+      label.innerHTML =
+        'Игрок ' + (i + 1) + ' ' + GAME_CONFIG.playerTokens[i] +
+        '<input type="text" class="setup__input" value="Игрок ' + (i + 1) + '" data-player-name />';
+      els.playerNames.appendChild(label);
+    }
+  }
+
+  function render() {
+    const state = MonopolyGame.getState();
+    if (!state) return;
+
+    renderBoard(state);
+    renderPlayers(state);
+    renderLog(state);
+    renderActions(state);
+    renderCenter(state);
+  }
+
+  function renderBoard(state) {
+    BOARD_SPACES.forEach((space) => {
+      const cell = els.board.querySelector('[data-space-id="' + space.id + '"]');
+      if (!cell) return;
+
+      const owner = MonopolyGame.getOwner(space.id);
+      const houses = MonopolyGame.getHouses(space.id);
+      const mortgaged = MonopolyGame.isMortgaged(space.id);
+
+      cell.classList.toggle('is-owned', Boolean(owner));
+      if (owner) {
+        cell.style.setProperty('--owner-color', GAME_CONFIG.playerColors[owner.id]);
+      }
+
+      const housesEl = cell.querySelector('[data-houses]');
+      if (houses > 0 && houses < 5) {
+        housesEl.innerHTML = '▪'.repeat(houses);
+        housesEl.className = 'cell__houses cell__houses--built';
+      } else if (houses === 5) {
+        housesEl.innerHTML = '▣';
+        housesEl.className = 'cell__houses cell__houses--hotel';
+      } else {
+        housesEl.innerHTML = '';
+        housesEl.className = 'cell__houses';
+      }
+
+      cell.classList.toggle('is-mortgaged', mortgaged);
+
+      const tokensEl = cell.querySelector('[data-tokens]');
+      tokensEl.innerHTML = state.players
+        .filter((p) => !p.bankrupt && p.position === space.id)
+        .map((p) => '<span class="cell__token" style="background:' + GAME_CONFIG.playerColors[p.id] + '">' + GAME_CONFIG.playerTokens[p.id] + '</span>')
+        .join('');
+    });
+  }
+
+  function renderPlayers(state) {
+    const current = state.players[state.currentPlayer];
+    els.playersPanel.innerHTML = state.players.map((p) => {
+      const isActive = p.id === state.currentPlayer && !state.winner;
+      const props = Object.keys(p.properties).length;
+      return (
+        '<div class="player-card' + (isActive ? ' player-card--active' : '') + (p.bankrupt ? ' player-card--out' : '') + '">' +
+          '<div class="player-card__head">' +
+            '<span class="player-card__token" style="background:' + GAME_CONFIG.playerColors[p.id] + '">' + GAME_CONFIG.playerTokens[p.id] + '</span>' +
+            '<span class="player-card__name">' + p.name + '</span>' +
+          '</div>' +
+          '<div class="player-card__money">' + formatMoney(p.money) + '</div>' +
+          '<div class="player-card__meta">Участков: ' + props +
+            (p.inJail ? ' · В тюрьме' : '') +
+            (p.jailCards ? ' · Карта выхода: ' + p.jailCards : '') +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+    if (state.winner) {
+      els.status.textContent = 'Победитель: ' + state.winner.name + '!';
+    } else if (current) {
+      els.status.textContent = 'Ход: ' + current.name;
+    }
+  }
+
+  function renderLog(state) {
+    els.log.innerHTML = state.log.map((m) => '<div class="log__item">' + m + '</div>').join('');
+  }
+
+  function renderCenter(state) {
+    const center = document.getElementById('board-center');
+    if (!center) return;
+    center.innerHTML =
+      '<div class="center__title">MONOPOLY</div>' +
+      '<div class="center__subtitle">Armenia Edition</div>' +
+      '<div class="center__dice" id="center-dice">' +
+        '<span class="die">' + state.dice[0] + '</span>' +
+        '<span class="die">' + state.dice[1] + '</span>' +
+      '</div>' +
+      '<div class="center__bank">Банк: ' + formatMoney(
+        state.players.reduce((s, p) => s + p.money, 0) +
+        BOARD_SPACES.reduce((s, sp) => {
+          const o = MonopolyGame.getOwner(sp.id);
+          return o ? s + sp.price : s;
+        }, 0)
+      ) + '</div>';
+  }
+
+  function renderActions(state) {
+    if (state.winner) {
+      els.actions.innerHTML = '<button class="btn btn--primary" id="restart-btn">Новая игра</button>';
+      document.getElementById('restart-btn').addEventListener('click', showSetup);
+      els.rollBtn.disabled = true;
+      els.endBtn.disabled = true;
+      return;
+    }
+
+    const player = state.players[state.currentPlayer];
+    let html = '';
+
+    if (state.phase === 'action' && state.pending?.type === 'buy') {
+      const space = MonopolyGame.getSpace(state.pending.spaceId);
+      html +=
+        '<p class="action__text">Купить «' + space.name + '» за ' + formatMoney(state.pending.price) + '?</p>' +
+        '<button class="btn btn--buy" id="btn-buy">Купить</button>' +
+        '<button class="btn btn--secondary" id="btn-decline">Отказаться</button>';
+    }
+
+    if (player.inJail && state.phase === 'roll') {
+      html +=
+        '<button class="btn btn--secondary" id="btn-jail-pay">Заплатить ' + formatMoney(GAME_CONFIG.jailFine) + '</button>';
+      if (player.jailCards > 0) {
+        html += '<button class="btn btn--secondary" id="btn-jail-card">Карта выхода</button>';
+      }
+    }
+
+    const ownedProps = Object.keys(player.properties).filter((sid) => state.ownership[sid] === player.id);
+    if (ownedProps.length && state.phase === 'endturn') {
+      html += '<div class="action__build"><p class="action__text">Управление:</p>';
+      ownedProps.forEach((sid) => {
+        const sp = MonopolyGame.getSpace(Number(sid));
+        const prop = player.properties[sid];
+        if (sp.group && MonopolyGame.ownsMonopoly(player, sp.group) && !prop.mortgaged) {
+          html += '<button class="btn btn--small" data-build="' + sid + '">+дом ' + sp.name + '</button>';
+        }
+        if (!prop.houses && !prop.mortgaged) {
+          html += '<button class="btn btn--small" data-mortgage="' + sid + '">Залог ' + sp.name + '</button>';
+        }
+        if (prop.mortgaged) {
+          html += '<button class="btn btn--small" data-unmortgage="' + sid + '">Выкуп ' + sp.name + '</button>';
+        }
+      });
+      html += '</div>';
+    }
+
+    els.actions.innerHTML = html;
+
+    const buyBtn = document.getElementById('btn-buy');
+    if (buyBtn) buyBtn.onclick = () => { MonopolyGame.buyProperty(); render(); };
+
+    const declineBtn = document.getElementById('btn-decline');
+    if (declineBtn) declineBtn.onclick = () => { MonopolyGame.declineProperty(); render(); };
+
+    const jailPay = document.getElementById('btn-jail-pay');
+    if (jailPay) jailPay.onclick = () => { MonopolyGame.payJailFine(); render(); };
+
+    const jailCard = document.getElementById('btn-jail-card');
+    if (jailCard) jailCard.onclick = () => { MonopolyGame.useJailCard(); render(); };
+
+    els.actions.querySelectorAll('[data-build]').forEach((btn) => {
+      btn.onclick = () => { MonopolyGame.buildHouse(Number(btn.dataset.build)); render(); };
+    });
+    els.actions.querySelectorAll('[data-mortgage]').forEach((btn) => {
+      btn.onclick = () => { MonopolyGame.mortgage(Number(btn.dataset.mortgage)); render(); };
+    });
+    els.actions.querySelectorAll('[data-unmortgage]').forEach((btn) => {
+      btn.onclick = () => { MonopolyGame.unmortgage(Number(btn.dataset.unmortgage)); render(); };
+    });
+
+    els.rollBtn.disabled = state.phase !== 'roll' || player.bankrupt;
+    els.endBtn.disabled = state.phase !== 'endturn';
+  }
+
+  function showSetup() {
+    els.setup.classList.remove('is-hidden');
+    els.game.classList.add('is-hidden');
+  }
+
+  function showGame() {
+    els.setup.classList.add('is-hidden');
+    els.game.classList.remove('is-hidden');
+  }
+
+  function startGame() {
+    const count = Number(els.playerCount.value);
+    const inputs = els.playerNames.querySelectorAll('[data-player-name]');
+    const names = Array.from(inputs).map((inp, i) => inp.value.trim() || 'Игрок ' + (i + 1));
+    MonopolyGame.initGame(names.slice(0, count));
+    showGame();
+    render();
+  }
+
+  els.playerCount.addEventListener('change', () => {
+    renderPlayerInputs(Number(els.playerCount.value));
+  });
+
+  els.startBtn.addEventListener('click', startGame);
+  els.rollBtn.addEventListener('click', () => { MonopolyGame.rollDice(); render(); });
+  els.endBtn.addEventListener('click', () => { MonopolyGame.endTurn(); render(); });
+
+  buildBoard();
+  renderPlayerInputs(GAME_CONFIG.defaultPlayers);
+})();
+
+let lastHeight = null;
+
+const resize = ({ force = false }) => {
+  const currentHeight = document.body.scrollHeight;
+
+  if (lastHeight !== null && !force && Math.abs(currentHeight - lastHeight) < 2) {
+    return;
+  }
+
+  lastHeight = currentHeight;
+
+  const dataUTILS = {
+    for: 'BASIC_TEST',
+    action: 'resizeIframe',
+    selector: 'iframe[src*="dumpster.cdn.sports.ru"], iframe[src*="netlify.app"]',
+    sizes: {
+      height: 2 * Math.floor(currentHeight / 2) + 10,
+    },
+  };
+
+  window?.top?.postMessage(JSON.stringify(dataUTILS), '*');
+};
+
+const resizeObserver = new ResizeObserver(() => {
+  resize({});
+});
+resizeObserver.observe(document.body);
+resize({ force: true });
+
+setTimeout(() => resize({ force: true }), 1000);
+setTimeout(() => resize({ force: true }), 2000);
+setTimeout(() => resize({ force: true }), 3000);
+setTimeout(() => resize({ force: true }), 5000);
+setTimeout(() => resize({ force: true }), 7000);
+
+  </script>
+</body>
+</html>

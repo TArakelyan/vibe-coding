@@ -1,56 +1,24 @@
 @font-face {
-  font-family: "TT Neoris";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "TT Neoris";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "TT Neoris";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "TT Neoris";
-  font-style: italic;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
-}
-
-@font-face {
   font-family: "TT Bluescreens Trial";
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: block;
   src: url("./fonts/TT_Bluescreens/TT_Bluescreens_Trial_Bold.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "TT Bluescreens Trial";
-  font-style: italic;
+  font-family: "TT Neoris";
+  font-style: normal;
   font-weight: 100 900;
-  font-display: swap;
-  src: url("./fonts/TT_Bluescreens/TT_Bluescreens_Trial_Bold.ttf") format("truetype");
+  font-display: block;
+  src: url("./fonts/TT_Neoris/TT_Neoris_Trial_Variable.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "TT Sports Display";
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: block;
   src: local("TT Sports Display"), local("TTSportsDisplay"), local("Sports");
 }
 

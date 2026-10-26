@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Монополия — Armenia Edition</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <section class="setup screen" id="setup-screen">
+      <h1 class="setup__title">MONOPOLY</h1>
+      <p class="setup__subtitle">Armenia Edition · 1 500 000 ֏ на старте</p>
+
+      <div class="setup__field">
+        <label for="player-count">Количество игроков</label>
+        <select id="player-count">
+          <option value="2">2 игрока</option>
+          <option value="3">3 игрока</option>
+          <option value="4" selected>4 игрока</option>
+          <option value="5">5 игроков</option>
+          <option value="6">6 игроков</option>
+        </select>
+      </div>
+
+      <div id="player-names"></div>
+
+      <button id="start-btn">Начать игру</button>
+    </section>
+
+    <section class="game screen is-hidden" id="game-screen">
+      <div class="board-wrap">
+        <div class="board" id="board"></div>
+      </div>
+
+      <aside class="game__sidebar">
+        <div class="panel">
+          <p class="status" id="status-text">—</p>
+          <div class="controls">
+            <button class="btn btn--primary" id="roll-btn">Бросить кубики</button>
+            <button class="btn btn--secondary" id="end-btn">Завершить ход</button>
+          </div>
+          <div id="action-panel"></div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel__title">Игроки</h3>
+          <div id="players-panel"></div>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel__title">Журнал</h3>
+          <div class="log" id="game-log"></div>
+        </div>
+      </aside>
+    </section>
+  </div>
+
+  <script src="./data/config.js"></script>
+  <script src="./data/board.js"></script>
+  <script src="./data/treasury-cards.js"></script>
+  <script src="./data/chance-cards.js"></script>
+  <script src="./game.js"></script>
+  <script src="./ui.js"></script>
+  <script src="./resize.js"></script>
+</body>
+</html>

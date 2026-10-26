@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 36000" preserveAspectRatio="xMidYMin meet">
+  <rect width="1440" height="36000" fill="#000"/>
+  <g id="facet-tile">
+    <polygon fill="#101010" points="0,0 720,420 0,860"/>
+    <polygon fill="#161616" points="1440,0 720,420 1440,900"/>
+    <polygon fill="#0c0c0c" points="0,860 720,420 720,1180 0,1520"/>
+    <polygon fill="#131313" points="1440,900 720,420 720,1180 1440,1560"/>
+    <polygon fill="#181818" points="720,420 1080,0 1440,0 720,420"/>
+    <polygon fill="#111111" points="720,420 360,0 0,0 720,420"/>
+    <polygon fill="#0e0e0e" points="720,1180 0,1520 0,2400 720,1980"/>
+    <polygon fill="#151515" points="720,1180 1440,1560 1440,2400 720,1980"/>
+    <polygon fill="#121212" points="720,1180 720,1980 360,2400 0,2400 0,1520"/>
+    <polygon fill="#171717" points="720,1180 720,1980 1080,2400 1440,2400 1440,1560"/>
+    <polygon fill="#0a0a0a" points="360,2400 720,1980 1080,2400"/>
+    <polygon fill="#141414" points="720,1980 540,1680 900,1680"/>
+    <polygon fill="#101010" points="0,1520 360,1680 720,1180"/>
+    <polygon fill="#161616" points="1440,1560 1080,1680 720,1180"/>
+    <polygon fill="#0d0d0d" points="180,620 540,820 180,1020"/>
+    <polygon fill="#181818" points="1260,640 900,840 1260,1040"/>
+    <polygon fill="#131313" points="620,1320 820,1520 620,1720"/>
+    <polygon fill="#151515" points="820,1320 1020,1520 820,1720"/>
+  </g>
+  <use href="#facet-tile" transform="translate(0, 2400)"/>
+  <use href="#facet-tile" transform="translate(0, 4800)"/>
+  <use href="#facet-tile" transform="translate(0, 7200)"/>
+  <use href="#facet-tile" transform="translate(0, 9600)"/>
+  <use href="#facet-tile" transform="translate(0, 12000)"/>
+  <use href="#facet-tile" transform="translate(0, 14400)"/>
+  <use href="#facet-tile" transform="translate(0, 16800)"/>
+  <use href="#facet-tile" transform="translate(0, 19200)"/>
+  <use href="#facet-tile" transform="translate(0, 21600)"/>
+  <use href="#facet-tile" transform="translate(0, 24000)"/>
+  <use href="#facet-tile" transform="translate(0, 26400)"/>
+  <use href="#facet-tile" transform="translate(0, 28800)"/>
+  <use href="#facet-tile" transform="translate(0, 31200)"/>
+  <use href="#facet-tile" transform="translate(0, 33600)"/>
+</svg>

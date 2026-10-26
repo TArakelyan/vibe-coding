@@ -53,8 +53,8 @@ function renderBookmakers() {
     });
 
     const headHtml = withEr
-        ? '<li class="bookmaker-item bookmaker-item--head"><span class="bookmaker-head-title">Букмекер</span><span class="bookmaker-value bookmaker-value--head">Подписчики</span><span class="bookmaker-value bookmaker-value--head">ER</span></li>'
-        : '<li class="bookmaker-item bookmaker-item--head"><span class="bookmaker-head-title">Букмекер</span><span class="bookmaker-value bookmaker-value--head">Подписчики</span></li>';
+        ? '<li class="bookmaker-item bookmaker-item--head"><span class="bookmaker-head-title">Букмекер</span><span class="bookmaker-value bookmaker-value--head">Подписчики, тыс.</span><span class="bookmaker-value bookmaker-value--head">ER, %</span></li>'
+        : '<li class="bookmaker-item bookmaker-item--head"><span class="bookmaker-head-title">Букмекер</span><span class="bookmaker-value bookmaker-value--head">Подписчики, тыс.</span></li>';
 
     list.innerHTML = headHtml + sorted.map(function (bookmaker) {
         const followersValue = bookmaker[selectedCategory];
@@ -119,5 +119,5 @@ function formatEr(value) {
     return value.toLocaleString('ru-RU', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    }) + '%';
+    });
 }

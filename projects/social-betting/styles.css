@@ -1,232 +1,243 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --border: #e0e0e0;
+  --border-strong: #bdbdbd;
+  --accent: #00a651;
+  --accent-soft: rgba(0, 166, 81, 0.12);
+  --bg: #fff;
+  --row-hover: #fafafa;
+  --maxw: 660px;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background: #f5f5f5;
-    color: #000;
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    width: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--bg);
 }
 
-.app-container {
-    max-width: min(100%, 620px);
-    margin: 0 auto;
-    padding: 32px 24px;
+.page.app-container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 16px 16px 28px;
+  container-type: inline-size;
+  container-name: social-page;
 }
 
 .year-tabs {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
 }
 
 .year-tab {
-    padding: 10px 24px;
-    border: 1px solid #e0e0e0;
-    background: #fff;
-    color: #666;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    outline: none;
+  padding: 9px 16px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  outline: none;
 }
 
 .year-tab:hover {
-    border-color: #333;
-    color: #333;
+  border-color: #aaa;
+  color: var(--text);
 }
 
 .year-tab.active {
-    background: #000;
-    color: #fff;
-    border-color: #000;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .social-tab {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .social-tab-logo {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
 }
 
-/* Цветные иконки соцсетей остаются видимыми на чёрном фоне активного таба */
-.year-tab.active .social-tab-logo {
-    filter: none;
-}
-
-.companies-section {
-    width: 100%;
-    background: #fff;
-    border: 1px solid #e0e0e0;
-}
-
-.legend {
-    padding: 14px 16px;
-    font-size: 13px;
-    color: #666;
-    border-bottom: 1px solid #e0e0e0;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
+.table-wrap.companies-section {
+  margin-top: 4px;
+  width: 100%;
+  background: var(--bg);
+  border: none;
 }
 
 .bookmakers-list {
-    list-style: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-height: 80px;
 }
 
+/* Сетка как в bookmaker-ambassadors-ratings: букмекер | значение | (опц.) ER */
 .bookmaker-item {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 12px;
-    align-items: center;
-    padding: 14px 16px;
-    border-bottom: 1px solid #f0f0f0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  gap: 14px 20px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .bookmakers-list--with-er .bookmaker-item {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    column-gap: 14px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(4.5em, auto);
 }
 
 .bookmaker-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .bookmaker-item--head {
-    background: #fafafa;
+  align-items: end;
+  padding: 8px 0 10px;
+  border-bottom: 1px solid var(--border-strong);
+  background: transparent;
 }
 
-.bookmaker-head-title {
-    font-size: 12px;
-    color: #7a7a7a;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
+.bookmaker-item--head:hover {
+  background: transparent;
+}
+
+.bookmaker-item:not(.bookmaker-item--head):hover {
+  background: var(--row-hover);
 }
 
 .bookmaker-main {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
 }
 
 .bookmaker-logo-wrap {
-    position: relative;
-    flex: 0 0 37px;
-    width: 37px;
-    height: 37px;
-    border-radius: 50%;
-    background: #fff;
-    overflow: hidden;
-    flex-shrink: 0;
-    isolation: isolate;
+  position: relative;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  overflow: hidden;
+  flex-shrink: 0;
+  isolation: isolate;
 }
 
 .bookmaker-logo-wrap--empty {
-    background: #f0f0f0;
-    border: 1px dashed #d8d8d8;
+  background: #f5f5f5;
+  border: 1px solid #dcdcdc;
 }
 
-/* Увеличение + cover + круг: обрезаем типичные белые поля в файлах логотипов */
 .bookmaker-logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: var(--bookmaker-logo-zoom, 115%);
-    height: var(--bookmaker-logo-zoom, 115%);
-    max-width: none;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    object-position: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--bookmaker-logo-zoom, 115%);
+  height: var(--bookmaker-logo-zoom, 115%);
+  max-width: none;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
 }
 
 .bookmaker-name {
-    font-size: 16px;
-    color: #000;
-    font-weight: 600;
-    min-width: 0;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.25;
+  color: var(--text);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@container social-page (max-width: 520px) {
+  .bookmaker-name {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 520px) {
+  .bookmaker-name {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
+
+.bookmaker-head-title {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+
+.bookmaker-item--head .bookmaker-head-title {
+  justify-self: start;
 }
 
 .bookmaker-value {
-    font-size: 18px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    color: #000;
-    text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  text-align: right;
+  justify-self: end;
 }
 
 .bookmaker-value--head {
-    font-size: 12px;
-    color: #7a7a7a;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
 }
 
 .bookmaker-value--er {
-    min-width: 4.8em;
-}
-
-@media (max-width: 768px) {
-    .app-container {
-        padding: 20px 12px;
-    }
-
-    .year-tabs {
-        gap: 8px;
-        margin-bottom: 18px;
-    }
-
-    .year-tab {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-
-    .bookmaker-item {
-        padding: 12px 14px;
-    }
-
-    .bookmakers-list--with-er .bookmaker-item {
-        column-gap: 10px;
-    }
-
-    .bookmaker-name {
-        font-size: 15px;
-    }
-
-    .bookmaker-value {
-        font-size: 16px;
-    }
+  min-width: 4.8em;
 }
 
 @media (max-width: 480px) {
-    .app-container {
-        padding: 16px 10px;
-    }
+  .bookmaker-item,
+  .bookmakers-list--with-er .bookmaker-item {
+    gap: 16px 22px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 0.95fr);
+  }
 
-    .year-tab {
-        padding: 7px 14px;
-        font-size: 13px;
-    }
-
-    .social-tab-logo {
-        width: 22px;
-        height: 22px;
-    }
+  .bookmakers-list:not(.bookmakers-list--with-er) .bookmaker-item {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  }
 }

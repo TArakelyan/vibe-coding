@@ -1,498 +1,407 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import "https://senoval.cdn.sports.ru/static-resources/fonts/roboto.css";
+@import "https://senoval.cdn.sports.ru/static-resources/fonts/sports.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --border: #e0e0e0;
+  --border-strong: #bdbdbd;
+  --accent: #00c78b;
+  --accent-hover: #21a67e;
+  --accent-soft: rgba(0, 199, 139, 0.14);
+  --bg: #fff;
+  --row-hover: #fafafa;
+  --maxw: 660px;
+  --ui-font: "Neoris", "Roboto", sans-serif;
+}
+
+html {
+  tab-size: 4;
+  text-size-adjust: 100%;
+  word-break: normal;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background: #f5f5f5;
-    color: #000;
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    width: 100%;
+  margin: 0;
+  font-family: var(--ui-font);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--bg);
 }
 
-.app-container {
-    max-width: min(100%, 620px);
-    margin: 0 auto;
-    padding: 32px 24px;
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 16px 16px 28px;
+  container-type: inline-size;
+  container-name: reports-page;
 }
 
-/* Переключатель годов (табы) */
-.year-tabs {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
+/* ——— Сводка по рынку (та же сетка, что у строк) ——— */
+.summary {
+  margin-bottom: 20px;
 }
 
-.year-tab {
-    padding: 10px 24px;
-    border: 1px solid #e0e0e0;
-    background: #fff;
-    color: #666;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    outline: none;
+.rows--summary {
+  min-height: 0;
 }
 
-.year-tab:hover {
-    border-color: #333;
-    color: #333;
+.data-row--summary {
+  background: var(--row-hover);
+  border-bottom: 1px solid var(--border-strong);
 }
 
-.year-tab.active {
-    background: #000;
-    color: #fff;
-    border-color: #000;
+.data-row--summary:hover {
+  background: var(--row-hover);
 }
 
-/* Секция компаний */
-.companies-section {
-    width: 100%;
+.summary-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-hover);
+  line-height: 1;
 }
 
-#companiesData {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    width: 100%;
-    align-items: stretch;
+/* ——— Управление (как filters в partners) ——— */
+.controls {
+  margin-bottom: 8px;
 }
 
-/* Карточка компании — две в ряд в контейнере 660px */
-.company-card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-width: 0;
-    max-width: none;
+.controls-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 12px;
+  margin-bottom: 10px;
 }
 
-.company-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+.controls-row--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-/* Верхняя часть карточки с логотипом */
-.company-header {
-    position: relative;
-    padding: 24px 20px 20px;
-    border-bottom: 1px solid #e0e0e0;
+.control-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
 }
 
-.company-logo-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+.control-field--bookmaker[hidden] {
+  display: none;
+}
+
+.control-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.control-select {
+  width: 100%;
+  padding: 9px 28px 9px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.control-select:focus {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 1px;
+}
+
+.controls-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.link-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: none;
+  font: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.link-reset:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.link-reset-x {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.controls-count {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ——— Таблица строк ——— */
+.table-wrap {
+  margin-top: 4px;
+}
+
+.data-grid--head,
+.data-row {
+  --row-logo: 42px;
+  --row-primary: minmax(0, 0.95fr);
+  --row-metrics: minmax(0, 2.05fr);
+}
+
+.data-grid--head {
+  display: grid;
+  grid-template-columns: var(--row-logo) var(--row-primary) var(--row-metrics);
+  gap: 10px 14px;
+  align-items: end;
+  padding: 8px 0 10px;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.th {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  min-width: 0;
+}
+
+.th--gap {
+  display: block;
+}
+
+.th--metrics {
+  text-align: left;
+  padding-left: 2px;
+}
+
+.rows {
+  min-height: 40px;
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: var(--row-logo) var(--row-primary) var(--row-metrics);
+  gap: 10px 14px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s ease;
+}
+
+.data-row:hover {
+  background: var(--row-hover);
+}
+
+.data-row > .cell {
+  min-width: 0;
+}
+
+.cell--logo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.company-logo-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #dcdcdc;
+  overflow: hidden;
+  background: #fff;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .company-logo {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    border-radius: 50%;
-    background: #f5f5f5;
-    padding: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
-.company-info {
-    flex: 1;
+.year-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-hover);
 }
 
-.company-name {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 4px;
-    color: #000;
+.cell--primary {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
-.company-founded {
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 2px;
+.primary-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
 }
 
-.company-entity {
-    font-size: 12px;
-    color: #999;
+.primary-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.35;
+  overflow-wrap: break-word;
 }
 
-/* Тело карточки с метриками */
-.company-body {
-    padding: 20px;
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
 }
 
-/* Правая часть — по ширине контента (число + бейдж), без пустой «долины» */
-.metric-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 10ch 2.9rem;
-    align-items: center;
-    gap: 8px 10px;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
+.metric-item {
+  min-width: 0;
 }
 
-.metric-row:last-child {
-    border-bottom: none;
+.metric-item-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 2px;
 }
 
-.metric-label {
-    font-size: 13px;
-    color: #666;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    min-width: 0;
-    padding-right: 4px;
-    line-height: 1.35;
+.metric-item-value-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
 }
 
-.metric-label-hint {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted #999;
-    cursor: help;
+.metric-item-value {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
 }
 
-.metric-label-hint::before {
-    content: attr(data-tooltip);
-    position: absolute;
-    left: 0;
-    top: calc(100% + 8px);
-    z-index: 20;
-    width: min(300px, 70vw);
-    padding: 10px 12px;
-    background: #111;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.35;
-    text-transform: none;
-    letter-spacing: normal;
-    border-radius: 6px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-2px);
-    pointer-events: none;
-    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
-}
-
-.metric-label-hint:hover::before {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.metric-value-wrapper {
-    display: contents;
-}
-
-/* Колонка значения */
-.metric-value-main {
-    width: 10ch;
-    display: block;
-    padding: 0;
-    box-sizing: border-box;
-    justify-self: stretch;
-    text-align: left;
-}
-
-.metric-value {
-    font-size: 18px;
-    font-weight: 700;
-    color: #000;
-    font-variant-numeric: tabular-nums;
-    text-align: left;
-    min-width: 0;
-    max-width: 100%;
-}
-
-/* Компактные бейджи (~половина прежней ширины) */
 .metric-change {
-    font-size: 13px;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 3px;
-    flex: 0 0 auto;
-    width: 2.9rem;
-    min-width: 2.9rem;
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.1;
-    white-space: nowrap;
-    justify-self: stretch;
-    overflow: hidden;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .metric-change.compact {
-    font-size: 11px;
+  font-size: 9px;
 }
 
 .metric-change.tiny {
-    font-size: 10px;
+  font-size: 8px;
 }
 
 .metric-change.positive {
-    color: #16a34a;
-    background: #dcfce7;
+  color: #16a34a;
+  background: #dcfce7;
 }
 
 .metric-change.negative {
-    color: #dc2626;
-    background: #fee2e2;
+  color: #dc2626;
+  background: #fee2e2;
 }
 
 .metric-change.neutral {
-    color: #666;
-    background: #f5f5f5;
+  color: #666;
+  background: #f5f5f5;
 }
 
-.no-report-message {
-    color: #666;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: center;
-    padding: 24px 0;
-}
-
-/* Пустое состояние */
 .empty-state {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 60px 20px;
-    color: #999;
-    font-size: 16px;
+  padding: 28px 12px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
 }
 
-/* От 480px — две карточки в ряд (в т.ч. iframe 660px) */
-@media (min-width: 480px) {
-    #companiesData {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
-    }
+@container reports-page (max-width: 480px) {
+  .data-grid--head,
+  .data-row {
+    --row-logo: 38px;
+    --row-primary: minmax(0, 0.9fr);
+    --row-metrics: minmax(0, 1.1fr);
+  }
+
+  .controls-row {
+    grid-template-columns: 1fr;
+  }
+
+  .data-row {
+    gap: 8px 10px;
+    padding: 12px 0;
+  }
+
+  .company-logo-wrap,
+  .year-badge,
+  .summary-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+
+  .primary-name {
+    font-size: 12px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
 }
 
-/* Десктоп */
-@media (min-width: 1024px) {
-    .app-container {
-        max-width: min(100%, 620px);
-        padding: 36px 28px;
-    }
-
-    #companiesData {
-        grid-template-columns: 1fr;
-        gap: 18px;
-    }
-}
-
-/* Tablet responsiveness */
-@media (max-width: 1024px) {
-    .app-container {
-        padding: 24px 16px;
-    }
-
-    .company-name {
-        font-size: 18px;
-    }
-
-    .company-logo {
-        width: 70px;
-        height: 70px;
-    }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .app-container {
-        padding: 20px 12px;
-    }
-
-    .year-tabs {
-        gap: 8px;
-        margin-bottom: 24px;
-    }
-
-    .year-tab {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-
-    .company-header {
-        padding: 20px 16px 16px;
-    }
-
-    .company-logo-wrapper {
-        gap: 12px;
-    }
-
-    .company-logo {
-        width: 60px;
-        height: 60px;
-    }
-
-    .company-name {
-        font-size: 17px;
-    }
-
-    .company-founded {
-        font-size: 12px;
-    }
-
-    .company-entity {
-        font-size: 11px;
-    }
-
-    .company-body {
-        padding: 16px;
-    }
-
-    .metric-row {
-        padding: 10px 0;
-        grid-template-columns: minmax(0, 1fr) 8.5ch 2.6rem;
-        gap: 6px 8px;
-    }
-
-    .metric-label {
-        font-size: 12px;
-        min-width: 0;
-    }
-
-    .metric-value-main {
-        width: 8.5ch;
-    }
-
-    .metric-value {
-        font-size: 16px;
-        min-width: 0;
-    }
-
-    .metric-change {
-        font-size: 12px;
-        width: 2.6rem;
-        min-width: 2.6rem;
-        flex-basis: auto;
-        padding: 3px 6px;
-        line-height: 1.15;
-    }
-
-    .metric-change.compact {
-        font-size: 10px;
-    }
-
-    .metric-change.tiny {
-        font-size: 9px;
-    }
-}
-
-/* Small mobile devices */
 @media (max-width: 480px) {
-    .app-container {
-        padding: 16px 10px;
-    }
-
-    .year-tabs {
-        gap: 6px;
-        margin-bottom: 20px;
-    }
-
-    .year-tab {
-        padding: 7px 14px;
-        font-size: 13px;
-    }
-
-    .company-header {
-        padding: 16px 14px;
-    }
-
-    .company-logo {
-        width: 56px;
-        height: 56px;
-    }
-
-    .company-name {
-        font-size: 16px;
-    }
-
-    .company-founded {
-        font-size: 11px;
-    }
-
-    .company-entity {
-        font-size: 10px;
-    }
-
-    .company-body {
-        padding: 14px;
-    }
-
-    .metric-row {
-        padding: 9px 0;
-        grid-template-columns: minmax(0, 1fr) 7.5ch 2.4rem;
-        gap: 4px 6px;
-    }
-
-    .metric-label {
-        font-size: 11px;
-        min-width: 0;
-    }
-
-    .metric-value-main {
-        width: 7.5ch;
-    }
-
-    .metric-change {
-        width: 2.4rem;
-        min-width: 2.4rem;
-        flex-basis: auto;
-        font-size: 11px;
-        padding: 2px 5px;
-        line-height: 1.15;
-    }
-
-    .metric-change.compact {
-        font-size: 9px;
-    }
-
-    .metric-change.tiny {
-        font-size: 8px;
-    }
-
-    .metric-value {
-        font-size: 15px;
-        min-width: 0;
-    }
-}
-
-/* Анимации */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-#companiesData {
-    animation: fadeIn 0.4s ease-out;
+  .page {
+    padding: 12px 10px 24px;
+  }
 }

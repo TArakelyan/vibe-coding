@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Финансовая отчётность букмекеров</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page" id="app">
+    <section class="summary table-wrap" aria-label="Сводка по рынку">
+      <div class="data-grid data-grid--head" role="row">
+        <span class="th th--gap" aria-hidden="true"></span>
+        <span class="th th--static">Итого по рынку</span>
+        <span class="th th--static th--metrics">Показатели</span>
+      </div>
+      <div id="totalsRow" class="rows rows--summary"></div>
+    </section>
+
+    <section class="controls" aria-label="Настройки таблицы">
+      <div class="controls-row">
+        <label class="control-field">
+          <span class="control-label">Год</span>
+          <select id="yearSelect" class="control-select"></select>
+        </label>
+        <label class="control-field">
+          <span class="control-label">Выбрать</span>
+          <select id="viewSelect" class="control-select">
+            <option value="bookmakers">По букмекерам</option>
+            <option value="years">По годам</option>
+          </select>
+        </label>
+        <label class="control-field control-field--bookmaker" id="bookmakerField" hidden>
+          <span class="control-label">Букмекер</span>
+          <select id="bookmakerSelect" class="control-select"></select>
+        </label>
+      </div>
+      <div class="controls-meta">
+        <button type="button" class="link-reset" id="resetView" title="Сбросить">
+          <span class="link-reset-x" aria-hidden="true">×</span>
+        </button>
+        <span class="controls-count" id="resultCount"></span>
+      </div>
+    </section>
+
+    <div class="table-wrap" role="region" aria-label="Детализация">
+      <div class="data-grid data-grid--head" role="row">
+        <span class="th th--gap" aria-hidden="true"></span>
+        <span class="th th--static" id="headPrimary">Букмекер</span>
+        <span class="th th--static th--metrics">Показатели</span>
+      </div>
+      <div id="rowsContainer" class="rows"></div>
+    </div>
+  </div>
+
+  <script src="./data/companies.js"></script>
+  <script src="./main.js"></script>
+  <script src="./resize.js"></script>
+</body>
+</html>

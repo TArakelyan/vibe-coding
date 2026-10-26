@@ -1,0 +1,18 @@
+const GAME_CONFIG = {
+  projectName: 'armenia-monopoly',
+  currency: '֏',
+  startMoney: 1500000,
+  passGoBonus: 200000,
+  jailFine: 50000,
+  maxPlayers: 6,
+  minPlayers: 2,
+  defaultPlayers: 4,
+  mortgageRate: 0.5,
+  maxHouses: 4,
+  hotelIsFifth: true,
+  playerColors: ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'],
+  playerTokens: ['🚗', '🎩', '🐕', '⛵', '👢', '🎲'],
+  bankDenominations: [1000, 5000, 10000, 20000, 50000, 100000, 500000],
+  incomeTax: 200000,
+  luxuryTax: 100000,
+};
